@@ -16,13 +16,15 @@ public class Cadena {
     ArrayList<Posicion> fichas; /** fichas integrantes */
     
     ColorPiedra color; /** El color de la cadena */
+    Tablero tablero;   /** El tablero al cual pertenece la cadena */
 
-
-    public Cadena(){
+    Cadena(){
 	fichas = new ArrayList<Posicion>();
+	setColor(ColorPiedra.VACIO);
     }
 
-    public Cadena(Posicion posicion, ColorPiedra color){
+    public Cadena(Posicion posicion, ColorPiedra color, Tablero tablero){
+	fichas = new ArrayList<Posicion>();
 	setColor(color);
 	agregarPosicion(posicion);
     }
@@ -60,6 +62,27 @@ public class Cadena {
 
     public final ArrayList<Posicion> getPosiciones(){
 	return fichas;
+    }
+
+    /**
+     * Se fija si la cadena es libre.
+     *
+     * @return a <code>boolean</code> value
+     */
+    public boolean esLibre(){
+	ArrayList<Posicion> posiciones = getPosiciones();
+	for (int i = 0; i < posiciones.size() ; i++) {
+	 
+	    ArrayList<Posicion> posicionesAdyacentes = posiciones.get(i).obtenerPosicionesAdyacentes();
+	    //por cada una de las posiciones adyacentes
+	    for (int j = 0; j < posicionesAdyacentes.size(); j ++)
+		//me fijo si esta libre el casillero
+		if (! tablero.estaOcupado(posicionesAdyacentes.get(i)))
+		    //Si al menos 1 no esta ocupado, la cadena es libre
+		    return true;
+	}
+
+	return false;
     }
 
     static public Cadena unirCadenas(ArrayList<Cadena> cadenas){

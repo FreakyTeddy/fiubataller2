@@ -33,14 +33,13 @@ public class Tablero {
 	casilleros[y][x] = color;
     }
 
-    boolean estaOcupado(int x, int y){
-	return getCasillero(x,y) == ColorPiedra.VACIO;
+    boolean estaOcupado(Posicion posicion){
+	return getCasillero(posicion.getX(),posicion.getY()) == ColorPiedra.VACIO;
 	
     }
 
     public void agregarPiedra(int x, int y, ColorPiedra color){
 	intentarAgregarPiedra(x,y,color);
-	setCasillero(x, y, color);
     }
     
     public ArrayList<Cadena> buscarCadenasAdyacentes(Posicion posicion, ColorPiedra color){
@@ -53,14 +52,24 @@ public class Tablero {
 	return adyacentes;
     }
 
+    /**
+     * Intenta agregar una piedra. Crea las nuevas cadenas que se
+     * formarían si fuera legal la jugada y se las pasa aplicarReglas
+     * para que verifique si la jugada es o no legal.
+     *
+     * @param x Coordenada x
+     * @param y Coordenada y
+     * @param color El color de la piedra
+     */
     void intentarAgregarPiedra(int x, int y, ColorPiedra color){
-	if (estaOcupado(x,y)) {
+	Posicion posicion = new Posicion(x,y);
+	Cadena nuevaCadena = new Cadena(posicion, color, this);
+
+	if (estaOcupado(posicion)) {
 	    return;
 	}
 
-	Posicion posicion = new Posicion(x,y);
-	Cadena nuevaCadena = new Cadena(posicion, color);
-
+	//Hago una copia de las cadenas actuales
 	ArrayList<Cadena> todasLasCadenas = new ArrayList<Cadena>();
 	todasLasCadenas = cadenas;
 	
@@ -82,7 +91,59 @@ public class Tablero {
 	//Agrego la cadena creada en este turno
 	todasLasCadenas.add(nuevaCadena);
 
-	//comprobarReglas(todasLasCadenas, color);
+	aplicarReglas(posicion, todasLasCadenas, color);
+    }
+
+    
+
+    /**
+     * Aplica las reglas del juego al movimiento realizado. Si es un
+     * movimiento legal, actualiza el tablero y las cadenas. Si no
+     * deja todo como está. No verifica KO (por ahora).
+     *
+     * @param posicionJugada La posicion jugada.
+     * @param cadenas El estado de las cadenas si se realizara esta jugada.
+     * @param color El color del movimiento.
+     */
+    void aplicarReglas(Posicion posicionJugada, ArrayList<Cadena> cadenas, ColorPiedra color){
+	ArrayList<Cadena> cadenasEliminadas = new ArrayList<Cadena>();
+
+	//pongo la piedra
+	setCasillero(posicionJugada.getX(), posicionJugada.getY(), color);
+
+	//Busco las cadenas eliminadas
+	for (int i = 0; i < cadenas.size(); i++)
+	    if (cadenas.get(i).esLibre()) 
+		cadenasEliminadas.add(cadenas.get(i));
+
+	boolean valida=false;
+
+	if (cadenasEliminadas.size()==0){
+	    //Es jugada válida
+	    valida = true;
+	}
+	else {
+	    for (int i = 0; i < cadenasEliminadas.size(); i++) {
+		Cadena eliminada = cadenasEliminadas.get(i);
+		if (eliminada.getColor() != color){
+		    //Se elimina una cadena del otro color, la jugada es
+		    //válida
+		    valida=true;
+		    //La saco de la lista de cadenas definitivas
+		    cadenas.remove(eliminada);
+		}
+	    }
+	}
+
+	if (valida) {
+	    //Se elimino una cadena del adversario
+	    this.cadenas = cadenas; //Actualizo las cadenas
+	}
+	else {
+	    //Jugada inválida. Dejo las cadenas como estan pero
+	    //revierto la jugada.
+	    setCasillero(posicionJugada.getX(), posicionJugada.getY(), ColorPiedra.VACIO);
+	}
     }
     
 }

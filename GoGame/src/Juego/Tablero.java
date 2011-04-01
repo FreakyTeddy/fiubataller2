@@ -44,11 +44,10 @@ public class Tablero {
     
     public ArrayList<Cadena> buscarCadenasAdyacentes(Posicion posicion, ColorPiedra color){
 	ArrayList<Cadena> adyacentes = new ArrayList<Cadena>();
-	for (int i = 0; i < cadenas.size() ; i++) {
-	    Cadena cadena = cadenas.get(i);
+	for (Cadena cadena : cadenas)
 	    if (cadena.getColor()==color && cadena.esAdyacente(posicion))
 		adyacentes.add(cadena);
-	}
+
 	return adyacentes;
     }
 
@@ -76,8 +75,8 @@ public class Tablero {
 	ArrayList<Cadena> adyacentes = buscarCadenasAdyacentes(posicion, color);
 	if (adyacentes.size()>0){
 	    //Hay cadenas adyacentes las saco de la lista de cadenas
-	    for (int i = 0; i < adyacentes.size() ; i++)
-		todasLasCadenas.remove(adyacentes.get(i));
+	    for (Cadena adyacente : adyacentes)
+		todasLasCadenas.remove(adyacente);
 
 	    //las uno
 	    adyacentes.add(nuevaCadena);
@@ -112,9 +111,9 @@ public class Tablero {
 	setCasillero(posicionJugada.getX(), posicionJugada.getY(), color);
 
 	//Busco las cadenas eliminadas
-	for (int i = 0; i < cadenas.size(); i++)
-	    if (cadenas.get(i).esLibre()) 
-		cadenasEliminadas.add(cadenas.get(i));
+	for (Cadena cadena : cadenas)
+	    if (cadena.esLibre()) 
+		cadenasEliminadas.add(cadena);
 
 	boolean valida=false;
 
@@ -123,8 +122,7 @@ public class Tablero {
 	    valida = true;
 	}
 	else {
-	    for (int i = 0; i < cadenasEliminadas.size(); i++) {
-		Cadena eliminada = cadenasEliminadas.get(i);
+	    for (Cadena eliminada : cadenasEliminadas) {
 		if (eliminada.getColor() != color){
 		    //Se elimina una cadena del otro color, la jugada es
 		    //válida

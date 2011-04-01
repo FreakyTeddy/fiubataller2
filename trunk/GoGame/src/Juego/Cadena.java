@@ -49,8 +49,8 @@ public class Cadena {
      * @return a <code>boolean</code> value
      */
     public boolean esAdyacente(Posicion posicion){
-	for (int i = 0; i < fichas.size(); i++)
-	    if (posicion.esAdyacente(fichas.get(i)))
+	for (Posicion p : fichas) 
+	    if (posicion.esAdyacente(p))
 		return true;
 
 	return false;
@@ -71,13 +71,13 @@ public class Cadena {
      */
     public boolean esLibre(){
 	ArrayList<Posicion> posiciones = getPosiciones();
-	for (int i = 0; i < posiciones.size() ; i++) {
-	 
-	    ArrayList<Posicion> posicionesAdyacentes = posiciones.get(i).obtenerPosicionesAdyacentes();
+	for (Posicion posicion : posiciones) {
+	    ArrayList<Posicion> posicionesAdyacentes = posicion.obtenerPosicionesAdyacentes();
+
 	    //por cada una de las posiciones adyacentes
-	    for (int j = 0; j < posicionesAdyacentes.size(); j ++)
+	    for (Posicion adyacencia : posicionesAdyacentes)
 		//me fijo si esta libre el casillero
-		if (! tablero.estaOcupado(posicionesAdyacentes.get(i)))
+		if (! tablero.estaOcupado(adyacencia))
 		    //Si al menos 1 no esta ocupado, la cadena es libre
 		    return true;
 	}
@@ -87,11 +87,12 @@ public class Cadena {
 
     static public Cadena unirCadenas(ArrayList<Cadena> cadenas){
 	Cadena nueva = new Cadena();
-	for (int i = 0; i < cadenas.size(); i++) {
-	    nueva.setColor(cadenas.get(i).getColor());
-	    ArrayList<Posicion> posiciones = cadenas.get(i).getPosiciones();
-	    for (int j = 0; j < posiciones.size(); j++) 
-		nueva.agregarPosicion(posiciones.get(j));
+	for (Cadena cadena : cadenas) {
+	    nueva.setColor(cadena.getColor());
+	    ArrayList<Posicion> posiciones = cadena.getPosiciones();
+
+	    for (Posicion posicion : posiciones) 
+		nueva.agregarPosicion(posicion);
 	}
 	return nueva;
     }

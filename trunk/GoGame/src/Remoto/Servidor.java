@@ -3,53 +3,121 @@ package Remoto;
 import java.io.* ;
 import java.net.* ;
 
+
+/**
+ * Servidor que maneja la conexion con un cliente.
+ * 
+ * @author luuu
+ *
+ */
+
+//TODO ver como tratar las excepciones ante fallo en la conexion
+
 public class Servidor {
 
 	private DataOutputStream salida;
 	private DataInputStream entrada;
 	private Socket skCliente;
 	private ServerSocket skServidor;
+	boolean conectado;
 	
 	public Servidor(int puerto ) {
 	
 		try {
 			skServidor = new ServerSocket( puerto );
-			System.out.println("Escucho el puerto " + puerto );
-
-			skCliente = skServidor.accept(); // Crea objeto
-			System.out.println("Tenemos un cliente!! :)");
-				
-			salida = new DataOutputStream(skCliente.getOutputStream());
-			entrada = new DataInputStream(skCliente.getInputStream()); 
+			System.out.println("Servidor creado en el puerto " + puerto );
 			
-			System.out.println("enviando");
-			salida.writeUTF("Como te llamas?");
-			String nombre = entrada.readUTF();
-			salida.writeUTF("hola " + nombre + "!!!");
-			System.out.println("fin conexion");		
-			cerrarConexion();
-			
+			salida = null;
+			entrada = null;
+			skCliente = null;
+			conectado = false;
 		} catch (IOException e) {
 		    System.out.println("Excepcion! " + e);
 		}
-		
 	}
 	
-	public void cerrarConexion(){
+	/**
+	 * El aceptar es bloqueante!
+	 */
+	public void aceptarCliente(){
+		try{
+		skCliente = skServidor.accept(); // Crea objeto
+		System.out.println("Tenemos un cliente !!");
+	
+		salida = new DataOutputStream(skCliente.getOutputStream());
+		entrada = new DataInputStream(skCliente.getInputStream());
+		
+		conectado=true;
+
+		} catch (IOException e) {
+		    System.out.println("Excepcion en el Accept!! " + e);
+		}
+	}
+	
+	public void enviar(String mensaje) {
+		try{
+		System.out.println("Enviando: " + mensaje);
+		salida.writeUTF(mensaje);
+		}catch(IOException e){
+			System.out.println("Excepcion en el enviar! " + e);
+		}
+	}
+	
+	public String recibir(){
+		String mensaje="";
+		try{
+			mensaje = entrada.readUTF();
+			System.out.println("Recibido: " + mensaje);
+		}catch(IOException e){
+			System.out.println("Excepcion en el recibir! " + e);
+		}
+		return mensaje;
+	}
+	
+	/**
+	 * Cierra la conexion con el cliente.. El servidor sigue activo
+	 */
+	public void cerrarConexionCliente(){
 		try{
 			salida.close();
 			entrada.close();
 			skCliente.close();
-			skServidor.close();
+			conectado=false;
 		}catch(IOException e){
-			System.out.println(e);
+			System.out.println("Excepcion en el close cliente! " + e);
+		}
+	}	
+		
+	/**
+	 * Deja de escuchar la llegada de clientes
+	 */
+	public void cerrarConexionServidor(){
+		try{
+		skServidor.close();
+		}catch(IOException e){
+			System.out.println("Excepcion en el close servidor! " + e);
 		}
 	}
+	
+	public boolean estaConectado(){
+		return conectado;
+	}
+	
+	
 	
 	public static void main( String[] arg ) {
 	
 		Servidor s = new Servidor(5000);
-	
+		for(int i=0;i<3;i++){
+			s.aceptarCliente();
+			if( s.estaConectado()){
+				s.enviar("Quien sos?");
+				String nombre = s.recibir();
+				s.enviar("Hola " + nombre + "!!!!" );
+				s.cerrarConexionCliente();
+			}
+		}
+		s.cerrarConexionServidor();
 	}
 
 }

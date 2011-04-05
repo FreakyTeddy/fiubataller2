@@ -3,6 +3,12 @@ package vista;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import javax.swing.border.CompoundBorder;
+import java.awt.GridLayout;
 
 public class AppWindow {
 
@@ -35,9 +41,14 @@ public class AppWindow {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame = new JFrame("GoGame");	
+		TableroGo tableroGo = new TableroGo();
+		
+		frame.setBounds(100, 100, 500, 535);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+		frame.getContentPane().add(tableroGo, BorderLayout.CENTER);
+		
+		
+		}
 
 }

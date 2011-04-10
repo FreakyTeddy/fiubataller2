@@ -43,6 +43,8 @@ public class AppWindow {
 	private void initialize() {
 		frame = new JFrame("GoGame");	
 		TableroGo tableroGo = new TableroGo();
+
+
 		
 		frame.setBounds(100, 100, 500, 535);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

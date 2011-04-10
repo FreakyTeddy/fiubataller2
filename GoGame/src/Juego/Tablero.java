@@ -1,15 +1,18 @@
 package Juego;
 
 import java.util.ArrayList;
+import java.util.Observable;
+
 import Juego.ColorPiedra;
 
 /**
  * Describe class <code>Tablero</code> here.
+ * El tablero es un observable.
  *
  * @author <a href="mailto:lucas@lambda.slackware.org"></a>
  * @version 1.0
  */
-public class Tablero {
+public class Tablero extends Observable {
 
     ColorPiedra casilleros[][];
     ArrayList<Cadena> cadenas;
@@ -40,6 +43,10 @@ public class Tablero {
 
     public void agregarPiedra(int x, int y, ColorPiedra color){
 	intentarAgregarPiedra(x,y,color);
+	
+	//Lo agrego para la vista.
+	setChanged();
+	notifyObservers();
     }
     
     public ArrayList<Cadena> buscarCadenasAdyacentes(Posicion posicion, ColorPiedra color){

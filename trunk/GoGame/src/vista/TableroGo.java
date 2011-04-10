@@ -5,6 +5,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
+
+import Juego.Tablero;
+
 import java.awt.Color;
 import java.util.Observable;
 import java.util.Observer;
@@ -17,13 +20,25 @@ public class TableroGo extends JPanel implements Observer {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private Tablero tableroObservado;
 
 	/**
-	 * Create the panel.
+	 * Constructor que trabaja con el tablero que es observable.
 	 */
-	public TableroGo() {
+	public TableroGo(Tablero tablero) {
 		super();
+		tableroObservado = tablero;
 
+	}
+	
+	
+	/**
+	 * TODO:Esto habria que borrarlo.
+	 * Constructor por defecto para probar solamente la parte grafica.
+	 */
+	public TableroGo(){
+		super();
 	}
 	
 	@Override
@@ -52,10 +67,16 @@ public class TableroGo extends JPanel implements Observer {
 					
 	}
 
+	/**
+	 * TODO: No estoy del todo convencido de esto, quizas hasta no sea necesario
+	 * el patron observer pero tengo que investigar un poco mas.
+	 */
 	@Override
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
+	public void update(Observable obs, Object arg1) {
 		
+		if (obs == tableroObservado)
+			repaint();
+			
 	}
 	
 	

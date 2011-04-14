@@ -4,6 +4,7 @@ public abstract class Jugador {
 
 	protected String nombre;
 	protected ColorPiedra color;
+	protected Tablero tablero;
 	
 	public String getNombre(){
 		return nombre;

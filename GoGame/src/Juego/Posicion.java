@@ -8,6 +8,7 @@ import java.util.ArrayList;
  * @author <a href="mailto:lucas@lambda.slackware.org"></a>
  * @version 1.0
  */
+
 public class Posicion {
 
     int x,y;
@@ -48,4 +49,22 @@ public class Posicion {
 	posiciones.add(new Posicion(x , y+1));
 	return posiciones;
     }
+    
+    /**
+     * 
+     * @param i posicion horizontal
+     * @param j posicion vertical
+     * @return posicion en formato "A1" "T19"
+     */
+    public String toString(int i, int j){
+    	String posicion = "";
+    	posicion += (i+65);
+    	posicion +=(j+1);
+    	return posicion;
+    }
+    
+    public String toString(){
+    	return toString(x,y);
+    }
+    
 }

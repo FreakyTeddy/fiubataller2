@@ -17,7 +17,6 @@ public class JugadorComputadora extends Jugador {
 	
 	@Override
 	public void jugar() {
-		// TODO Auto-generated method stub
 
 	}
 

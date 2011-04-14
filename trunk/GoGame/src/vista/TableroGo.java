@@ -13,6 +13,7 @@ import java.util.Observer;
 import Juego.Tablero;
 import Juego.ColorPiedra;
 import Juego.Posicion;
+import Juego.JugadaInvalidaException;
 
 public class TableroGo extends JPanel implements Observer {
 	
@@ -34,9 +35,14 @@ public class TableroGo extends JPanel implements Observer {
 		/* Lo pongo para probar, cuando esté el controlador TIENE que volar*/
 		this.tablero = new Tablero();
 		tablero.addObserver(this);
-		tablero.agregarPiedra(0,0, ColorPiedra.BLANCO);
-		tablero.agregarPiedra(1,1, ColorPiedra.NEGRO);
-		tablero.agregarPiedra(2,2, ColorPiedra.BLANCO);
+		try {
+			tablero.agregarPiedra(0,0, ColorPiedra.BLANCO);
+			tablero.agregarPiedra(1,1, ColorPiedra.NEGRO);
+			tablero.agregarPiedra(2,2, ColorPiedra.BLANCO);
+			
+		} catch (JugadaInvalidaException e) {
+			
+		}
 	}
 	
 	@Override

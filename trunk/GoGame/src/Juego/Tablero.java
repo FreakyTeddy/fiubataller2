@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 
 import Juego.ColorPiedra;
+import Juego.JugadaInvalidaException;
 
 /**
  * Describe class <code>Tablero</code> here.
@@ -52,7 +53,7 @@ public class Tablero extends Observable {
 	
     }
 
-    public void agregarPiedra(int x, int y, ColorPiedra color){
+    public void agregarPiedra(int x, int y, ColorPiedra color)throws JugadaInvalidaException{
 	intentarAgregarPiedra(x,y,color);
 	
 	//Lo agrego para la vista.
@@ -78,14 +79,12 @@ public class Tablero extends Observable {
      * @param y Coordenada y
      * @param color El color de la piedra
      */
-    void intentarAgregarPiedra(int x, int y, ColorPiedra color){
+    void intentarAgregarPiedra(int x, int y, ColorPiedra color) throws JugadaInvalidaException{
 	Posicion posicion = new Posicion(x,y);
 	Cadena nuevaCadena = new Cadena(posicion, color, this);
 
-	if (estaOcupado(posicion)) {
-	    System.out.println("Casillero ocupado");
-	    return;
-	}
+	if (estaOcupado(posicion))
+	    throw new JugadaInvalidaException("El casillero ya esta ocpado");
 
 	//Hago una copia de las cadenas actuales
 	ArrayList<Cadena> todasLasCadenas = new ArrayList<Cadena>();
@@ -113,7 +112,6 @@ public class Tablero extends Observable {
 
 	//Agrego la cadena creada en este turno
 	todasLasCadenas.add(nuevaCadena);
-	System.out.println("Verifico reglas");
 	aplicarReglas(posicion, todasLasCadenas, color);
     }
 
@@ -126,7 +124,7 @@ public class Tablero extends Observable {
      * @param cadenas El estado de las cadenas si se realizara esta jugada.
      * @param color El color del movimiento.
      */
-    void aplicarReglas(Posicion posicionJugada, ArrayList<Cadena> cadenas, ColorPiedra color){
+    void aplicarReglas(Posicion posicionJugada, ArrayList<Cadena> cadenas, ColorPiedra color) throws JugadaInvalidaException{
 	ArrayList<Cadena> cadenasEliminadas = new ArrayList<Cadena>();
 
 	//pongo la piedra
@@ -142,8 +140,6 @@ public class Tablero extends Observable {
 	if (cadenasEliminadas.size()==0){
 	    //Es jugada válida
 	    valida = true;
-	    System.out.println("Jugada Valida");
-
 	}
 	else {
 	    for (Cadena eliminada : cadenasEliminadas) {
@@ -160,13 +156,12 @@ public class Tablero extends Observable {
 	if (valida) {
 	    //Se elimino una cadena del adversario
 	    this.cadenas = cadenas; //Actualizo las cadenas
-	    System.out.println("Jugada Valida");
 	}
 	else {
 	    //Jugada inválida. Dejo las cadenas como estan pero
 	    //revierto la jugada.
 	    setCasillero(posicionJugada, ColorPiedra.VACIO);
-	    System.out.println("Jugada Invalida -> se eliminaron " + cadenasEliminadas.size() + " cadenas");
+	    throw new JugadaInvalidaException("No es válido suicidarse");
 	}
     }
     

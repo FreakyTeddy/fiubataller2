@@ -19,25 +19,36 @@ public class Tablero extends Observable {
     int ancho;
 
     public Tablero() {
-	int ancho = 13;
+	ancho = 9;
 	casilleros = new ColorPiedra[ancho][ancho];
 	cadenas = new ArrayList<Cadena>();
+	for (int i = 0;  i < ancho ; i++)
+	    for (int j = 0; j < ancho; j++)
+		casilleros[i][j] = ColorPiedra.VACIO;
+
+
     }
 
     public int getAncho(){
 	return ancho;
     }
 
-    ColorPiedra getCasillero(int x, int y) {
-	return casilleros[y][x];
-    }
+    public ColorPiedra getCasillero(Posicion p) {
+	if (p.getX()<0 || p.getX()>=ancho)
+	    return ColorPiedra.VACIO;
+	if (p.getY()<0 || p.getY()>=ancho)
+	    return ColorPiedra.VACIO;
 
-    void setCasillero(int x, int y, ColorPiedra color) {
-	casilleros[y][x] = color;
+	return casilleros[p.getY()][p.getX()];
+    }
+    
+
+    public void setCasillero(Posicion p, ColorPiedra color) {
+	casilleros[p.getY()][p.getX()] = color;
     }
 
     boolean estaOcupado(Posicion posicion){
-	return getCasillero(posicion.getX(),posicion.getY()) == ColorPiedra.VACIO;
+	return getCasillero(posicion) != ColorPiedra.VACIO;
 	
     }
 
@@ -72,15 +83,21 @@ public class Tablero extends Observable {
 	Cadena nuevaCadena = new Cadena(posicion, color, this);
 
 	if (estaOcupado(posicion)) {
+	    System.out.println("Casillero ocupado");
 	    return;
 	}
 
 	//Hago una copia de las cadenas actuales
 	ArrayList<Cadena> todasLasCadenas = new ArrayList<Cadena>();
-	todasLasCadenas = cadenas;
-	
+	for (Cadena c : cadenas){
+	    Cadena nueva = new Cadena(c);
+	    todasLasCadenas.add(nueva);
+	}
+
+
 	ArrayList<Cadena> adyacentes = buscarCadenasAdyacentes(posicion, color);
 	if (adyacentes.size()>0){
+	    System.out.println("Hay adyacentes: " + adyacentes.size());
 	    //Hay cadenas adyacentes las saco de la lista de cadenas
 	    for (Cadena adyacente : adyacentes)
 		todasLasCadenas.remove(adyacente);
@@ -96,11 +113,9 @@ public class Tablero extends Observable {
 
 	//Agrego la cadena creada en este turno
 	todasLasCadenas.add(nuevaCadena);
-
+	System.out.println("Verifico reglas");
 	aplicarReglas(posicion, todasLasCadenas, color);
     }
-
-    
 
     /**
      * Aplica las reglas del juego al movimiento realizado. Si es un
@@ -115,11 +130,11 @@ public class Tablero extends Observable {
 	ArrayList<Cadena> cadenasEliminadas = new ArrayList<Cadena>();
 
 	//pongo la piedra
-	setCasillero(posicionJugada.getX(), posicionJugada.getY(), color);
+	setCasillero(posicionJugada, color);
 
 	//Busco las cadenas eliminadas
 	for (Cadena cadena : cadenas)
-	    if (cadena.esLibre()) 
+	    if (!cadena.esLibre()) 
 		cadenasEliminadas.add(cadena);
 
 	boolean valida=false;
@@ -127,6 +142,8 @@ public class Tablero extends Observable {
 	if (cadenasEliminadas.size()==0){
 	    //Es jugada válida
 	    valida = true;
+	    System.out.println("Jugada Valida");
+
 	}
 	else {
 	    for (Cadena eliminada : cadenasEliminadas) {
@@ -143,11 +160,13 @@ public class Tablero extends Observable {
 	if (valida) {
 	    //Se elimino una cadena del adversario
 	    this.cadenas = cadenas; //Actualizo las cadenas
+	    System.out.println("Jugada Valida");
 	}
 	else {
 	    //Jugada inválida. Dejo las cadenas como estan pero
 	    //revierto la jugada.
-	    setCasillero(posicionJugada.getX(), posicionJugada.getY(), ColorPiedra.VACIO);
+	    setCasillero(posicionJugada, ColorPiedra.VACIO);
+	    System.out.println("Jugada Invalida -> se eliminaron " + cadenasEliminadas.size() + " cadenas");
 	}
     }
     

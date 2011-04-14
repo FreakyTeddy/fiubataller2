@@ -5,12 +5,14 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
-
-import Juego.Tablero;
-
 import java.awt.Color;
+import java.awt.geom.Ellipse2D;
 import java.util.Observable;
 import java.util.Observer;
+
+import Juego.Tablero;
+import Juego.ColorPiedra;
+import Juego.Posicion;
 
 public class TableroGo extends JPanel implements Observer {
 	
@@ -20,25 +22,21 @@ public class TableroGo extends JPanel implements Observer {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	private Tablero tableroObservado;
+
+	Tablero tablero;
 
 	/**
-	 * Constructor que trabaja con el tablero que es observable.
+	 * Create the panel.
 	 */
-	public TableroGo(Tablero tablero) {
+	public TableroGo() {
 		super();
-		tableroObservado = tablero;
 
-	}
-	
-	
-	/**
-	 * TODO:Esto habria que borrarlo.
-	 * Constructor por defecto para probar solamente la parte grafica.
-	 */
-	public TableroGo(){
-		super();
+		/* Lo pongo para probar, cuando esté el controlador TIENE que volar*/
+		this.tablero = new Tablero();
+		tablero.addObserver(this);
+		tablero.agregarPiedra(0,0, ColorPiedra.BLANCO);
+		tablero.agregarPiedra(1,1, ColorPiedra.NEGRO);
+		tablero.agregarPiedra(2,2, ColorPiedra.BLANCO);
 	}
 	
 	@Override
@@ -50,8 +48,24 @@ public class TableroGo extends JPanel implements Observer {
 	}
 
 	private void dibujarFichas(Graphics2D g2d) {
-		// TODO Auto-generated method stub
-		
+		if (tablero == null)
+			return;
+
+		for (int j = 1; j <= TAMANIO; j++)
+			for (int i = 1; i <= TAMANIO; i++) {
+				ColorPiedra color = tablero.getCasillero(new Posicion(i-1,j-1));
+
+				/* cof cof*/
+				if (color == ColorPiedra.VACIO)
+					continue;
+				if (color == ColorPiedra.BLANCO)
+					g2d.setPaint(Color.WHITE);
+				else
+					g2d.setPaint(Color.BLACK);
+
+				/* cof cof cof cof cof....*/
+				g2d.fill(new Ellipse2D.Float(x*i-x*3/8,y*j-y*3/8,x*3/4,y*3/4));
+			}
 	}
 
 	private void dibujarTablero(Graphics2D g) {
@@ -67,16 +81,10 @@ public class TableroGo extends JPanel implements Observer {
 					
 	}
 
-	/**
-	 * TODO: No estoy del todo convencido de esto, quizas hasta no sea necesario
-	 * el patron observer pero tengo que investigar un poco mas.
-	 */
 	@Override
-	public void update(Observable obs, Object arg1) {
+	public void update(Observable arg0, Object arg1) {
+	    repaint(getBounds(null));
 		
-		if (obs == tableroObservado)
-			repaint();
-			
 	}
 	
 	

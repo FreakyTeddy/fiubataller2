@@ -6,4 +6,4 @@
  '(jde-compile-option-directory "./classes")
  '(jde-build-function (quote (jde-ant-build)))
  '(jde-compile-option-sourcepath "./src")
- '(jde-run-application-class "main"))
+ '(jde-run-application-class "vista/AppWindow"))

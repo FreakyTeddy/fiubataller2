@@ -22,11 +22,21 @@ public class Cadena {
 	fichas = new ArrayList<Posicion>();
 	setColor(ColorPiedra.VACIO);
     }
+    
+    public Cadena(Cadena otra){
+	tablero = otra.tablero;
+	color = otra.color;
+	fichas = new ArrayList<Posicion>();
+	for(Posicion p : otra.fichas)
+	    fichas.add(p);
 
+    }
+    
     public Cadena(Posicion posicion, ColorPiedra color, Tablero tablero){
 	fichas = new ArrayList<Posicion>();
 	setColor(color);
 	agregarPosicion(posicion);
+	this.tablero = tablero;
     }
 
     public void setColor(ColorPiedra color){
@@ -81,10 +91,57 @@ public class Cadena {
 		    //Si al menos 1 no esta ocupado, la cadena es libre
 		    return true;
 	}
-
 	return false;
     }
 
+    
+    /**
+     * Devuelve el tamation de la cadena (la cantidad de piedras que
+     * la conforman.
+     *
+     */
+    public int getTamanio(){
+	return fichas.size();
+    }
+
+    
+    /**
+     * Indica si dos cadenas contienen las mismas piedras (son
+     * iguales).
+     *
+     * @param otra Otra <code>Cadena</code>
+     */
+    public boolean esIgual(Cadena otra){
+	if (otra.getTamanio() != getTamanio())
+	    return false;
+
+	for (Posicion p: fichas)
+	    if (!otra.contiene(p))
+		return false;
+
+	return true;
+    }
+
+    
+    /**
+     * Indica si esta cadena contiene una posicion.
+     *
+     * @param posicion La <code>Posicion</code> a verificar.
+     */
+    public boolean contiene(Posicion posicion){
+	for (Posicion p: fichas)
+	    if (p.equals(posicion))
+		return true;
+	return false;
+    }
+
+    
+    /**
+     * Crea una nueva cadena con la union de las cadenas dadas.  No
+     * verifica que la union de las cadenas sea conexa ni que sean
+     * todas del mismo color. Se toma el color de la primer cadena de
+     * la lista y se asume que todas las demas son del mismo color.
+     */
     static public Cadena unirCadenas(ArrayList<Cadena> cadenas){
 	Cadena nueva = new Cadena();
 	for (Cadena cadena : cadenas) {

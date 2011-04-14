@@ -10,16 +10,26 @@ package Juego;
 
 public class JugadorHumano extends Jugador {
 
-	public JugadorHumano(String nombre, ColorPiedra color) {
+	public JugadorHumano(Tablero tablero,ColorPiedra color, String nombre) {
 		this.nombre = nombre;
 		this.color = color;
+		this.tablero = tablero;
 	}
 	
 	
 	@Override
 	public void jugar() {
-		// TODO Auto-generated method stub
-
+		
+//		boolean valida = false;
+//		while (!valida){
+//			try {
+//				Posicion pos = controlador.getJugada();
+//				tablero.agregarPiedra(pos.getX(),pos.getY(), color);
+//				valida = true;
+//			}catch (JugadaInvalidaException ex){
+//				System.out.println(ex);
+//			}
+//		}
 	}
 
 }

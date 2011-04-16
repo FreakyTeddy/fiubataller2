@@ -56,7 +56,7 @@ public class Posicion {
      * @param j posicion vertical
      * @return posicion en formato "A1" "T19"
      */
-    public String toString(int i, int j){
+    public static String toString(int i, int j){
     	String posicion = "";
     	posicion += (i+65);
     	posicion +=(j+1);

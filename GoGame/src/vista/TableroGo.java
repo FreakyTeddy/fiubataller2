@@ -10,6 +10,7 @@ import java.awt.geom.Ellipse2D;
 import java.util.Observable;
 import java.util.Observer;
 
+import Juego.Jugador;
 import Juego.Tablero;
 import Juego.ColorPiedra;
 import Juego.Posicion;
@@ -35,13 +36,16 @@ public class TableroGo extends JPanel implements Observer {
 		/* Lo pongo para probar, cuando esté el controlador TIENE que volar*/
 		this.tablero = new Tablero();
 		tablero.addObserver(this);
+		Jugador jugadorBlanco = new Jugador("Soy Blanco", ColorPiedra.BLANCO, tablero);
+		Jugador jugadorNegro = new Jugador("Soy Negro", ColorPiedra.NEGRO, tablero);
 		try {
-			tablero.agregarPiedra(0,0, ColorPiedra.BLANCO);
-			tablero.agregarPiedra(1,1, ColorPiedra.NEGRO);
-			tablero.agregarPiedra(2,2, ColorPiedra.BLANCO);
+			
+			jugadorBlanco.jugar(new Posicion(0,0));
+			jugadorNegro.jugar(new Posicion(1,1));
+			jugadorBlanco.jugar(new Posicion(2,2));
 			
 		} catch (JugadaInvalidaException e) {
-			
+			System.out.println(e);
 		}
 	}
 	

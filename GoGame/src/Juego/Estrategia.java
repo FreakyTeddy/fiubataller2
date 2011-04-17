@@ -10,15 +10,15 @@ package Juego;
  *
  */
 
-public class Estrategia {
+public interface Estrategia {
 
 	
 	/**
 	 * 
 	 * @return Posicion elegida para jugar la proxima piedra.
 	 */
-	public Posicion getJugada(){
-		return new Posicion(0,0);
-	}
+	public Posicion getJugada();
 	
+	public void informarJugadaInvalida();
+		
 }

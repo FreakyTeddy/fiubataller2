@@ -1,6 +1,6 @@
 package Remoto;
 
-
+import Juego.Posicion;
 /**
  * Parser de mensajes del Protocolo GTP (Go Text Protocol)
  * 
@@ -13,12 +13,12 @@ public class Mensajero {
 		idJugada = 0;
 	}
 	
-	public void enviarJugada(){
+	public void enviarJugada(Posicion pos){
 		idJugada++;
 	}
 	
-	public void recibirJugada(){
-		
+	public Posicion recibirJugada(){
+		return null;
 	}
 	
 	public void enviarTamanioTablero(int tamanio){

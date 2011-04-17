@@ -53,6 +53,7 @@ public class Jugador {
 				_tablero.agregarPiedra(posicion.getX(), posicion.getY(), _color);
 				valida = true;
 			}catch (JugadaInvalidaException ex){
+				_estrategia.informarJugadaInvalida();
 				System.out.println(ex);
 			}
 		}

@@ -1,14 +1,9 @@
 package vista;
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
-import javax.swing.border.CompoundBorder;
-import java.awt.GridLayout;
 
 public class AppWindow {
 

@@ -1,7 +1,5 @@
 package Juego;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 
 import org.junit.Before;
@@ -14,11 +12,6 @@ public class CadenaTest {
 	@Before
 	public void setUp() throws Exception {
 		tablero = new Tablero();
-	}
-
-	@Test
-	public void testCadenaCadena() {
-		fail("Not yet implemented");
 	}
 
 	@Test

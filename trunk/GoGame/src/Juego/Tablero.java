@@ -155,13 +155,13 @@ public class Tablero extends Observable {
 		boolean valida = false;
 
 		if (cadenasEliminadas.size() == 0) {
-			// Es jugada válida
+			// Es jugada v�lida
 			valida = true;
 		} else {
 			for (Cadena eliminada : cadenasEliminadas) {
 				if (eliminada.getColor() != color) {
 					// Se elimina una cadena del otro color, la jugada es
-					// válida
+					// v�lida
 					valida = true;
 					// La saco de la lista de cadenas definitivas
 					cadenas.remove(eliminada);
@@ -173,7 +173,7 @@ public class Tablero extends Observable {
 			// Se elimino una cadena del adversario
 			this.cadenas = cadenas; // Actualizo las cadenas
 		} else {
-			// Jugada inválida. Dejo las cadenas como estan pero
+			// Jugada inv�lida. Dejo las cadenas como estan pero
 			// revierto la jugada.
 			setCasillero(posicionJugada, ColorPiedra.VACIO);
 			throw new JugadaInvalidaException("No es válido suicidarse");

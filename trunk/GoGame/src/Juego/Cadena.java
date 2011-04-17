@@ -35,7 +35,6 @@ public class Cadena {
 		fichas = new ArrayList<Posicion>();
 		for (Posicion p : otra.fichas)
 			fichas.add(p);
-
 	}
 
 	public Cadena(Posicion posicion, ColorPiedra color, Tablero tablero) {
@@ -151,6 +150,7 @@ public class Cadena {
 		Cadena nueva = new Cadena();
 		for (Cadena cadena : cadenas) {
 			nueva.setColor(cadena.getColor());
+			nueva.tablero = cadena.tablero;
 			ArrayList<Posicion> posiciones = cadena.getPosiciones();
 
 			for (Posicion posicion : posiciones)

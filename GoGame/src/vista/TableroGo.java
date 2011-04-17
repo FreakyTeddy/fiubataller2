@@ -42,7 +42,7 @@ public class TableroGo extends JPanel implements Observer {
 			
 			jugadorBlanco.jugar(new Posicion(0,0));
 			jugadorNegro.jugar(new Posicion(1,1));
-			jugadorBlanco.jugar(new Posicion(2,2));
+			jugadorBlanco.jugar(new Posicion(0,1));
 			
 		} catch (JugadaInvalidaException e) {
 			System.out.println(e);

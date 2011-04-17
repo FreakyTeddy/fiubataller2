@@ -37,7 +37,7 @@ public class Jugador {
 	 */
 	public void jugar(Posicion posicion) throws JugadaInvalidaException {
 		
-		_tablero.agregarPiedra(posicion.getX(), posicion.getY(), _color);
+		_tablero.agregarPiedra(posicion, _color);
 	}
 	
 	/**

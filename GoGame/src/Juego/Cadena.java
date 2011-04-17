@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import Juego.Posicion;
 import Juego.ColorPiedra;
 import Juego.Tablero;
+import java.util.HashSet;
 
 /**
  * Describe class Cadena here.
  *
  * @author <a href="mailto:lucas@lambda.slackware.org"></a>
+ * @author 
  * @version 1.0
  */
 public class Cadena {
@@ -97,7 +99,7 @@ public class Cadena {
     
     /**
      * Devuelve el tamation de la cadena (la cantidad de piedras que
-     * la conforman.
+     * la conforman).
      *
      */
     public int getTamanio(){
@@ -152,5 +154,68 @@ public class Cadena {
 		nueva.agregarPosicion(posicion);
 	}
 	return nueva;
+    }
+
+    /**
+     * 
+     * 
+     * @return Los casilleros libres adyacentes a la cadena (incluye
+     * los ojos).
+     */
+    public ArrayList<Posicion> getCasillerosLibresAdyacentes(){
+	HashSet<Posicion> casilleros = new HashSet<Posicion>();
+	for (Posicion p : fichas) {
+	    ArrayList<Posicion> adyacentes = p.obtenerPosicionesAdyacentes();
+
+	    for (Posicion adyacente : adyacentes) 
+		if (!tablero.estaOcupado(adyacente))
+		    casilleros.add(adyacente);
+	    
+	}
+
+	return new ArrayList<Posicion>(casilleros);
+    }
+
+    
+    /**
+     * Devuelve los grados de libertad de la cadena
+     * 
+     * @return La cantidad de grados de libertad.
+     */
+    public int getGradosDeLibertad(){
+	return getCasillerosLibresAdyacentes().size();
+    }
+
+    /**
+     * Indica si una posicion es o no ojo de la cadena.
+     * 
+     * @param posicion La posicion a probar
+     * @return 
+     */
+    private boolean esOjo(Posicion posicion){
+
+	if(tablero.estaOcupado(posicion))
+	    return false;
+
+	for(Posicion p : posicion.obtenerPosicionesAdyacentes())
+	    if(!this.contiene(p))
+		return false;
+
+	return true;
+    }
+    
+    /**
+     * Devuelve todos los ojos de la cadena.
+     * 
+     * @return 
+     */
+    public ArrayList<Posicion> getOjos(){
+	HashSet<Posicion> ojos = new HashSet<Posicion>();
+	
+	for(Posicion p : this.getCasillerosLibresAdyacentes())
+	    if(esOjo(p))
+		ojos.add(p);
+		
+		return new ArrayList<Posicion>(ojos);
     }
 }

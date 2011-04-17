@@ -53,6 +53,10 @@ public class Tablero extends Observable {
 	
     }
 
+	public void agregarPiedra(Posicion posicion, ColorPiedra color)throws JugadaInvalidaException {
+		agregarPiedra(posicion.getX(), posicion.getY(), color);
+	}
+    
     public void agregarPiedra(int x, int y, ColorPiedra color)throws JugadaInvalidaException{
 	intentarAgregarPiedra(x,y,color);
 	
@@ -164,5 +168,6 @@ public class Tablero extends Observable {
 	    throw new JugadaInvalidaException("No es válido suicidarse");
 	}
     }
+
     
 }

@@ -59,7 +59,7 @@ public class Tablero extends Observable {
 		agregarPiedra(posicion.getX(), posicion.getY(), color);
 	}
 
-	public void agregarPiedra(int x, int y, ColorPiedra color)
+	private void agregarPiedra(int x, int y, ColorPiedra color)
 			throws JugadaInvalidaException {
 		intentarAgregarPiedra(x, y, color);
 
@@ -68,7 +68,7 @@ public class Tablero extends Observable {
 		notifyObservers();
 	}
 
-	public ArrayList<Cadena> buscarCadenasAdyacentes(Posicion posicion,
+	public ArrayList<Cadena> buscarCadenasAdyacentes(ArrayList<Cadena> cadenas, Posicion posicion,
 			ColorPiedra color) {
 		ArrayList<Cadena> adyacentes = new ArrayList<Cadena>();
 		for (Cadena cadena : cadenas)
@@ -79,7 +79,7 @@ public class Tablero extends Observable {
 	}
 
 	/**
-	 * Intenta agregar una piedra. Crea las nuevas cadenas que se formar√≠an si
+	 * Intenta agregar una piedra. Crea las nuevas cadenas que se formarian si
 	 * fuera legal la jugada y se las pasa aplicarReglas para que verifique si
 	 * la jugada es o no legal.
 	 * 
@@ -92,7 +92,7 @@ public class Tablero extends Observable {
 	 */
 	void intentarAgregarPiedra(int x, int y, ColorPiedra color)
 			throws JugadaInvalidaException {
-		
+
 		Posicion posicion = new Posicion(x, y);
 		Cadena nuevaCadena = new Cadena(posicion, color, this);
 
@@ -106,9 +106,9 @@ public class Tablero extends Observable {
 			todasLasCadenas.add(nueva);
 		}
 
-		ArrayList<Cadena> adyacentes = buscarCadenasAdyacentes(posicion, color);
+		ArrayList<Cadena> adyacentes = buscarCadenasAdyacentes(todasLasCadenas, posicion, color);
+
 		if (adyacentes.size() > 0) {
-			System.out.println("Hay adyacentes: " + adyacentes.size());
 			// Hay cadenas adyacentes las saco de la lista de cadenas
 			for (Cadena adyacente : adyacentes)
 				todasLasCadenas.remove(adyacente);
@@ -120,16 +120,18 @@ public class Tablero extends Observable {
 			// La cadena que se agrega en este turno es la union de
 			// todas las adyacentes a la posicion
 			nuevaCadena = cadenaResultante;
+
 		}
 
 		// Agrego la cadena creada en este turno
 		todasLasCadenas.add(nuevaCadena);
+
 		aplicarReglas(posicion, todasLasCadenas, color);
 	}
 
 	/**
 	 * Aplica las reglas del juego al movimiento realizado. Si es un movimiento
-	 * legal, actualiza el tablero y las cadenas. Si no deja todo como est√°. No
+	 * legal, actualiza el tablero y las cadenas. Si no deja todo como esta. No
 	 * verifica KO (por ahora).
 	 * 
 	 * @param posicionJugada
@@ -155,16 +157,18 @@ public class Tablero extends Observable {
 		boolean valida = false;
 
 		if (cadenasEliminadas.size() == 0) {
-			// Es jugada v·lida
+			// Es jugada valida
 			valida = true;
 		} else {
 			for (Cadena eliminada : cadenasEliminadas) {
 				if (eliminada.getColor() != color) {
 					// Se elimina una cadena del otro color, la jugada es
-					// v·lida
+					// valida
 					valida = true;
 					// La saco de la lista de cadenas definitivas
 					cadenas.remove(eliminada);
+					for(Posicion aBorrar : eliminada.getPosiciones())
+						this.setCasillero(aBorrar, ColorPiedra.VACIO);
 				}
 			}
 		}
@@ -173,10 +177,10 @@ public class Tablero extends Observable {
 			// Se elimino una cadena del adversario
 			this.cadenas = cadenas; // Actualizo las cadenas
 		} else {
-			// Jugada inv·lida. Dejo las cadenas como estan pero
+			// Jugada invalida. Dejo las cadenas como estan pero
 			// revierto la jugada.
 			setCasillero(posicionJugada, ColorPiedra.VACIO);
-			throw new JugadaInvalidaException("No es v√°lido suicidarse");
+			throw new JugadaInvalidaException("No es valido suicidarse");
 		}
 	}
 

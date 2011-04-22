@@ -36,7 +36,7 @@ public class PosicionTest {
 		Posicion a2 = new Posicion(30,21);
 		Posicion a3 = new Posicion(29,20);
 		Posicion a4 = new Posicion(30,19);
-		
+
 		ArrayList<Posicion> adyacencias = p1.obtenerPosicionesAdyacentes();
 		assert(adyacencias.size() != 4);
 

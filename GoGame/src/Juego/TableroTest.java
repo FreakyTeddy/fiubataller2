@@ -110,7 +110,7 @@ public class TableroTest {
 		}
 	}
 	
-	@Test
+        @Test
 	public void testConteoCadenasUnion(){
 		Posicion posicion1 = new Posicion(0,0);
 		Posicion posicion2 = new Posicion(0,2);
@@ -129,5 +129,6 @@ public class TableroTest {
 		catch(JugadaInvalidaException e){
 			fail("Es una jugada válida");
 		}
+		
 	}
 }

@@ -2,50 +2,42 @@ package vista;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
 
-public class AppWindow {
+import Juego.Tablero;
+
+public class AppWindow extends MouseAdapter{
 
 	private JFrame frame;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AppWindow window = new AppWindow();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	TableroGo tableroGo;
 	/**
 	 * Create the application.
 	 */
-	public AppWindow() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frame = new JFrame("GoGame");	
-		TableroGo tableroGo = new TableroGo();
-
-
+	public AppWindow(Tablero tablero) {
+		frame = new JFrame("GoGame");
+		tableroGo = new TableroGo(tablero);
 		
+		frame.addMouseListener(this);
+
 		frame.setBounds(100, 100, 500, 535);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().add(tableroGo, BorderLayout.CENTER);
-		
-		
-		}
+		EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						frame.setVisible(true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
+	}
+
+	public void mouseClicked(MouseEvent e){
+		tableroGo.click(e.getX(), e.getY());
+	}
 
 }

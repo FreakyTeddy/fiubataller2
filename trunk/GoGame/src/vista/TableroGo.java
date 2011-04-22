@@ -1,22 +1,22 @@
 package vista;
 
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-
-import javax.swing.JPanel;
-import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 import java.util.Observable;
 import java.util.Observer;
 
-import Juego.Jugador;
-import Juego.Tablero;
-import Juego.ColorPiedra;
-import Juego.Posicion;
-import Juego.JugadaInvalidaException;
+import javax.swing.JPanel;
 
-public class TableroGo extends JPanel implements Observer {
+import Juego.ColorPiedra;
+import Juego.JugadaInvalidaException;
+import Juego.Jugador;
+import Juego.Posicion;
+import Juego.Tablero;
+
+public class TableroGo extends JPanel implements Observer{
 	
 	private final int TAMANIO=9, x=50 , y=50;
 
@@ -30,11 +30,11 @@ public class TableroGo extends JPanel implements Observer {
 	/**
 	 * Create the panel.
 	 */
-	public TableroGo() {
+	public TableroGo(Tablero tablero) {
 		super();
 
 		/* Lo pongo para probar, cuando esté el controlador TIENE que volar*/
-		this.tablero = new Tablero();
+		this.tablero = tablero;
 		tablero.addObserver(this);
 		Jugador jugadorBlanco = new Jugador("Soy Blanco", ColorPiedra.BLANCO, tablero);
 		Jugador jugadorNegro = new Jugador("Soy Negro", ColorPiedra.NEGRO, tablero);
@@ -97,6 +97,21 @@ public class TableroGo extends JPanel implements Observer {
 		
 	}
 	
-	
+	public void click(int x, int y){
+		System.out.println("Click X:" + (int)((x-this.x)/this.x) + " Y:" + (int)((y-this.y)/this.y) );
+		try{
+			tablero.agregarPiedra(new Posicion((int)((x-this.x)/this.x), (int)((y-this.y)/this.y)), ColorPiedra.BLANCO);
+		}
+		catch(JugadaInvalidaException e){
+			System.out.println("Eeeeeeeeeeeepa");
+		}
+	}
 
 }
+
+
+
+
+
+
+

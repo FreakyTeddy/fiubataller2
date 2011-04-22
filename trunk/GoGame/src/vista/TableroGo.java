@@ -36,17 +36,17 @@ public class TableroGo extends JPanel implements Observer{
 		/* Lo pongo para probar, cuando esté el controlador TIENE que volar*/
 		this.tablero = tablero;
 		tablero.addObserver(this);
-		Jugador jugadorBlanco = new Jugador("Soy Blanco", ColorPiedra.BLANCO, tablero);
-		Jugador jugadorNegro = new Jugador("Soy Negro", ColorPiedra.NEGRO, tablero);
-		try {
+		// Jugador jugadorBlanco = new Jugador("Soy Blanco", ColorPiedra.BLANCO, tablero);
+		// Jugador jugadorNegro = new Jugador("Soy Negro", ColorPiedra.NEGRO, tablero);
+		// try {
 			
-			jugadorBlanco.jugar(new Posicion(0,0));
-			jugadorNegro.jugar(new Posicion(1,1));
-			jugadorBlanco.jugar(new Posicion(0,1));
+		// 	jugadorBlanco.jugar(new Posicion(0,0));
+		// 	jugadorNegro.jugar(new Posicion(1,1));
+		// 	jugadorBlanco.jugar(new Posicion(0,1));
 			
-		} catch (JugadaInvalidaException e) {
-			System.out.println(e);
-		}
+		// } catch (JugadaInvalidaException e) {
+		// 	System.out.println(e);
+		// }
 	}
 	
 	@Override
@@ -97,13 +97,14 @@ public class TableroGo extends JPanel implements Observer{
 		
 	}
 	
-	public void click(int x, int y){
+	public void click(int x, int y, int n){
 		System.out.println("Click X:" + (int)((x-this.x)/this.x) + " Y:" + (int)((y-this.y)/this.y) );
 		try{
-			tablero.agregarPiedra(new Posicion((int)((x-this.x)/this.x), (int)((y-this.y)/this.y)), ColorPiedra.BLANCO);
+			tablero.agregarPiedra(new Posicion((int)((x-this.x)/this.x), (int)((y-this.y)/this.y)), n==0?ColorPiedra.BLANCO:ColorPiedra.NEGRO);
 		}
 		catch(JugadaInvalidaException e){
 			System.out.println("Eeeeeeeeeeeepa");
+			System.out.println(e.toString());
 		}
 	}
 

@@ -50,7 +50,7 @@ public class Jugador {
 		while (!valida){
 			try {
 				Posicion posicion = _estrategia.getJugada();
-				_tablero.agregarPiedra(posicion.getX(), posicion.getY(), _color);
+				_tablero.agregarPiedra(posicion, _color);
 				valida = true;
 			}catch (JugadaInvalidaException ex){
 				_estrategia.informarJugadaInvalida();

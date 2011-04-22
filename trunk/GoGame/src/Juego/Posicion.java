@@ -36,7 +36,7 @@ public class Posicion {
 	public boolean esAdyacente(Posicion posicion){
 		if (posicion.getX() == x)
 			return (posicion.getY() == (y-1)) || (posicion.getY() == (y+1));
-		if (posicion.getX() == y)
+		if (posicion.getY() == y)
 			return (posicion.getX() == (x-1)) || (posicion.getX() == (x+1));
 		return false;
 	}

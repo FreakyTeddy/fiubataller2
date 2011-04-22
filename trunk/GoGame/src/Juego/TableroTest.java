@@ -80,7 +80,7 @@ public class TableroTest {
 			tablero.agregarPiedra(posicion4, ColorPiedra.BLANCO);
 		}
 		catch(JugadaInvalidaException e){
-			fail("Es una jugada válida");
+			fail("Es una jugada valida");
 		}
 		
 		try{
@@ -106,7 +106,7 @@ public class TableroTest {
 			assert(tablero.cadenas.size()!=2);
 		}
 		catch(JugadaInvalidaException e){
-			fail("Es una jugada válida");
+			fail("Es una jugada valida");
 		}
 	}
 	
@@ -127,8 +127,33 @@ public class TableroTest {
 			assert(tablero.cadenas.size()!=1);
 		}
 		catch(JugadaInvalidaException e){
-			fail("Es una jugada válida");
+			fail("Es una jugada valida");
 		}
-		
+	}
+
+	@Test
+	public void testComerFichaSimple(){
+		Posicion posicion1 = new Posicion(11,10);
+		Posicion posicion2 = new Posicion(10,11);
+		Posicion posicion3 = new Posicion(12,11);
+		Posicion posicion4 = new Posicion(11,12);
+		Posicion posicion5 = new Posicion(11,11);
+
+		try{
+			tablero.agregarPiedra(posicion1, ColorPiedra.BLANCO);
+			tablero.agregarPiedra(posicion2, ColorPiedra.BLANCO);
+			tablero.agregarPiedra(posicion3, ColorPiedra.BLANCO);
+			tablero.agregarPiedra(posicion5, ColorPiedra.NEGRO);
+			tablero.agregarPiedra(posicion4, ColorPiedra.BLANCO);
+
+			assert(tablero.estaOcupado(posicion5));
+			assert(!tablero.estaOcupado(posicion1));
+			assert(!tablero.estaOcupado(posicion2));
+			assert(!tablero.estaOcupado(posicion3));
+			assert(!tablero.estaOcupado(posicion4));
+		}
+		catch(JugadaInvalidaException e){
+			fail("Son jugadas validas");
+		}
 	}
 }

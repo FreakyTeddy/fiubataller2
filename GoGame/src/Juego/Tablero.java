@@ -34,9 +34,9 @@ public class Tablero extends Observable {
 
 	public ColorPiedra getCasillero(Posicion p) {
 		if (p.getX() < 0 || p.getX() >= ancho)
-			return ColorPiedra.VACIO;
+			return ColorPiedra.INVALIDO;
 		if (p.getY() < 0 || p.getY() >= ancho)
-			return ColorPiedra.VACIO;
+			return ColorPiedra.INVALIDO;
 
 		return casilleros[p.getY()][p.getX()];
 	}

@@ -133,11 +133,11 @@ public class TableroTest {
 
 	@Test
 	public void testComerFichaSimple(){
-		Posicion posicion1 = new Posicion(11,10);
-		Posicion posicion2 = new Posicion(10,11);
-		Posicion posicion3 = new Posicion(12,11);
-		Posicion posicion4 = new Posicion(11,12);
-		Posicion posicion5 = new Posicion(11,11);
+		Posicion posicion1 = new Posicion(1,0);
+		Posicion posicion2 = new Posicion(0,1);
+		Posicion posicion3 = new Posicion(2,1);
+		Posicion posicion4 = new Posicion(1,2);
+		Posicion posicion5 = new Posicion(1,1);
 
 		try{
 			tablero.agregarPiedra(posicion1, ColorPiedra.BLANCO);

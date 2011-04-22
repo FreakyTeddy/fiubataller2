@@ -1,5 +1,5 @@
 package Juego;
 
 public enum ColorPiedra {
-    VACIO, NEGRO, BLANCO;
+	VACIO, NEGRO, BLANCO, INVALIDO;
 }

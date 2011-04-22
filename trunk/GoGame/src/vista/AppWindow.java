@@ -38,7 +38,7 @@ public class AppWindow extends MouseAdapter{
 
 	public void mouseClicked(MouseEvent e){
 		
-		tableroGo.click(e.getX(), e.getY(), e.getButton()==e.BUTTON1?0:1);
+		tableroGo.click(e.getX(), e.getY(), e.getButton()==MouseEvent.BUTTON1?0:1);
 	}
 
 }

@@ -16,8 +16,8 @@ public class CadenaTest {
 
 	@Test
 	public void testEsAdyacenteSimple() {
-		Posicion posicion1 = new Posicion(10,10);
-		Posicion posicion2 = new Posicion(10,11);
+		Posicion posicion1 = new Posicion(0,0);
+		Posicion posicion2 = new Posicion(0,1);
 		
 		Cadena cadena1 = new Cadena(posicion1, ColorPiedra.BLANCO, tablero);
 		
@@ -26,7 +26,7 @@ public class CadenaTest {
 
 	@Test
 	public void testEsLibreSimple() {
-		Posicion posicion = new Posicion(10,10);
+		Posicion posicion = new Posicion(1,1);
 		tablero.setCasillero(posicion, ColorPiedra.BLANCO);
 		Cadena cadena = new Cadena(posicion, ColorPiedra.BLANCO, tablero);
 		
@@ -67,7 +67,7 @@ public class CadenaTest {
 	
 	@Test
 	public void testGradosDeLibertadSimple(){
-		Posicion posicion = new Posicion(10,10);
+		Posicion posicion = new Posicion(1,1);
 		tablero.setCasillero(posicion, ColorPiedra.BLANCO);
 		Cadena cadena = new Cadena(posicion, ColorPiedra.BLANCO, tablero);
 		

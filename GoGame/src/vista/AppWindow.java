@@ -7,9 +7,11 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
 
+import controlador.AdaptadorTablero;
+
 import Juego.Tablero;
 
-public class AppWindow extends MouseAdapter{
+public class AppWindow {
 
 	private JFrame frame;
 	TableroGo tableroGo;
@@ -20,7 +22,13 @@ public class AppWindow extends MouseAdapter{
 		frame = new JFrame("GoGame");
 		tableroGo = new TableroGo(tablero);
 		
-		frame.addMouseListener(this);
+		/*TODO: SI , ya se, codigo super redundante, pero me parece
+		 * mucho mejor que el listener este en el panel y no el frame para
+		 * eventos de tablero. Esto lo pongo asi igual porque cuando definamos que 
+		 * va a hacer el controlador esto va a cambiar porque conceptualmente 
+		 * no deberia la vista notificarse a si misma, sino avisar al modelo. 
+		 */
+		tableroGo.addMouseListener(new AdaptadorTablero(tableroGo));
 
 		frame.setBounds(100, 100, 500, 535);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

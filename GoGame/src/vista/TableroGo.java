@@ -4,15 +4,20 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
+import java.io.File;
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+
 
 import Juego.ColorPiedra;
 import Juego.JugadaInvalidaException;
-import Juego.Jugador;
 import Juego.Posicion;
 import Juego.Tablero;
 
@@ -27,6 +32,8 @@ public class TableroGo extends JPanel implements Observer{
 
 	Tablero tablero;
 
+	String imageFile = "./images/woodboard.jpg";
+	
 	/**
 	 * Create the panel.
 	 */
@@ -36,6 +43,7 @@ public class TableroGo extends JPanel implements Observer{
 		/* Lo pongo para probar, cuando esté el controlador TIENE que volar*/
 		this.tablero = tablero;
 		tablero.addObserver(this);
+		
 		// Jugador jugadorBlanco = new Jugador("Soy Blanco", ColorPiedra.BLANCO, tablero);
 		// Jugador jugadorNegro = new Jugador("Soy Negro", ColorPiedra.NEGRO, tablero);
 		// try {
@@ -51,12 +59,23 @@ public class TableroGo extends JPanel implements Observer{
 	
 	@Override
 	public void paintComponent(Graphics g){
+		
 		super.paintComponent(g);
+		
+		//TODO:Usar class loader para que funcione cuando se hace el jar.
+		ImageIcon imageicon = new ImageIcon(imageFile);  
+		Image image = imageicon.getImage();  
+		if (image != null)  
+		 g.drawImage(image, 0, 0, getWidth(), getHeight(), this);  
+	
+	
 		Graphics2D g2d = (Graphics2D) g;
 		dibujarTablero(g2d);
 		dibujarFichas(g2d);
+		
 	}
 
+	//TODO: Mejorar esto, podria ser un gradiente, o directamente usar images.
 	private void dibujarFichas(Graphics2D g2d) {
 		if (tablero == null)
 			return;
@@ -65,6 +84,7 @@ public class TableroGo extends JPanel implements Observer{
 			for (int i = 1; i <= TAMANIO; i++) {
 				ColorPiedra color = tablero.getCasillero(new Posicion(i-1,j-1));
 
+				
 				/* cof cof*/
 				if (color == ColorPiedra.VACIO)
 					continue;
@@ -74,21 +94,26 @@ public class TableroGo extends JPanel implements Observer{
 					g2d.setPaint(Color.BLACK);
 
 				/* cof cof cof cof cof....*/
+
+		
 				g2d.fill(new Ellipse2D.Float(x*i-x*3/8,y*j-y*3/8,x*3/4,y*3/4));
 			}
 	}
 
+
+	
 	private void dibujarTablero(Graphics2D g) {
-		g.setStroke(new BasicStroke(4));
+		g.setStroke(new BasicStroke(4, BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND ));
+		g.setColor(Color.BLACK);
 		
-		//Dibujo las lineas horizontales
+		//Lineas horizontales
 		for(int horizontal = 1; horizontal<= TAMANIO;horizontal++)
 			g.drawLine(x, horizontal*y, TAMANIO*x, horizontal*y);
 		
-		//Dibujo las lineas verticales
+		//Lineas verticales
 		for(int vertical = 1; vertical<= TAMANIO;vertical++)
 			g.drawLine(vertical*x, y, vertical*x, y*TAMANIO);
-					
+				
 	}
 
 	@Override

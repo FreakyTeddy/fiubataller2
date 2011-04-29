@@ -7,6 +7,7 @@ public class EstrategiaComputadora implements Estrategia {
 
 	Tablero _tablero;
 	
+	ColorPiedra miColor = ColorPiedra.NEGRO;
 	
 	public EstrategiaComputadora(Tablero tablero){
 		_tablero = tablero;
@@ -53,10 +54,45 @@ public class EstrategiaComputadora implements Estrategia {
 		return cadenasResultantes;
 	}
 
+	private ArrayList<Cadena> obtenerCadenasOponente(){
 
-	private Posicion generarJugada(){
+		return filtrarCadenas(_tablero.obtenerCadenas(),miColor);
+	}
 
-		ArrayList<Cadena> cadenas = filtrarCadenas(_tablero.obtenerCadenas(),ColorPiedra.NEGRO);
+	private ArrayList<Cadena> obtenerCadenasPropias(){
+
+		return filtrarCadenas(_tablero.obtenerCadenas(),miColor==ColorPiedra.BLANCO?ColorPiedra.NEGRO:ColorPiedra.BLANCO);
+	}
+
+	//TODO: Despues hay que separar las estrategias y nombrarlas como corresponde
+	/**
+	 * Intenta ocupar casilleros adyacentes de las cadenas con menor grado
+	 * de libertad del oponente, intentando capturarlas.
+	 * 
+	 * @return La posicion donde jugar
+	 */
+	private Posicion estrategia1(){
+		
+		ArrayList<Cadena> cadenas = obtenerCadenasOponente();
+
+		Collections.sort(cadenas, new ordenadorCadenasPorMenorGradoDeLibertadYMayorLongitud());
+
+		Posicion posicion = new Posicion(0,0);
+
+		if(cadenas.size() > 0)
+			posicion = cadenas.get(0).getCasillerosLibresAdyacentes().get(0);
+		return posicion;
+	}
+
+	/**
+	 * 
+	 * Intenta ocupar casilleros adycentes a las cadenas con menor grado
+	 * de libertad propias, intentando evitar que sean capturadas.
+	 * @return La posicion donde jugar
+	 */
+	private Posicion estrategia2(){
+		
+		ArrayList<Cadena> cadenas = obtenerCadenasPropias();
 
 		Collections.sort(cadenas, new ordenadorCadenasPorMenorGradoDeLibertadYMayorLongitud());
 
@@ -65,7 +101,12 @@ public class EstrategiaComputadora implements Estrategia {
 		if(cadenas.size() > 0)
 			posicion = cadenas.get(0).getCasillerosLibresAdyacentes().get(0);
 
-		return  posicion;
+		return posicion;
+	}
+
+	private Posicion generarJugada(){
+
+		return  estrategia1();
 	}
 	
 }

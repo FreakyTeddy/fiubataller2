@@ -111,13 +111,13 @@ public class TableroGo extends JPanel implements Observer{
 	}
 	
 	public void click(int x, int y, int n){
-		System.out.println("Click X:" + (int)((x-this.x)/this.x) + " Y:" + (int)((y-this.y)/this.y) );
+		Posicion p = new Posicion((int)((x-this.x/2)/this.x), (int)((y-this.y/2)/this.y));
+		System.out.println("Click X:" +  p.getX() + " Y:" + p.getY());
 		try{
 			if(n == 0)
-				tablero.agregarPiedra(new Posicion((int)((x-this.x)/this.x), (int)((y-this.y)/this.y)), ColorPiedra.BLANCO);
+				tablero.agregarPiedra(p, ColorPiedra.BLANCO);
 			else
 				tablero.agregarPiedra(estrategia.getJugada(), ColorPiedra.NEGRO);
-				
 		}
 		catch(JugadaInvalidaException e){
 			System.out.println("Eeeeeeeeeeeepa");

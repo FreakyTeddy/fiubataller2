@@ -64,6 +64,10 @@ public class EstrategiaComputadora implements Estrategia {
 		return filtrarCadenas(_tablero.obtenerCadenas(),miColor==ColorPiedra.BLANCO?ColorPiedra.NEGRO:ColorPiedra.BLANCO);
 	}
 
+	private Posicion estrategiaRandom(){
+		return new Posicion((int) (Math.random() * 9),(int) (Math.random() * 9));
+	}
+
 	//TODO: Despues hay que separar las estrategias y nombrarlas como corresponde
 	/**
 	 * Intenta ocupar casilleros adyacentes de las cadenas con menor grado
@@ -77,7 +81,7 @@ public class EstrategiaComputadora implements Estrategia {
 
 		Collections.sort(cadenas, new ordenadorCadenasPorMenorGradoDeLibertadYMayorLongitud());
 
-		Posicion posicion = new Posicion(0,0);
+		Posicion posicion = estrategiaRandom();
 
 		if(cadenas.size() > 0)
 			posicion = cadenas.get(0).getCasillerosLibresAdyacentes().get(0);
@@ -91,12 +95,12 @@ public class EstrategiaComputadora implements Estrategia {
 	 * @return La posicion donde jugar
 	 */
 	private Posicion estrategia2(){
-		
+
 		ArrayList<Cadena> cadenas = obtenerCadenasPropias();
 
 		Collections.sort(cadenas, new ordenadorCadenasPorMenorGradoDeLibertadYMayorLongitud());
 
-		Posicion posicion = new Posicion(0,0);
+		Posicion posicion = estrategiaRandom();
 
 		if(cadenas.size() > 0)
 			posicion = cadenas.get(0).getCasillerosLibresAdyacentes().get(0);
@@ -106,7 +110,6 @@ public class EstrategiaComputadora implements Estrategia {
 
 	private Posicion generarJugada(){
 
-		return  estrategia1();
+		return  estrategia2();
 	}
-	
 }

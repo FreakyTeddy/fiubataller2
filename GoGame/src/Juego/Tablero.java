@@ -32,13 +32,17 @@ public class Tablero extends Observable {
 		return ancho;
 	}
 
+	private ColorPiedra getCasillero(int x, int y){
+		return casilleros[y][x];
+	}
+
 	public ColorPiedra getCasillero(Posicion p) {
 		if (p.getX() < 0 || p.getX() >= ancho)
 			return ColorPiedra.INVALIDO;
 		if (p.getY() < 0 || p.getY() >= ancho)
 			return ColorPiedra.INVALIDO;
 
-		return casilleros[p.getY()][p.getX()];
+		return getCasillero(p.getX(), p.getY());
 	}
 
 	public void setCasillero(Posicion p, ColorPiedra color) {
@@ -49,9 +53,12 @@ public class Tablero extends Observable {
 		casilleros[p.getY()][p.getX()] = color;
 	}
 
-	boolean estaOcupado(Posicion posicion) {
-		return getCasillero(posicion) != ColorPiedra.VACIO;
+	private boolean estaOcupado(int x, int y){
+		return getCasillero(x,y) != ColorPiedra.VACIO;
+	}
 
+	public boolean estaOcupado(Posicion posicion) {
+		return getCasillero(posicion) != ColorPiedra.VACIO;
 	}
 
 	public void agregarPiedra(Posicion posicion, ColorPiedra color)
@@ -188,4 +195,13 @@ public class Tablero extends Observable {
 		return cadenas;
 	}
 
+	public ArrayList<Posicion> obtenerCasillerosLibres(){
+		ArrayList<Posicion> libres = new ArrayList<Posicion>();
+		
+		for(int j=0; j<ancho; j++)
+			for(int i=0; i<ancho; i++)
+				if(!estaOcupado(i,j))
+					libres.add(new Posicion(i,j));
+		return libres;
+	}
 }

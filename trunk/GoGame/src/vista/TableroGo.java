@@ -5,16 +5,12 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
-import java.io.File;
-import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-
 
 import Juego.ColorPiedra;
 import Juego.JugadaInvalidaException;
@@ -93,7 +89,7 @@ public class TableroGo extends JPanel implements Observer{
 				else
 					g2d.setPaint(Color.BLACK);
 
-				/* cof cof cof cof cof....*/
+				/* cof cof cof cof cof.... */
 
 		
 				g2d.fill(new Ellipse2D.Float(x*i-x*3/8,y*j-y*3/8,x*3/4,y*3/4));

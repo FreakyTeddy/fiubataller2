@@ -2,14 +2,13 @@ package vista;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
 
-import controlador.AdaptadorTablero;
-
 import Juego.Tablero;
+
+import controlador.AdaptadorTablero;
 
 public class AppWindow {
 

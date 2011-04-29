@@ -184,4 +184,8 @@ public class Tablero extends Observable {
 		}
 	}
 
+	public ArrayList<Cadena> obtenerCadenas(){
+		return cadenas;
+	}
+
 }

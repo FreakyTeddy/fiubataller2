@@ -14,6 +14,7 @@ public class AppWindow {
 
 	private JFrame frame;
 	TableroGo tableroGo;
+	
 	/**
 	 * Create the application.
 	 */

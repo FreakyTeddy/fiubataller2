@@ -7,12 +7,6 @@ public class Jugador {
 	private Tablero _tablero;
 	private Estrategia _estrategia;
 	
-	public Jugador(String nombre, ColorPiedra color, Tablero tablero){
-		_nombre = nombre;
-		_color = color;
-		_tablero = tablero;
-	}
-	
 	public Jugador(String nombre, ColorPiedra color,Tablero tablero, Estrategia estrategia){
 		_nombre = nombre;
 		_color = color;
@@ -29,22 +23,10 @@ public class Jugador {
 	}
 	
 	/**
-	 * Juega una piedra en la posicion indicada
-	 * 
-	 * @param posicion: ficha a jugar
-	 * @throws JugadaInvalidaException si la posicion es invalida
-	 * 
-	 */
-	public void jugar(Posicion posicion) throws JugadaInvalidaException {
-		
-		_tablero.agregarPiedra(posicion, _color);
-	}
-	
-	/**
 	 * Juega una piedra siguiendo su estrategia.
 	 * 
 	 */
-	public void jugar() {
+	public void jugar() throws FinDelJuegoException{
 		
 		boolean valida = false;
 		while (!valida){

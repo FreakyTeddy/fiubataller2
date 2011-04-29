@@ -13,6 +13,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import Juego.ColorPiedra;
+import Juego.Estrategia;
+import Juego.EstrategiaComputadora;
 import Juego.JugadaInvalidaException;
 import Juego.Posicion;
 import Juego.Tablero;
@@ -27,6 +29,7 @@ public class TableroGo extends JPanel implements Observer{
 	private static final long serialVersionUID = 1L;
 
 	Tablero tablero;
+	Estrategia estrategia;
 
 	String imageFile = "./images/woodboard.jpg";
 	
@@ -36,21 +39,10 @@ public class TableroGo extends JPanel implements Observer{
 	public TableroGo(Tablero tablero) {
 		super();
 
-		/* Lo pongo para probar, cuando esté el controlador TIENE que volar*/
+		/* Lo pongo para probar, cuando este el controlador TIENE que volar*/
 		this.tablero = tablero;
 		tablero.addObserver(this);
-		
-		// Jugador jugadorBlanco = new Jugador("Soy Blanco", ColorPiedra.BLANCO, tablero);
-		// Jugador jugadorNegro = new Jugador("Soy Negro", ColorPiedra.NEGRO, tablero);
-		// try {
-			
-		// 	jugadorBlanco.jugar(new Posicion(0,0));
-		// 	jugadorNegro.jugar(new Posicion(1,1));
-		// 	jugadorBlanco.jugar(new Posicion(0,1));
-			
-		// } catch (JugadaInvalidaException e) {
-		// 	System.out.println(e);
-		// }
+		estrategia = new EstrategiaComputadora(tablero);
 	}
 	
 	@Override
@@ -121,7 +113,11 @@ public class TableroGo extends JPanel implements Observer{
 	public void click(int x, int y, int n){
 		System.out.println("Click X:" + (int)((x-this.x)/this.x) + " Y:" + (int)((y-this.y)/this.y) );
 		try{
-			tablero.agregarPiedra(new Posicion((int)((x-this.x)/this.x), (int)((y-this.y)/this.y)), n==0?ColorPiedra.BLANCO:ColorPiedra.NEGRO);
+			if(n == 0)
+				tablero.agregarPiedra(new Posicion((int)((x-this.x)/this.x), (int)((y-this.y)/this.y)), ColorPiedra.BLANCO);
+			else
+				tablero.agregarPiedra(estrategia.getJugada(), ColorPiedra.NEGRO);
+				
 		}
 		catch(JugadaInvalidaException e){
 			System.out.println("Eeeeeeeeeeeepa");

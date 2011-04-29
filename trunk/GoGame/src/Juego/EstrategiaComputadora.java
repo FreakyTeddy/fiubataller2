@@ -65,7 +65,9 @@ public class EstrategiaComputadora implements Estrategia {
 	}
 
 	private Posicion estrategiaRandom(){
-		return new Posicion((int) (Math.random() * 9),(int) (Math.random() * 9));
+		ArrayList<Posicion> libres = _tablero.obtenerCasillerosLibres();
+		Collections.shuffle(libres);
+		return libres.get(1);
 	}
 
 	//TODO: Despues hay que separar las estrategias y nombrarlas como corresponde
@@ -110,6 +112,6 @@ public class EstrategiaComputadora implements Estrategia {
 
 	private Posicion generarJugada(){
 
-		return  estrategia2();
+		return  estrategia1();
 	}
 }

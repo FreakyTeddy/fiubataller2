@@ -7,26 +7,30 @@ public class Jugador {
 	private Tablero _tablero;
 	private Estrategia _estrategia;
 	
-	public Jugador(String nombre, ColorPiedra color,Tablero tablero, Estrategia estrategia){
+	public Jugador(String nombre, ColorPiedra color,Tablero tablero, Estrategia estrategia) {
 		_nombre = nombre;
 		_color = color;
 		_tablero = tablero;
 		_estrategia = estrategia;
 	}
 	
-	public String getNombre(){
+	public String getNombre() {
 		return _nombre;
 	}
 	
-	public ColorPiedra getColor(){
+	public ColorPiedra getColor() {
 		return _color;
+	}
+	
+	public Estrategia getEstrategia() {
+		return _estrategia;
 	}
 	
 	/**
 	 * Juega una piedra siguiendo su estrategia.
 	 * 
 	 */
-	public void jugar() throws FinDelJuegoException{
+	public void jugar() throws FinDelJuegoException {
 		
 		boolean valida = false;
 		while (!valida){

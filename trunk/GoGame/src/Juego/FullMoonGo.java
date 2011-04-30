@@ -1,15 +1,16 @@
 package Juego;
-import vista.AppWindow;
 
 public class FullMoonGo {
 
 	private Jugador jugadorBlanco;
 	private Jugador jugadorNegro;
 	private Tablero tablero;
+	static private FullMoonGo instancia = null;
 	
-	public static void main(String[] args) {
-		FullMoonGo juego = new FullMoonGo();
-		juego.nuevaPartida();
+	static public FullMoonGo getInstancia(){
+		if (instancia == null)
+			instancia = new FullMoonGo();
+		return instancia;
 	}
 
 	public FullMoonGo() {
@@ -19,8 +20,8 @@ public class FullMoonGo {
 	}
     
 	public void nuevaPartida(){
-		tablero = new Tablero();
-		new AppWindow(tablero);
+		crearTablero();
+		crearJugadores();
 	}
 	
 	/**
@@ -30,6 +31,14 @@ public class FullMoonGo {
 		jugadorNegro = new Jugador("Fiubense", ColorPiedra.NEGRO, tablero, new EstrategiaHumano());
 		jugadorBlanco = new Jugador("Random", ColorPiedra.BLANCO, tablero, new EstrategiaRandom());
 		
+	}
+	
+	public void crearTablero(){
+		tablero = new Tablero();
+	}
+	
+	public Tablero getTablero(){
+		return tablero;
 	}
 	
 	public void jugar() {

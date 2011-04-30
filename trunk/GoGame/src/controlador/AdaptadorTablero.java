@@ -3,6 +3,12 @@ package controlador;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import Juego.ColorPiedra;
+import Juego.FullMoonGo;
+import Juego.JugadaInvalidaException;
+import Juego.Posicion;
+import Juego.Tablero;
+
 import vista.TableroGo;
 
 /**
@@ -15,15 +21,27 @@ import vista.TableroGo;
  */
 public class AdaptadorTablero extends MouseAdapter {
 	
-	TableroGo tablero;
+	TableroGo ventanaTablero;
+	Tablero tablero;
 	
 	public AdaptadorTablero(TableroGo tableroGo){
-		tablero = tableroGo;
+		ventanaTablero = tableroGo;
+		tablero = FullMoonGo.getInstancia().getTablero();
 	}
 	
-public void mouseClicked(MouseEvent e){
-		
-		tablero.click(e.getX(), e.getY(), e.getButton()==MouseEvent.BUTTON1?0:1);
+	public void mouseClicked(MouseEvent e){
+			
+		Posicion p =  ventanaTablero.transformarPosicionFicha(e.getX(), e.getY());
+		try{
+			if(e.getButton()==MouseEvent.BUTTON1)
+				tablero.agregarPiedra(p, ColorPiedra.BLANCO);
+			else
+				tablero.agregarPiedra(ventanaTablero.estrategiaNegro().getJugada(), ColorPiedra.NEGRO);
+			}
+			catch(JugadaInvalidaException ex){
+				System.out.println("Eeeeeeeeeeeepa");
+				System.out.println(ex.toString());
+			}
 	}
 
 }

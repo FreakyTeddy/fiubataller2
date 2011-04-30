@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 
 import Juego.ColorPiedra;
 import Juego.Estrategia;
-import Juego.EstrategiaComputadora;
+import Juego.EstrategiaComputadoraAtacar;
 import Juego.JugadaInvalidaException;
 import Juego.Posicion;
 import Juego.Tablero;
@@ -29,7 +29,7 @@ public class TableroGo extends JPanel implements Observer{
 	private static final long serialVersionUID = 1L;
 
 	Tablero tablero;
-	Estrategia estrategia;
+	Estrategia estrategiaNegro;
 
 	String imageFile = "./images/woodboard.jpg";
 	
@@ -42,7 +42,7 @@ public class TableroGo extends JPanel implements Observer{
 		/* Lo pongo para probar, cuando este el controlador TIENE que volar*/
 		this.tablero = tablero;
 		tablero.addObserver(this);
-		estrategia = new EstrategiaComputadora(tablero);
+		estrategiaNegro = new EstrategiaComputadoraAtacar(tablero, ColorPiedra.NEGRO);
 	}
 	
 	@Override
@@ -117,7 +117,7 @@ public class TableroGo extends JPanel implements Observer{
 			if(n == 0)
 				tablero.agregarPiedra(p, ColorPiedra.BLANCO);
 			else
-				tablero.agregarPiedra(estrategia.getJugada(), ColorPiedra.NEGRO);
+				tablero.agregarPiedra(estrategiaNegro.getJugada(), ColorPiedra.NEGRO);
 		}
 		catch(JugadaInvalidaException e){
 			System.out.println("Eeeeeeeeeeeepa");

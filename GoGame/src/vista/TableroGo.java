@@ -21,14 +21,13 @@ import Juego.JugadaInvalidaException;
 import Juego.Posicion;
 import Juego.Tablero;
 
+@SuppressWarnings("serial")
 public class TableroGo extends JPanel implements Observer{
 	
 	private final int TAMANIO=9, x=50 , y=50;
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	private Image piedraBlanca;
+	private Image piedraNegra;
+	
 
 	Tablero tablero;
 	Estrategia estrategiaNegro;
@@ -113,8 +112,7 @@ public class TableroGo extends JPanel implements Observer{
 	}
 	
 	public void click(int x, int y, int n){
-		Posicion p = new Posicion((int)((x-this.x/2)/this.x), (int)((y-this.y/2)/this.y));
-		System.out.println("Click X:" +  p.getX() + " Y:" + p.getY());
+		Posicion p =  transformarPosicionFicha(x, y);
 		try{
 			if(n == 0)
 				tablero.agregarPiedra(p, ColorPiedra.BLANCO);
@@ -125,6 +123,19 @@ public class TableroGo extends JPanel implements Observer{
 			System.out.println("Eeeeeeeeeeeepa");
 			System.out.println(e.toString());
 		}
+	}
+	
+	/**
+	 * transforma coordenadas de vista a una posicion en el tablero
+	 */
+	public Posicion transformarPosicionFicha(int x, int y) {
+		Posicion p = new Posicion((int)((x-this.x/2)/this.x), (int)((y-this.y/2)/this.y));
+		System.out.println("Click X:" +  p.getX() + " Y:" + p.getY());
+		return p;
+	}
+	
+	public Estrategia estrategiaNegro(){
+		return estrategiaNegro;
 	}
 
 }

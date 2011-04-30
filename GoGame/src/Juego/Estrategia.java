@@ -12,7 +12,6 @@ package Juego;
 
 public interface Estrategia {
 
-	
 	/**
 	 * 
 	 * @return Posicion elegida para jugar la proxima piedra.

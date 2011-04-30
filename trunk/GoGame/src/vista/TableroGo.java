@@ -16,6 +16,7 @@ import Juego.ColorPiedra;
 import Juego.Estrategia;
 import Juego.EstrategiaComputadoraAtacar;
 import Juego.EstrategiaComputadoraAtaqueCuidadoso;
+import Juego.EstrategiaComputadoraAtaqueCuidadosoMasInteligente;
 import Juego.JugadaInvalidaException;
 import Juego.Posicion;
 import Juego.Tablero;
@@ -43,7 +44,7 @@ public class TableroGo extends JPanel implements Observer{
 		/* Lo pongo para probar, cuando este el controlador TIENE que volar*/
 		this.tablero = tablero;
 		tablero.addObserver(this);
-		estrategiaNegro = new EstrategiaComputadoraAtaqueCuidadoso(tablero, ColorPiedra.NEGRO);
+		estrategiaNegro = new EstrategiaComputadoraAtaqueCuidadosoMasInteligente(tablero, ColorPiedra.NEGRO);
 	}
 	
 	@Override

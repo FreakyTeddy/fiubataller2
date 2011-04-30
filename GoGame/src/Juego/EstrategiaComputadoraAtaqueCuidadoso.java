@@ -19,7 +19,7 @@ public class EstrategiaComputadoraAtaqueCuidadoso extends EstrategiaComputadora{
 
 		Collections.sort(cadenas, new ordenadorCadenasPorMenorGradoDeLibertadYMayorLongitud());
 		
-		if(cadenas.size()>0 && cadenas.get(0).getGradosDeLibertad() <= 1)
+		if(cadenas.size()>0 && cadenas.get(0).getGradosDeLibertad() <= 2)
 			return defender.generarJugada();
 		return atacar.generarJugada();
 	}

@@ -65,10 +65,10 @@ public abstract class EstrategiaComputadora implements Estrategia {
 		 return filtrarCadenas(_tablero.obtenerCadenas(),miColor);
 	 }
 
-	 ArrayList<Cadena> obtenerCadenasPropias(){
+	ArrayList<Cadena> obtenerCadenasPropias(){
 
-		 return filtrarCadenas(_tablero.obtenerCadenas(),miColor==ColorPiedra.BLANCO?ColorPiedra.NEGRO:ColorPiedra.BLANCO);
-	 }
+		return filtrarCadenas(_tablero.obtenerCadenas(),miColor==ColorPiedra.BLANCO?ColorPiedra.NEGRO:ColorPiedra.BLANCO);
+	}
 
 	Posicion estrategiaRandom(){
 		ArrayList<Posicion> libres = _tablero.obtenerCasillerosLibres();

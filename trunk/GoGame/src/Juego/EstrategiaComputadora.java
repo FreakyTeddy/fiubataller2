@@ -19,10 +19,6 @@ public abstract class EstrategiaComputadora implements Estrategia {
 		return generarJugada();
 	}
 
-	@Override
-	public void informarJugadaInvalida() {}
-
-
 	public void setColor(ColorPiedra color) {
 		miColor = color;
 	}

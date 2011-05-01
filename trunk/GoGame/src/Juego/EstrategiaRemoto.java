@@ -18,7 +18,6 @@ public class EstrategiaRemoto implements Estrategia {
 		return _mensajero.recibirJugada();
 	}
 
-	@Override
 	public void informarJugadaInvalida() {
 		_mensajero.informarJugadaInvalida();		
 	}

@@ -25,14 +25,18 @@ import Juego.Tablero;
 public class TableroGo extends JPanel implements Observer{
 	
 	private final int TAMANIO=9, x=50 , y=50;
-	private Image piedraBlanca;
-	private Image piedraNegra;
 	
+	private Image imagenTablero;
+	private Image imagenBlanca;
+	private Image imagenNegra;
 
-	Tablero tablero;
-	Estrategia estrategiaNegro;
+	private final String pathImagenTablero = "./images/woodboard.jpg";
+	private final String pathImagenBlanca = "./images/blanca.png";
+	private final String pathImagenNegra = "./images/negra.png";
+	
+	private Tablero tablero;
+	private Estrategia estrategiaNegro;
 
-	String imageFile = "./images/woodboard.jpg";
 	
 	/**
 	 * Create the panel.
@@ -44,6 +48,17 @@ public class TableroGo extends JPanel implements Observer{
 		this.tablero = tablero;
 		tablero.addObserver(this);
 		estrategiaNegro = new EstrategiaComputadoraAtaqueCuidadosoMasInteligente(tablero, ColorPiedra.NEGRO);
+		cargarImagenes();
+	}
+	
+	private void cargarImagenes() {
+		//TODO:Usar class loader para que funcione cuando se hace el jar.
+		ImageIcon imageicon = new ImageIcon(pathImagenTablero);  
+		imagenTablero = imageicon.getImage();
+		ImageIcon imageicon1 = new ImageIcon(pathImagenBlanca);  
+		imagenBlanca = imageicon1.getImage();
+		ImageIcon imageicon2 = new ImageIcon(pathImagenNegra);  
+		imagenNegra = imageicon2.getImage();
 	}
 	
 	@Override
@@ -51,19 +66,30 @@ public class TableroGo extends JPanel implements Observer{
 		
 		super.paintComponent(g);
 		
-		//TODO:Usar class loader para que funcione cuando se hace el jar.
-		ImageIcon imageicon = new ImageIcon(imageFile);  
-		Image image = imageicon.getImage();  
-		if (image != null)  
-		 g.drawImage(image, 0, 0, getWidth(), getHeight(), this);  
+		if (imagenTablero != null)  
+		 g.drawImage(imagenTablero, 0, 0, getWidth(), getHeight(), this);  
 	
-	
-		Graphics2D g2d = (Graphics2D) g;
-		dibujarTablero(g2d);
-		dibujarFichas(g2d);
-		
+		dibujarTablero((Graphics2D) g);		
+		dibujarImagenFichas(g);	
 	}
 
+	private void dibujarImagenFichas(Graphics g) {
+		if (tablero == null)
+			return;
+
+		for (int j = 1; j <= TAMANIO; j++) {
+			for (int i = 1; i <= TAMANIO; i++) {
+				ColorPiedra color = tablero.getCasillero(new Posicion(i-1,j-1));
+
+				if (color == ColorPiedra.BLANCO)
+					g.drawImage(imagenBlanca, x*i-x*3/8,y*j-y*3/8, this);
+
+				if (color == ColorPiedra.NEGRO)
+					g.drawImage(imagenNegra,x*i-x*3/8,y*j-y*3/8, this);
+			}
+		}
+	}
+	
 	//TODO: Mejorar esto, podria ser un gradiente, o directamente usar images.
 	private void dibujarFichas(Graphics2D g2d) {
 		if (tablero == null)

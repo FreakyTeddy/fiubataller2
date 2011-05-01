@@ -90,33 +90,6 @@ public class TableroGo extends JPanel implements Observer{
 		}
 	}
 	
-	//TODO: Mejorar esto, podria ser un gradiente, o directamente usar images.
-	private void dibujarFichas(Graphics2D g2d) {
-		if (tablero == null)
-			return;
-
-		for (int j = 1; j <= TAMANIO; j++)
-			for (int i = 1; i <= TAMANIO; i++) {
-				ColorPiedra color = tablero.getCasillero(new Posicion(i-1,j-1));
-
-				
-				/* cof cof*/
-				if (color == ColorPiedra.VACIO)
-					continue;
-				if (color == ColorPiedra.BLANCO)
-					g2d.setPaint(Color.WHITE);
-				else
-					g2d.setPaint(Color.BLACK);
-
-				/* cof cof cof cof cof.... */
-
-		
-				g2d.fill(new Ellipse2D.Float(x*i-x*3/8,y*j-y*3/8,x*3/4,y*3/4));
-			}
-	}
-
-
-	
 	private void dibujarTablero(Graphics2D g) {
 		g.setStroke(new BasicStroke(4, BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND ));
 		g.setColor(Color.BLACK);

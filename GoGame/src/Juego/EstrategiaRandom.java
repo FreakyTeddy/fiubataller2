@@ -7,7 +7,4 @@ public class EstrategiaRandom implements Estrategia {
 		return new Posicion((int)(Math.random()*19),(int) (Math.random()*19));
 	}
 
-	@Override
-	public void informarJugadaInvalida() {}
-
 }

@@ -18,6 +18,4 @@ public interface Estrategia {
 	 */
 	public Posicion getJugada();
 	
-	public void informarJugadaInvalida();
-		
 }

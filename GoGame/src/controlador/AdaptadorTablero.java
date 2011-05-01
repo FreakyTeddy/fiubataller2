@@ -4,7 +4,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import Juego.ColorPiedra;
-import Juego.FullMoonGo;
+import Juego.Estrategia;
 import Juego.JugadaInvalidaException;
 import Juego.Posicion;
 import Juego.Tablero;
@@ -19,10 +19,11 @@ import vista.TableroGo;
  * @author matias
  *
  */
-public class AdaptadorTablero extends MouseAdapter {
+public class AdaptadorTablero extends MouseAdapter implements Estrategia {
 	
 	TableroGo ventanaTablero;
 	Tablero tablero;
+	Posicion ultimaPiedra;
 	
 	public AdaptadorTablero(TableroGo tableroGo){
 		ventanaTablero = tableroGo;
@@ -30,11 +31,12 @@ public class AdaptadorTablero extends MouseAdapter {
 	}
 	
 	public void mouseClicked(MouseEvent e){
-			
-		Posicion p =  ventanaTablero.transformarPosicionFicha(e.getX(), e.getY());
+			//TODO sacar el agregar piedra!!! ver una forma linda de hacer esto
 		try{
-			if(e.getButton()==MouseEvent.BUTTON1)
-				tablero.agregarPiedra(p, ColorPiedra.BLANCO);
+			if(e.getButton()==MouseEvent.BUTTON1){
+				ultimaPiedra =  ventanaTablero.transformarPosicionFicha(e.getX(), e.getY());
+				tablero.agregarPiedra(ultimaPiedra, ColorPiedra.BLANCO);
+			}
 			else
 				tablero.agregarPiedra(ventanaTablero.estrategiaNegro().getJugada(), ColorPiedra.NEGRO);
 			}
@@ -42,6 +44,11 @@ public class AdaptadorTablero extends MouseAdapter {
 				System.out.println("Eeeeeeeeeeeepa");
 				System.out.println(ex.toString());
 			}
+	}
+
+	@Override
+	public Posicion getJugada() {
+		return ultimaPiedra;
 	}
 
 }

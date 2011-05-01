@@ -1,10 +1,18 @@
-package Juego;
+package controlador;
+
+import vista.AppWindow;
+import Juego.ColorPiedra;
+import Juego.EstrategiaRandom;
+import Juego.FinDelJuegoException;
+import Juego.Jugador;
+import Juego.Tablero;
 
 public class FullMoonGo {
 
 	private Jugador jugadorBlanco;
 	private Jugador jugadorNegro;
 	private Tablero tablero;
+	private AppWindow vista;
 	static private FullMoonGo instancia = null;
 	
 	static public FullMoonGo getInstancia(){
@@ -17,6 +25,7 @@ public class FullMoonGo {
 		jugadorBlanco = null;
 		jugadorNegro = null;
 		tablero = null;
+		vista = null;
 	}
     
 	public void nuevaPartida(){
@@ -28,13 +37,16 @@ public class FullMoonGo {
 	 * TODO ver como crear los jugadores
 	 */
 	public void crearJugadores() {
-		jugadorNegro = new Jugador("Fiubense", ColorPiedra.NEGRO, tablero, new EstrategiaHumano());
+		AdaptadorTablero mouseListener = new AdaptadorTablero(vista.getVistaTablero());
+		vista.getVistaTablero().addMouseListener(mouseListener);
+		jugadorNegro = new Jugador("Fiubense", ColorPiedra.NEGRO, tablero, mouseListener);
 		jugadorBlanco = new Jugador("Random", ColorPiedra.BLANCO, tablero, new EstrategiaRandom());
 		
 	}
 	
 	public void crearTablero(){
 		tablero = new Tablero();
+		vista = new AppWindow(tablero);
 	}
 	
 	public Tablero getTablero(){
@@ -51,6 +63,12 @@ public class FullMoonGo {
 			System.out.println(e);
 		}
 	}
+	
+	public static void main(String[] args) {
+		FullMoonGo.getInstancia().nuevaPartida();
+//		FullMoonGo.getInstancia().jugar();
+	}
+
 	
 }
 

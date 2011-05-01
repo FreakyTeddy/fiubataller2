@@ -7,9 +7,12 @@ public class GTP {
 	private static String PROGRAM_NAME="GNU Go";
 	private static String PROGRAM_VERSION="1";
 	
-	int id;
+	private int id;
+	
+	private ControladorMsjsEntrantes controladorEntrante;
 	
 	public GTP() {
+		controladorEntrante= new ControladorMsjsEntrantes();
 		this.id= 0;
 	}
 	
@@ -84,4 +87,11 @@ public class GTP {
 		this.id++;
 		return id + " " + Constantes.GENMOVE + " " + color + "\n";
 	}	
+	
+	/*******************************
+	 * Procesar mensajes entrentes *
+	 *******************************/	
+	public void procesarMensajeEntrante(String mensaje) {
+		controladorEntrante.procesarMensaje(mensaje);
+	}
 }

@@ -9,7 +9,6 @@ import org.junit.Test;
 import Remoto.GTP.Constantes;
 import Remoto.GTP.GTP;
 
-
 public class Test_GTP {
 	
 	private GTP gtp;
@@ -27,42 +26,53 @@ public class Test_GTP {
 	@Test
 	public void testMensajesAdministrativos(){
 		String msjVersionProtocolo= gtp.mensajeVersionProtocolo();
-		assertEquals(msjVersionProtocolo, "1 protocol_version 1\n");
+		assertEquals(msjVersionProtocolo, "1 " + Constantes.PROTOCOL_VERSION + " 1\n");
 		String msjSalir= gtp.mensajeSalir();
-		assertEquals(msjSalir, "2 quit\n");
+		assertEquals(msjSalir, "2 " + Constantes.QUIT + "\n");
 	}
 
 	@Test
 	public void testMensajesIdentificacionPrograma(){
 		String msjNombre= gtp.mensajeNombre();
-		assertEquals(msjNombre, "1 name GNU Go\n");
+		assertEquals(msjNombre, "1 " + Constantes.NAME + " GNU Go\n");
 		String msjVersion= gtp.mensajeVersion();
-		assertEquals(msjVersion, "2 version 1\n");
+		assertEquals(msjVersion, "2 " + Constantes.VERSION + " 1\n");
 	}
 
 	@Test
 	public void testMensajesComandos(){
 		String msjComandoSoportado= gtp.mensajeComandoSoportado(Constantes.QUIT);
-		assertEquals(msjComandoSoportado, "1 known_command quit\n");
+		assertEquals(msjComandoSoportado, "1 " + Constantes.KNOWN_COMMAND + " quit\n");
 		String msjListarComandos= gtp.mensajeListarCommandos();
-		assertEquals(msjListarComandos, "2 list_commands\n");
+		assertEquals(msjListarComandos, "2 "+ Constantes.LIST_COMMANDS + "\n");
 	}
 	
 	@Test
 	public void testMensajesSetup(){
 		String msjTamanioTablero= gtp.mensajeTamanioTablero(19);
-		assertEquals(msjTamanioTablero, "1 boardsize 19\n");
+		assertEquals(msjTamanioTablero, "1 " + Constantes.BOARDSIZE + " 19\n");
 		String msjLimpiarTablero= gtp.mensajeLimpiarTablero();
-		assertEquals(msjLimpiarTablero, "2 clear_board\n");
+		assertEquals(msjLimpiarTablero, "2 " + Constantes.CLEAR_BOARD + "\n");
 		String msjKomi= gtp.mensajeKomi(5.5);
-		assertEquals(msjKomi, "3 komi 5.5\n");
+		assertEquals(msjKomi, "3 " + Constantes.KOMI + " 5.5\n");
 	}
 	
 	@Test
 	public void testMensajesJuego(){
 		String msjJugar= gtp.mensajeJugar("black", "C5");
-		assertEquals(msjJugar, "1 play black C5\n");
+		assertEquals(msjJugar, "1 " + Constantes.PLAY + " black C5\n");
 		String msjGenMovimiento= gtp.mensajeGenMovimiento("white");
-		assertEquals(msjGenMovimiento, "2 genmove white\n");
+		assertEquals(msjGenMovimiento, "2 " + Constantes.GENMOVE + " white\n");
+	}
+	
+	@Test
+	public void testCadena() {
+		String mensaje= "1 " + Constantes.PROTOCOL_VERSION + " 1\n";
+		gtp.procesarMensajeEntrante(mensaje);
+		mensaje= "2 " + Constantes.NAME + " GNU Go\n";
+		gtp.procesarMensajeEntrante(mensaje);
+		mensaje= "3 Mensaje cualquiera";
+		gtp.procesarMensajeEntrante(mensaje);
+
 	}
 }

@@ -12,7 +12,7 @@ public class GTP {
 	private ControladorMsjsEntrantes controladorEntrante;
 	
 	public GTP() {
-		controladorEntrante= new ControladorMsjsEntrantes();
+		controladorEntrante= new ControladorMsjsEntrantes(this);
 		this.id= 0;
 	}
 	
@@ -22,12 +22,12 @@ public class GTP {
 	
 	public String mensajeVersionProtocolo() {
 		this.id++;
-		return id + " " + Constantes.PROTOCOL_VERSION + " " + NRO_PROTOCOL_VERSION + "\n";
+		return id + " " + Constantes.PROTOCOL_VERSION + " " + NRO_PROTOCOL_VERSION + Constantes.FIN_MSJ;
 	}
 	
 	public String mensajeSalir() {
 		this.id++;
-		return id + " " + Constantes.QUIT + "\n";
+		return id + " " + Constantes.QUIT + Constantes.FIN_MSJ;
 	}
 
 	/*******************************
@@ -36,12 +36,12 @@ public class GTP {
 	
 	public String mensajeNombre() {
 		this.id++;
-		return id + " " + Constantes.NAME + " " + PROGRAM_NAME + "\n";
+		return id + " " + Constantes.NAME + " " + PROGRAM_NAME + Constantes.FIN_MSJ;
 	}
 	
 	public String mensajeVersion() {
 		this.id++;
-		return id + " " + Constantes.VERSION + " " + PROGRAM_VERSION + "\n";
+		return id + " " + Constantes.VERSION + " " + PROGRAM_VERSION + Constantes.FIN_MSJ;
 	}
 	
 	/*********************
@@ -49,12 +49,12 @@ public class GTP {
 	 *********************/
 	public String mensajeComandoSoportado(String comando) {
 		this.id++;
-		return id + " " + Constantes.KNOWN_COMMAND + " " + comando + "\n";
+		return id + " " + Constantes.KNOWN_COMMAND + " " + comando + Constantes.FIN_MSJ;
 	}
 	
 	public String mensajeListarCommandos() {
 		this.id++;
-		return id + " " + Constantes.LIST_COMMANDS + "\n";
+		return id + " " + Constantes.LIST_COMMANDS + Constantes.FIN_MSJ;
 	}
 	
 	/******************
@@ -62,17 +62,17 @@ public class GTP {
 	 ******************/
 	public String mensajeTamanioTablero(int tamanio) {
 		this.id++;
-		return id + " " + Constantes.BOARDSIZE + " " + tamanio + "\n";
+		return id + " " + Constantes.BOARDSIZE + " " + tamanio + Constantes.FIN_MSJ;
 	}	
 	
 	public String mensajeLimpiarTablero() {
 		this.id++;
-		return id + " " + Constantes.CLEAR_BOARD + "\n";
+		return id + " " + Constantes.CLEAR_BOARD + Constantes.FIN_MSJ;
 	}	
 	
 	public String mensajeKomi(double komi) {
 		this.id++;
-		return id + " " + Constantes.KOMI + " " + komi + "\n";
+		return id + " " + Constantes.KOMI + " " + komi + Constantes.FIN_MSJ;
 	}	
 
 	/******************
@@ -80,18 +80,19 @@ public class GTP {
 	 ******************/
 	public String mensajeJugar(String color, String posicion) {
 		this.id++;
-		return id + " " + Constantes.PLAY + " " + color + " " + posicion + "\n";
+		return id + " " + Constantes.PLAY + " " + color + " " + posicion + Constantes.FIN_MSJ;
 	}	
 
 	public String mensajeGenMovimiento(String color) {
 		this.id++;
-		return id + " " + Constantes.GENMOVE + " " + color + "\n";
+		return id + " " + Constantes.GENMOVE + " " + color + Constantes.FIN_MSJ;
 	}	
 	
 	/*******************************
 	 * Procesar mensajes entrentes *
 	 *******************************/	
 	public void procesarMensajeEntrante(String mensaje) {
+		System.out.println(mensaje);	
 		controladorEntrante.procesarMensaje(mensaje);
 	}
 }

@@ -67,12 +67,31 @@ public class Test_GTP {
 	
 	@Test
 	public void testCadena() {
-		String mensaje= "1 " + Constantes.PROTOCOL_VERSION + " 1\n";
+		String mensaje= gtp.mensajeVersionProtocolo();
 		gtp.procesarMensajeEntrante(mensaje);
-		mensaje= "2 " + Constantes.NAME + " GNU Go\n";
+		mensaje= gtp.mensajeNombre();
 		gtp.procesarMensajeEntrante(mensaje);
-		mensaje= "3 Mensaje cualquiera";
+		mensaje= gtp.mensajeVersion();
 		gtp.procesarMensajeEntrante(mensaje);
-
+		mensaje= gtp.mensajeListarCommandos();
+		gtp.procesarMensajeEntrante(mensaje);
+		mensaje= gtp.mensajeComandoSoportado(Constantes.QUIT);
+		gtp.procesarMensajeEntrante(mensaje);
+		mensaje= gtp.mensajeTamanioTablero(5);
+		gtp.procesarMensajeEntrante(mensaje);
+		mensaje= gtp.mensajeLimpiarTablero();
+		gtp.procesarMensajeEntrante(mensaje);
+		mensaje= gtp.mensajeJugar("black", "C5");
+		gtp.procesarMensajeEntrante(mensaje);
+		mensaje= gtp.mensajeGenMovimiento("white");
+		gtp.procesarMensajeEntrante(mensaje);
+		mensaje= gtp.mensajeKomi(5.5);
+		gtp.procesarMensajeEntrante(mensaje);
+		mensaje= "11 Mensaje cualquiera";
+		gtp.procesarMensajeEntrante(mensaje);
+		mensaje= gtp.mensajeLimpiarTablero();
+		gtp.procesarMensajeEntrante(mensaje);
+		mensaje= gtp.mensajeSalir();
+		gtp.procesarMensajeEntrante(mensaje);
 	}
 }

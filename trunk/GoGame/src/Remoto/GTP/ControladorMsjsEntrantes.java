@@ -31,24 +31,24 @@ public class ControladorMsjsEntrantes {
 	
 	private static String DELIMITADORES= "[ \n]";
 	
-	public ControladorMsjsEntrantes() {
-		iniciarCadenas();
+	public ControladorMsjsEntrantes(GTP gtp) {
+		iniciarCadenas(gtp);
 		encadenarCadenas();
 	}
 
-	private void iniciarCadenas() {
-		cadenaVersionProtocolo= new CadenaVersionProtocolo();
-		cadenaNombre= new CadenaNombre();
-		cadenaVersion= new CadenaVersion();
-		cadenaComandoSoportado= new CadenaComandoSoportado();
-		cadenaListarComandos= new CadenaListarComandos();
-		cadenaTamanioTablero= new CadenaTamanioTablero();
-		cadenaLimpiarTablero= new CadenaLimpiarTablero();
-		cadenaKomi= new CadenaKomi();
-		cadenaJugar= new CadenaJugar();
-		cadenaGenMovimiento= new CadenaGenMovimiento();
-		cadenaSalida= new CadenaSalida();
-		cadenaDefault= new CadenaDefault();
+	private void iniciarCadenas(GTP gtp) {
+		cadenaVersionProtocolo= new CadenaVersionProtocolo(gtp);
+		cadenaNombre= new CadenaNombre(gtp);
+		cadenaVersion= new CadenaVersion(gtp);
+		cadenaComandoSoportado= new CadenaComandoSoportado(gtp);
+		cadenaListarComandos= new CadenaListarComandos(gtp);
+		cadenaTamanioTablero= new CadenaTamanioTablero(gtp);
+		cadenaLimpiarTablero= new CadenaLimpiarTablero(gtp);
+		cadenaKomi= new CadenaKomi(gtp);
+		cadenaJugar= new CadenaJugar(gtp);
+		cadenaGenMovimiento= new CadenaGenMovimiento(gtp);
+		cadenaSalida= new CadenaSalida(gtp);
+		cadenaDefault= new CadenaDefault(gtp);
 	}
 	
 	private void encadenarCadenas() {

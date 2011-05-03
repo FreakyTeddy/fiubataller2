@@ -1,22 +1,23 @@
 package Remoto.GTP.ParsearMensajes;
 
+import Remoto.Remoto;
 import Remoto.GTP.Constantes;
-import Remoto.GTP.GTP;
 
 public class CadenaKomi extends CadenaGTP {
 
-	public CadenaKomi(GTP gtp) {
-		super(gtp);
+	public CadenaKomi(Remoto remoto) {
+		super(remoto);
 	}
 
 	@Override
-	public void enviarSgteCadena(String[] mensaje) {
+	public String enviarSgteCadena(String[] mensaje) {
 		if(!(mensaje[1].equals(Constantes.KOMI)))
-			cadenaSgte.enviarSgteCadena(mensaje);
+			return cadenaSgte.enviarSgteCadena(mensaje);
 		else {
 			System.out.println("Cadena Komi");
 			String mensajeRta= Constantes.INICIO_MSJ_RTA + mensaje[0] + " " + Constantes.FIN_MSJ_RTA;
 			System.out.println("Respuesta " + mensajeRta);	
+			return mensajeRta;
 		}
 	}
 }

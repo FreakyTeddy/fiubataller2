@@ -6,20 +6,24 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import Remoto.Remoto;
 import Remoto.GTP.Constantes;
 import Remoto.GTP.GTP;
 
 public class Test_GTP {
 	
 	private GTP gtp;
+	private Remoto remoto;
 	
 	@Before
 	public void setUp() throws Exception {
-		gtp= new GTP();
+		remoto= new Remoto();
+		gtp= new GTP(remoto);
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		remoto= null;
 		gtp= null;
 	}
 	
@@ -64,7 +68,7 @@ public class Test_GTP {
 		String msjGenMovimiento= gtp.mensajeGenMovimiento("white");
 		assertEquals(msjGenMovimiento, "2 " + Constantes.GENMOVE + " white\n");
 	}
-	
+	/*
 	@Test
 	public void testCadena() {
 		String mensaje= gtp.mensajeVersionProtocolo();
@@ -93,5 +97,10 @@ public class Test_GTP {
 		gtp.procesarMensajeEntrante(mensaje);
 		mensaje= gtp.mensajeSalir();
 		gtp.procesarMensajeEntrante(mensaje);
+	}*/
+	
+	@Test
+	public void testConexionAServidor() {
+		remoto.iniciar();
 	}
 }

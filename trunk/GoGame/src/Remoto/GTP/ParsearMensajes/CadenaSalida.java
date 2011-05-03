@@ -1,11 +1,11 @@
 package Remoto.GTP.ParsearMensajes;
 
-import Remoto.Remoto;
+import Remoto.Cliente;
 import Remoto.GTP.Constantes;
 
 public class CadenaSalida extends CadenaGTP {
 
-	public CadenaSalida(Remoto remoto) {
+	public CadenaSalida(Cliente remoto) {
 		super(remoto);
 	}
 
@@ -17,7 +17,7 @@ public class CadenaSalida extends CadenaGTP {
 			System.out.println("Cadena Salida");
 			String mensajeRta= Constantes.INICIO_MSJ_RTA + mensaje[0] + Constantes.FIN_MSJ_RTA;
 			System.out.println("Respuesta " + mensajeRta);	
-			remoto.finConexion();
+			//remoto.finConexion();
 			return mensajeRta;
 		}
 	}

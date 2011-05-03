@@ -6,24 +6,24 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import Remoto.Remoto;
+import Remoto.Cliente;
 import Remoto.GTP.Constantes;
 import Remoto.GTP.GTP;
 
 public class Test_GTP {
 	
 	private GTP gtp;
-	private Remoto remoto;
+	private Cliente cliente;
 	
 	@Before
 	public void setUp() throws Exception {
-		remoto= new Remoto();
-		gtp= new GTP(remoto);
+		cliente= new Cliente();
+		gtp= new GTP(cliente);
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		remoto= null;
+		cliente= null;
 		gtp= null;
 	}
 	
@@ -101,6 +101,6 @@ public class Test_GTP {
 	
 	@Test
 	public void testConexionAServidor() {
-		remoto.iniciar();
+		cliente.iniciar("127.0.0.1", 3333);
 	}
 }

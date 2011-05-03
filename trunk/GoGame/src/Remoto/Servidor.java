@@ -110,10 +110,11 @@ public class Servidor {
 	
 	public static void main( String[] arg ) {
 	
-		Servidor s = new Servidor(5000);
+		Servidor s = new Servidor(1234);
 		for(int i=0;i<3;i++){
 			s.aceptarCliente();
 			if( s.estaConectado()){
+				s.recibir();
 				s.enviar("1 " + Constantes.PROTOCOL_VERSION + " 1" + Constantes.FIN_MSJ);
 				s.recibir();
 				s.enviar("2 " + Constantes.QUIT + Constantes.FIN_MSJ);

@@ -68,7 +68,7 @@ public class Test_GTP {
 		String msjGenMovimiento= gtp.mensajeGenMovimiento("white");
 		assertEquals(msjGenMovimiento, "2 " + Constantes.GENMOVE + " white\n");
 	}
-	/*
+	
 	@Test
 	public void testCadena() {
 		String mensaje= gtp.mensajeVersionProtocolo();
@@ -96,11 +96,23 @@ public class Test_GTP {
 		mensaje= gtp.mensajeLimpiarTablero();
 		gtp.procesarMensajeEntrante(mensaje);
 		mensaje= gtp.mensajeSalir();
+		gtp.procesarMensajeEntrante(mensaje);	
+		mensaje= "Hola";
 		gtp.procesarMensajeEntrante(mensaje);
-	}*/
+	}
 	
 	@Test
 	public void testConexionAServidor() {
-		cliente.iniciar("127.0.0.1", 3333);
+		boolean salida= cliente.iniciar("localhost", 1234);
+		System.out.println("Salida: " + salida);
+        cliente.enviarMensaje("1 boardsize 7");
+        cliente.enviarMensaje("2 clear_board");
+        cliente.enviarMensaje("3 play black D5");
+        cliente.enviarMensaje("4 genmove white");
+        cliente.enviarMensaje("5 play black C3");
+        cliente.enviarMensaje("6 play black E3");
+        cliente.enviarMensaje("7 showboard");
+        cliente.enviarMensaje("8 quit");
+		cliente.terminar2();
 	}
 }

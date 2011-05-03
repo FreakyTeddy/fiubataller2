@@ -1,3 +1,4 @@
+/*
 package Remoto;
 
 import java.io.IOException;
@@ -6,26 +7,36 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class SocketServidor {
+public class SocketServidor extends Thread {
 
         private static final int PORT=1234;
         
+        private Servidor servidor;
         private boolean quit;
         private Socket incoming;
         private ServerSocket socket;
         private ObjectOutputStream data_out;
         private ObjectInputStream data_in;
+
+        public SocketServidor(Servidor servidor) {
+            this.servidor= servidor;
+          
+        }
         
-        public void startListening() {
+        public void run() {
+        	startListening();
+        }
+
+        private void startListening() {
                         this.quit = false;
                         try {
-                                socket = new ServerSocket(3333);
-                              waitConection();
-                                //server.clienConnect();
+                                socket = new ServerSocket(PORT);
+                                waitConection();
+                                servidor.clienConnect();
                                 startBuffers();
                                 receiveMessage();
                                 closeConnection();
-                                //server.clienDisconnect();
+                                servidor.clienDisconnect();
                         } catch (Exception e) { 
                                 System.out.println(">> EXCEPTION: startListening <<");
                                 this.stopSocket();
@@ -35,13 +46,14 @@ public class SocketServidor {
         }
 
         private void waitConection() throws IOException {
-                System.out.println(">Server started. Waiting for connections...");
+                System.out.println(">Servidor creado en puerto:" + PORT);
+                System.out.println(">Esperando conexiones...");
                 incoming = socket.accept();
                 System.out.println(">Conection: " + socket.getInetAddress().getHostName());
         }
         
         private void startBuffers() throws IOException {
-          //Salida
+        		//Salida
                 data_out = new ObjectOutputStream(incoming.getOutputStream());
                 data_out.flush();
                 //Entrada
@@ -50,14 +62,15 @@ public class SocketServidor {
         
         private void receiveMessage() throws IOException {
                 //Mensaje de bienvenida
-                String wel = "bienvenido";
+                String wel= "bienvenido";
                 sendMessage(wel);
                 
                 while(!this.quit) {
                         try {
                     System.out.println(">> Waiting message...");
                                 String messageReceive = (String) data_in.readObject();
-                          System.out.println("CLIENT>>: " + messageReceive);
+                          System.out.println("FROM_CLIENT>>: " + messageReceive);
+                          servidor.processMessage(messageReceive);
                           //if(!server.processMessage(messageReceive))
                            //     this.quit = true;
                         } catch (Exception e) {
@@ -69,11 +82,11 @@ public class SocketServidor {
         
         public void sendMessage(String messageTosend) {
                  try {
-                         //if(server.isClientConnect()) {
+                         if(servidor.isClientConnect()) {
                                  System.out.println("SEND>> " + messageTosend);
                                  data_out.writeObject(messageTosend);
                                  data_out.flush();
-                         //}
+                         }
                  } catch (IOException excepcionES) {
                          System.out.println(">> EXCEPTION: sendMessage <<");
                  }
@@ -99,16 +112,6 @@ public class SocketServidor {
                 }
         }
 
-    	public static void main( String[] arg ) {
-    		
-    		SocketServidor s = new SocketServidor();
-    		s.startListening();
- /*   				s.recibir();
-    				s.enviar("1 " + Constantes.PROTOCOL_VERSION + " 1" + Constantes.FIN_MSJ);
-    				s.recibir();
-    				s.enviar("2 " + Constantes.QUIT + Constantes.FIN_MSJ);
-    				s.recibir();
-    				s.cerrarConexionCliente();*/
-    	}
+
         
-}
+}*/

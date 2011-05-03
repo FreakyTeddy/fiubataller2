@@ -11,6 +11,8 @@ public class CadenaTamanioTablero extends CadenaGTP {
 
 	@Override
 	public String enviarSgteCadena(String[] mensaje) {	
+		if(mensaje.length <= 1)
+			return cadenaSgte.enviarSgteCadena(mensaje);	
 		if(!(mensaje[1].equals(Constantes.BOARDSIZE)))
 			return cadenaSgte.enviarSgteCadena(mensaje);
 		else {

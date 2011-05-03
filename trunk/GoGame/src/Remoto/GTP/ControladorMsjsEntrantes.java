@@ -67,8 +67,7 @@ public class ControladorMsjsEntrantes {
 	}
 	
 	public String procesarMensaje(String mensaje) {
-		String delimitadores = DELIMITADORES;
-		String[] palabras= mensaje.split(delimitadores);
+		String[] palabras= mensaje.split(DELIMITADORES);
 		return cadenaVersionProtocolo.enviarSgteCadena(palabras);
 	}
 }

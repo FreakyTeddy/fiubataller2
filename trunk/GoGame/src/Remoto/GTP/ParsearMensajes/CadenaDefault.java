@@ -10,8 +10,8 @@ public class CadenaDefault extends CadenaGTP {
 
 	@Override
 	public String enviarSgteCadena(String[] mensaje) {
-		System.out.println("Cadena Default");
-		return "Nadie";
+		//System.out.println("Cadena Default");
+		return "";
 	}
 
 }

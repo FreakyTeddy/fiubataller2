@@ -104,7 +104,7 @@ public class Tablero extends Observable {
 		Cadena nuevaCadena = new Cadena(posicion, color, this);
 
 		if (estaOcupado(posicion))
-			throw new JugadaInvalidaException("El casillero ya esta ocpado");
+			throw new JugadaInvalidaException("El casillero ya esta ocupado");
 
 		// Hago una copia de las cadenas actuales
 		ArrayList<Cadena> todasLasCadenas = new ArrayList<Cadena>();

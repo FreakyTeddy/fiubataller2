@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.geom.Ellipse2D;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -129,7 +128,6 @@ public class TableroGo extends JPanel implements Observer{
 	 */
 	public Posicion transformarPosicionFicha(int x, int y) {
 		Posicion p = new Posicion((int)((x-this.x/2)/this.x), (int)((y-this.y/2)/this.y));
-		System.out.println("Click X:" +  p.getX() + " Y:" + p.getY());
 		return p;
 	}
 	

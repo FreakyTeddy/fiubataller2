@@ -40,7 +40,7 @@ public class Jugador {
 				valida = true;
 			}catch (JugadaInvalidaException ex){
 //				_estrategia.informarJugadaInvalida();
-				System.out.println(ex);
+				System.out.println(_nombre + ": " + ex);
 			}
 		}
 	}

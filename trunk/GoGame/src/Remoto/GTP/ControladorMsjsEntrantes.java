@@ -1,5 +1,6 @@
 package Remoto.GTP;
 
+import Remoto.Remoto;
 import Remoto.GTP.ParsearMensajes.CadenaComandoSoportado;
 import Remoto.GTP.ParsearMensajes.CadenaDefault;
 import Remoto.GTP.ParsearMensajes.CadenaGTP;
@@ -31,24 +32,24 @@ public class ControladorMsjsEntrantes {
 	
 	private static String DELIMITADORES= "[ \n]";
 	
-	public ControladorMsjsEntrantes(GTP gtp) {
-		iniciarCadenas(gtp);
+	public ControladorMsjsEntrantes(Remoto remoto) {
+		iniciarCadenas(remoto);
 		encadenarCadenas();
 	}
 
-	private void iniciarCadenas(GTP gtp) {
-		cadenaVersionProtocolo= new CadenaVersionProtocolo(gtp);
-		cadenaNombre= new CadenaNombre(gtp);
-		cadenaVersion= new CadenaVersion(gtp);
-		cadenaComandoSoportado= new CadenaComandoSoportado(gtp);
-		cadenaListarComandos= new CadenaListarComandos(gtp);
-		cadenaTamanioTablero= new CadenaTamanioTablero(gtp);
-		cadenaLimpiarTablero= new CadenaLimpiarTablero(gtp);
-		cadenaKomi= new CadenaKomi(gtp);
-		cadenaJugar= new CadenaJugar(gtp);
-		cadenaGenMovimiento= new CadenaGenMovimiento(gtp);
-		cadenaSalida= new CadenaSalida(gtp);
-		cadenaDefault= new CadenaDefault(gtp);
+	private void iniciarCadenas(Remoto remoto) {
+		cadenaVersionProtocolo= new CadenaVersionProtocolo(remoto);
+		cadenaNombre= new CadenaNombre(remoto);
+		cadenaVersion= new CadenaVersion(remoto);
+		cadenaComandoSoportado= new CadenaComandoSoportado(remoto);
+		cadenaListarComandos= new CadenaListarComandos(remoto);
+		cadenaTamanioTablero= new CadenaTamanioTablero(remoto);
+		cadenaLimpiarTablero= new CadenaLimpiarTablero(remoto);
+		cadenaKomi= new CadenaKomi(remoto);
+		cadenaJugar= new CadenaJugar(remoto);
+		cadenaGenMovimiento= new CadenaGenMovimiento(remoto);
+		cadenaSalida= new CadenaSalida(remoto);
+		cadenaDefault= new CadenaDefault(remoto);
 	}
 	
 	private void encadenarCadenas() {
@@ -65,9 +66,9 @@ public class ControladorMsjsEntrantes {
 		cadenaSalida.agregarCadena(cadenaDefault);
 	}
 	
-	public void procesarMensaje(String mensaje) {
+	public String procesarMensaje(String mensaje) {
 		String delimitadores = DELIMITADORES;
 		String[] palabras= mensaje.split(delimitadores);
-		cadenaVersionProtocolo.enviarSgteCadena(palabras);
+		return cadenaVersionProtocolo.enviarSgteCadena(palabras);
 	}
 }

@@ -3,6 +3,8 @@ package Remoto;
 import java.io.* ;
 import java.net.* ;
 
+import Remoto.GTP.Constantes;
+
 
 /**
  * Servidor que maneja la conexion con un cliente.
@@ -66,6 +68,7 @@ public class Servidor {
 	public String recibir(){
 		String mensaje="";
 		try{
+			System.out.println(">> Esperando mensajes...");
 			mensaje = entrada.readUTF();
 			System.out.println("Recibido: " + mensaje);
 		}catch(IOException e){
@@ -111,9 +114,10 @@ public class Servidor {
 		for(int i=0;i<3;i++){
 			s.aceptarCliente();
 			if( s.estaConectado()){
-				s.enviar("Quien sos?");
-				String nombre = s.recibir();
-				s.enviar("Hola " + nombre + "!!!!" );
+				s.enviar("1 " + Constantes.PROTOCOL_VERSION + " 1" + Constantes.FIN_MSJ);
+				s.recibir();
+				s.enviar("2 " + Constantes.QUIT + Constantes.FIN_MSJ);
+				s.recibir();
 				s.cerrarConexionCliente();
 			}
 		}

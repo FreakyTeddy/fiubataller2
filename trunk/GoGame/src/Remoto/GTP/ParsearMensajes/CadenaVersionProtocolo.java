@@ -1,22 +1,23 @@
 package Remoto.GTP.ParsearMensajes;
 
+import Remoto.Remoto;
 import Remoto.GTP.Constantes;
-import Remoto.GTP.GTP;
 
 public class CadenaVersionProtocolo extends CadenaGTP {
 
-	public CadenaVersionProtocolo(GTP gtp) {
-		super(gtp);
+	public CadenaVersionProtocolo(Remoto remoto) {
+		super(remoto);
 	}
 
 	@Override
-	public void enviarSgteCadena(String[] mensaje) {		
+	public String enviarSgteCadena(String[] mensaje) {		
 		if(!(mensaje[1].equals(Constantes.PROTOCOL_VERSION)))
-			cadenaSgte.enviarSgteCadena(mensaje);
+			return cadenaSgte.enviarSgteCadena(mensaje);
 		else {
 			System.out.println("Cadena Version Protocolo");
 			String mensajeRta= Constantes.INICIO_MSJ_RTA + mensaje[0] + Constantes.FIN_MSJ_RTA;
 			System.out.println("Respuesta " + mensajeRta);	
+			return mensajeRta;
 		}	
 	}
 }

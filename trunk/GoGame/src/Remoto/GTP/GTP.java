@@ -1,5 +1,7 @@
 package Remoto.GTP;
 
+import Remoto.Remoto;
+
 public class GTP {
 
 	//Datos programa
@@ -7,12 +9,11 @@ public class GTP {
 	private static String PROGRAM_NAME="GNU Go";
 	private static String PROGRAM_VERSION="1";
 	
+	private ControladorMsjsEntrantes controladorEntrante;
 	private int id;
 	
-	private ControladorMsjsEntrantes controladorEntrante;
-	
-	public GTP() {
-		controladorEntrante= new ControladorMsjsEntrantes(this);
+	public GTP(Remoto remoto) {
+		controladorEntrante= new ControladorMsjsEntrantes(remoto);
 		this.id= 0;
 	}
 	
@@ -91,8 +92,7 @@ public class GTP {
 	/*******************************
 	 * Procesar mensajes entrentes *
 	 *******************************/	
-	public void procesarMensajeEntrante(String mensaje) {
-		System.out.println(mensaje);	
-		controladorEntrante.procesarMensaje(mensaje);
+	public String procesarMensajeEntrante(String mensaje) {
+		return controladorEntrante.procesarMensaje(mensaje);
 	}
 }

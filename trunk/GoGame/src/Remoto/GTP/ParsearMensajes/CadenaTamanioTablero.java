@@ -1,22 +1,23 @@
 package Remoto.GTP.ParsearMensajes;
 
+import Remoto.Remoto;
 import Remoto.GTP.Constantes;
-import Remoto.GTP.GTP;
 
 public class CadenaTamanioTablero extends CadenaGTP {
 
-	public CadenaTamanioTablero(GTP gtp) {
-		super(gtp);
+	public CadenaTamanioTablero(Remoto remoto) {
+		super(remoto);
 	}
 
 	@Override
-	public void enviarSgteCadena(String[] mensaje) {	
+	public String enviarSgteCadena(String[] mensaje) {	
 		if(!(mensaje[1].equals(Constantes.BOARDSIZE)))
-			cadenaSgte.enviarSgteCadena(mensaje);
+			return cadenaSgte.enviarSgteCadena(mensaje);
 		else {
 			System.out.println("Cadena Tamanio Tablero");
 			String mensajeRta= Constantes.INICIO_MSJ_RTA + mensaje[0] + Constantes.FIN_MSJ_RTA;
 			System.out.println("Respuesta " + mensajeRta);	
+			return mensajeRta;
 		}
 	}
 }

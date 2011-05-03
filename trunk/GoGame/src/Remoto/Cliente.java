@@ -5,15 +5,19 @@ import java.io.*;
 import java.net.*;
 
 
-public class Cliente {
+public class Cliente extends Thread {
 
+	private Remoto remoto;
 	private Socket skCliente;
 	private DataInputStream entrada;
 	private DataOutputStream salida;
-	boolean conectado;
+	private boolean conectado;
+	private boolean cerrar;
 	
 
-	public Cliente() {
+	public Cliente(Remoto remoto) {
+		super();
+		this.remoto= remoto;
 		skCliente = null;
 		salida = null;
 		entrada = null;
@@ -32,6 +36,12 @@ public class Cliente {
 		}
 	}
 
+	@Override
+	public void run() {
+			recibirMensajes();
+			cerrarConexion();
+	}
+	
 	public void enviar(String mensaje){
 		try{
 		System.out.println("Enviando: " + mensaje);
@@ -41,16 +51,21 @@ public class Cliente {
 		}
 	}
 	
-	public String recibir(){
-		String mensaje="";
-		try{
-			mensaje = entrada.readUTF();
-			System.out.println("Recibido: " + mensaje);
-		}catch(IOException e){
-			System.out.println("Excepcion en el recibir! " + e);
-		}
-		return mensaje;
+	public void recibirMensajes(){
+		cerrar= false;
+				do { // Procesar mensajes enviados del servidor
+					String mensaje="";
+					System.out.println(">> Esperando mensajes...");					
+					try{
+						mensaje = entrada.readUTF();
+						System.out.println("Recibido: " + mensaje);
+						remoto.procesarMensajeEntrante(mensaje);
+					}catch(IOException e){
+						System.out.println("Excepcion en el recibir! " + e);
+					}
+				} while(!cerrar);
 	}
+	
 		
 	public void cerrarConexion(){
 		try{
@@ -65,17 +80,7 @@ public class Cliente {
 		return conectado;
 	}
 	
-	public static void main( String[] arg ) {
-
-		Cliente c = new Cliente();
-		c.conectar("localhost",5000);
-		if (c.estaConectado()){
-			c.recibir();
-			c.enviar("chica esta");
-			c.recibir();
-			c.cerrarConexion();
-		}
-	}
-
-
+	 public void terminarConexion() {
+		 cerrar= true;
+	 }
 }

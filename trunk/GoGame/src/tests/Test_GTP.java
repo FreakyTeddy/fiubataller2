@@ -105,14 +105,14 @@ public class Test_GTP {
 	public void testConexionAServidor() {
 		boolean salida= cliente.iniciar("localhost", 1234);
 		System.out.println("Salida: " + salida);
-        cliente.enviarMensaje("1 boardsize 7");
-        cliente.enviarMensaje("2 clear_board");
-        cliente.enviarMensaje("3 play black D5");
-        cliente.enviarMensaje("4 genmove white");
-        cliente.enviarMensaje("5 play black C3");
-        cliente.enviarMensaje("6 play black E3");
-        cliente.enviarMensaje("7 showboard");
-        cliente.enviarMensaje("8 quit");
+        cliente.enviarMensaje(gtp.mensajeTamanioTablero(7));
+        cliente.enviarMensaje(gtp.mensajeLimpiarTablero());
+        cliente.enviarMensaje(gtp.mensajeJugar("black", "D5"));
+        cliente.enviarMensaje(gtp.mensajeGenMovimiento("white"));
+        cliente.enviarMensaje(gtp.mensajeJugar("black", "C3"));
+        cliente.enviarMensaje(gtp.mensajeJugar("black", "E3"));
+        cliente.enviarMensaje(gtp.mensajeSalir());
+        cliente.seEnvioMensajeSalida();
 		cliente.terminar2();
 	}
 }

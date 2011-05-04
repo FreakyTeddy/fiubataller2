@@ -1,13 +1,13 @@
 package Remoto.GTP.ParsearMensajes;
 
-import Remoto.Cliente;
+import Remoto.Remoto;
 import Remoto.GTP.Constantes;
 
 public class CadenaComandoSoportado extends CadenaGTP {
 
 	private static String KNOWN= "known";
 	
-	public CadenaComandoSoportado(Cliente remoto) {
+	public CadenaComandoSoportado(Remoto remoto) {
 		super(remoto);
 	}
 

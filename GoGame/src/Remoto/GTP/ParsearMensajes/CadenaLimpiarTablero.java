@@ -1,11 +1,11 @@
 package Remoto.GTP.ParsearMensajes;
 
-import Remoto.Cliente;
+import Remoto.Remoto;
 import Remoto.GTP.Constantes;
 
 public class CadenaLimpiarTablero extends CadenaGTP {
 
-	public CadenaLimpiarTablero(Cliente remoto) {
+	public CadenaLimpiarTablero(Remoto remoto) {
 		super(remoto);
 	}
 

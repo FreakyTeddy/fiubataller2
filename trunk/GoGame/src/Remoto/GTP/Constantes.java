@@ -18,7 +18,6 @@ public class Constantes {
 	//Mensajes
 	public static String FIN_MSJ= "\n";
 	public static String INICIO_MSJ_RTA= "=";
-	public static String INICIO_MSJ_RTA_INVALIDA= "=";
+	public static String INICIO_MSJ_RTA_INVALIDA= "?";
 	public static String FIN_MSJ_RTA= "\n\n";
-
 }

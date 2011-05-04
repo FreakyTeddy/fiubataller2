@@ -18,8 +18,7 @@ public class CadenaSalida extends CadenaGTP {
 		else {
 			System.out.println("Cadena Salida");
 			String mensajeRta= Constantes.INICIO_MSJ_RTA + mensaje[0] + Constantes.FIN_MSJ_RTA;
-			System.out.println("Respuesta " + mensajeRta);	
-			remoto.mensajeSalida();
+			System.out.println("Respuesta " + mensajeRta);
 			return mensajeRta;
 		}
 	}

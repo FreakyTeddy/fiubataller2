@@ -9,16 +9,19 @@ import org.junit.Test;
 import Remoto.Cliente;
 import Remoto.GTP.Constantes;
 import Remoto.GTP.GTP;
+import Remoto.GTP.ProcesadorMsjsEntrantes;
 
 public class Test_GTP {
 	
 	private GTP gtp;
 	private Cliente cliente;
+	private ProcesadorMsjsEntrantes procesador;
 	
 	@Before
 	public void setUp() throws Exception {
 		cliente= new Cliente();
 		gtp= new GTP(cliente);
+		procesador= new ProcesadorMsjsEntrantes(cliente);
 	}
 
 	@After
@@ -72,33 +75,33 @@ public class Test_GTP {
 	@Test
 	public void testCadena() {
 		String mensaje= gtp.mensajeVersionProtocolo();
-		gtp.procesarMensajeEntrante(mensaje);
+		procesador.procesarMensaje(mensaje);
 		mensaje= gtp.mensajeNombre();
-		gtp.procesarMensajeEntrante(mensaje);
+		procesador.procesarMensaje(mensaje);
 		mensaje= gtp.mensajeVersion();
-		gtp.procesarMensajeEntrante(mensaje);
+		procesador.procesarMensaje(mensaje);
 		mensaje= gtp.mensajeListarCommandos();
-		gtp.procesarMensajeEntrante(mensaje);
+		procesador.procesarMensaje(mensaje);
 		mensaje= gtp.mensajeComandoSoportado(Constantes.QUIT);
-		gtp.procesarMensajeEntrante(mensaje);
+		procesador.procesarMensaje(mensaje);
 		mensaje= gtp.mensajeTamanioTablero(5);
-		gtp.procesarMensajeEntrante(mensaje);
+		procesador.procesarMensaje(mensaje);
 		mensaje= gtp.mensajeLimpiarTablero();
-		gtp.procesarMensajeEntrante(mensaje);
+		procesador.procesarMensaje(mensaje);
 		mensaje= gtp.mensajeJugar("black", "C5");
-		gtp.procesarMensajeEntrante(mensaje);
+		procesador.procesarMensaje(mensaje);
 		mensaje= gtp.mensajeGenMovimiento("white");
-		gtp.procesarMensajeEntrante(mensaje);
+		procesador.procesarMensaje(mensaje);
 		mensaje= gtp.mensajeKomi(5.5);
-		gtp.procesarMensajeEntrante(mensaje);
+		procesador.procesarMensaje(mensaje);
 		mensaje= "11 Mensaje cualquiera";
-		gtp.procesarMensajeEntrante(mensaje);
+		procesador.procesarMensaje(mensaje);
 		mensaje= gtp.mensajeLimpiarTablero();
-		gtp.procesarMensajeEntrante(mensaje);
+		procesador.procesarMensaje(mensaje);
 		mensaje= gtp.mensajeSalir();
-		gtp.procesarMensajeEntrante(mensaje);	
+		procesador.procesarMensaje(mensaje);	
 		mensaje= "Hola";
-		gtp.procesarMensajeEntrante(mensaje);
+		procesador.procesarMensaje(mensaje);
 	}
 	
 	@Test
@@ -111,6 +114,7 @@ public class Test_GTP {
         cliente.enviarMensaje(gtp.mensajeGenMovimiento("white"));
         cliente.enviarMensaje(gtp.mensajeJugar("black", "C3"));
         cliente.enviarMensaje(gtp.mensajeJugar("black", "E3"));
+        cliente.enviarMensaje("Cualquier cosa");
         cliente.enviarMensaje(gtp.mensajeSalir());
         cliente.seEnvioMensajeSalida();
 		cliente.terminar2();

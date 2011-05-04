@@ -11,8 +11,4 @@ public class Remoto {
 		gtp= new GTP(this);
 	
 	}
-	
-	public void mensajeSalida() {
-
-	}
 }

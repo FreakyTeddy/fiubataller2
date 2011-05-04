@@ -80,11 +80,13 @@ public class SocketServidor extends Thread {
 		}
 	}
 
-	public void enviarMensaje(String messageTosend) {
+	public void enviarMensaje(String mensajeAEnviar) {
 			if (servidor.estaClienteConectado()) {
-				System.out.println("SEND>> " + messageTosend);
-				data_out.println(messageTosend);
-				data_out.flush();
+				if(!mensajeAEnviar.equals("")) {
+					System.out.println("SEND>> " + mensajeAEnviar);
+					data_out.println(mensajeAEnviar);
+					data_out.flush();
+				}
 			}
 	}
 

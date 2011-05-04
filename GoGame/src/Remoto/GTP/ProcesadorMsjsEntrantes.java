@@ -15,7 +15,7 @@ import Remoto.GTP.ParsearMensajes.CadenaTamanioTablero;
 import Remoto.GTP.ParsearMensajes.CadenaVersion;
 import Remoto.GTP.ParsearMensajes.CadenaVersionProtocolo;
 
-public class ControladorMsjsEntrantes {
+public class ProcesadorMsjsEntrantes {
 
 	private CadenaGTP cadenaVersionProtocolo;
 	private CadenaGTP cadenaNombre;
@@ -32,7 +32,7 @@ public class ControladorMsjsEntrantes {
 	
 	private static String DELIMITADORES= "[ \n]";
 	
-	public ControladorMsjsEntrantes(Remoto remoto) {
+	public ProcesadorMsjsEntrantes(Remoto remoto) {
 		iniciarCadenas(remoto);
 		encadenarCadenas();
 	}

@@ -1,16 +1,15 @@
 package Remoto.GTP.ParsearMensajes;
 
-import Remoto.Cliente;
+import Remoto.Remoto;
 
 public class CadenaDefault extends CadenaGTP {
 
-	public CadenaDefault(Cliente remoto) {
+	public CadenaDefault(Remoto remoto) {
 		super(remoto);
 	}
 
 	@Override
 	public String enviarSgteCadena(String[] mensaje) {
-		//System.out.println("Cadena Default");
 		return "";
 	}
 

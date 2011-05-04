@@ -1,6 +1,6 @@
 package Remoto.GTP;
 
-import Remoto.Cliente;
+import Remoto.Remoto;
 
 public class GTP {
 
@@ -12,7 +12,7 @@ public class GTP {
 	private ControladorMsjsEntrantes controladorEntrante;
 	private int id;
 	
-	public GTP(Cliente remoto) {
+	public GTP(Remoto remoto) {
 		controladorEntrante= new ControladorMsjsEntrantes(remoto);
 		this.id= 0;
 	}

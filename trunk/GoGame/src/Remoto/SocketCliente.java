@@ -8,90 +8,88 @@ import java.net.InetAddress;
 import java.net.Socket;
 
 public class SocketCliente extends Thread {
-	
-	private Cliente	cliente;
+
+	private Cliente cliente;
 	private Socket socket;
 	private PrintWriter data_out;
 	private BufferedReader data_in;
-	private boolean quit;
-	
+	private boolean salir;
+
 	public SocketCliente(Cliente cliente) {
-		super();
 		this.cliente = cliente;
 	}
 
 	public void run() {
-		receiveMessages();
-		closeConnection();
+		recibirMensajes();
+		cerrarConexion();
 	}
-	
-	public void connect(String ip, int puerto) throws Exception {
-		System.out.println(">Conectando a IP: " + ip + " Puerto: " + puerto + " ...");
-		connectToServer(ip, puerto);
+
+	public void conectar(String ip, int puerto) throws Exception {
+		System.out.println(">Conectando a IP: " + ip + " Puerto: " + puerto
+				+ " ...");
+		conectarAServidor(ip, puerto);
 		System.out.println(">Conexion establecida");
-		startBuffers();
+		empezarBuffers();
 		System.out.println(">Buffers");
 	}
 
-	private void connectToServer(String ip, int puerto) throws IOException {
+	private void conectarAServidor(String ip, int puerto) throws IOException {
 		socket = new Socket(InetAddress.getByName(ip), puerto);
 	}
 
-	private void startBuffers() throws IOException {
+	private void empezarBuffers() throws IOException {
 		// Salida
 		data_out = new PrintWriter(socket.getOutputStream(), true);
-		data_out.flush(); 
-		
+		data_out.flush();
 		// Entrada
-		data_in= new BufferedReader(new InputStreamReader(socket.getInputStream()));
+		data_in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 	}
 
-	private void receiveMessages() {
-		this.quit = false;
+	private void recibirMensajes() {
+		salir = false;
 		do { // Procesar mensajes enviados del servidor
-    		try {
-             //   System.out.println(">> Esperando por mensajes...");
-                String mensajeRecibido = data_in.readLine();
-    			if(!mensajeRecibido.equals("")) {
-    				System.out.println("FROM_SERVER>> " + mensajeRecibido);
-    				cliente.procesarMensajeEntrante(mensajeRecibido);
-    				if(!cliente.estaConectado())
-    					this.quit = true;
-    			}
-				} catch (Exception e) {	
-					System.out.println(">> EXCEPTION: receiveMessages <<");
-					this.quit = true;
-					cliente.servidorCerro();
+			try {
+				// System.out.println(">> Esperando por mensajes...");
+				String mensajeRecibido = data_in.readLine();
+				if (!mensajeRecibido.equals("")) {
+					System.out.println("FROM_SERVER>> " + mensajeRecibido);
+					cliente.procesarMensajeEntrante(mensajeRecibido);
+					if (!cliente.estaConectado())
+						salir = true;
 				}
-		} while(!this.quit);
+			} catch (Exception e) {
+				System.out.println(">> EXCEPTION: recibirMensajes <<");
+				salir = true;
+				cliente.servidorCerro();
+			}
+		} while (!salir);
 	}
-	
-	private void closeConnection() {
-    try {
-    	if(data_out != null)
-    		data_out.close();
-    	if(data_in != null)
-    		data_in.close();
-    	if(socket != null)
-      	socket.close();
-    } catch (IOException excepcionES) {
-    	System.out.println(">> EXCEPTION: closeConnetion <<");
-    	excepcionES.printStackTrace();
-    }
-    
-    System.out.println(">Conexion cerrada");
+
+	private void cerrarConexion() {
+		try {
+			if (data_out != null)
+				data_out.close();
+			if (data_in != null)
+				data_in.close();
+			if (socket != null)
+				socket.close();
+		} catch (IOException excepcionES) {
+			System.out.println(">> EXCEPTION: cerrarConexion <<");
+			excepcionES.printStackTrace();
+		}
+		System.out.println(">Conexion cerrada");
 	}
-	
-	 public void enviarMensaje(String messageToSend) {
-		 // Enviar mensaje al servidor
-		 if(cliente.estaConectado()) {
-				 System.out.println("SEND>>: " + messageToSend);
-				 data_out.println(messageToSend);
-				 data_out.flush();
-		 }
-	 }
-	 
-	 public void stopSocket() {
-		 this.quit = true;
-	 }
+
+	public void enviarMensaje(String mensajeAEnviar) {
+		// Enviar mensaje al servidor
+		if (cliente.estaConectado()) {
+			System.out.println("SEND>>: " + mensajeAEnviar);
+			data_out.println(mensajeAEnviar);
+			data_out.flush();
+		}
+	}
+
+	public void detenerSocket() {
+		this.salir = true;
+	}
 }

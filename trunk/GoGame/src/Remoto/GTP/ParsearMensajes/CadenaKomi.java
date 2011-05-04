@@ -1,11 +1,11 @@
 package Remoto.GTP.ParsearMensajes;
 
-import Remoto.Cliente;
+import Remoto.Remoto;
 import Remoto.GTP.Constantes;
 
 public class CadenaKomi extends CadenaGTP {
 
-	public CadenaKomi(Cliente remoto) {
+	public CadenaKomi(Remoto remoto) {
 		super(remoto);
 	}
 

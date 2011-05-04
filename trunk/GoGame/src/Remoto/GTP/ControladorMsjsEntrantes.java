@@ -1,6 +1,6 @@
 package Remoto.GTP;
 
-import Remoto.Cliente;
+import Remoto.Remoto;
 import Remoto.GTP.ParsearMensajes.CadenaComandoSoportado;
 import Remoto.GTP.ParsearMensajes.CadenaDefault;
 import Remoto.GTP.ParsearMensajes.CadenaGTP;
@@ -32,12 +32,12 @@ public class ControladorMsjsEntrantes {
 	
 	private static String DELIMITADORES= "[ \n]";
 	
-	public ControladorMsjsEntrantes(Cliente remoto) {
+	public ControladorMsjsEntrantes(Remoto remoto) {
 		iniciarCadenas(remoto);
 		encadenarCadenas();
 	}
 
-	private void iniciarCadenas(Cliente remoto) {
+	private void iniciarCadenas(Remoto remoto) {
 		cadenaVersionProtocolo= new CadenaVersionProtocolo(remoto);
 		cadenaNombre= new CadenaNombre(remoto);
 		cadenaVersion= new CadenaVersion(remoto);

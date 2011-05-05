@@ -1,26 +1,18 @@
 package Remoto;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
-import java.net.Socket;
 
-public class SocketServidor extends Thread {
+public class SocketServidor extends SocketBase {
 
-	private static final int PORT= 1234;
-
-	
 	private Servidor servidor;
 	private boolean salir;
-	private Socket cliente;
-	private ServerSocket socket;
-	private PrintWriter data_out;
-	private BufferedReader data_in;
+	private ServerSocket socketServidor;
+	private int puerto;
 
-	public SocketServidor(Servidor servidor) {
-		this.servidor= servidor;	
+	public SocketServidor(Servidor servidor, int puerto) {
+		this.servidor= servidor;
+		this.puerto= puerto;
 	}
 
 	public void run() {
@@ -30,7 +22,7 @@ public class SocketServidor extends Thread {
 	private void empezarAEscuchar() {
 		salir= false;
 		try {
-			socket= new ServerSocket(PORT);
+			socketServidor= new ServerSocket(puerto);
 			esperandoConexiones();
 			servidor.clienteConectado();
 			empezarBuffers();
@@ -39,35 +31,29 @@ public class SocketServidor extends Thread {
 			servidor.clienteDesconectado();
 		} catch (Exception e) {
 			System.out.println(">> EXCEPTION: empezarAEscuchar <<");
-			this.cerrarSocket();
+			this.terminar();
 		}
 
 		System.out.println(">>Servidor detenido");
 	}
 
 	private void esperandoConexiones() throws IOException {
-		System.out.println(">Servidor creado en puerto:" + PORT);
+		System.out.println(">Servidor creado en puerto:" + puerto);
 		System.out.println(">Esperando conexiones...");
-		cliente= socket.accept();
-		System.out.println(">Conexion: " + socket.getInetAddress().getHostName());
+		socket= socketServidor.accept();
+		System.out.println(">Conexion: " + socketServidor.getInetAddress().getHostName());
 	}
 
-	private void empezarBuffers() throws IOException {
-		// Salida
-		data_out = new PrintWriter(cliente.getOutputStream(), true);
-		data_out.flush();
-		// Entrada
-		data_in= new BufferedReader(new InputStreamReader(cliente.getInputStream()));
-	}
-
-	private void recibirMensajes() throws IOException {
+	public void recibirMensajes() throws IOException {
 		while (!this.salir) {
 			try {
 				System.out.println(">> Esperando mensajes...");
 				String mensajeRecibido= (String) data_in.readLine();
 				if(mensajeRecibido != null) {
-					System.out.println("FROM_CLIENT>>: " + mensajeRecibido);
-					servidor.procesarMensaje(mensajeRecibido);
+					if(!mensajeRecibido.equals("")) {
+						System.out.println("FROM_CLIENT>>: " + mensajeRecibido);
+						servidor.procesarMensaje(mensajeRecibido);
+					}
 				} else {
 					servidor.clienteDesconectado();
 				}
@@ -82,29 +68,16 @@ public class SocketServidor extends Thread {
 
 	public void enviarMensaje(String mensajeAEnviar) {
 			if (servidor.estaClienteConectado()) {
-				if(!mensajeAEnviar.equals("")) {
-					System.out.println("SEND>> " + mensajeAEnviar);
-					data_out.println(mensajeAEnviar);
-					data_out.flush();
-				}
+				System.out.println("SEND>> " + mensajeAEnviar);
+				data_out.println(mensajeAEnviar);
+				data_out.flush();
 			}
 	}
 
-	private void cerrarConexion() {
-		try {
-			data_out.close();
-			data_in.close();
-			socket.close();
-		} catch (IOException excepcionES) {
-			System.out.println(">> EXCEPTION: cerrarConexion <<");
-			excepcionES.printStackTrace();
-		}
-	}
-
-	public void cerrarSocket() {
+	public void terminar() {
 		this.salir= true;
 		try {
-			socket.close();
+			socketServidor.close();
 		} catch (Exception e) {
 			System.out.println(">> EXCEPTION: cerrarSocket <<");
 		}

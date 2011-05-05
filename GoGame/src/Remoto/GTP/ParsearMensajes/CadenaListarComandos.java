@@ -1,15 +1,15 @@
 package Remoto.GTP.ParsearMensajes;
 
-import Remoto.Remoto;
+import Remoto.Servidor;
 import Remoto.GTP.Constantes;
 
-public class CadenaListarComandos extends CadenaGTP {
+public class CadenaListarComandos extends CadenaGtp {
 
 	private static String COMMANDS= "commands";
 	private static String COMANDOS_SOPORTADOS= "\nprotocol_version\nname\nversion\nknown_command\nlist_commands\nquit\nboardsize\nclear_board\nkomi\nplay\ngenmove";
 	
-	public CadenaListarComandos(Remoto remoto) {
-		super(remoto);
+	public CadenaListarComandos(Servidor servidor) {
+		super(servidor);
 	}
 
 	@Override

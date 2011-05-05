@@ -1,16 +1,16 @@
 package Remoto.GTP.ParsearMensajes;
 
-import Remoto.Remoto;
+import Remoto.Servidor;
 import Remoto.GTP.Constantes;
 
 /* Si llegamos a este eslabon de la cadena es porque es un comando desconocido.
  * */
-public class CadenaDefault extends CadenaGTP {
+public class CadenaDefault extends CadenaGtp {
 
 	private static String UNKNOWN_COMMAND= "unknown command";
 	
-	public CadenaDefault(Remoto remoto) {
-		super(remoto);
+	public CadenaDefault(Servidor servidor) {
+		super(servidor);
 	}
 
 	@Override

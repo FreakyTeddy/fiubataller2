@@ -1,12 +1,12 @@
 package Remoto.GTP.ParsearMensajes;
 
-import Remoto.Remoto;
+import Remoto.Servidor;
 import Remoto.GTP.Constantes;
 
-public class CadenaVersionProtocolo extends CadenaGTP {
+public class CadenaVersionProtocolo extends CadenaGtp {
 
-	public CadenaVersionProtocolo(Remoto remoto) {
-		super(remoto);
+	public CadenaVersionProtocolo(Servidor servidor) {
+		super(servidor);
 	}
 
 	@Override

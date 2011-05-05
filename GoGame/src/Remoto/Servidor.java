@@ -2,15 +2,15 @@ package Remoto;
 
 import Remoto.GTP.ProcesadorMsjsEntrantes;
 
-public class Servidor extends Remoto {
+public class Servidor {
 
 	private SocketServidor socket;
 	private boolean clienteConectado;
 	private ProcesadorMsjsEntrantes procesador;
 	
-	public Servidor() {
+	public Servidor(int puerto) {
 		clienteConectado= false;
-		socket= new SocketServidor(this);
+		socket= new SocketServidor(this, puerto);
 		procesador= new ProcesadorMsjsEntrantes(this);
 	}
 
@@ -20,8 +20,7 @@ public class Servidor extends Remoto {
 
 	public void procesarMensaje(String mensaje) {
 		String msjRespuesta= procesador.procesarMensaje(mensaje);
-		if(!msjRespuesta.equals(""))
-			socket.enviarMensaje(msjRespuesta);
+		socket.enviarMensaje(msjRespuesta);
 	}
 
 	public void clienteConectado() {
@@ -41,11 +40,11 @@ public class Servidor extends Remoto {
 		 * if(clientConnect)
 		 * socket.sendMessage(util.createMessage(Util.END_CONECTION));
 		 */
-		socket.cerrarSocket();
+		socket.terminar();
 	}
 	
 	public static void main( String[] arg ) {	
-		Servidor s= new Servidor();
+		Servidor s= new Servidor(1234);
 		s.iniciar();
 	}
 }

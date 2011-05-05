@@ -1,18 +1,12 @@
 package Remoto;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 
-public class SocketCliente extends Thread {
+public class SocketCliente extends SocketBase {
 
 	private Cliente cliente;
-	private Socket socket;
-	private PrintWriter data_out;
-	private BufferedReader data_in;
 	private boolean salir;
 
 	public SocketCliente(Cliente cliente) {
@@ -37,15 +31,7 @@ public class SocketCliente extends Thread {
 		socket = new Socket(InetAddress.getByName(ip), puerto);
 	}
 
-	private void empezarBuffers() throws IOException {
-		// Salida
-		data_out = new PrintWriter(socket.getOutputStream(), true);
-		data_out.flush();
-		// Entrada
-		data_in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-	}
-
-	private void recibirMensajes() {
+	public void recibirMensajes() {
 		salir = false;
 		do { // Procesar mensajes enviados del servidor
 			try {
@@ -65,33 +51,15 @@ public class SocketCliente extends Thread {
 		} while (!salir);
 	}
 
-	private void cerrarConexion() {
-		try {
-			if (data_out != null)
-				data_out.close();
-			if (data_in != null)
-				data_in.close();
-			if (socket != null)
-				socket.close();
-		} catch (IOException excepcionES) {
-			System.out.println(">> EXCEPTION: cerrarConexion <<");
-			excepcionES.printStackTrace();
-		}
-		System.out.println(">Conexion cerrada");
-	}
-
 	public void enviarMensaje(String mensajeAEnviar) {
-		// Enviar mensaje al servidor
 		if (cliente.estaConectado()) {
-			if(!mensajeAEnviar.equals("")) {
-				System.out.println("SEND>>: " + mensajeAEnviar);
-				data_out.println(mensajeAEnviar);
-				data_out.flush();
-			}
+			System.out.println("SEND>>: " + mensajeAEnviar);
+			data_out.println(mensajeAEnviar);
+			data_out.flush();
 		}
 	}
 
-	public void detenerSocket() {
+	public void terminar() {
 		this.salir = true;
 	}
 }

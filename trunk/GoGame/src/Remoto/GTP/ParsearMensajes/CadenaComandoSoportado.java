@@ -1,14 +1,14 @@
 package Remoto.GTP.ParsearMensajes;
 
-import Remoto.Remoto;
+import Remoto.Servidor;
 import Remoto.GTP.Constantes;
 
-public class CadenaComandoSoportado extends CadenaGTP {
+public class CadenaComandoSoportado extends CadenaGtp {
 
 	private static String KNOWN= "known";
 	
-	public CadenaComandoSoportado(Remoto remoto) {
-		super(remoto);
+	public CadenaComandoSoportado(Servidor servidor) {
+		super(servidor);
 	}
 
 	@Override

@@ -1,8 +1,6 @@
 package Remoto.GTP;
 
-import Remoto.Remoto;
-
-public class GTP {
+public class Gtp {
 
 	//Datos programa
 	private static String NRO_PROTOCOL_VERSION="1";
@@ -11,7 +9,7 @@ public class GTP {
 	
 	private int id;
 	
-	public GTP(Remoto remoto) {
+	public Gtp() {
 		this.id= 0;
 	}
 	

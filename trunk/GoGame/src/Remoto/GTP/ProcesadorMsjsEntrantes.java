@@ -1,9 +1,9 @@
 package Remoto.GTP;
 
-import Remoto.Remoto;
+import Remoto.Servidor;
 import Remoto.GTP.ParsearMensajes.CadenaComandoSoportado;
 import Remoto.GTP.ParsearMensajes.CadenaDefault;
-import Remoto.GTP.ParsearMensajes.CadenaGTP;
+import Remoto.GTP.ParsearMensajes.CadenaGtp;
 import Remoto.GTP.ParsearMensajes.CadenaGenMovimiento;
 import Remoto.GTP.ParsearMensajes.CadenaJugar;
 import Remoto.GTP.ParsearMensajes.CadenaKomi;
@@ -15,41 +15,39 @@ import Remoto.GTP.ParsearMensajes.CadenaTamanioTablero;
 import Remoto.GTP.ParsearMensajes.CadenaVersion;
 import Remoto.GTP.ParsearMensajes.CadenaVersionProtocolo;
 
-public class ProcesadorMsjsEntrantes {
+public class ProcesadorMsjsEntrantes extends ProcesadorMsjs {
 
-	private CadenaGTP cadenaVersionProtocolo;
-	private CadenaGTP cadenaNombre;
-	private CadenaGTP cadenaVersion;
-	private CadenaGTP cadenaComandoSoportado;
-	private CadenaGTP cadenaListarComandos;
-	private CadenaGTP cadenaTamanioTablero;
-	private CadenaGTP cadenaLimpiarTablero;
-	private CadenaGTP cadenaKomi;
-	private CadenaGTP cadenaJugar;
-	private CadenaGTP cadenaGenMovimiento;
-	private CadenaGTP cadenaSalida;
-	private CadenaGTP cadenaDefault;
+	private CadenaGtp cadenaVersionProtocolo;
+	private CadenaGtp cadenaNombre;
+	private CadenaGtp cadenaVersion;
+	private CadenaGtp cadenaComandoSoportado;
+	private CadenaGtp cadenaListarComandos;
+	private CadenaGtp cadenaTamanioTablero;
+	private CadenaGtp cadenaLimpiarTablero;
+	private CadenaGtp cadenaKomi;
+	private CadenaGtp cadenaJugar;
+	private CadenaGtp cadenaGenMovimiento;
+	private CadenaGtp cadenaSalida;
+	private CadenaGtp cadenaDefault;
 	
-	private static String DELIMITADORES= "[ \n]";
-	
-	public ProcesadorMsjsEntrantes(Remoto remoto) {
-		iniciarCadenas(remoto);
+	public ProcesadorMsjsEntrantes(Servidor servidor) {
+		iniciarCadenas(servidor);
 		encadenarCadenas();
 	}
 
-	private void iniciarCadenas(Remoto remoto) {
-		cadenaVersionProtocolo= new CadenaVersionProtocolo(remoto);
-		cadenaNombre= new CadenaNombre(remoto);
-		cadenaVersion= new CadenaVersion(remoto);
-		cadenaComandoSoportado= new CadenaComandoSoportado(remoto);
-		cadenaListarComandos= new CadenaListarComandos(remoto);
-		cadenaTamanioTablero= new CadenaTamanioTablero(remoto);
-		cadenaLimpiarTablero= new CadenaLimpiarTablero(remoto);
-		cadenaKomi= new CadenaKomi(remoto);
-		cadenaJugar= new CadenaJugar(remoto);
-		cadenaGenMovimiento= new CadenaGenMovimiento(remoto);
-		cadenaSalida= new CadenaSalida(remoto);
-		cadenaDefault= new CadenaDefault(remoto);
+	private void iniciarCadenas(Servidor servidor) {
+		cadenaVersionProtocolo= new CadenaVersionProtocolo(servidor);
+		cadenaNombre= new CadenaNombre(servidor);
+		cadenaVersion= new CadenaVersion(servidor);
+		cadenaComandoSoportado= new CadenaComandoSoportado(servidor);
+		cadenaListarComandos= new CadenaListarComandos(servidor);
+		cadenaTamanioTablero= new CadenaTamanioTablero(servidor);
+		cadenaLimpiarTablero= new CadenaLimpiarTablero(servidor);
+		cadenaKomi= new CadenaKomi(servidor);
+		cadenaJugar= new CadenaJugar(servidor);
+		cadenaGenMovimiento= new CadenaGenMovimiento(servidor);
+		cadenaSalida= new CadenaSalida(servidor);
+		cadenaDefault= new CadenaDefault(servidor);
 	}
 	
 	private void encadenarCadenas() {

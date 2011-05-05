@@ -7,21 +7,24 @@ import org.junit.Before;
 import org.junit.Test;
 
 import Remoto.Cliente;
+import Remoto.Servidor;
 import Remoto.GTP.Constantes;
-import Remoto.GTP.GTP;
+import Remoto.GTP.Gtp;
 import Remoto.GTP.ProcesadorMsjsEntrantes;
 
 public class Test_GTP {
 	
-	private GTP gtp;
+	private Gtp gtp;
 	private Cliente cliente;
+	private Servidor servidor;
 	private ProcesadorMsjsEntrantes procesador;
 	
 	@Before
 	public void setUp() throws Exception {
+		gtp= new Gtp();
 		cliente= new Cliente();
-		gtp= new GTP(cliente);
-		procesador= new ProcesadorMsjsEntrantes(cliente);
+		servidor= new Servidor(1234);
+		procesador= new ProcesadorMsjsEntrantes(servidor);
 	}
 
 	@After
@@ -30,6 +33,9 @@ public class Test_GTP {
 		gtp= null;
 	}
 	
+	/* Test: mensajes provenientes del servidor */
+	
+	/* Test: mensajes provenientes del cliente */
 	@Test
 	public void testMensajesAdministrativos(){
 		String msjVersionProtocolo= gtp.mensajeVersionProtocolo();

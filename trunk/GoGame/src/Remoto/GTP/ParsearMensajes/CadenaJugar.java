@@ -1,14 +1,14 @@
 package Remoto.GTP.ParsearMensajes;
 
-import Remoto.Remoto;
+import Remoto.Servidor;
 import Remoto.GTP.Constantes;
 
-public class CadenaJugar extends CadenaGTP {
+public class CadenaJugar extends CadenaGtp {
 
 	private static String MENSAJE_ERROR= "illegal move";
 	
-	public CadenaJugar(Remoto remoto) {
-		super(remoto);
+	public CadenaJugar(Servidor servidor) {
+		super(servidor);
 	}
 
 	@Override

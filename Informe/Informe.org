@@ -1,0 +1,43 @@
+* Objetivo
+  Desarrollar un sistema que permita jugar partidas de *Go*, en un
+  tablero reducido y considerando el juego finalizado *a la primera
+  muerte* (/capture Go/).
+
+* Requerimientos funcionales
+  El sistema debe permitir a dos jugadores humanos en la misma
+  computadora jugar entre si. También debe permitir como posibles
+  participantes del juego a alguna aplicación externa (como ser
+  *gnugo*). Adicionalmente se deben incluír estrategias de juego para
+  que una sola persona pueda desarrollar una partida contra el
+  sistema.
+
+* Manual de usuario
+
+* Detalles de implementación
+** Vista
+** Protocolo de comunicaciones
+** Estrategias implementadas
+   Actualmente se cuenta con cuatro estrategias de juego que serán
+   utilizadas posteriormente para elaborar estrategias mas avanzadas:
+*** EstrategiaComputadoraAtacar
+    Esta estrategia intenta ocupar casilleros adyacentes a las cadenas
+    con menor grado de libertad del oponente, intentando capturarlas.
+*** EstrategiaComputadoraDefender
+    Esta estrategia intenta ocupar casilleros adyacentes a las cadenas
+    propias con menor grado de libertad, intentando evitar que sean
+    capturadas.
+*** EstrategiaAtaqueCuidadoso
+    Esta estrategia es una combinación de las estrategias
+    "EstrategiaComputadoraAtacar" y
+    "EstrategiaComputadoraDefender". Primero verifica que las cadenas
+    propias no estén en peligro de ser capturadas. Si se encuentra una
+    cadena propia en riesgo aplica la estrategia
+    "EstrategiaComputadoraDefender", en caso contrario aplica
+    "EstrategiaComputadoraAtacar".
+*** EstrategiaAtaqueCuidadosoMasInteligente
+    Similar a la estrategia anterior, pero primero verifica si existe
+    alguna cadena del oponente con grado de libertad 1. Si existe,
+    verifica que ese grado de libertad no se deba a un ojo. Si no se
+    deba a un ojo se procede a capturar al grupo. Si no se cumplen
+    estas condiciones, se aplica la estrategia
+    "EstrategiaAtaqueCuidadoso".

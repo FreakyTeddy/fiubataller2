@@ -17,7 +17,7 @@ public class EstrategiaComputadoraAtacar extends EstrategiaComputadora{
 	 */
 	private Posicion estrategiaAtacar(){
 		
-		ArrayList<Cadena> cadenas = obtenerCadenasOponente();
+		ArrayList<Cadena> cadenas = obtenerCadenasOponente(getTablero());
 
 		Collections.sort(cadenas, new ordenadorCadenasPorMenorGradoDeLibertadYMayorLongitud());
 

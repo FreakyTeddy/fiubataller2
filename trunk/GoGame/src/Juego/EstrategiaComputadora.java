@@ -5,7 +5,7 @@ import java.util.Collections;
 
 public abstract class EstrategiaComputadora implements Estrategia {
 
-	Tablero _tablero;
+	private Tablero _tablero;
 	
 	ColorPiedra miColor = ColorPiedra.NEGRO;
 	
@@ -21,6 +21,14 @@ public abstract class EstrategiaComputadora implements Estrategia {
 
 	public void setColor(ColorPiedra color) {
 		miColor = color;
+	}
+
+	public ColorPiedra getColor(){
+		return miColor;
+	}
+
+	Tablero getTablero(){
+		return _tablero;
 	}
 
 	/**
@@ -56,14 +64,14 @@ public abstract class EstrategiaComputadora implements Estrategia {
 		 return cadenasResultantes;
 	 }
 
-	 ArrayList<Cadena> obtenerCadenasOponente(){
+	 ArrayList<Cadena> obtenerCadenasOponente(Tablero tablero){
 
-		 return filtrarCadenas(_tablero.obtenerCadenas(),miColor);
+		 return filtrarCadenas(tablero.obtenerCadenas(),miColor);
 	 }
 
-	ArrayList<Cadena> obtenerCadenasPropias(){
+	ArrayList<Cadena> obtenerCadenasPropias(Tablero tablero){
 
-		return filtrarCadenas(_tablero.obtenerCadenas(),miColor==ColorPiedra.BLANCO?ColorPiedra.NEGRO:ColorPiedra.BLANCO);
+		return filtrarCadenas(tablero.obtenerCadenas(),miColor==ColorPiedra.BLANCO?ColorPiedra.NEGRO:ColorPiedra.BLANCO);
 	}
 
 	Posicion estrategiaRandom(){

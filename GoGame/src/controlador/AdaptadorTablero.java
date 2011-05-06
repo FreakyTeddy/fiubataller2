@@ -3,9 +3,7 @@ package controlador;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import Juego.ColorPiedra;
 import Juego.Estrategia;
-import Juego.JugadaInvalidaException;
 import Juego.Posicion;
 import Juego.Tablero;
 

@@ -15,8 +15,8 @@ public class EstrategiaComputadoraAtaqueCuidadosoMasInteligente extends Estrateg
 	}
 
 	protected Posicion generarJugada(){
-		ArrayList<Cadena> cadenasPropias = obtenerCadenasPropias();
-		ArrayList<Cadena> cadenasOponente = obtenerCadenasOponente();
+		ArrayList<Cadena> cadenasPropias = obtenerCadenasPropias(getTablero());
+		ArrayList<Cadena> cadenasOponente = obtenerCadenasOponente(getTablero());
 
 		
 		Collections.sort(cadenasOponente, new ordenadorCadenasPorMenorGradoDeLibertadYMayorLongitud());

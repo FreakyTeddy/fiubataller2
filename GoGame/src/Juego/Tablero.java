@@ -30,6 +30,26 @@ public class Tablero extends Observable {
 
 	}
 
+	public Tablero(Tablero otro){
+		ancho = otro.ancho;
+		casilleros = new ColorPiedra[ancho][ancho];
+		for (int i = 0; i < ancho; i++)
+			for (int j = 0; j < ancho; j++)
+				casilleros[i][j] = otro.casilleros[i][j];
+
+		cadenas = copiarCadenas(otro.cadenas);
+	}
+	
+	private ArrayList<Cadena> copiarCadenas(ArrayList<Cadena> otrasCadenas){
+		ArrayList<Cadena> nuevas = new ArrayList<Cadena>();
+		
+		for(Cadena cadena : otrasCadenas) {
+			nuevas.add(new Cadena(cadena));
+		} 
+
+		return nuevas;
+	}
+
 	public int getAncho() {
 		return ancho;
 	}

@@ -62,6 +62,9 @@ public class TableroTest {
 		catch(JugadaInvalidaException e){
 			fail();
 		}
+		catch(FinDelJuegoException e){
+			fail();
+		}
 	}
 	
 	@Test
@@ -82,6 +85,9 @@ public class TableroTest {
 		catch(JugadaInvalidaException e){
 			fail("Es una jugada valida");
 		}
+		catch(FinDelJuegoException e){
+			fail("Es una jugada valida");
+		}
 		
 		try{
 			tablero.agregarPiedra(posicion5, ColorPiedra.NEGRO);
@@ -90,6 +96,10 @@ public class TableroTest {
 		catch(JugadaInvalidaException e){
 		
 		}
+		catch(FinDelJuegoException e){
+			fail("No es fin del juego");
+		}
+
 	}
 	
 	@Test
@@ -106,6 +116,9 @@ public class TableroTest {
 			assert(tablero.cadenas.size()!=2);
 		}
 		catch(JugadaInvalidaException e){
+			fail("Es una jugada valida");
+		}
+		catch(FinDelJuegoException e){
 			fail("Es una jugada valida");
 		}
 	}
@@ -129,6 +142,11 @@ public class TableroTest {
 		catch(JugadaInvalidaException e){
 			fail("Es una jugada valida");
 		}
+		catch(FinDelJuegoException e){
+			fail("Es una jugada valida");
+		}
+
+
 	}
 
 	@Test
@@ -155,5 +173,9 @@ public class TableroTest {
 		catch(JugadaInvalidaException e){
 			fail("Son jugadas validas");
 		}
+		catch(FinDelJuegoException e){
+
+		}
+
 	}
 }

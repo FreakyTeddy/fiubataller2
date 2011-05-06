@@ -5,6 +5,7 @@ import java.util.Observable;
 
 import Juego.ColorPiedra;
 import Juego.JugadaInvalidaException;
+import Juego.FinDelJuegoException;
 
 /**
  * Describe class <code>Tablero</code> here. El tablero es un observable.
@@ -17,6 +18,7 @@ public class Tablero extends Observable {
 	ColorPiedra casilleros[][];
 	ArrayList<Cadena> cadenas;
 	int ancho;
+	boolean finDelJuego=false;
 
 	public Tablero() {
 		ancho = 9;
@@ -62,17 +64,20 @@ public class Tablero extends Observable {
 	}
 
 	public void agregarPiedra(Posicion posicion, ColorPiedra color)
-			throws JugadaInvalidaException {
+		throws JugadaInvalidaException,FinDelJuegoException {
 		agregarPiedra(posicion.getX(), posicion.getY(), color);
 	}
 
 	private void agregarPiedra(int x, int y, ColorPiedra color)
-			throws JugadaInvalidaException {
+		throws JugadaInvalidaException,FinDelJuegoException {
 		intentarAgregarPiedra(x, y, color);
 
 		// Lo agrego para la vista.
 		setChanged();
 		notifyObservers();
+		if(finDelJuego)
+			throw new FinDelJuegoException();
+		
 	}
 
 	public ArrayList<Cadena> buscarCadenasAdyacentes(ArrayList<Cadena> cadenas, Posicion posicion,
@@ -98,7 +103,7 @@ public class Tablero extends Observable {
 	 *            El color de la piedra
 	 */
 	void intentarAgregarPiedra(int x, int y, ColorPiedra color)
-			throws JugadaInvalidaException {
+		throws JugadaInvalidaException,FinDelJuegoException {
 
 		Posicion posicion = new Posicion(x, y);
 		Cadena nuevaCadena = new Cadena(posicion, color, this);
@@ -149,7 +154,7 @@ public class Tablero extends Observable {
 	 *            El color del movimiento.
 	 */
 	void aplicarReglas(Posicion posicionJugada, ArrayList<Cadena> cadenas,
-			ColorPiedra color) throws JugadaInvalidaException {
+			   ColorPiedra color) throws JugadaInvalidaException,FinDelJuegoException {
 		
 		ArrayList<Cadena> cadenasEliminadas = new ArrayList<Cadena>();
 
@@ -163,12 +168,14 @@ public class Tablero extends Observable {
 
 		boolean valida = false;
 
+
 		if (cadenasEliminadas.size() == 0) {
 			// Es jugada valida
 			valida = true;
 		} else {
 			for (Cadena eliminada : cadenasEliminadas) {
 				if (eliminada.getColor() != color) {
+					finDelJuego = true;
 					// Se elimina una cadena del otro color, la jugada es
 					// valida
 					valida = true;

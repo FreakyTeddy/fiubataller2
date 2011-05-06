@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 
 import Juego.ColorPiedra;
 import Juego.Estrategia;
+import Juego.EstrategiaComputadoraAtaqueCuidadosoMasInteligente;
+import Juego.FinDelJuegoException;
 import Juego.JugadaInvalidaException;
 import Juego.Posicion;
 import Juego.Tablero;
@@ -43,7 +45,7 @@ public class TableroGo extends JPanel implements Observer{
 		/* Lo pongo para probar, cuando este el controlador TIENE que volar*/
 		this.tablero = tablero;
 		tablero.addObserver(this);
-//		estrategiaNegro = new EstrategiaComputadoraAtaqueCuidadosoMasInteligente(tablero, ColorPiedra.NEGRO);
+		estrategiaNegro = new EstrategiaComputadoraAtaqueCuidadosoMasInteligente(tablero, ColorPiedra.NEGRO);
 		cargarImagenes();
 	}
 	
@@ -117,6 +119,9 @@ public class TableroGo extends JPanel implements Observer{
 		catch(JugadaInvalidaException e){
 			System.out.println("Eeeeeeeeeeeepa");
 			System.out.println(e.toString());
+		}
+		catch(FinDelJuegoException e){
+			System.out.println("Se terminó eljuego");
 		}
 	}
 	

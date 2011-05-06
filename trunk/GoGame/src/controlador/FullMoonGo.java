@@ -62,7 +62,12 @@ public class FullMoonGo {
 				jugadorBlanco.jugar();
 			}
 		}catch (FinDelJuegoException e){
-			System.out.println(e);
+			String nombreGanador="";	//esto despues tendria que ir a la vista :)
+			if (e.getColorGanador() == ColorPiedra.NEGRO)
+				nombreGanador = jugadorNegro.getNombre();
+			if (e.getColorGanador() == ColorPiedra.BLANCO)
+				nombreGanador = jugadorBlanco.getNombre();
+			System.out.println("El ganador es: " + nombreGanador);
 		}
 	}
 	

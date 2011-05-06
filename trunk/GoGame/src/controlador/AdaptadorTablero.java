@@ -48,7 +48,7 @@ public class AdaptadorTablero extends MouseAdapter implements Estrategia {
 				System.out.println(ex.toString());
 			}
 			catch(FinDelJuegoException ex){
-				System.out.println("El acabose");
+				System.out.println("ganador: " + ex.getColorGanador());
 			}
 		
 	}

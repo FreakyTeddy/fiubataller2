@@ -96,7 +96,7 @@ public class Tablero extends Observable {
 		setChanged();
 		notifyObservers();
 		if(finDelJuego)
-			throw new FinDelJuegoException();
+			throw new FinDelJuegoException(color);
 		
 	}
 

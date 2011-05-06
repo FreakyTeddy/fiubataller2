@@ -3,11 +3,19 @@ package Juego;
 @SuppressWarnings("serial")
 public class FinDelJuegoException extends Exception {
 
-	public FinDelJuegoException() {
+	private ColorPiedra ganador;
+	
+	public FinDelJuegoException(ColorPiedra colorGanador) {
 		super();
+		ganador = colorGanador;
 	}
 	
-	public FinDelJuegoException(String msj) {
+	public FinDelJuegoException(ColorPiedra colorGanador, String msj) {
 		super(msj);
+		ganador = colorGanador;
+	}
+	
+	public ColorPiedra getColorGanador(){
+		return ganador;
 	}
 }

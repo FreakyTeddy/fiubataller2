@@ -15,6 +15,10 @@
 
 * Detalles de implementación
 ** Vista
+  Se utilizo MVC para separar la interfaz grafica de la lógica interna del juego.
+  Cada vez que surge un cambio en el tablero (algun jugador agrega una ficha), se notifica a 
+  la vista para que refresque la ventana del tablero. 
+  
 ** Protocolo de comunicaciones
 ** Estrategias implementadas
    Actualmente se cuenta con cuatro estrategias de juego que serán

@@ -1,6 +1,6 @@
 package Remoto;
 
-import Remoto.GTP.ProcesadorMsjsRtaServidor;
+import Remoto.GTP.ProcesadorMsjsEntrantes;
 
 public class Cliente {
 
@@ -8,10 +8,11 @@ public class Cliente {
 	private boolean conectado;
 	private boolean envioMsjSalida;
 	private int msjsEnviados;
-	private ProcesadorMsjsRtaServidor procesador;
+	private ProcesadorMsjsEntrantes procesador;
 
+	
 	public Cliente() {
-		procesador = new ProcesadorMsjsRtaServidor();
+		procesador = new ProcesadorMsjsEntrantes();
 		conectado = false;
 		envioMsjSalida = false;
 		msjsEnviados = 0;
@@ -45,12 +46,8 @@ public class Cliente {
 
 	public void procesarMensajeEntrante(String mensaje) {
 		String mensajeRta= procesador.procesarMensaje(mensaje);
-		if(mensajeRta.equals("")) {
-			System.out.println(">Respuesta afirmativa servidor");
-		} else {
-			System.out.println(">Respuesta de error servidor");
-			System.out.println("Detalle: " + mensajeRta);
-		}
+		if(!mensajeRta.equals(""))           
+			socket.enviarMensaje(mensajeRta);  
 		msjsEnviados--;
 		if (msjsEnviados == 0 && envioMsjSalida)
 			conectado = false;
@@ -60,7 +57,7 @@ public class Cliente {
 		this.conectado = false;
 	}
 
-	public void terminar2() {
+	public void terminarTest() {
 		try {
 			this.socket.join();
 			System.out.println(">> END: socket thread");

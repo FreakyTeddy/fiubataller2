@@ -1,16 +1,16 @@
 package Remoto.GTP.ParsearMensajes;
 
-import Remoto.Servidor;
+import Remoto.GTP.Gtp;
 
 public abstract class CadenaGtp {
 
+	protected Gtp gtp;
 	protected CadenaGtp cadenaSgte;
-	protected Servidor servidor;
 	
-	public CadenaGtp(Servidor servidor) {
-		this.servidor= servidor;
+	public CadenaGtp(Gtp gtp) {
+		this.gtp= gtp;
 	}
-	
+
 	public abstract String enviarSgteCadena(String[] mensaje);
 	
 	public void agregarCadena(CadenaGtp cadenaSgte) {

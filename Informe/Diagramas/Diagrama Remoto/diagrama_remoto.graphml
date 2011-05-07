@@ -78,7 +78,7 @@
     <node id="n6">
       <data key="d3">
         <y:ShapeNode>
-          <y:Geometry height="25.0" width="168.0" x="-16.5" y="746.63201320132"/>
+          <y:Geometry height="25.0" width="168.0" x="186.81445334130728" y="654.2323936252682"/>
           <y:Fill color="#C0C0C0" transparent="false"/>
           <y:BorderStyle color="#808080" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="155.306640625" x="6.3466796875" y="3.515625">ProcesadorMsjsEntrantes</y:NodeLabel>
@@ -89,17 +89,6 @@
     <node id="n7">
       <data key="d3">
         <y:ShapeNode>
-          <y:Geometry height="25.0" width="168.0" x="432.0" y="746.63201320132"/>
-          <y:Fill color="#C0C0C0" transparent="false"/>
-          <y:BorderStyle color="#808080" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="167.83984375" x="0.080078125" y="3.515625">ProcesadorMsjsRtaServidor</y:NodeLabel>
-          <y:Shape type="rectangle"/>
-        </y:ShapeNode>
-      </data>
-    </node>
-    <node id="n8">
-      <data key="d3">
-        <y:ShapeNode>
           <y:Geometry height="30.0" width="30.0" x="285.0" y="180.6132376395534"/>
           <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
@@ -108,10 +97,10 @@
         </y:ShapeNode>
       </data>
     </node>
-    <node id="n9">
+    <node id="n8">
       <data key="d3">
         <y:ShapeNode>
-          <y:Geometry height="25.0" width="88.0" x="-53.0" y="963.63201320132"/>
+          <y:Geometry height="25.0" width="88.0" x="150.31445334130728" y="871.2323936252682"/>
           <y:Fill color="#C0C0C0" transparent="false"/>
           <y:BorderStyle color="#808080" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="80.740234375" x="3.6298828125" y="3.515625">CadenaJugar</y:NodeLabel>
@@ -119,10 +108,10 @@
         </y:ShapeNode>
       </data>
     </node>
-    <node id="n10">
+    <node id="n9">
       <data key="d3">
         <y:ShapeNode>
-          <y:Geometry height="25.0" width="103.0" x="100.0" y="963.63201320132"/>
+          <y:Geometry height="25.0" width="103.0" x="303.3144533413073" y="871.2323936252682"/>
           <y:Fill color="#C0C0C0" transparent="false"/>
           <y:BorderStyle color="#808080" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="93.537109375" x="4.7314453125" y="3.515625">CadenaDefault</y:NodeLabel>
@@ -130,53 +119,26 @@
         </y:ShapeNode>
       </data>
     </node>
+    <node id="n10">
+      <data key="d3">
+        <y:ShapeNode>
+          <y:Geometry height="5.0" width="5.0" x="268.3144533413073" y="847.2323936252682"/>
+          <y:Fill color="#000000" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="4.0" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="4.0" x="0.5" y="0.5"/>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
     <node id="n11">
-      <data key="d3">
-        <y:ShapeNode>
-          <y:Geometry height="5.0" width="5.0" x="65.0" y="939.63201320132"/>
-          <y:Fill color="#000000" transparent="false"/>
-          <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="4.0" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="4.0" x="0.5" y="0.5"/>
-          <y:Shape type="ellipse"/>
-        </y:ShapeNode>
-      </data>
-    </node>
-    <node id="n12">
-      <data key="d3">
-        <y:ShapeNode>
-          <y:Geometry height="5.0" width="5.0" x="297.5" y="713.4155702482997"/>
-          <y:Fill color="#000000" transparent="false"/>
-          <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="4.0" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="4.0" x="0.5" y="0.5"/>
-          <y:Shape type="ellipse"/>
-        </y:ShapeNode>
-      </data>
-    </node>
-    <node id="n13">
       <data key="d1"/>
       <data key="d2"><![CDATA[UMLClass]]></data>
       <data key="d3">
         <y:UMLClassNode>
-          <y:Geometry height="84.83389261744969" width="254.73825503355704" x="172.63087248322148" y="608.63201320132"/>
+          <y:Geometry height="109.83389261744969" width="290.2762088289365" x="125.67634892683904" y="709.2323936252682"/>
           <y:Fill color="#C0C0C0" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.1328125" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="119.41943359375" x="67.65941071990352" y="25.96875">ProcesadorMsjs</y:NodeLabel>
-          <y:UML clipContent="true" constraint="" omitDetails="false" stereotype="abstract" use3DEffect="true">
-            <y:AttributeLabel/>
-            <y:MethodLabel>procesarMensaje(String mensaje): String</y:MethodLabel>
-          </y:UML>
-        </y:UMLClassNode>
-      </data>
-    </node>
-    <node id="n14">
-      <data key="d1"/>
-      <data key="d2"><![CDATA[UMLClass]]></data>
-      <data key="d3">
-        <y:UMLClassNode>
-          <y:Geometry height="109.83389261744969" width="290.2762088289365" x="-77.63810441446824" y="801.63201320132"/>
-          <y:Fill color="#C0C0C0" transparent="false"/>
-          <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.1328125" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="119.41943359375" x="85.42838761759324" y="25.96875">ProcesadorMsjs</y:NodeLabel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="13" fontStyle="bold" hasBackgroundColor="false" hasLineColor="false" height="19.1328125" modelName="internal" modelPosition="c" textColor="#000000" visible="true" width="84.6533203125" x="102.81144425821824" y="25.96875">CadenaGtp</y:NodeLabel>
           <y:UML clipContent="true" constraint="" omitDetails="false" stereotype="abstract" use3DEffect="true">
             <y:AttributeLabel>CadenaGtp</y:AttributeLabel>
             <y:MethodLabel>enviarSgteCadena(String[] mensaje): String
@@ -185,7 +147,7 @@ agregarCadena(CadenaGTP cadenaSgte): void</y:MethodLabel>
         </y:UMLClassNode>
       </data>
     </node>
-    <node id="n15">
+    <node id="n12">
       <data key="d1"/>
       <data key="d2"><![CDATA[UMLClass]]></data>
       <data key="d3">
@@ -207,11 +169,11 @@ cerrarConexion(): void</y:MethodLabel>
         </y:UMLClassNode>
       </data>
     </node>
-    <edge id="e0" source="n9" target="n11">
+    <edge id="e0" source="n8" target="n10">
       <data key="d6">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
-            <y:Point x="-9.0" y="942.13201320132"/>
+            <y:Point x="194.31445334130728" y="849.7323936252682"/>
           </y:Path>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="none" target="none"/>
@@ -219,11 +181,11 @@ cerrarConexion(): void</y:MethodLabel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e1" source="n10" target="n11">
+    <edge id="e1" source="n9" target="n10">
       <data key="d6">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
-            <y:Point x="151.5" y="942.13201320132"/>
+            <y:Point x="354.8144533413073" y="849.7323936252682"/>
           </y:Path>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="none" target="none"/>
@@ -231,7 +193,7 @@ cerrarConexion(): void</y:MethodLabel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e2" source="n9" target="n10">
+    <edge id="e2" source="n8" target="n9">
       <data key="d6">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -241,41 +203,7 @@ cerrarConexion(): void</y:MethodLabel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e3" source="n6" target="n12">
-      <data key="d6">
-        <y:PolyLineEdge>
-          <y:Path sx="52.5" sy="-9.132013201319978" tx="0.0" ty="0.0">
-            <y:Point x="120.0" y="715.9155702482997"/>
-          </y:Path>
-          <y:LineStyle color="#000000" type="line" width="1.0"/>
-          <y:Arrows source="none" target="none"/>
-          <y:BendStyle smoothed="false"/>
-        </y:PolyLineEdge>
-      </data>
-    </edge>
-    <edge id="e4" source="n7" target="n12">
-      <data key="d6">
-        <y:PolyLineEdge>
-          <y:Path sx="-24.17841163310959" sy="0.0" tx="0.0" ty="0.0">
-            <y:Point x="491.8215883668904" y="715.9155702482997"/>
-          </y:Path>
-          <y:LineStyle color="#000000" type="line" width="1.0"/>
-          <y:Arrows source="none" target="none"/>
-          <y:BendStyle smoothed="false"/>
-        </y:PolyLineEdge>
-      </data>
-    </edge>
-    <edge id="e5" source="n12" target="n13">
-      <data key="d6">
-        <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
-          <y:LineStyle color="#000000" type="dashed" width="1.0"/>
-          <y:Arrows source="none" target="white_delta"/>
-          <y:BendStyle smoothed="false"/>
-        </y:PolyLineEdge>
-      </data>
-    </edge>
-    <edge id="e6" source="n14" target="n6">
+    <edge id="e3" source="n11" target="n6">
       <data key="d6">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -285,7 +213,7 @@ cerrarConexion(): void</y:MethodLabel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e7" source="n11" target="n14">
+    <edge id="e4" source="n10" target="n11">
       <data key="d6">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -295,22 +223,22 @@ cerrarConexion(): void</y:MethodLabel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e8" source="n14" target="n14">
+    <edge id="e5" source="n11" target="n11">
       <data key="d6">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="112.5" ty="-34.416946308724846">
-            <y:Point x="330.0" y="856.5489595100448"/>
-            <y:Point x="330.0" y="762.13201320132"/>
-            <y:Point x="180.0" y="762.13201320132"/>
+            <y:Point x="533.3144533413073" y="764.149339933993"/>
+            <y:Point x="533.3144533413073" y="690.0"/>
+            <y:Point x="383.3144533413073" y="690.0"/>
           </y:Path>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="none" target="standard"/>
-          <y:EdgeLabel alignment="center" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="six_pos" modelPosition="tail" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" visible="true" width="75.232421875" x="4.75897216796875" y="-92.41693699399252">cadenaSgte</y:EdgeLabel>
+          <y:EdgeLabel alignment="center" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="six_pos" modelPosition="tail" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" visible="true" width="75.232421875" x="4.758972384276035" y="-72.14935302734375">cadenaSgte</y:EdgeLabel>
           <y:BendStyle smoothed="false"/>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e9" source="n1" target="n4">
+    <edge id="e6" source="n1" target="n4">
       <data key="d6">
         <y:PolyLineEdge>
           <y:Path sx="19.86912751677852" sy="0.0" tx="0.0" ty="0.0">
@@ -322,7 +250,7 @@ cerrarConexion(): void</y:MethodLabel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e10" source="n2" target="n4">
+    <edge id="e7" source="n2" target="n4">
       <data key="d6">
         <y:PolyLineEdge>
           <y:Path sx="-29.41148175220212" sy="0.0" tx="0.0" ty="0.0">
@@ -334,7 +262,7 @@ cerrarConexion(): void</y:MethodLabel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e11" source="n4" target="n15">
+    <edge id="e8" source="n4" target="n12">
       <data key="d6">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -344,7 +272,7 @@ cerrarConexion(): void</y:MethodLabel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e12" source="n2" target="n5">
+    <edge id="e9" source="n2" target="n5">
       <data key="d6">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -356,17 +284,7 @@ cerrarConexion(): void</y:MethodLabel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e13" source="n7" target="n5">
-      <data key="d6">
-        <y:PolyLineEdge>
-          <y:Path sx="-14.122169059011298" sy="0.0" tx="21.8778309409887" ty="-2.5"/>
-          <y:LineStyle color="#000000" type="line" width="1.0"/>
-          <y:Arrows source="none" target="standard"/>
-          <y:BendStyle smoothed="false"/>
-        </y:PolyLineEdge>
-      </data>
-    </edge>
-    <edge id="e14" source="n1" target="n0">
+    <edge id="e10" source="n1" target="n0">
       <data key="d6">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -378,17 +296,7 @@ cerrarConexion(): void</y:MethodLabel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e15" source="n6" target="n0">
-      <data key="d6">
-        <y:PolyLineEdge>
-          <y:Path sx="22.5" sy="0.0" tx="-12.5" ty="-2.499999999999943"/>
-          <y:LineStyle color="#000000" type="line" width="1.0"/>
-          <y:Arrows source="none" target="standard"/>
-          <y:BendStyle smoothed="false"/>
-        </y:PolyLineEdge>
-      </data>
-    </edge>
-    <edge id="e16" source="n15" target="n3">
+    <edge id="e11" source="n12" target="n3">
       <data key="d6">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -398,7 +306,7 @@ cerrarConexion(): void</y:MethodLabel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e17" source="n8" target="n0">
+    <edge id="e12" source="n7" target="n0">
       <data key="d6">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="17.5" ty="-2.5">
@@ -410,11 +318,35 @@ cerrarConexion(): void</y:MethodLabel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e18" source="n8" target="n5">
+    <edge id="e13" source="n7" target="n5">
       <data key="d6">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="-30.0" ty="0.0">
             <y:Point x="450.0" y="195.6132376395534"/>
+          </y:Path>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e14" source="n6" target="n0">
+      <data key="d6">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="-12.5" ty="-2.5">
+            <y:Point x="90.0" y="666.7323936252682"/>
+          </y:Path>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e15" source="n6" target="n5">
+      <data key="d6">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="30.0" ty="11.794623655913938">
+            <y:Point x="510.0" y="666.7323936252682"/>
           </y:Path>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="none" target="standard"/>

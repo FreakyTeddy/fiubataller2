@@ -1,23 +1,29 @@
 package Remoto.GTP.ParsearMensajes;
 
-import Remoto.Servidor;
+import java.util.ArrayList;
+
 import Remoto.GTP.Constantes;
+import Remoto.GTP.Gtp;
 
 public class CadenaNombre extends CadenaGtp {
 
-	public CadenaNombre(Servidor servidor) {
-		super(servidor);
+	private static String NOMBRE_PROGRAMA="GNU Go";
+	
+	public CadenaNombre(Gtp gtp) {
+		super(gtp);
 	}
 
 	@Override
 	public String enviarSgteCadena(String[] mensaje) {
 		if(mensaje.length <= 1)
 			return cadenaSgte.enviarSgteCadena(mensaje);	
-		if(!(mensaje[1].equals(Constantes.NAME)))
+		if(!(mensaje[1].equals(Constantes.NAME)) || mensaje[0].startsWith(Constantes.INICIO_MSJ_RTA))
 			return cadenaSgte.enviarSgteCadena(mensaje);
 		else {
 			System.out.println("Cadena Nombre");
-			String mensajeRta= Constantes.INICIO_MSJ_RTA + mensaje[0] + " " + Constantes.FIN_MSJ_RTA;
+			ArrayList<String> lista= new ArrayList<String>();
+			lista.add(NOMBRE_PROGRAMA);
+			String mensajeRta= gtp.mensajeRespuestaOk(mensaje[0], lista);  
 			System.out.println("Respuesta " + mensajeRta);	
 			return mensajeRta;
 		}

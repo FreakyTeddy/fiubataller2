@@ -11,7 +11,7 @@ public class Servidor {
 	public Servidor(int puerto) {
 		clienteConectado= false;
 		socket= new SocketServidor(this, puerto);
-		procesador= new ProcesadorMsjsEntrantes(this);
+		procesador= new ProcesadorMsjsEntrantes();
 	}
 
 	public void iniciar() {
@@ -20,9 +20,14 @@ public class Servidor {
 
 	public void procesarMensaje(String mensaje) {
 		String msjRespuesta= procesador.procesarMensaje(mensaje);
-		socket.enviarMensaje(msjRespuesta);
+		if(!msjRespuesta.equals(""))
+			socket.enviarMensaje(msjRespuesta);
 	}
-
+	
+	public void enviarMensaje(String mensaje) {
+		socket.enviarMensaje(mensaje);
+	}
+	
 	public void clienteConectado() {
 		clienteConectado= true;
 	}
@@ -43,8 +48,17 @@ public class Servidor {
 		socket.terminar();
 	}
 	
+	public void terminarTest() {
+			try {
+				this.socket.join();
+				System.out.println(">> END: socket thread");
+			} catch (InterruptedException e) {
+				System.out.print(">> EXCEPTION: terminar <<");
+			}
+	}
+	
 	public static void main( String[] arg ) {	
-		Servidor s= new Servidor(1234);
+		Servidor s= new Servidor(1111);
 		s.iniciar();
 	}
 }

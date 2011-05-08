@@ -11,10 +11,8 @@ public class CadenaKomi extends CadenaGtp {
 
 	@Override
 	public String enviarSgteCadena(String[] mensaje) {
-		if(mensaje.length <= 1)
+		if(!verificarTipoMensaje(Constantes.KOMI, mensaje))
 			return cadenaSgte.enviarSgteCadena(mensaje);	
-		if(!(mensaje[1].equals(Constantes.KOMI)) || mensaje[0].startsWith(Constantes.INICIO_MSJ_RTA))
-			return cadenaSgte.enviarSgteCadena(mensaje);
 		else {
 			System.out.println("Cadena Komi");
 			String mensajeRta= gtp.mensajeRespuestaOk(mensaje[0], null);  

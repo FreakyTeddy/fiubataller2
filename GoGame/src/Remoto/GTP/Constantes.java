@@ -21,4 +21,5 @@ public class Constantes {
 	public static String INICIO_MSJ_RTA_ERROR= "?";
 	public static String FIN_MSJ_RTA= "\n\n";
 	public static String ESPACIO= " ";
+	public static String SHARP= "#";
 }

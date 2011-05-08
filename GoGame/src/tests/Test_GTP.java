@@ -2,6 +2,10 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -116,22 +120,24 @@ public class Test_GTP {
 		System.out.println("=== TEST MODO CONNECT ===");
 		boolean salida= cliente.iniciar("localhost", 1111);
 		System.out.println("Salida: " + salida);
-    cliente.enviarMensaje(gtp.mensajeVersion());
-    cliente.enviarMensaje(gtp.mensajeVersionProtocolo());
-    cliente.enviarMensaje(gtp.mensajeKomi(5.5));
-    cliente.enviarMensaje(gtp.mensajeTamanioTablero(7));
-    cliente.enviarMensaje(gtp.mensajeLimpiarTablero());
-    cliente.enviarMensaje(gtp.mensajeNombre());
-    cliente.enviarMensaje(gtp.mensajeListarCommandos());
-   /* cliente.enviarMensaje(gtp.mensajeComandoSoportado("boardsize"));
-    cliente.enviarMensaje(gtp.mensajeComandoSoportado("holaGNUGO"));     
-    cliente.enviarMensaje(gtp.mensajeJugar("black", "D5"));
-    cliente.enviarMensaje(gtp.mensajeGenMovimiento("white"));
-    cliente.enviarMensaje(gtp.mensajeJugar("black", "C3"));
-    cliente.enviarMensaje(gtp.mensajeJugar("black", "E3"));
-    cliente.enviarMensaje("Cualquier cosa");
-    cliente.enviarMensaje(gtp.mensajeSalir());
-    cliente.seEnvioMensajeSalida();*/
+		cliente.enviarMensaje(gtp.mensajeVersion());
+		cliente.enviarMensaje(gtp.mensajeVersionProtocolo());
+		cliente.enviarMensaje("version #esto es un comentario");
+		cliente.enviarMensaje("    ");
+		cliente.enviarMensaje("boardsize\r");
+		cliente.enviarMensaje(gtp.mensajeKomi(5.5));
+		cliente.enviarMensaje(gtp.mensajeTamanioTablero(7));
+		cliente.enviarMensaje(gtp.mensajeLimpiarTablero());
+		cliente.enviarMensaje(gtp.mensajeNombre());
+		cliente.enviarMensaje(gtp.mensajeListarCommandos());
+		cliente.enviarMensaje(gtp.mensajeComandoSoportado("boardsize"));
+		cliente.enviarMensaje(gtp.mensajeComandoSoportado("holaGNUGO"));     
+		cliente.enviarMensaje(gtp.mensajeJugar("black", "D5"));
+		cliente.enviarMensaje(gtp.mensajeGenMovimiento("white"));
+		cliente.enviarMensaje(gtp.mensajeJugar("black", "C3"));
+		cliente.enviarMensaje(gtp.mensajeJugar("black", "E3"));
+		cliente.enviarMensaje("Cualquier cosa");
+		cliente.enviarMensaje(gtp.mensajeSalir());
 		cliente.terminarTest();
 		System.out.println("=== FIN: MODO CONNECT ===");
 	}

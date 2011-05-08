@@ -13,10 +13,8 @@ public class CadenaGenMovimiento extends CadenaGtp {
 
 	@Override
 	public String enviarSgteCadena(String[] mensaje) {
-		if(mensaje.length <= 1)
+		if(!verificarTipoMensaje(Constantes.GENMOVE, mensaje))
 			return cadenaSgte.enviarSgteCadena(mensaje);	
-		if(!(mensaje[1].equals(Constantes.GENMOVE)) || mensaje[0].startsWith(Constantes.INICIO_MSJ_RTA))
-			return cadenaSgte.enviarSgteCadena(mensaje);
 		else {
 			System.out.println("Cadena Generar Movimiento");
 			//TODO! a quien le pido esto?

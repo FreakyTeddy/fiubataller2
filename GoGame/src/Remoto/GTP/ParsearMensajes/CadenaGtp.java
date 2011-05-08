@@ -16,4 +16,14 @@ public abstract class CadenaGtp {
 	public void agregarCadena(CadenaGtp cadenaSgte) {
 		this.cadenaSgte= cadenaSgte;
 	}
+	
+	public boolean verificarTipoMensaje(String tipo, String[] mensaje) {
+		if(mensaje[0].equals(tipo) && mensaje.length == 1)
+			return true;
+		if(mensaje.length > 1)
+			if(mensaje[1].equals(tipo)) {
+				return true;
+		}
+		return false;			
+	}
 }

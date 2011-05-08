@@ -11,10 +11,8 @@ public class CadenaLimpiarTablero extends CadenaGtp {
 
 	@Override
 	public String enviarSgteCadena(String[] mensaje) {
-		if(mensaje.length <= 1)
+		if(!verificarTipoMensaje(Constantes.CLEAR_BOARD, mensaje))
 			return cadenaSgte.enviarSgteCadena(mensaje);	
-		if(!(mensaje[1].equals(Constantes.CLEAR_BOARD)) || mensaje[0].startsWith(Constantes.INICIO_MSJ_RTA))
-			return cadenaSgte.enviarSgteCadena(mensaje);
 		else {
 			System.out.println("Cadena Limpiar Tablero");
 			String mensajeRta= gtp.mensajeRespuestaOk(mensaje[0], null);  

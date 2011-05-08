@@ -17,7 +17,11 @@ import Remoto.GTP.ParsearMensajes.CadenaVersionProtocolo;
 
 public class ProcesadorMsjsEntrantes {
 
-	protected static String DELIMITADORES= "[ \n]";
+	private static String CARACTERES_CONTROL= "[\r]";
+	private static String COMENTARIOS= "#.*$";
+	private static String TAB_HORIZONTAL= "[\t]";
+	private static String CADENA_VACIA= "^ *$";
+	private static String DELIMITADORES= "[ \n]";
 	
 	private CadenaGtp cadenaVersionProtocolo;
 	private CadenaGtp cadenaNombre;
@@ -55,6 +59,7 @@ public class ProcesadorMsjsEntrantes {
 	}
 	
 	private void encadenarCadenas() {
+		cadenaRtaMsjsServidor.agregarCadena(cadenaVersionProtocolo);
 		cadenaVersionProtocolo.agregarCadena(cadenaNombre);
 		cadenaNombre.agregarCadena(cadenaVersion);
 		cadenaVersion.agregarCadena(cadenaComandoSoportado);
@@ -65,12 +70,23 @@ public class ProcesadorMsjsEntrantes {
 		cadenaKomi.agregarCadena(cadenaJugar);
 		cadenaJugar.agregarCadena(cadenaGenMovimiento);
 		cadenaGenMovimiento.agregarCadena(cadenaSalida);
-		cadenaSalida.agregarCadena(cadenaRtaMsjsServidor);
-		cadenaRtaMsjsServidor.agregarCadena(cadenaDefault);
+		cadenaSalida.agregarCadena(cadenaDefault);
 	}
 	
 	public String procesarMensaje(String mensaje) {
+		//1. Eliminar caracteres de control (Ej. CR)
+		mensaje= mensaje.replaceAll(CARACTERES_CONTROL, ""); 
+		//2. Eliminar los comentarios
+		mensaje= mensaje.replaceFirst(COMENTARIOS, ""); 
+		//3. Convertir HT por espacios
+		mensaje= mensaje.replaceAll(TAB_HORIZONTAL, " "); 
+		//4. Descartar lineas vacias
+		mensaje= mensaje.replaceFirst(CADENA_VACIA, "");
+		if(mensaje.equals("")) {
+			System.out.println("Cadena Vacia");
+			return "";
+		}
 		String[] palabras= mensaje.split(DELIMITADORES);
-		return cadenaVersionProtocolo.enviarSgteCadena(palabras);
+		return cadenaRtaMsjsServidor.enviarSgteCadena(palabras);
 	}
 }

@@ -6,17 +6,15 @@ import Remoto.GTP.Constantes;
 import Remoto.GTP.Gtp;
 
 public class CadenaComandoSoportado extends CadenaGtp {
-
+	
 	public CadenaComandoSoportado(Gtp gtp) {
 		super(gtp);
 	}
 
 	@Override
 	public String enviarSgteCadena(String[] mensaje) {
-		if(mensaje.length <= 1)
+		if(!verificarTipoMensaje(Constantes.KNOWN_COMMAND, mensaje))
 			return cadenaSgte.enviarSgteCadena(mensaje);	
-		if(!(mensaje[1].equals(Constantes.KNOWN_COMMAND)) || mensaje[0].startsWith(Constantes.INICIO_MSJ_RTA)) 
-			return cadenaSgte.enviarSgteCadena(mensaje);
 		else {
 			System.out.println("Cadena Comandos Soportados");
 			//TODO: a quien se le pregunta?

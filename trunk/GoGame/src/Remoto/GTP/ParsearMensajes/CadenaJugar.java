@@ -15,10 +15,8 @@ public class CadenaJugar extends CadenaGtp {
 	
 	@Override
 	public String enviarSgteCadena(String[] mensaje) {
-		if(mensaje.length <= 1)
+		if(!verificarTipoMensaje(Constantes.PLAY, mensaje))
 			return cadenaSgte.enviarSgteCadena(mensaje);	
-		if(!(mensaje[1].equals(Constantes.PLAY)) || mensaje[0].startsWith(Constantes.INICIO_MSJ_RTA))
-			return cadenaSgte.enviarSgteCadena(mensaje);
 		else {
 			System.out.println("Cadena Jugar");
 			//TODO: como se q es valido?

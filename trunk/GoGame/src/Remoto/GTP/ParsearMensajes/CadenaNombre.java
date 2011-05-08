@@ -15,10 +15,8 @@ public class CadenaNombre extends CadenaGtp {
 
 	@Override
 	public String enviarSgteCadena(String[] mensaje) {
-		if(mensaje.length <= 1)
+		if(!verificarTipoMensaje(Constantes.NAME, mensaje))
 			return cadenaSgte.enviarSgteCadena(mensaje);	
-		if(!(mensaje[1].equals(Constantes.NAME)) || mensaje[0].startsWith(Constantes.INICIO_MSJ_RTA))
-			return cadenaSgte.enviarSgteCadena(mensaje);
 		else {
 			System.out.println("Cadena Nombre");
 			ArrayList<String> lista= new ArrayList<String>();

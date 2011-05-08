@@ -15,10 +15,8 @@ public class CadenaVersion extends CadenaGtp {
 
 	@Override
 	public String enviarSgteCadena(String[] mensaje) {
-		if(mensaje.length <= 1)
-			return cadenaSgte.enviarSgteCadena(mensaje);
-		if(!(mensaje[1].equals(Constantes.VERSION)) || mensaje[0].startsWith(Constantes.INICIO_MSJ_RTA))
-			return cadenaSgte.enviarSgteCadena(mensaje);
+		if(!verificarTipoMensaje(Constantes.VERSION, mensaje))
+			return cadenaSgte.enviarSgteCadena(mensaje);	
 		else {
 			System.out.println("Cadena Version");
 			ArrayList<String> lista= new ArrayList<String>();

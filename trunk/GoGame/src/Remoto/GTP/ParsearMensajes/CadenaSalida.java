@@ -11,10 +11,8 @@ public class CadenaSalida extends CadenaGtp {
 
 	@Override
 	public String enviarSgteCadena(String[] mensaje) {	
-		if(mensaje.length <= 1)
+		if(!verificarTipoMensaje(Constantes.QUIT, mensaje))
 			return cadenaSgte.enviarSgteCadena(mensaje);	
-		if(!(mensaje[1].equals(Constantes.QUIT)) || mensaje[0].startsWith(Constantes.INICIO_MSJ_RTA))
-			return cadenaSgte.enviarSgteCadena(mensaje);
 		else {
 			System.out.println("Cadena Salida");
 			String mensajeRta= gtp.mensajeRespuestaOk(mensaje[0], null); 

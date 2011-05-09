@@ -1,6 +1,6 @@
 package Remoto.GTP.ParsearMensajes;
 
-import Remoto.GTP.Constantes;
+import Remoto.GTP.ConstantesGtp;
 import Remoto.GTP.Gtp;
 
 public class CadenaRtaMsjsServidor extends CadenaGtp {
@@ -14,13 +14,13 @@ public class CadenaRtaMsjsServidor extends CadenaGtp {
 
 	@Override
 	public String enviarSgteCadena(String[] mensaje) {
-		if((leyendoComandos && mensaje[0].startsWith(Constantes.INICIO_MSJ_RTA)) || mensaje.length > 1)
+		if(leyendoComandos && (mensaje[0].startsWith(ConstantesGtp.INICIO_MSJ_RTA) || mensaje.length > 1))
 			leyendoComandos= false;
-		if(mensaje[0].startsWith(Constantes.INICIO_MSJ_RTA) || leyendoComandos) {
+		if(mensaje[0].startsWith(ConstantesGtp.INICIO_MSJ_RTA) || leyendoComandos) {
 			leyendoComandos= true;
 			System.out.println(">Respuesta afirmativa servidor");
 			return "";
-		} else if(mensaje[0].startsWith(Constantes.INICIO_MSJ_RTA_ERROR)) {
+		} else if(mensaje[0].startsWith(ConstantesGtp.INICIO_MSJ_RTA_ERROR)) {
 			System.out.println(">Respuesta de error servidor");
 			return "";
 		}

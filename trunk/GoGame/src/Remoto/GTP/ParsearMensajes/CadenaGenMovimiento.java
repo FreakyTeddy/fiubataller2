@@ -2,7 +2,7 @@ package Remoto.GTP.ParsearMensajes;
 
 import java.util.ArrayList;
 
-import Remoto.GTP.Constantes;
+import Remoto.GTP.ConstantesGtp;
 import Remoto.GTP.Gtp;
 
 public class CadenaGenMovimiento extends CadenaGtp {
@@ -13,7 +13,7 @@ public class CadenaGenMovimiento extends CadenaGtp {
 
 	@Override
 	public String enviarSgteCadena(String[] mensaje) {
-		if(!verificarTipoMensaje(Constantes.GENMOVE, mensaje))
+		if(!verificarTipoMensaje(ConstantesGtp.GENMOVE, mensaje))
 			return cadenaSgte.enviarSgteCadena(mensaje);	
 		else {
 			System.out.println("Cadena Generar Movimiento");

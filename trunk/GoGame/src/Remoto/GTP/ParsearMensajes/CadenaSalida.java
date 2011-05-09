@@ -1,6 +1,6 @@
 package Remoto.GTP.ParsearMensajes;
 
-import Remoto.GTP.Constantes;
+import Remoto.GTP.ConstantesGtp;
 import Remoto.GTP.Gtp;
 
 public class CadenaSalida extends CadenaGtp {
@@ -11,7 +11,7 @@ public class CadenaSalida extends CadenaGtp {
 
 	@Override
 	public String enviarSgteCadena(String[] mensaje) {	
-		if(!verificarTipoMensaje(Constantes.QUIT, mensaje))
+		if(!verificarTipoMensaje(ConstantesGtp.QUIT, mensaje))
 			return cadenaSgte.enviarSgteCadena(mensaje);	
 		else {
 			System.out.println("Cadena Salida");

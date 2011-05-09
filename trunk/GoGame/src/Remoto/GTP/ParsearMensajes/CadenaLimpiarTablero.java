@@ -1,6 +1,6 @@
 package Remoto.GTP.ParsearMensajes;
 
-import Remoto.GTP.Constantes;
+import Remoto.GTP.ConstantesGtp;
 import Remoto.GTP.Gtp;
 
 public class CadenaLimpiarTablero extends CadenaGtp {
@@ -11,7 +11,7 @@ public class CadenaLimpiarTablero extends CadenaGtp {
 
 	@Override
 	public String enviarSgteCadena(String[] mensaje) {
-		if(!verificarTipoMensaje(Constantes.CLEAR_BOARD, mensaje))
+		if(!verificarTipoMensaje(ConstantesGtp.CLEAR_BOARD, mensaje))
 			return cadenaSgte.enviarSgteCadena(mensaje);	
 		else {
 			System.out.println("Cadena Limpiar Tablero");
@@ -20,5 +20,4 @@ public class CadenaLimpiarTablero extends CadenaGtp {
 			return mensajeRta;
 		}
 	}
-
 }

@@ -2,21 +2,21 @@ package Remoto.GTP.ParsearMensajes;
 
 import java.util.ArrayList;
 
-import Remoto.GTP.Constantes;
+import Remoto.GTP.ConstantesGtp;
 import Remoto.GTP.Gtp;
 
 public class CadenaListarComandos extends CadenaGtp {
 
+	//TODO!!! ARREGLAR
+	private static final String COMANDOS_SOPORTADOS= "protocol_version\nname\nversion\nknown_command\nlist_commands\nquit\nboardsize\nclear_board\nkomi\nplay\ngenmove";
+
 	public CadenaListarComandos(Gtp gtp) {
 		super(gtp);
 	}
-
-	//TODO!!! ARREGLAR
-	private static String COMANDOS_SOPORTADOS= "protocol_version\nname\nversion\nknown_command\nlist_commands\nquit\nboardsize\nclear_board\nkomi\nplay\ngenmove";
 	
 	@Override
 	public String enviarSgteCadena(String[] mensaje) {		
-		if(!verificarTipoMensaje(Constantes.LIST_COMMANDS, mensaje))
+		if(!verificarTipoMensaje(ConstantesGtp.LIST_COMMANDS, mensaje))
 			return cadenaSgte.enviarSgteCadena(mensaje);	
 		else {
 			System.out.println("Cadena Listar Comandos");

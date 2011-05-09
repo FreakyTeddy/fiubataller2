@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import Remoto.Cliente;
 import Remoto.Servidor;
-import Remoto.GTP.Constantes;
+import Remoto.GTP.ConstantesGtp;
 import Remoto.GTP.Gtp;
 import Remoto.GTP.ProcesadorMsjsEntrantes;
 
@@ -43,43 +43,43 @@ public class Test_GTP {
 	@Test
 	public void testMensajesAdministrativos(){
 		String msjVersionProtocolo= gtp.mensajeVersionProtocolo();
-		assertEquals(msjVersionProtocolo, "1 " + Constantes.PROTOCOL_VERSION + Constantes.FIN_MSJ);
+		assertEquals(msjVersionProtocolo, "1 " + ConstantesGtp.PROTOCOL_VERSION + ConstantesGtp.FIN_MSJ);
 		String msjSalir= gtp.mensajeSalir();
-		assertEquals(msjSalir, "2 " + Constantes.QUIT + Constantes.FIN_MSJ);
+		assertEquals(msjSalir, "2 " + ConstantesGtp.QUIT + ConstantesGtp.FIN_MSJ);
 	}
 
 	@Test
 	public void testMensajesIdentificacionPrograma(){
 		String msjNombre= gtp.mensajeNombre();
-		assertEquals(msjNombre, "1 " + Constantes.NAME + Constantes.FIN_MSJ);
+		assertEquals(msjNombre, "1 " + ConstantesGtp.NAME + ConstantesGtp.FIN_MSJ);
 		String msjVersion= gtp.mensajeVersion();
-		assertEquals(msjVersion, "2 " + Constantes.VERSION + Constantes.FIN_MSJ);
+		assertEquals(msjVersion, "2 " + ConstantesGtp.VERSION + ConstantesGtp.FIN_MSJ);
 	}
 
 	@Test
 	public void testMensajesComandos(){
-		String msjComandoSoportado= gtp.mensajeComandoSoportado(Constantes.QUIT);
-		assertEquals(msjComandoSoportado, "1 " + Constantes.KNOWN_COMMAND + " quit" + Constantes.FIN_MSJ);
+		String msjComandoSoportado= gtp.mensajeComandoSoportado(ConstantesGtp.QUIT);
+		assertEquals(msjComandoSoportado, "1 " + ConstantesGtp.KNOWN_COMMAND + " quit" + ConstantesGtp.FIN_MSJ);
 		String msjListarComandos= gtp.mensajeListarCommandos();
-		assertEquals(msjListarComandos, "2 " + Constantes.LIST_COMMANDS + Constantes.FIN_MSJ);
+		assertEquals(msjListarComandos, "2 " + ConstantesGtp.LIST_COMMANDS + ConstantesGtp.FIN_MSJ);
 	}
 	
 	@Test
 	public void testMensajesSetup(){
 		String msjTamanioTablero= gtp.mensajeTamanioTablero(19);
-		assertEquals(msjTamanioTablero, "1 " + Constantes.BOARDSIZE + " 19" + Constantes.FIN_MSJ);
+		assertEquals(msjTamanioTablero, "1 " + ConstantesGtp.BOARDSIZE + " 19" + ConstantesGtp.FIN_MSJ);
 		String msjLimpiarTablero= gtp.mensajeLimpiarTablero();
-		assertEquals(msjLimpiarTablero, "2 " + Constantes.CLEAR_BOARD + Constantes.FIN_MSJ);
+		assertEquals(msjLimpiarTablero, "2 " + ConstantesGtp.CLEAR_BOARD + ConstantesGtp.FIN_MSJ);
 		String msjKomi= gtp.mensajeKomi(5.5);
-		assertEquals(msjKomi, "3 " + Constantes.KOMI + " 5.5" + Constantes.FIN_MSJ);
+		assertEquals(msjKomi, "3 " + ConstantesGtp.KOMI + " 5.5" + ConstantesGtp.FIN_MSJ);
 	}
 	
 	@Test
 	public void testMensajesJuego(){
 		String msjJugar= gtp.mensajeJugar("black", "C5");
-		assertEquals(msjJugar, "1 " + Constantes.PLAY + " black C5" + Constantes.FIN_MSJ);
+		assertEquals(msjJugar, "1 " + ConstantesGtp.PLAY + " black C5" + ConstantesGtp.FIN_MSJ);
 		String msjGenMovimiento= gtp.mensajeGenMovimiento("white");
-		assertEquals(msjGenMovimiento, "2 " + Constantes.GENMOVE + " white" + Constantes.FIN_MSJ);
+		assertEquals(msjGenMovimiento, "2 " + ConstantesGtp.GENMOVE + " white" + ConstantesGtp.FIN_MSJ);
 	}
 	
 	@Test
@@ -92,7 +92,7 @@ public class Test_GTP {
 		procesador.procesarMensaje(mensaje);
 		mensaje= gtp.mensajeListarCommandos();
 		procesador.procesarMensaje(mensaje);
-		mensaje= gtp.mensajeComandoSoportado(Constantes.QUIT);
+		mensaje= gtp.mensajeComandoSoportado(ConstantesGtp.QUIT);
 		procesador.procesarMensaje(mensaje);
 		mensaje= gtp.mensajeTamanioTablero(5);
 		procesador.procesarMensaje(mensaje);
@@ -108,7 +108,7 @@ public class Test_GTP {
 		procesador.procesarMensaje(mensaje);
 		mensaje= gtp.mensajeSalir();
 		procesador.procesarMensaje(mensaje);	
-		mensaje= Constantes.PROTOCOL_VERSION + Constantes.FIN_MSJ;
+		mensaje= ConstantesGtp.PROTOCOL_VERSION + ConstantesGtp.FIN_MSJ;
 		procesador.procesarMensaje(mensaje);
 	}
 	

@@ -2,20 +2,20 @@ package Remoto.GTP.ParsearMensajes;
 
 import java.util.ArrayList;
 
-import Remoto.GTP.Constantes;
+import Remoto.GTP.ConstantesGtp;
 import Remoto.GTP.Gtp;
 
 public class CadenaJugar extends CadenaGtp {
 
+	private static final String MENSAJE_ERROR= "illegal move";
+	
 	public CadenaJugar(Gtp gtp) {
 		super(gtp);
 	}
-
-	private static String MENSAJE_ERROR= "illegal move";
 	
 	@Override
 	public String enviarSgteCadena(String[] mensaje) {
-		if(!verificarTipoMensaje(Constantes.PLAY, mensaje))
+		if(!verificarTipoMensaje(ConstantesGtp.PLAY, mensaje))
 			return cadenaSgte.enviarSgteCadena(mensaje);	
 		else {
 			System.out.println("Cadena Jugar");

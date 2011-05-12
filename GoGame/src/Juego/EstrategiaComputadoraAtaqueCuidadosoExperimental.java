@@ -36,9 +36,9 @@ public class EstrategiaComputadoraAtaqueCuidadosoExperimental extends Estrategia
 				return -1;
 
 			if(jugada1.gradosDeLibertad > jugada2.gradosDeLibertad)
-				return 1;
-			if(jugada1.gradosDeLibertad < jugada2.gradosDeLibertad)
 				return -1;
+			if(jugada1.gradosDeLibertad < jugada2.gradosDeLibertad)
+				return 1;
 			
 			if(jugada1.cadenas < jugada2.cadenas)
 			 	return -1;
@@ -64,32 +64,41 @@ public class EstrategiaComputadoraAtaqueCuidadosoExperimental extends Estrategia
 		//Busco todas las adyacencias
 		HashSet<Posicion> todasLasAdyacendias = new HashSet<Posicion>();
 
-		for(Cadena cadena : obtenerCadenasPropias(getTablero())) 
-			for(Posicion adyacente : cadena.getCasillerosLibresAdyacentes()) 
-				todasLasAdyacendias.add(adyacente);
+		// for(Cadena cadena : obtenerCadenasPropias(getTablero())) 
+		// 	for(Posicion adyacente : cadena.getCasillerosLibresAdyacentes()) 
+		// 		todasLasAdyacendias.add(adyacente);
 
-		for(Cadena cadena : obtenerCadenasOponente(getTablero())) 
-			for(Posicion adyacente : cadena.getCasillerosLibresAdyacentes()) 
-				todasLasAdyacendias.add(adyacente);
+		// for(Cadena cadena : obtenerCadenasOponente(getTablero())) 
+		// 	for(Posicion adyacente : cadena.getCasillerosLibresAdyacentes()) 
+		// 		todasLasAdyacendias.add(adyacente);
+
+		todasLasAdyacendias.addAll(getTablero().obtenerCasillerosLibres());
 
 		ArrayList<Jugada> candidatas = new ArrayList<Jugada>();
 		for(Posicion adyacencia : todasLasAdyacendias) {
 
 			Tablero copiaTablero = new Tablero(getTablero());
 			Jugada j = calcularPuntajeJugada(copiaTablero, adyacencia);			
-			if(j.valida)
+			if(j.valida){
 				candidatas.add(j);
+			}
+			else
+				System.out.println("Jugada " + j.posicion.getX() + " " + j.posicion.getY() + " es invalida");
 		} 
 		
 		Collections.sort(candidatas, new ordenadorJugadaPorMenorCadenasMayorLibertadYNoPierde());
 		if(candidatas.size()>0)
 			return candidatas.get(0).posicion;
-		return estrategiaRandom();
+		else{
+			System.out.println("No hay mas jugadas posibles");
+			return estrategiaRandom();
+		}
 	}
 
 	private Jugada calcularPuntajeJugada(Tablero tablero, Posicion posicion){
 		Jugada jugada = new Jugada();
 		jugada.posicion = posicion;
+		jugada.valida=false;
 		try{
 			tablero.agregarPiedra(posicion, getColor());
 
@@ -107,11 +116,11 @@ public class EstrategiaComputadoraAtaqueCuidadosoExperimental extends Estrategia
 
 
 			Collections.sort(cadenasPropias, new ordenadorCadenasPorMenorGradoDeLibertadYMayorLongitud());
-			if(cadenasPropias.size() > 0 && cadenasPropias.get(0).getGradosDeLibertad() == 1) //Si voy a perder
+			if(cadenasPropias.size() > 0 && cadenasPropias.get(0).getGradosDeLibertad() <= 2) //Si voy a perder
 				jugada.pierde = true;
-			jugada.valida=true;
+			else jugada.valida=true;
 		}
-		catch(JugadaInvalidaException e){}
+		catch(JugadaInvalidaException e){System.out.println("Jugada " + posicion.getX() + " " + posicion.getY() + " es invalida (Exception)");}
 		catch(FinDelJuegoException e){}
 		return jugada;
 	}

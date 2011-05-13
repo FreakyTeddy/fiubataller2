@@ -1,18 +1,31 @@
 package controlador;
 
 import Juego.ColorPiedra;
+import Juego.Estrategia;
+import Juego.EstrategiaComputadoraAtaqueCuidadoso;
 import Juego.FinDelJuegoException;
 import Juego.Jugador;
 import Juego.Tablero;
 
 import vista.AppWindow;
 
+
+/**
+ * 
+ * TODO: Habria que ver un poco el tema de como se seleccionan los jugadores
+ *  yo diria que como esta ahora es bastante villero pero bueno aplique la idea 
+ *  de primero lo hacemo' depue' lo refatorizamo'
+ * 
+ * @author del comentario de arriba matias
+ *
+ */
 public class FullMoonGo {
 
 	private Jugador jugadorBlanco;
 	private Jugador jugadorNegro;
 	private Tablero tablero;
 	private AppWindow vista;
+	private boolean jugarContraPersona;
 	static private FullMoonGo instancia = null;
 	
 	static public FullMoonGo getInstancia(){
@@ -26,6 +39,7 @@ public class FullMoonGo {
 		jugadorNegro = null;
 		tablero = null;
 		vista = null;
+		jugarContraPersona = false;
 	}
     
 	public void nuevaPartida(){
@@ -40,8 +54,10 @@ public class FullMoonGo {
 		AdaptadorTablero mouseListener = new AdaptadorTablero(vista.getVistaTablero());
 		vista.getVistaTablero().addMouseListener(mouseListener);
 		jugadorNegro = new Jugador("Fiubense 1", ColorPiedra.NEGRO, tablero, mouseListener);
-		jugadorBlanco = new Jugador("Fiubense 2", ColorPiedra.BLANCO, tablero, mouseListener);
-		
+		if (jugarContraPersona)
+			jugadorBlanco = new Jugador("Fiubense 2", ColorPiedra.BLANCO, tablero, mouseListener);
+		else
+			jugadorBlanco = new Jugador("Fiubense 2", ColorPiedra.BLANCO, tablero, new EstrategiaComputadoraAtaqueCuidadoso(tablero, ColorPiedra.BLANCO));
 	}
 	
 	public void crearTablero(){
@@ -74,6 +90,16 @@ public class FullMoonGo {
 	public static void main(String[] args) {
 		FullMoonGo.getInstancia().nuevaPartida();
 		FullMoonGo.getInstancia().jugar();
+	}
+
+
+	public void jugarVsPersona() {
+		jugarContraPersona = false;
+		
+	}
+
+	public void jugarVsMaquina() {
+		jugarContraPersona = true;		
 	}
 
 	

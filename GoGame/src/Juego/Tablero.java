@@ -37,14 +37,14 @@ public class Tablero extends Observable {
 			for (int j = 0; j < ancho; j++)
 				casilleros[i][j] = otro.casilleros[i][j];
 
-		cadenas = copiarCadenas(otro.cadenas);
+		cadenas = copiarCadenas(otro.cadenas, this);
 	}
 	
-	private ArrayList<Cadena> copiarCadenas(ArrayList<Cadena> otrasCadenas){
+	private ArrayList<Cadena> copiarCadenas(ArrayList<Cadena> otrasCadenas, Tablero otroTablero){
 		ArrayList<Cadena> nuevas = new ArrayList<Cadena>();
 		
 		for(Cadena cadena : otrasCadenas) {
-			nuevas.add(new Cadena(cadena));
+			nuevas.add(new Cadena(cadena, otroTablero));
 		} 
 
 		return nuevas;

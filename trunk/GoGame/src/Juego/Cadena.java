@@ -37,6 +37,15 @@ public class Cadena {
 			fichas.add(p);
 	}
 
+	public Cadena(Cadena otra, Tablero otro) {
+		tablero = otro;
+		color = otra.color;
+		fichas = new ArrayList<Posicion>();
+		for (Posicion p : otra.fichas)
+			fichas.add(p);
+	}
+
+
 	public Cadena(Posicion posicion, ColorPiedra color, Tablero tablero) {
 		fichas = new ArrayList<Posicion>();
 		setColor(color);

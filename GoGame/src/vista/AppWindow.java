@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -32,6 +33,9 @@ public class AppWindow {
 				}
 			});
 	}
+	
+	
+
 	
 	public TableroGo getVistaTablero(){
 		return tableroGo;

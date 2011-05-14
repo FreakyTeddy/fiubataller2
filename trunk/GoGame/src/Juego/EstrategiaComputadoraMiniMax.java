@@ -43,7 +43,7 @@ public class EstrategiaComputadoraMiniMax extends EstrategiaComputadora {
 			Collections.sort(cadenasPropias, new ordenadorCadenasPorMenorGradoDeLibertadYMayorLongitud());
 			if(cadenasPropias.size()>0)
 				if(cadenasPropias.get(0).getGradosDeLibertad() <= 1){
-					System.out.println("Pierdo en este turno.");
+					//System.out.println("Pierdo en este turno.");
 					return -infinito;
 				}
 		}
@@ -51,7 +51,7 @@ public class EstrategiaComputadoraMiniMax extends EstrategiaComputadora {
 			Collections.sort(cadenasOponente, new ordenadorCadenasPorMenorGradoDeLibertadYMayorLongitud());
 			if(cadenasOponente.size()>0)
 				if(cadenasOponente.get(0).getGradosDeLibertad() <= 1){
-					System.out.println("Puedo Ganar en este turno.");
+					//System.out.println("Puedo Ganar en este turno.");
 					return infinito;
 					
 				}
@@ -59,7 +59,11 @@ public class EstrategiaComputadoraMiniMax extends EstrategiaComputadora {
 
 		if(cadenasPropias.size() > 0){
 			//Uso de puntaje los grados de libertad de la cadena mas corta
-			puntaje += cadenasPropias.get(0).getGradosDeLibertad(); 
+			puntaje += cadenasPropias.get(0).getGradosDeLibertad();
+		}
+		if(cadenasOponente.size() > 0){
+			//Uso de puntaje los grados de libertad de la cadena mas corta del oponente
+			puntaje += cadenasOponente.get(0).getGradosDeLibertad();
 		}
 		
 		return puntaje;
@@ -68,7 +72,7 @@ public class EstrategiaComputadoraMiniMax extends EstrategiaComputadora {
 	Jugada miniMax(ColorPiedra jugador, Tablero tablero, int profundidad){
 		if(profundidad <= 0){
 			Jugada j = new Jugada();
-			j.puntaje=evaluar(jugador, tablero);
+			j.puntaje=evaluar(getColorContrario(jugador), tablero);
 			return j;
 		}
 
@@ -83,7 +87,7 @@ public class EstrategiaComputadoraMiniMax extends EstrategiaComputadora {
 			j.posicion = posicion;
 			try {
 				proximoTablero.agregarPiedra(posicion, jugador);
-				j = miniMax(jugador,proximoTablero, profundidad-1);
+				j = miniMax(getColorContrario(jugador),proximoTablero, profundidad-1);
 				j.posicion = posicion;
 			}catch(JugadaInvalidaException e) {
 				valida=false;
@@ -91,7 +95,7 @@ public class EstrategiaComputadoraMiniMax extends EstrategiaComputadora {
 				System.out.println("Excepcion de invalidez de jugada");
 			}
 			catch(FinDelJuegoException e) {
-				System.out.println("Excepcion de fin del juego");
+				//System.out.println("Excepcion de fin del juego");
 				if(jugador == this.getColor()){
 					//Soy MAX y uno de los hijos evalúa a GANA, gano
 					System.out.println("Despues de esta linea deberia ganar");
@@ -102,7 +106,7 @@ public class EstrategiaComputadoraMiniMax extends EstrategiaComputadora {
 					j.puntaje=-infinito;
 				}
 			}
-			System.out.println("Posicion: " + posicion.getX() + ","+ posicion.getY() + " : " + j.puntaje);
+			//System.out.println("Posicion: " + posicion.getX() + ","+ posicion.getY() + " : " + j.puntaje);
 			if(valida) {
 				jugadas.add(j);
 				//System.out.println("Posicion: " + posicion.getX() + ","+ posicion.getY() + " : " + j.puntaje);
@@ -127,7 +131,7 @@ public class EstrategiaComputadoraMiniMax extends EstrategiaComputadora {
 
  
 	protected Posicion generarJugada(){
-		Jugada j = miniMax(getColor(), getTablero(), 1);
+		Jugada j = miniMax(getColor(), getTablero(), 3);
 		System.out.println("Puntaje maximo: " + j.posicion.getX() + "," + j.posicion.getY() + " : " + j.puntaje);
 		return j.posicion;
 	}

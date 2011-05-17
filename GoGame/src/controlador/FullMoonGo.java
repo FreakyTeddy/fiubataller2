@@ -6,8 +6,9 @@ import Juego.EstrategiaComputadoraAtaqueCuidadoso;
 import Juego.FinDelJuegoException;
 import Juego.Jugador;
 import Juego.Tablero;
-
 import vista.VentanaAplicacion;
+import Juego.EstadoJuego;
+import static Juego.EstadoJuego.*;
 
 
 /**
@@ -21,6 +22,7 @@ import vista.VentanaAplicacion;
  */
 public class FullMoonGo {
 
+	private EstadoJuego estadoJuego;
 	private Jugador jugadorBlanco;
 	private Jugador jugadorNegro;
 	private Tablero tablero;
@@ -35,6 +37,7 @@ public class FullMoonGo {
 	}
 
 	public FullMoonGo() {
+		estadoJuego = NO_INICIADO;
 		jugadorBlanco = null;
 		jugadorNegro = null;
 		tablero = null;
@@ -82,6 +85,7 @@ public class FullMoonGo {
 				jugadorBlanco.jugar();
 			}
 		}catch (FinDelJuegoException e){
+			estadoJuego = TERMINADO;
 			String nombreGanador="";	//esto despues tendria que ir a la vista :)
 			if (e.getColorGanador() == ColorPiedra.NEGRO)
 				nombreGanador = jugadorNegro.getNombre();
@@ -97,13 +101,13 @@ public class FullMoonGo {
 	}
 
 
-	public void jugarVsPersona() {
-		jugarContraPersona = false;
-		
+	public void jugarVsPersona(boolean bool) {
+		jugarContraPersona = bool;
+		estadoJuego = LISTO_PARA_INICIAR;
 	}
-
-	public void jugarVsMaquina() {
-		jugarContraPersona = true;		
+	
+	public EstadoJuego getEstado(){
+		return estadoJuego;
 	}
 
 	

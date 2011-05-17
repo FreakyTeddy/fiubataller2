@@ -13,14 +13,14 @@ import Juego.Tablero;
 public class VentanaAplicacion {
 
 	private JFrame frame;
-	TableroGo tableroGo;
+	TableroVista tableroGo;
 	
 	/**
 	 * Create the application.
 	 */
 	public VentanaAplicacion(FullMoonGo fmg) {
 		frame = new JFrame("GoGame");
-		tableroGo = new TableroGo(fmg.getTablero());
+		tableroGo = new TableroVista(fmg.getTablero());
 		
 		frame.setBounds(100, 100, 500, 535);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,7 +39,7 @@ public class VentanaAplicacion {
 	
 
 	
-	public TableroGo getVistaTablero(){
+	public TableroVista getVistaTablero(){
 		return tableroGo;
 	}
 

@@ -10,7 +10,7 @@ import Juego.FinDelJuegoException;
 import Juego.Posicion;
 import Juego.Tablero;
 
-import vista.TableroGo;
+import vista.TableroVista;
 
 /**
  * Clase adaptadora de eventos de mouse en el tablero de go.
@@ -19,11 +19,11 @@ import vista.TableroGo;
  */
 public class AdaptadorTablero extends MouseAdapter implements Estrategia {
 	
-	TableroGo ventanaTablero;
+	TableroVista ventanaTablero;
 	Tablero tablero;
 	Posicion ultimaPiedra;
 	
-	public AdaptadorTablero(TableroGo tableroGo){
+	public AdaptadorTablero(TableroVista tableroGo){
 		ventanaTablero = tableroGo;
 		tablero = FullMoonGo.getInstancia().getTablero();
 		ultimaPiedra = new Posicion(0,0);

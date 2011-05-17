@@ -15,7 +15,7 @@ import static Juego.EstadoJuego.*;
  * 
  * TODO: Habria que ver un poco el tema de como se seleccionan los jugadores
  *  yo diria que como esta ahora es bastante villero pero bueno aplique la idea 
- *  de primero lo hacemo' depue' lo refatorizamo'
+ *  de primero lo hacemo' depue' lo refatorizamo'. Posible refactor un state.
  * 
  * @author del comentario de arriba matias
  *
@@ -46,6 +46,8 @@ public class FullMoonGo {
 	}
     
 	public void nuevaPartida(){
+		
+			
 		crearTablero();
 		crearJugadores();
 	}

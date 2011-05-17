@@ -21,7 +21,7 @@ import Juego.Posicion;
 import Juego.Tablero;
 
 @SuppressWarnings("serial")
-public class TableroGo extends JPanel implements Observer{
+public class TableroVista extends JPanel implements Observer{
 	
 	private final int TAMANIO=9, x=50 , y=50;
 	
@@ -40,7 +40,7 @@ public class TableroGo extends JPanel implements Observer{
 	/**
 	 * Create the panel.
 	 */
-	public TableroGo(Tablero tablero) {
+	public TableroVista(Tablero tablero) {
 		super();
 
 		/* Lo pongo para probar, cuando este el controlador TIENE que volar*/

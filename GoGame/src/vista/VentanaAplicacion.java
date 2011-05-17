@@ -37,7 +37,7 @@ public class VentanaAplicacion {
 	}
 	
 	
-
+	
 	
 	public TableroVista getVistaTablero(){
 		return tableroGo;

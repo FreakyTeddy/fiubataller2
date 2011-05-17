@@ -7,7 +7,7 @@ import Juego.FinDelJuegoException;
 import Juego.Jugador;
 import Juego.Tablero;
 
-import vista.AppWindow;
+import vista.VentanaAplicacion;
 
 
 /**
@@ -24,7 +24,7 @@ public class FullMoonGo {
 	private Jugador jugadorBlanco;
 	private Jugador jugadorNegro;
 	private Tablero tablero;
-	private AppWindow vista;
+	private VentanaAplicacion vista;
 	private boolean jugarContraPersona;
 	static private FullMoonGo instancia = null;
 	
@@ -62,9 +62,13 @@ public class FullMoonGo {
 	
 	public void crearTablero(){
 		tablero = new Tablero();
-		vista = new AppWindow(tablero);
+		vista = new VentanaAplicacion(this);
 	}
 	
+	public void setTablero(Tablero tablero) {
+		this.tablero = tablero;
+	}
+
 	public Tablero getTablero(){
 		return tablero;
 	}

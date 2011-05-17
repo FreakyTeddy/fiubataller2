@@ -6,9 +6,11 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
+import controlador.FullMoonGo;
+
 import Juego.Tablero;
 
-public class AppWindow {
+public class VentanaAplicacion {
 
 	private JFrame frame;
 	TableroGo tableroGo;
@@ -16,9 +18,9 @@ public class AppWindow {
 	/**
 	 * Create the application.
 	 */
-	public AppWindow(Tablero tablero) {
+	public VentanaAplicacion(FullMoonGo fmg) {
 		frame = new JFrame("GoGame");
-		tableroGo = new TableroGo(tablero);
+		tableroGo = new TableroGo(fmg.getTablero());
 		
 		frame.setBounds(100, 100, 500, 535);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

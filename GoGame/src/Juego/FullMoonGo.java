@@ -1,13 +1,10 @@
-package controlador;
+package Juego;
 
-import Juego.ColorPiedra;
-import Juego.Estrategia;
-import Juego.EstrategiaComputadoraAtaqueCuidadoso;
-import Juego.FinDelJuegoException;
-import Juego.Jugador;
-import Juego.Tablero;
+import java.util.Observable;
+
+import controlador.AdaptadorTablero;
+
 import vista.VentanaAplicacion;
-import Juego.EstadoJuego;
 import static Juego.EstadoJuego.*;
 
 
@@ -15,12 +12,14 @@ import static Juego.EstadoJuego.*;
  * 
  * TODO: Habria que ver un poco el tema de como se seleccionan los jugadores
  *  yo diria que como esta ahora es bastante villero pero bueno aplique la idea 
- *  de primero lo hacemo' depue' lo refatorizamo'. Posible refactor un state.
+ *  de primero lo hacemo' depue' lo refatorizamo'. Posible refactor un state. 
+ *  Otra cosa que si habria que hacer es pasar esto a juego porque ahora es 
+ *  observable yh tiene logica del juego digamos.
  * 
  * @author del comentario de arriba matias
  *
  */
-public class FullMoonGo {
+public class FullMoonGo extends Observable{
 
 	private EstadoJuego estadoJuego;
 	private Jugador jugadorBlanco;
@@ -87,6 +86,8 @@ public class FullMoonGo {
 				jugadorBlanco.jugar();
 			}
 		}catch (FinDelJuegoException e){
+			setChanged();
+			notifyObservers();
 			estadoJuego = TERMINADO;
 			String nombreGanador="";	//esto despues tendria que ir a la vista :)
 			if (e.getColorGanador() == ColorPiedra.NEGRO)
@@ -106,6 +107,8 @@ public class FullMoonGo {
 	public void jugarVsPersona(boolean bool) {
 		jugarContraPersona = bool;
 		estadoJuego = LISTO_PARA_INICIAR;
+		setChanged();
+		notifyObservers();
 	}
 	
 	public EstadoJuego getEstado(){

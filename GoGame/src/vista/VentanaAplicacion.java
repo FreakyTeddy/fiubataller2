@@ -3,14 +3,16 @@ package vista;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.EventQueue;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JFrame;
 
-import controlador.FullMoonGo;
 
+import Juego.FullMoonGo;
 import Juego.Tablero;
 
-public class VentanaAplicacion {
+public class VentanaAplicacion implements Observer{
 
 	private JFrame frame;
 	TableroVista tableroGo;
@@ -41,6 +43,15 @@ public class VentanaAplicacion {
 	
 	public TableroVista getVistaTablero(){
 		return tableroGo;
+	}
+
+
+
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -3,6 +3,8 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import Juego.FullMoonGo;
+
 public class BotonMaquina implements ActionListener {
 
 	@Override

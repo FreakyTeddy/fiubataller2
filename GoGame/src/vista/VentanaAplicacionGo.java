@@ -3,6 +3,7 @@ package vista;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.EventQueue;
+import java.awt.PopupMenu;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -12,18 +13,20 @@ import javax.swing.JFrame;
 import Juego.FullMoonGo;
 import Juego.Tablero;
 
-public class VentanaAplicacion implements Observer{
+public class VentanaAplicacionGo {
 
 	private JFrame frame;
+	FullMoonGo juego;
 	TableroVista tableroGo;
+	MenuInicio menuInicio;
 	
 	/**
 	 * Create the application.
+	 * TODO: REvisar esto no esta bien...
 	 */
-	public VentanaAplicacion(FullMoonGo fmg) {
+	public VentanaAplicacionGo(FullMoonGo fmg) {
 		frame = new JFrame("GoGame");
-		tableroGo = new TableroVista(fmg.getTablero());
-		
+		tableroGo = new TableroVista( fmg.getTablero());
 		frame.setBounds(100, 100, 500, 535);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().add(tableroGo, BorderLayout.CENTER);
@@ -47,11 +50,7 @@ public class VentanaAplicacion implements Observer{
 
 
 
-
-	@Override
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
+	
 		
-	}
 
 }

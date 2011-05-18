@@ -1,5 +1,6 @@
 package controlador;
 
+import vista.VentanaAplicacionGo;
 import Juego.FullMoonGo;
 
 public class Main {
@@ -9,8 +10,16 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		
-			FullMoonGo.getInstancia().nuevaPartida();
-			FullMoonGo.getInstancia().jugar();
+		
+		FullMoonGo fullMoonGo = FullMoonGo.getInstancia();
+		fullMoonGo.nuevaPartida();
+	
+         /** TODO: Tambien para refactor.
+          * VentanaAplicacionGo Ventana = new VentanaAplicacionGo(fullMoonGo);
+          */
+		
+		
+
 
 
 	}

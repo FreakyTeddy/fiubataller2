@@ -16,7 +16,7 @@ import java.awt.event.ActionEvent;
 
 /**
  * TODO: Habria que refactorizar un poco el tema de la imagen de fondo.
- * y ver porque catso la resolucion es "rara"
+ * Solucionar el tema del singleton.
  * @author matias
  *
  */

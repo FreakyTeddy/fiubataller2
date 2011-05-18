@@ -4,7 +4,7 @@ import java.util.Observable;
 
 import controlador.AdaptadorTablero;
 
-import vista.VentanaAplicacion;
+import vista.VentanaAplicacionGo;
 import static Juego.EstadoJuego.*;
 
 
@@ -25,8 +25,7 @@ public class FullMoonGo extends Observable{
 	private Jugador jugadorBlanco;
 	private Jugador jugadorNegro;
 	private Tablero tablero;
-	private VentanaAplicacion vista;
-	private boolean jugarContraPersona;
+	private VentanaAplicacionGo vista;
 	static private FullMoonGo instancia = null;
 	
 	static public FullMoonGo getInstancia(){
@@ -35,26 +34,24 @@ public class FullMoonGo extends Observable{
 		return instancia;
 	}
 
-	public FullMoonGo() {
+	private FullMoonGo() {
 		estadoJuego = NO_INICIADO;
 		jugadorBlanco = null;
 		jugadorNegro = null;
 		tablero = null;
 		vista = null;
-		jugarContraPersona = false;
 	}
     
 	public void nuevaPartida(){
-		
-			
 		crearTablero();
-		crearJugadores();
+		//TODO: MENU OPCIONES Tiene qeu volar
+		crearJugadores(true);
 	}
 	
 	/**
 	 * TODO ver desde donde crear los jugadores. Cambiar aca y poner la estrategia que se quiere
 	 */
-	public void crearJugadores() {
+	public void crearJugadores(boolean jugarContraPersona) {
 		AdaptadorTablero mouseListener = new AdaptadorTablero(vista.getVistaTablero());
 		vista.getVistaTablero().addMouseListener(mouseListener);
 		jugadorNegro = new Jugador("Fiubense 1", ColorPiedra.NEGRO, tablero, mouseListener);
@@ -62,11 +59,15 @@ public class FullMoonGo extends Observable{
 			jugadorBlanco = new Jugador("Fiubense 2", ColorPiedra.BLANCO, tablero, mouseListener);
 		else
 			jugadorBlanco = new Jugador("Fiubense 2", ColorPiedra.BLANCO, tablero, new EstrategiaComputadoraAtaqueCuidadoso(tablero, ColorPiedra.BLANCO));
+		
+		estadoJuego = LISTO_PARA_INICIAR;
+		setChanged();
+		notifyObservers();
 	}
 	
 	public void crearTablero(){
 		tablero = new Tablero();
-		vista = new VentanaAplicacion(this);
+		vista = new VentanaAplicacionGo(this);
 	}
 	
 	public void setTablero(Tablero tablero) {
@@ -98,13 +99,6 @@ public class FullMoonGo extends Observable{
 		}
 	}
 	
-	
-	public void jugarVsPersona(boolean bool) {
-		jugarContraPersona = bool;
-		estadoJuego = LISTO_PARA_INICIAR;
-		setChanged();
-		notifyObservers();
-	}
 	
 	public EstadoJuego getEstado(){
 		return estadoJuego;

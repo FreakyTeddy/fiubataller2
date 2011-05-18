@@ -98,12 +98,7 @@ public class FullMoonGo extends Observable{
 		}
 	}
 	
-	public static void main(String[] args) {
-		FullMoonGo.getInstancia().nuevaPartida();
-		FullMoonGo.getInstancia().jugar();
-	}
-
-
+	
 	public void jugarVsPersona(boolean bool) {
 		jugarContraPersona = bool;
 		estadoJuego = LISTO_PARA_INICIAR;

@@ -2,6 +2,7 @@ package Juego;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 public class EstrategiaComputadoraMiniMax extends EstrategiaComputadora {
@@ -23,7 +24,6 @@ public class EstrategiaComputadoraMiniMax extends EstrategiaComputadora {
 	}
 
 	class OrdenadorJugada implements java.util.Comparator<Jugada> {
-
 		public int compare(Jugada j1, Jugada j2) {
 			if(j1.puntaje > j2.puntaje)
 				return 1;
@@ -53,17 +53,42 @@ public class EstrategiaComputadoraMiniMax extends EstrategiaComputadora {
 				if(cadenasOponente.get(0).getGradosDeLibertad() <= 1){
 					//System.out.println("Puedo Ganar en este turno.");
 					return infinito;
-					
 				}
 		}
 
 		if(cadenasPropias.size() > 0){
+			HashSet<Posicion> gradosDeLibertad = new HashSet<Posicion>();
+			int ojos=0;
+			for(Cadena cadena : cadenasPropias) {
+				for(Posicion posicion : cadena.getCasillerosLibresAdyacentes()) {
+					gradosDeLibertad.add(posicion);
+				}
+				ojos += cadena.getOjos().size();
+			}
+
 			//Uso de puntaje los grados de libertad de la cadena mas corta
-			puntaje += cadenasPropias.get(0).getGradosDeLibertad();
+			puntaje += cadenasPropias.get(0).getGradosDeLibertad()*4;
+			puntaje += gradosDeLibertad.size();
+			puntaje += ojos * 3;
+			
 		}
 		if(cadenasOponente.size() > 0){
+			HashSet<Posicion> gradosDeLibertad = new HashSet<Posicion>();
+			int ojos=0;
+			for(Cadena cadena : cadenasOponente) {
+				for(Posicion posicion : cadena.getCasillerosLibresAdyacentes()) {
+					gradosDeLibertad.add(posicion);
+				}
+				ojos += cadena.getOjos().size();
+			}
 			//Uso de puntaje los grados de libertad de la cadena mas corta del oponente
 			puntaje += cadenasOponente.get(0).getGradosDeLibertad();
+			//Resto los grados de libertad de la cadena mas larga del oponente
+			puntaje -= cadenasOponente.get(cadenasOponente.size()-1).getGradosDeLibertad();
+			//Resto el total de los grados de libertad del oponente
+			puntaje -= gradosDeLibertad.size()*1.5;
+
+			puntaje -= ojos * 2;
 		}
 		
 		return puntaje;
@@ -80,6 +105,7 @@ public class EstrategiaComputadoraMiniMax extends EstrategiaComputadora {
 
       		ArrayList<Posicion> disponibles = tablero.obtenerCasillerosLibres();
 
+
 		for(Posicion posicion : disponibles) {
 			Tablero proximoTablero = new Tablero(tablero);
 			boolean valida=true;
@@ -92,13 +118,12 @@ public class EstrategiaComputadoraMiniMax extends EstrategiaComputadora {
 			}catch(JugadaInvalidaException e) {
 				valida=false;
 				j.puntaje=-infinito+1;
-				System.out.println("Excepcion de invalidez de jugada");
+				//System.out.println("Excepcion de invalidez de jugada");
 			}
 			catch(FinDelJuegoException e) {
 				//System.out.println("Excepcion de fin del juego");
 				if(jugador == this.getColor()){
 					//Soy MAX y uno de los hijos evalúa a GANA, gano
-					System.out.println("Despues de esta linea deberia ganar");
 					j.puntaje=infinito;
 					return j;
 				}
@@ -106,10 +131,8 @@ public class EstrategiaComputadoraMiniMax extends EstrategiaComputadora {
 					j.puntaje=-infinito;
 				}
 			}
-			//System.out.println("Posicion: " + posicion.getX() + ","+ posicion.getY() + " : " + j.puntaje);
 			if(valida) {
 				jugadas.add(j);
-				//System.out.println("Posicion: " + posicion.getX() + ","+ posicion.getY() + " : " + j.puntaje);
 			}
 		}
 		
@@ -131,7 +154,9 @@ public class EstrategiaComputadoraMiniMax extends EstrategiaComputadora {
 
  
 	protected Posicion generarJugada(){
-		Jugada j = miniMax(getColor(), getTablero(), 3);
+		int profundidad = 3;
+		System.out.println("Uso profundidad: " + profundidad);
+		Jugada j = miniMax(getColor(), getTablero(), profundidad);
 		System.out.println("Puntaje maximo: " + j.posicion.getX() + "," + j.posicion.getY() + " : " + j.puntaje);
 		return j.posicion;
 	}

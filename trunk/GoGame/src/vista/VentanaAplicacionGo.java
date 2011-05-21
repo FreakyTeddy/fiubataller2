@@ -26,10 +26,11 @@ public class VentanaAplicacionGo {
 	 */
 	public VentanaAplicacionGo(FullMoonGo fmg) {
 		frame = new JFrame("GoGame");
-		tableroGo = new TableroVista( fmg.getTablero());
+	//	tableroGo = new TableroVista( fmg.getTablero());
 		frame.setBounds(100, 100, 500, 535);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().add(tableroGo, BorderLayout.CENTER);
+		menuInicio = new MenuInicio();
+		frame.getContentPane().add(menuInicio, BorderLayout.CENTER);
 		EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					try {
@@ -48,6 +49,12 @@ public class VentanaAplicacionGo {
 		return tableroGo;
 	}
 
+	public void mostrarTablero(Tablero tb){
+		frame.getContentPane().remove(menuInicio);
+		tableroGo = new TableroVista(tb);
+		frame.getContentPane().add(tableroGo);
+		frame.validate();
+	}
 
 
 	

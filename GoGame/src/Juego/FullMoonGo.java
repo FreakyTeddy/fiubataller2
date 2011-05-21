@@ -26,6 +26,7 @@ public class FullMoonGo extends Observable{
 	private Jugador jugadorNegro;
 	private Tablero tablero;
 	private VentanaAplicacionGo vista;
+	private boolean jugarContraPersona;
 	static private FullMoonGo instancia = null;
 	
 	static public FullMoonGo getInstancia(){
@@ -40,18 +41,18 @@ public class FullMoonGo extends Observable{
 		jugadorNegro = null;
 		tablero = null;
 		vista = null;
+		vista = new VentanaAplicacionGo(this);
 	}
     
 	public void nuevaPartida(){
 		crearTablero();
-		//TODO: MENU OPCIONES Tiene qeu volar
-		crearJugadores(true);
+		crearJugadores();
 	}
 	
 	/**
 	 * TODO ver desde donde crear los jugadores. Cambiar aca y poner la estrategia que se quiere
 	 */
-	public void crearJugadores(boolean jugarContraPersona) {
+	public void crearJugadores() {
 		AdaptadorTablero mouseListener = new AdaptadorTablero(vista.getVistaTablero());
 		vista.getVistaTablero().addMouseListener(mouseListener);
 		jugadorNegro = new Jugador("Fiubense 1", ColorPiedra.NEGRO, tablero, mouseListener);
@@ -67,7 +68,7 @@ public class FullMoonGo extends Observable{
 	
 	public void crearTablero(){
 		tablero = new Tablero();
-		vista = new VentanaAplicacionGo(this);
+		vista.mostrarTablero(tablero);
 	}
 	
 	public void setTablero(Tablero tablero) {
@@ -102,6 +103,11 @@ public class FullMoonGo extends Observable{
 	
 	public EstadoJuego getEstado(){
 		return estadoJuego;
+	}
+
+	public void jugarContraPersona(boolean b) {
+		jugarContraPersona = b;		
+		nuevaPartida();
 	}
 
 	

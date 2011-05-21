@@ -12,7 +12,6 @@ public class Main {
 		
 		
 		FullMoonGo fullMoonGo = FullMoonGo.getInstancia();
-		fullMoonGo.nuevaPartida();
 	
          /** TODO: Tambien para refactor.
           * VentanaAplicacionGo Ventana = new VentanaAplicacionGo(fullMoonGo);

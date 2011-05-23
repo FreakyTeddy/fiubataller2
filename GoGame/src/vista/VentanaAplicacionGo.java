@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.PopupMenu;
+import java.awt.event.MouseAdapter;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -16,20 +17,19 @@ import Juego.Tablero;
 public class VentanaAplicacionGo {
 
 	private JFrame frame;
-	FullMoonGo juego;
 	TableroVista tableroGo;
 	MenuInicio menuInicio;
+	MouseAdapter mouseListener;
 	
 	/**
 	 * Create the application.
 	 * TODO: REvisar esto no esta bien...
 	 */
-	public VentanaAplicacionGo(FullMoonGo fmg) {
+	public VentanaAplicacionGo() {
 		frame = new JFrame("GoGame");
-	//	tableroGo = new TableroVista( fmg.getTablero());
 		frame.setBounds(100, 100, 500, 535);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		menuInicio = new MenuInicio();
+		menuInicio = new MenuInicio(this);
 		frame.getContentPane().add(menuInicio, BorderLayout.CENTER);
 		EventQueue.invokeLater(new Runnable() {
 				public void run() {
@@ -42,22 +42,16 @@ public class VentanaAplicacionGo {
 			});
 	}
 	
-	
-	
-	
-	public TableroVista getVistaTablero(){
-		return tableroGo;
+	public void addMouseListener(MouseAdapter mouse) {
+		mouseListener = mouse;
 	}
 
 	public void mostrarTablero(Tablero tb){
 		frame.getContentPane().remove(menuInicio);
 		tableroGo = new TableroVista(tb);
+		tableroGo.addMouseListener(mouseListener);
 		frame.getContentPane().add(tableroGo);
 		frame.validate();
 	}
-
-
 	
-		
-
 }

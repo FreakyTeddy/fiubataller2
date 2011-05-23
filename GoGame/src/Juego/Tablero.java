@@ -29,6 +29,16 @@ public class Tablero extends Observable {
 				casilleros[i][j] = ColorPiedra.VACIO;
 
 	}
+	
+	public Tablero(TamanioTablero tamanio) {
+		ancho = tamanio.getTamanio();
+		casilleros = new ColorPiedra[ancho][ancho];
+		cadenas = new ArrayList<Cadena>();
+		for (int i = 0; i < ancho; i++)
+			for (int j = 0; j < ancho; j++)
+				casilleros[i][j] = ColorPiedra.VACIO;
+
+	}
 
 	public Tablero(Tablero otro){
 		ancho = otro.ancho;

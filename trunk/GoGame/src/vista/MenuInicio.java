@@ -1,15 +1,23 @@
 package vista;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import javax.swing.JTextField;
+
+import Juego.ColorPiedra;
+import Juego.FullMoonGo;
 
 import controlador.BotonJugador;
 import controlador.BotonMaquina;
 import controlador.BotonRemoto;
+import controlador.ComboJugador;
+import controlador.ComboTamanioTablero;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -21,7 +29,7 @@ import java.awt.event.ActionEvent;
  * @author matias
  *
  */
-public class MenuInicio extends JPanel {
+public class MenuInicio extends JPanel implements ActionListener {
 	
 	/**
 	 * 
@@ -30,31 +38,61 @@ public class MenuInicio extends JPanel {
 
 	private Image imagenTablero;
 	
-	private final String pathImagenTablero = "./images/woodboard.jpg";
+	private static final String pathImagenTablero = "./images/go-game1.jpg";
 	
-	public MenuInicio() {
+	
+	private ComboTamanioTablero comboTablero = new ComboTamanioTablero();
+	private ComboJugador comboBlanco;
+	private ComboJugador comboNegro;
+	private JTextField nombreNegro;
+	private JTextField nombreBlanco;
+	private VentanaAplicacionGo vista;
+	
+	public MenuInicio(VentanaAplicacionGo vistaJuego) {
 		
+		vista = vistaJuego;
 		ImageIcon imageicon = new ImageIcon(pathImagenTablero);  
 		imagenTablero = imageicon.getImage();
 		
+		comboBlanco = new ComboJugador(ColorPiedra.BLANCO, vista);
+		comboNegro = new ComboJugador(ColorPiedra.NEGRO, vista);
+		
 		setLayout(null);
 		
-		JButton btnJugarVsOtro = new JButton("Jugar vs Jugador");
-		btnJugarVsOtro.setBounds(66, 36, 251, 91);
-		btnJugarVsOtro.addActionListener(new BotonJugador());
-
+		JLabel labelTablero = new JLabel("Tamaño del Tablero");
+		labelTablero.setBounds(40, 40, 160, 30);
+		labelTablero.setForeground(new Color(250, 250, 250));
+		comboTablero.getCombo().setBounds(200, 40, 100, 30);
 		
-		JButton btnJugarVsComputadora = new JButton("Jugar vs Computadora");
-		btnJugarVsComputadora.addActionListener(new BotonMaquina());
-		btnJugarVsComputadora.setBounds(66, 171, 251, 91);
-
-		JButton btnJugarVsRemoto = new JButton("Jugar vs Remoto");
-		btnJugarVsRemoto.addActionListener(new BotonRemoto());
-		btnJugarVsRemoto.setBounds(66, 300, 251, 91);
+		JLabel labelBlanco = new JLabel("Jugador Blanco");
+		labelBlanco.setBounds(40, 80, 160, 30);
+		labelBlanco.setForeground(new Color(250, 250, 250));
+		comboBlanco.getCombo().setBounds(200, 80, 100, 30);
+		nombreBlanco = new JTextField("Nombre Blanco");
+		nombreBlanco.setBounds(320, 80, 150, 30);
 		
-		add(btnJugarVsOtro);
-		add(btnJugarVsComputadora);
-		add(btnJugarVsRemoto);
+		JLabel labelNegro = new JLabel("Jugador Negro");
+		labelNegro.setBounds(40, 120, 160, 30);
+		labelNegro.setForeground(new Color(250, 250, 250));
+		comboNegro.getCombo().setBounds(200, 120, 100, 30);
+		nombreNegro = new JTextField("Nombre Negro");
+		nombreNegro.setBounds(320, 120, 150, 30);
+		
+		
+		JButton btnJugar = new JButton("Jugar");
+		btnJugar.addActionListener(this);
+		btnJugar.setBounds(380, 430, 100, 40);
+		
+		add(labelTablero);
+		add(comboTablero.getCombo());
+		add(labelBlanco);
+		add(comboBlanco.getCombo());
+		add(nombreBlanco);
+		add(labelNegro);
+		add(comboNegro.getCombo());
+		add(nombreNegro);
+		add(btnJugar);
+		
 	}
 	
 	@Override
@@ -64,13 +102,15 @@ public class MenuInicio extends JPanel {
 		if (imagenTablero != null)  
 			 g.drawImage(imagenTablero, 0, 0, getWidth(), getHeight(), this);  
 		
-	
-		
-		
-		
 	}
-	
-	
-	
+
+	@Override
+	public void actionPerformed(ActionEvent e) { //accion del boton jugar
+		FullMoonGo.getInstancia().crearJugador(nombreBlanco.getText(), ColorPiedra.BLANCO, comboBlanco.getEstrategiaElegida());
+		FullMoonGo.getInstancia().crearJugador(nombreNegro.getText(), ColorPiedra.NEGRO, comboNegro.getEstrategiaElegida());
+		Thread juego = new Thread(FullMoonGo.getInstancia());
+		juego.start();
+		vista.mostrarTablero(FullMoonGo.getInstancia().getTablero());
+	}
 
 }

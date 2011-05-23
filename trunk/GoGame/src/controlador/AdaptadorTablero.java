@@ -19,39 +19,16 @@ import vista.TableroVista;
  *
  */
 public class AdaptadorTablero extends MouseAdapter implements Estrategia {
-	
-	TableroVista ventanaTablero;
-	Tablero tablero;
+
 	Posicion ultimaPiedra;
 	
-	public AdaptadorTablero(TableroVista tableroGo){
-		ventanaTablero = tableroGo;
-		tablero = FullMoonGo.getInstancia().getTablero();
+	public AdaptadorTablero(){
 		ultimaPiedra = new Posicion(0,0);
 	}
 	
 	public void mouseClicked(MouseEvent e){
-
-		// if(e.getButton()==MouseEvent.BUTTON1)
-		// 	setUltimaPiedra(ventanaTablero.transformarPosicionFicha(e.getX(), e.getY()));
-		
-		//descomentar esto y comentar lo de arriba para probar las estrategias :)
-		try{
-			if(e.getButton()==MouseEvent.BUTTON1){
-				ultimaPiedra =  ventanaTablero.transformarPosicionFicha(e.getX(), e.getY());
-				tablero.agregarPiedra(ultimaPiedra, ColorPiedra.BLANCO);
-			}
-			else
-				tablero.agregarPiedra(ventanaTablero.estrategiaNegro().getJugada(), ColorPiedra.NEGRO);
-			}
-			catch(JugadaInvalidaException ex){
-				System.out.println("Eeeeeeeeeeeepa");
-				System.out.println(ex.toString());
-			}
-			catch(FinDelJuegoException ex){
-				System.out.println("ganador: " + ex.getColorGanador());
-			}
-		
+		 if(e.getButton()==MouseEvent.BUTTON1)
+		 	setUltimaPiedra(TableroVista.transformarPosicionFicha(e.getX(), e.getY()));
 	}
 	
 	private synchronized void setUltimaPiedra(Posicion p){

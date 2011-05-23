@@ -21,17 +21,17 @@ import Juego.Posicion;
 import Juego.Tablero;
 
 @SuppressWarnings("serial")
-public class TableroVista extends JPanel implements Observer{
+public class TableroVista extends JPanel implements Observer {
 	
-	private final int TAMANIO=9, x=50 , y=50;
+	private static final int TAMANIO=9, w=50 , h=50;
 	
 	private Image imagenTablero;
 	private Image imagenBlanca;
 	private Image imagenNegra;
 
-	private final String pathImagenTablero = "./images/woodboard.jpg";
-	private final String pathImagenBlanca = "./images/blanca.png";
-	private final String pathImagenNegra = "./images/negra.png";
+	private static final String pathImagenTablero = "./images/woodboard.jpg";
+	private static final String pathImagenBlanca = "./images/blanca.png";
+	private static final String pathImagenNegra = "./images/negra.png";
 	
 	private Tablero tablero;
 	private Estrategia estrategiaNegro;
@@ -46,7 +46,6 @@ public class TableroVista extends JPanel implements Observer{
 		/* Lo pongo para probar, cuando este el controlador TIENE que volar*/
 		this.tablero = tablero;
 		tablero.addObserver(this);
-		estrategiaNegro = new EstrategiaComputadoraMiniMax(tablero, ColorPiedra.NEGRO);
 		cargarImagenes();
 	}
 	
@@ -81,10 +80,10 @@ public class TableroVista extends JPanel implements Observer{
 				ColorPiedra color = tablero.getCasillero(new Posicion(i-1,j-1));
 
 				if (color == ColorPiedra.BLANCO)
-					g.drawImage(imagenBlanca, x*i-x*3/8,y*j-y*3/8, this);
+					g.drawImage(imagenBlanca, w*i-w*3/8,h*j-h*3/8, this);
 
 				if (color == ColorPiedra.NEGRO)
-					g.drawImage(imagenNegra,x*i-x*3/8,y*j-y*3/8, this);
+					g.drawImage(imagenNegra,w*i-w*3/8,h*j-h*3/8, this);
 			}
 		}
 	}
@@ -95,11 +94,11 @@ public class TableroVista extends JPanel implements Observer{
 		
 		//Lineas horizontales
 		for(int horizontal = 1; horizontal<= TAMANIO;horizontal++)
-			g.drawLine(x, horizontal*y, TAMANIO*x, horizontal*y);
+			g.drawLine(w, horizontal*h, TAMANIO*w, horizontal*h);
 		
 		//Lineas verticales
 		for(int vertical = 1; vertical<= TAMANIO;vertical++)
-			g.drawLine(vertical*x, y, vertical*x, y*TAMANIO);
+			g.drawLine(vertical*w, h, vertical*w, h*TAMANIO);
 				
 	}
 
@@ -109,40 +108,33 @@ public class TableroVista extends JPanel implements Observer{
 		
 	}
 	
-	public void click(int x, int y, int n){
-		Posicion p =  transformarPosicionFicha(x, y);
-		try{
-			if(n == 0)
-				tablero.agregarPiedra(p, ColorPiedra.BLANCO);
-			else
-				tablero.agregarPiedra(estrategiaNegro.getJugada(), ColorPiedra.NEGRO);
-		}
-		catch(JugadaInvalidaException e){
-			System.out.println("Eeeeeeeeeeeepa");
-			System.out.println(e.toString());
-		}
-		catch(FinDelJuegoException e){
-			System.out.println("Se terminó eljuego");
-		}
-	}
+//	public void click(int x, int y, int n){
+//		Posicion p =  transformarPosicionFicha(x, y);
+//		try{
+//			if(n == 0)
+//				tablero.agregarPiedra(p, ColorPiedra.BLANCO);
+//			else
+//				tablero.agregarPiedra(estrategiaNegro.getJugada(), ColorPiedra.NEGRO);
+//		}
+//		catch(JugadaInvalidaException e){
+//			System.out.println("Eeeeeeeeeeeepa");
+//			System.out.println(e.toString());
+//		}
+//		catch(FinDelJuegoException e){
+//			System.out.println("Se terminó eljuego");
+//		}
+//	}
 	
 	/**
 	 * transforma coordenadas de vista a una posicion en el tablero
 	 */
-	public Posicion transformarPosicionFicha(int x, int y) {
-		Posicion p = new Posicion((int)((x-this.x/2)/this.x), (int)((y-this.y/2)/this.y));
+	static public Posicion transformarPosicionFicha(int x, int y) {
+		Posicion p = new Posicion((int)((x-w/2)/w), (int)((y-h/2)/h));
 		return p;
 	}
 	
-	public Estrategia estrategiaNegro(){
-		return estrategiaNegro;
-	}
+//	public Estrategia estrategiaNegro(){
+//		return estrategiaNegro;
+//	}
 
 }
-
-
-
-
-
-
-

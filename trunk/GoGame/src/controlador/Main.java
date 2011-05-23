@@ -13,9 +13,8 @@ public class Main {
 		
 		FullMoonGo fullMoonGo = FullMoonGo.getInstancia();
 	
-         /** TODO: Tambien para refactor.
-          * VentanaAplicacionGo Ventana = new VentanaAplicacionGo(fullMoonGo);
-          */
+       VentanaAplicacionGo Ventana = new VentanaAplicacionGo();
+       
 		
 		
 

@@ -19,13 +19,12 @@ import static Juego.EstadoJuego.*;
  * @author del comentario de arriba matias
  *
  */
-public class FullMoonGo extends Observable{
+public class FullMoonGo extends Observable implements Runnable {
 	
 	private EstadoJuego estadoJuego;
 	private Jugador jugadorBlanco;
 	private Jugador jugadorNegro;
 	private Tablero tablero;
-	private VentanaAplicacionGo vista;
 	private boolean jugarContraPersona;
 	static private FullMoonGo instancia = null;
 	
@@ -40,46 +39,52 @@ public class FullMoonGo extends Observable{
 		jugadorBlanco = null;
 		jugadorNegro = null;
 		tablero = null;
-		vista = null;
-		vista = new VentanaAplicacionGo(this);
+		crearTablero();
 	}
     
-	public void nuevaPartida(){
-		crearTablero();
-		crearJugadores();
-	}
-	
-	/**
-	 * TODO ver desde donde crear los jugadores. Cambiar aca y poner la estrategia que se quiere
-	 */
-	public void crearJugadores() {
-		AdaptadorTablero mouseListener = new AdaptadorTablero(vista.getVistaTablero());
-		vista.getVistaTablero().addMouseListener(mouseListener);
-		jugadorNegro = new Jugador("Fiubense 1", ColorPiedra.NEGRO, tablero, mouseListener);
-		if (jugarContraPersona)
-			jugadorBlanco = new Jugador("Fiubense 2", ColorPiedra.BLANCO, tablero, mouseListener);
-		else {
-			//jugadorBlanco = new Jugador("Fiubense 2", ColorPiedra.BLANCO, tablero, new EstrategiaComputadoraAtaqueCuidadoso(tablero, ColorPiedra.BLANCO));
-			//El puerto deberia venir desde la vista
-			jugadorBlanco = new Jugador("Fiubense 2", ColorPiedra.BLANCO, tablero, new EstrategiaRemoto(tablero, Constantes.PUERTO));
-		}
-		
-		estadoJuego = LISTO_PARA_INICIAR;
-		setChanged();
-		notifyObservers();
-	}
-	
 	public void crearTablero(){
 		tablero = new Tablero();
-		vista.mostrarTablero(tablero);
 	}
 	
-	public void setTablero(Tablero tablero) {
-		this.tablero = tablero;
+	public void crearTablero(TamanioTablero tam) {
+		tablero = new Tablero(tam);
 	}
-
+	
+	public void run(){
+//		if (estadoJuego == LISTO_PARA_INICIAR) {
+//			vista.mostrarTablero(tablero);
+//			jugar();
+//		} else {
+//			System.out.println("falta configurar algo"); //TODO
+//		}
+		jugar();
+	}
+	
 	public Tablero getTablero(){
 		return tablero;
+	}
+	
+	public EstadoJuego getEstado(){
+		return estadoJuego;
+	}
+
+	public void jugarContraPersona(boolean b) {
+		jugarContraPersona = b;		
+		run();
+	}
+	
+	public Jugador crearJugador(String nombre, ColorPiedra color, Estrategia estrategia) {
+		Jugador nuevoJugador = new Jugador(nombre, color, tablero, estrategia);
+		if (color == ColorPiedra.NEGRO) {
+			jugadorNegro = nuevoJugador;
+		}
+		if (color == ColorPiedra.BLANCO) {
+			jugadorBlanco = nuevoJugador;
+		}
+		if (color == ColorPiedra.VACIO) {
+			nuevoJugador = null;
+		}
+		return nuevoJugador;
 	}
 	
 	public void jugar() {
@@ -100,19 +105,8 @@ public class FullMoonGo extends Observable{
 			if (e.getColorGanador() == ColorPiedra.BLANCO)
 				nombreGanador = jugadorBlanco.getNombre();
 			System.out.println("El ganador es: " + nombreGanador);
-		}
+		}	
 	}
-	
-	
-	public EstadoJuego getEstado(){
-		return estadoJuego;
-	}
-
-	public void jugarContraPersona(boolean b) {
-		jugarContraPersona = b;		
-		nuevaPartida();
-	}
-
-	
+			
 }
 

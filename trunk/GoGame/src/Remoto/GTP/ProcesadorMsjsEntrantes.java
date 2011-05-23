@@ -1,19 +1,20 @@
 package Remoto.GTP;
 
-import Remoto.GTP.ParsearMensajes.CadenaComandoSoportado;
-import Remoto.GTP.ParsearMensajes.CadenaDefault;
-import Remoto.GTP.ParsearMensajes.CadenaGtp;
-import Remoto.GTP.ParsearMensajes.CadenaGenMovimiento;
-import Remoto.GTP.ParsearMensajes.CadenaJugar;
-import Remoto.GTP.ParsearMensajes.CadenaKomi;
-import Remoto.GTP.ParsearMensajes.CadenaLimpiarTablero;
-import Remoto.GTP.ParsearMensajes.CadenaListarComandos;
-import Remoto.GTP.ParsearMensajes.CadenaNombre;
-import Remoto.GTP.ParsearMensajes.CadenaRtaMsjsServidor;
-import Remoto.GTP.ParsearMensajes.CadenaSalida;
-import Remoto.GTP.ParsearMensajes.CadenaTamanioTablero;
-import Remoto.GTP.ParsearMensajes.CadenaVersion;
-import Remoto.GTP.ParsearMensajes.CadenaVersionProtocolo;
+import Remoto.Remoto;
+import Remoto.GTP.ParsearMensajesEntrantes.CadenaComandoSoportado;
+import Remoto.GTP.ParsearMensajesEntrantes.CadenaDefault;
+import Remoto.GTP.ParsearMensajesEntrantes.CadenaGenMovimiento;
+import Remoto.GTP.ParsearMensajesEntrantes.CadenaGtp;
+import Remoto.GTP.ParsearMensajesEntrantes.CadenaJugar;
+import Remoto.GTP.ParsearMensajesEntrantes.CadenaKomi;
+import Remoto.GTP.ParsearMensajesEntrantes.CadenaLimpiarTablero;
+import Remoto.GTP.ParsearMensajesEntrantes.CadenaListarComandos;
+import Remoto.GTP.ParsearMensajesEntrantes.CadenaNombre;
+import Remoto.GTP.ParsearMensajesEntrantes.CadenaRtaMsjsServidor;
+import Remoto.GTP.ParsearMensajesEntrantes.CadenaSalida;
+import Remoto.GTP.ParsearMensajesEntrantes.CadenaTamanioTablero;
+import Remoto.GTP.ParsearMensajesEntrantes.CadenaVersion;
+import Remoto.GTP.ParsearMensajesEntrantes.CadenaVersionProtocolo;
 
 public class ProcesadorMsjsEntrantes {
 
@@ -37,12 +38,12 @@ public class ProcesadorMsjsEntrantes {
 	private CadenaGtp cadenaRtaMsjsServidor;
 	private CadenaGtp cadenaDefault;
 	
-	public ProcesadorMsjsEntrantes() {
-		iniciarCadenas(new Gtp());
+	public ProcesadorMsjsEntrantes(Remoto remoto) {
+		iniciarCadenas(new Gtp(), remoto);
 		encadenarCadenas();
 	}
 
-	private void iniciarCadenas(Gtp gtp) {
+	private void iniciarCadenas(Gtp gtp, Remoto remoto) {
 		cadenaVersionProtocolo= new CadenaVersionProtocolo(gtp);
 		cadenaNombre= new CadenaNombre(gtp);
 		cadenaVersion= new CadenaVersion(gtp);
@@ -54,7 +55,7 @@ public class ProcesadorMsjsEntrantes {
 		cadenaJugar= new CadenaJugar(gtp);
 		cadenaGenMovimiento= new CadenaGenMovimiento(gtp);
 		cadenaSalida= new CadenaSalida(gtp);
-		cadenaRtaMsjsServidor = new CadenaRtaMsjsServidor(gtp);
+		cadenaRtaMsjsServidor = new CadenaRtaMsjsServidor(gtp, remoto);
 		cadenaDefault= new CadenaDefault(gtp);
 	}
 	

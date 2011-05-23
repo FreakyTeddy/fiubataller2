@@ -2,15 +2,13 @@ package tests;
 
 import static org.junit.Assert.*;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import Juego.Constantes;
 import Remoto.Cliente;
+import Remoto.Remoto;
 import Remoto.Servidor;
 import Remoto.GTP.ConstantesGtp;
 import Remoto.GTP.Gtp;
@@ -19,22 +17,23 @@ import Remoto.GTP.ProcesadorMsjsEntrantes;
 public class Test_GTP {
 	
 	private Gtp gtp;
-	private Cliente cliente;
+	private Remoto remotoCliente;
 	private Servidor servidor;
 	private ProcesadorMsjsEntrantes procesador;
 	
 	@Before
 	public void setUp() throws Exception {
 		gtp= new Gtp();
-		cliente= new Cliente();
-		servidor= new Servidor(2222);
-		procesador= new ProcesadorMsjsEntrantes();
+		servidor= new Servidor();
+		servidor.iniciar(Constantes.IP, Constantes.PUERTO);
+		remotoCliente= new Cliente();
+		procesador= new ProcesadorMsjsEntrantes(remotoCliente);
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		gtp= null;
-		cliente= null;
+		remotoCliente= null;
 		servidor= null;
 		procesador= null;
 	}
@@ -118,28 +117,13 @@ public class Test_GTP {
 	@Test
 	public void testConectarGnuGoModoListen() {
 		System.out.println("=== TEST MODO CONNECT ===");
-		boolean salida= cliente.iniciar("localhost", 1111);
+		boolean salida= remotoCliente.iniciar("localhost", 1111);
 		System.out.println("Salida: " + salida);
-		cliente.enviarMensaje(gtp.mensajeVersion());
-		cliente.enviarMensaje(gtp.mensajeVersionProtocolo());
-		cliente.enviarMensaje("version #esto es un comentario");
-		cliente.enviarMensaje("    ");
-		cliente.enviarMensaje("boardsize\r");
-		cliente.enviarMensaje(gtp.mensajeKomi(5.5));
-		cliente.enviarMensaje(gtp.mensajeTamanioTablero(7));
-		cliente.enviarMensaje(gtp.mensajeLimpiarTablero());
-		cliente.enviarMensaje(gtp.mensajeNombre());
-		cliente.enviarMensaje(gtp.mensajeListarCommandos());
-		cliente.enviarMensaje(gtp.mensajeComandoSoportado("boardsize"));
-		cliente.enviarMensaje(gtp.mensajeComandoSoportado("holaGNUGO"));     
-		cliente.enviarMensaje(gtp.mensajeJugar("black", "D5"));
-		cliente.enviarMensaje(gtp.mensajeGenMovimiento("white"));
-		cliente.enviarMensaje(gtp.mensajeJugar("black", "C3"));
-		cliente.enviarMensaje(gtp.mensajeJugar("black", "E3"));
-		cliente.enviarMensaje("Cualquier cosa");
-		cliente.enviarMensaje(gtp.mensajeSalir());
-		cliente.terminarTest();
+		remotoCliente.enviarMensajeJugar("black", "D5");
+		remotoCliente.enviarMensajeGenerarMovimiento("white");
+		remotoCliente.enviarMensajeSalida();
 		System.out.println("=== FIN: MODO CONNECT ===");
+		remotoCliente.terminarTest();
 	}
 	
 	/* Probar contra el gnugo 

@@ -1,29 +1,21 @@
 package Remoto;
 
-import Remoto.GTP.ProcesadorMsjsEntrantes;
-
-public class Servidor {
+public class Servidor extends Remoto {
 
 	private SocketServidor socket;
 	private boolean clienteConectado;
-	private ProcesadorMsjsEntrantes procesador;
 	
-	public Servidor(int puerto) {
+	public Servidor() {
 		clienteConectado= false;
-		socket= new SocketServidor(this, puerto);
-		procesador= new ProcesadorMsjsEntrantes();
-	}
-
-	public void iniciar() {
-		socket.start();
-	}
-
-	public void procesarMensaje(String mensaje) {
-		String msjRespuesta= procesador.procesarMensaje(mensaje);
-		if(!msjRespuesta.equals(""))
-			socket.enviarMensaje(msjRespuesta);
 	}
 	
+	@Override
+	public boolean iniciar(String ip, int puerto) {
+		socket= new SocketServidor(this, puerto);
+		socket.start();
+		return true;
+	}
+
 	public void enviarMensaje(String mensaje) {
 		socket.enviarMensaje(mensaje);
 	}
@@ -58,7 +50,14 @@ public class Servidor {
 	}
 	
 	public static void main( String[] arg ) {	
-		Servidor s= new Servidor(1111);
-		s.iniciar();
+		Servidor s= new Servidor();
+		s.iniciar("", 1111);
 	}
+
+	@Override
+	public void terminar() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

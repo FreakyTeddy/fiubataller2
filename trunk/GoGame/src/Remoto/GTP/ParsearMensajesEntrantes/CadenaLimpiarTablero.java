@@ -1,4 +1,4 @@
-package Remoto.GTP.ParsearMensajes;
+package Remoto.GTP.ParsearMensajesEntrantes;
 
 import Remoto.GTP.ConstantesGtp;
 import Remoto.GTP.Gtp;

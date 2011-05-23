@@ -52,7 +52,7 @@ public class SocketServidor extends SocketBase {
 				if(mensajeRecibido != null) {
 					if(!mensajeRecibido.equals("")) {
 						System.out.println("FROM_CLIENT>>: " + mensajeRecibido);
-						servidor.procesarMensaje(mensajeRecibido);
+						servidor.procesarMensajeEntrante(mensajeRecibido);
 					}
 				} else {
 					servidor.clienteDesconectado();

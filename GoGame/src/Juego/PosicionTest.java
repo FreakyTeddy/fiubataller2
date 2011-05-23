@@ -1,5 +1,7 @@
 package Juego;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 
 import org.junit.Test;
@@ -45,5 +47,12 @@ public class PosicionTest {
 		assert(!adyacencias.contains(a3));
 		assert(!adyacencias.contains(a4));
 	}
-
+	
+	@Test
+	public void testObtenerPosicionAPartirDeString() {
+		String posicionString= "B2";
+		Posicion posicion= new Posicion(posicionString);
+		assertEquals(posicion.getX(),1);
+		assertEquals(posicion.getY(),1);
+	}
 }

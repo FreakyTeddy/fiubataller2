@@ -20,7 +20,7 @@ import static Juego.EstadoJuego.*;
  *
  */
 public class FullMoonGo extends Observable{
-
+	
 	private EstadoJuego estadoJuego;
 	private Jugador jugadorBlanco;
 	private Jugador jugadorNegro;
@@ -58,8 +58,11 @@ public class FullMoonGo extends Observable{
 		jugadorNegro = new Jugador("Fiubense 1", ColorPiedra.NEGRO, tablero, mouseListener);
 		if (jugarContraPersona)
 			jugadorBlanco = new Jugador("Fiubense 2", ColorPiedra.BLANCO, tablero, mouseListener);
-		else
-			jugadorBlanco = new Jugador("Fiubense 2", ColorPiedra.BLANCO, tablero, new EstrategiaComputadoraAtaqueCuidadoso(tablero, ColorPiedra.BLANCO));
+		else {
+			//jugadorBlanco = new Jugador("Fiubense 2", ColorPiedra.BLANCO, tablero, new EstrategiaComputadoraAtaqueCuidadoso(tablero, ColorPiedra.BLANCO));
+			//El puerto deberia venir desde la vista
+			jugadorBlanco = new Jugador("Fiubense 2", ColorPiedra.BLANCO, tablero, new EstrategiaRemoto(tablero, Constantes.PUERTO));
+		}
 		
 		estadoJuego = LISTO_PARA_INICIAR;
 		setChanged();

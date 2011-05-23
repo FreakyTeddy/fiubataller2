@@ -61,5 +61,6 @@ public class SocketCliente extends SocketBase {
 
 	public void terminar() {
 		this.salir = true;
+		cerrarConexion();
 	}
 }

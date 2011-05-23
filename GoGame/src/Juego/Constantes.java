@@ -8,4 +8,7 @@ public class Constantes {
 	public static final int MIN_TABLERO= 2;
 	public static final int MAX_TABLERO= 19;
 	
+	//Datos remoto
+	public static final int PUERTO= 2222;
+	public static final String IP= "localhost";
 }

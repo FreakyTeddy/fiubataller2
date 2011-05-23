@@ -9,6 +9,7 @@ import javax.swing.JButton;
 
 import controlador.BotonJugador;
 import controlador.BotonMaquina;
+import controlador.BotonRemoto;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -46,11 +47,14 @@ public class MenuInicio extends JPanel {
 		JButton btnJugarVsComputadora = new JButton("Jugar vs Computadora");
 		btnJugarVsComputadora.addActionListener(new BotonMaquina());
 		btnJugarVsComputadora.setBounds(66, 171, 251, 91);
+
+		JButton btnJugarVsRemoto = new JButton("Jugar vs Remoto");
+		btnJugarVsRemoto.addActionListener(new BotonRemoto());
+		btnJugarVsRemoto.setBounds(66, 300, 251, 91);
 		
 		add(btnJugarVsOtro);
 		add(btnJugarVsComputadora);
-		
-		
+		add(btnJugarVsRemoto);
 	}
 	
 	@Override

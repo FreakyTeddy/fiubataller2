@@ -12,10 +12,15 @@ import java.util.ArrayList;
 public class Posicion {
 
 	int x,y;
-
+	
 	public Posicion(int x, int y) {
 		this.x=x;
 		this.y=y;
+	}
+	
+	public Posicion(String posicion) {
+		this.x= ((int)posicion.charAt(0))-65;
+		this.y= (Integer.parseInt(posicion.substring(1)))-1;
 	}
 
 	public int getX(){

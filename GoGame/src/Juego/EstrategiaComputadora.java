@@ -16,7 +16,10 @@ public abstract class EstrategiaComputadora implements Estrategia {
 
 	@Override
 	public Posicion getJugada() {
-		return generarJugada();
+		Posicion p = generarJugada();
+		if(esJugadaValida(p))
+			return p;
+		return this.primeraJugadaValida();
 	}
 
 	public void setColor(ColorPiedra color) {
@@ -78,6 +81,37 @@ public abstract class EstrategiaComputadora implements Estrategia {
 		ArrayList<Posicion> libres = _tablero.obtenerCasillerosLibres();
 		Collections.shuffle(libres);
 		return libres.get(1);
+	}
+
+	boolean esJugadaValida(Posicion posicion){
+		Tablero tableroPrueba = new Tablero(getTablero());
+		try{
+			tableroPrueba.agregarPiedra(posicion, getColor());
+			return true;
+		}
+		catch(Exception e){
+			return false;
+		}
+	}
+
+	
+	/**
+	 * Busca en el tablero la primer posición donde es valido poner una ficha.
+	 * @return Una posicion donde es valido jugar. Null si no hay mas posiciones validas.
+	 */
+	Posicion primeraJugadaValida(){
+		Tablero tableroPrueba = new Tablero(getTablero());
+		ArrayList<Posicion> posiciones = tableroPrueba.obtenerCasillerosLibres();
+
+		for(Posicion posicion : posiciones) {
+			try{
+				tableroPrueba.agregarPiedra(posicion, getColor());
+				return posicion;
+			}
+			catch(Exception e){
+			}
+		} 
+		return null;
 	}
 
 	protected abstract Posicion generarJugada();

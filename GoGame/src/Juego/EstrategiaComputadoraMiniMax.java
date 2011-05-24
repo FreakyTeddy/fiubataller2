@@ -43,7 +43,6 @@ public class EstrategiaComputadoraMiniMax extends EstrategiaComputadora {
 			Collections.sort(cadenasPropias, new ordenadorCadenasPorMenorGradoDeLibertadYMayorLongitud());
 			if(cadenasPropias.size()>0)
 				if(cadenasPropias.get(0).getGradosDeLibertad() <= 1){
-					//System.out.println("Pierdo en este turno.");
 					return -infinito;
 				}
 		}
@@ -51,7 +50,6 @@ public class EstrategiaComputadoraMiniMax extends EstrategiaComputadora {
 			Collections.sort(cadenasOponente, new ordenadorCadenasPorMenorGradoDeLibertadYMayorLongitud());
 			if(cadenasOponente.size()>0)
 				if(cadenasOponente.get(0).getGradosDeLibertad() <= 1){
-					//System.out.println("Puedo Ganar en este turno.");
 					return infinito;
 				}
 		}
@@ -142,6 +140,7 @@ public class EstrategiaComputadoraMiniMax extends EstrategiaComputadora {
 				System.out.println("Pierdo haciendo cualquier cosa.");
 				Jugada j = new Jugada();
 				j.puntaje = -infinito;
+				j.posicion = null;
 				return j;
 			}
 			return Collections.max(jugadas, new OrdenadorJugada());

@@ -89,8 +89,11 @@ public abstract class EstrategiaComputadora implements Estrategia {
 			tableroPrueba.agregarPiedra(posicion, getColor());
 			return true;
 		}
-		catch(Exception e){
+		catch(JugadaInvalidaException e){
 			return false;
+		}
+		catch(FinDelJuegoException e){
+			return true;
 		}
 	}
 
@@ -107,9 +110,12 @@ public abstract class EstrategiaComputadora implements Estrategia {
 			try{
 				tableroPrueba.agregarPiedra(posicion, getColor());
 				return posicion;
+			}catch(JugadaInvalidaException e){
+
+			}catch(FinDelJuegoException e){
+				return posicion;
 			}
-			catch(Exception e){
-			}
+
 		} 
 		return null;
 	}

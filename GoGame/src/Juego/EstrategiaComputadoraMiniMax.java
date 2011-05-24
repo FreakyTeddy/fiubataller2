@@ -116,10 +116,8 @@ public class EstrategiaComputadoraMiniMax extends EstrategiaComputadora {
 			}catch(JugadaInvalidaException e) {
 				valida=false;
 				j.puntaje=-infinito+1;
-				//System.out.println("Excepcion de invalidez de jugada");
 			}
 			catch(FinDelJuegoException e) {
-				//System.out.println("Excepcion de fin del juego");
 				if(jugador == this.getColor()){
 					//Soy MAX y uno de los hijos evalúa a GANA, gano
 					j.puntaje=infinito;

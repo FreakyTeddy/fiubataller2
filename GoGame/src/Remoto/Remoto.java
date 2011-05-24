@@ -27,12 +27,16 @@ public abstract class Remoto extends Observable {
 	
 	public abstract boolean iniciar(String ip, int puerto);
 	
-	public abstract void enviarMensaje(String mensaje);
+	protected abstract void enviarMensaje(String mensaje);
 	
 	public void procesarMensajeEntrante(String mensaje) {
 		String mensajeRta= procesador.procesarMensaje(mensaje);
 		if(!mensajeRta.equals(""))           
 				enviarMensaje(mensajeRta);
+	}
+	
+	public boolean estaConectado() {
+		return conectado;
 	}
 	
 	public String getTipoUltimoMensaje() {
@@ -57,8 +61,9 @@ public abstract class Remoto extends Observable {
 	public abstract void terminar();
 	
 	public void terminarConexion() {
-		conectado= false;
-		terminar();
+		//TODO: avisar del fin de la conexion
+		//conectado= false;
+		//terminar();
 	}
 	
 	/*Datos obtenidos como respuesta*/

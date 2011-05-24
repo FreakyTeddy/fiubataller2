@@ -42,10 +42,6 @@ public class Cliente extends Remoto {
 			System.out.print(">> EXCEPTION: stop <<");
 		}
 	}
-	
-	public void desconectar() {
-		this.conectado= false;
-	}
 
 	public void terminar() {
 		if(conectado) {

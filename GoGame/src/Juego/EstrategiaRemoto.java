@@ -5,6 +5,7 @@ import java.util.Observer;
 
 import Remoto.Cliente;
 import Remoto.Remoto;
+import Remoto.Servidor;
 
 public class EstrategiaRemoto implements Estrategia, Observer {
 
@@ -12,11 +13,15 @@ public class EstrategiaRemoto implements Estrategia, Observer {
 	Remoto _remoto;
 	Posicion _ultimaPiedra;
 	
-	public EstrategiaRemoto(Tablero tablero, int puerto){
+	//El parametro escuchar es true si queremos modo servidor, de lo contrario sera modo cliente.	
+	public EstrategiaRemoto(Tablero tablero, int puerto, String ip, boolean escuchar){
 		_tablero= tablero;
-		_remoto= new Cliente();
+		if(escuchar)
+			_remoto= new Servidor();
+		else
+			_remoto= new Cliente();
 		_remoto.addObserver(this);
-		_remoto.iniciar(Constantes.IP, puerto);
+		_remoto.iniciar(ip, puerto);
 		_ultimaPiedra = new Posicion(0,0);
 	}
 	
@@ -38,13 +43,13 @@ public class EstrategiaRemoto implements Estrategia, Observer {
 	public Posicion getJugada() { 
 		System.out.println("Obtener jugada remoto");
 		//Envio el mensaje de generar jugada al remoto
-		//TODO: harcodeado
+		//TODO: harcodeado, siempre es blanco el remoto?????????
 		_remoto.enviarMensajeGenerarMovimiento("White");
 		//Espero respuesta 
 		return getUltimaPiedra();
 	}
 
-	//TODO!!!!!
+	//TODO: para q sirve esto?
 	public void informarJugadaInvalida() {
 		//_mensajero.informarJugadaInvalida();		
 	}

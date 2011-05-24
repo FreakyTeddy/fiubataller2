@@ -20,6 +20,10 @@ public class Servidor extends Remoto {
 		socket.enviarMensaje(mensaje);
 	}
 	
+	public boolean estaConectado() {
+		return clienteConectado;
+	}
+	
 	public void clienteConectado() {
 		clienteConectado= true;
 	}
@@ -32,14 +36,6 @@ public class Servidor extends Remoto {
 		return clienteConectado;
 	}
 
-	public void pararDeEscuchar() {
-		/*
-		 * if(clientConnect)
-		 * socket.sendMessage(util.createMessage(Util.END_CONECTION));
-		 */
-		socket.terminar();
-	}
-	
 	public void terminarTest() {
 			try {
 				this.socket.join();
@@ -56,8 +52,14 @@ public class Servidor extends Remoto {
 
 	@Override
 	public void terminar() {
-		// TODO Auto-generated method stub
-		
+		if(clienteConectado) {
+			this.socket.terminar();
+			try {
+				this.socket.join();
+				System.out.println(">> END: socket thread");
+			} catch (InterruptedException e) {
+				System.out.print(">> EXCEPTION: terminar <<");
+			}
+		}
 	}
-
 }

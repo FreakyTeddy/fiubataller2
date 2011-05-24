@@ -6,7 +6,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import Juego.Constantes;
 import Remoto.Cliente;
 import Remoto.Remoto;
 import Remoto.Servidor;
@@ -17,23 +16,22 @@ import Remoto.GTP.ProcesadorMsjsEntrantes;
 public class Test_GTP {
 	
 	private Gtp gtp;
-	private Remoto remotoCliente;
-	private Servidor servidor;
+	private Remoto cliente;
+	private Remoto servidor;
 	private ProcesadorMsjsEntrantes procesador;
 	
 	@Before
 	public void setUp() throws Exception {
 		gtp= new Gtp();
 		servidor= new Servidor();
-		servidor.iniciar(Constantes.IP, Constantes.PUERTO);
-		remotoCliente= new Cliente();
-		procesador= new ProcesadorMsjsEntrantes(remotoCliente);
+		cliente= new Cliente();
+		procesador= new ProcesadorMsjsEntrantes(cliente);
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		gtp= null;
-		remotoCliente= null;
+		cliente= null;
 		servidor= null;
 		procesador= null;
 	}
@@ -114,39 +112,38 @@ public class Test_GTP {
 	/* Probar contra el gnugo 
 	 * gnugo --mode gtp --gtp-listen 1111
 	 */
-	@Test
+	/*@Test
 	public void testConectarGnuGoModoListen() {
 		System.out.println("=== TEST MODO CONNECT ===");
-		boolean salida= remotoCliente.iniciar("localhost", 1111);
+		boolean salida= cliente.iniciar("localhost", 1111);
 		System.out.println("Salida: " + salida);
-		remotoCliente.enviarMensajeJugar("black", "D5");
-		remotoCliente.enviarMensajeGenerarMovimiento("white");
-		remotoCliente.enviarMensajeSalida();
+		cliente.enviarMensajeJugar("black", "D5");
+		cliente.enviarMensajeGenerarMovimiento("white");
+		cliente.enviarMensajeSalida();
 		System.out.println("=== FIN: MODO CONNECT ===");
-		remotoCliente.terminarTest();
-	}
+		cliente.terminarTest();
+	}*/
 	
 	/* Probar contra el gnugo 
-	 * gnugo --mode gtp --gtp-listen 2222
+	 * gnugo --mode gtp --gtp-connect 2222
 	 */
-/*	@Test
+	@Test
 	public void testConectarGnuGoModoConnect() {
 		System.out.println("=== TEST MODO LISTEN ===");
-		servidor.iniciar();
-		while(!servidor.estaClienteConectado()) {
+		servidor.iniciar("localhost", 2222);
+		while(!servidor.estaConectado()) {
 			System.out.println("Esperando conexion...");			
 		}
 		System.out.println(">Enviando mensajes...");
-		servidor.enviarMensaje(gtp.mensajeTamanioTablero(7));
-		servidor.enviarMensaje(gtp.mensajeLimpiarTablero());
-		servidor.enviarMensaje(gtp.mensajeComandoSoportado("boardsize"));
-		servidor.enviarMensaje(gtp.mensajeJugar("black", "D5"));
-		servidor.enviarMensaje(gtp.mensajeGenMovimiento("white"));
-		servidor.enviarMensaje(gtp.mensajeJugar("black", "C3"));
-		servidor.enviarMensaje(gtp.mensajeJugar("black", "E3"));
-		servidor.enviarMensaje("Cualquier cosa");
-		servidor.enviarMensaje(gtp.mensajeSalir());
-		servidor.terminarTest();
+	//	servidor.enviarMensaje(gtp.mensajeTamanioTablero(7));
+	//	servidor.enviarMensaje(gtp.mensajeLimpiarTablero());
+	//	servidor.enviarMensaje(gtp.mensajeComandoSoportado("boardsize"));
+	//	servidor.enviarMensaje(gtp.mensajeJugar("black", "D5"));
+//		servidor.enviarMensaje(gtp.mensajeGenMovimiento("white"));
+	//	servidor.enviarMensaje(gtp.mensajeJugar("black", "C3"));
+	//	servidor.enviarMensaje(gtp.mensajeJugar("black", "E3"));
+		servidor.enviarMensajeSalida();
+	///	servidor.terminarTest();
 		System.out.println("=== FIN: MODO LISTEN ===");
-	}*/
+	}
 }

@@ -2,28 +2,35 @@ package Juego;
 
 public class Jugador {
 
-	private String _nombre;
-	private ColorPiedra _color;
-	private Tablero _tablero;
-	private Estrategia _estrategia;
+	private String nombre;
+	private ColorPiedra color;
+	private Tablero tablero;
+	private Estrategia estrategia;
+	private boolean pasarTurno;
 	
 	public Jugador(String nombre, ColorPiedra color,Tablero tablero, Estrategia estrategia) {
-		_nombre = nombre;
-		_color = color;
-		_tablero = tablero;
-		_estrategia = estrategia;
+		this.nombre = nombre;
+		this.color = color;
+		this.tablero = tablero;
+		this.estrategia = estrategia;
+		this.pasarTurno = false;
 	}
 	
 	public String getNombre() {
-		return _nombre;
+		return nombre;
 	}
 	
 	public ColorPiedra getColor() {
-		return _color;
+		return color;
 	}
 	
-	public Estrategia getEstrategia() {
-		return _estrategia;
+	public boolean pasoElTurno() {
+		return pasarTurno;
+	}
+		
+	private void pasarElTurno() {
+		pasarTurno = true;
+		System.out.println(nombre + " pasó el turno. Ya no juega");
 	}
 	
 	/**
@@ -32,15 +39,19 @@ public class Jugador {
 	 */
 	public void jugar() throws FinDelJuegoException {
 		
-		boolean valida = false;
-		while (!valida){
+		boolean jugadaValida = false;
+		while (!pasarTurno && !jugadaValida){
 			try {
-				Posicion posicion = _estrategia.getJugada();
-				_tablero.agregarPiedra(posicion, _color);
-				valida = true;
+				Posicion posicion = estrategia.getJugada();
+				if (posicion == null)
+					pasarElTurno();
+				else {
+					tablero.agregarPiedra(posicion, color);
+					jugadaValida = true;
+				}				
 			}catch (JugadaInvalidaException ex){
 //				_estrategia.informarJugadaInvalida();
-				System.out.println(_nombre + ": " + ex);
+				System.out.println(nombre + ": " + ex);
 			}
 		}
 	}

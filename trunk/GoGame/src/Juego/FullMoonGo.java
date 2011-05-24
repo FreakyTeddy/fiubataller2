@@ -24,6 +24,7 @@ public class FullMoonGo extends Observable implements Runnable {
 	private EstadoJuego estadoJuego;
 	private Jugador jugadorBlanco;
 	private Jugador jugadorNegro;
+	private Jugador jugadorGanador;
 	private Tablero tablero;
 	private boolean jugarContraPersona;
 	static private FullMoonGo instancia = null;
@@ -38,6 +39,7 @@ public class FullMoonGo extends Observable implements Runnable {
 		estadoJuego = NO_INICIADO;
 		jugadorBlanco = null;
 		jugadorNegro = null;
+		jugadorGanador = null;
 		tablero = null;
 		crearTablero();
 	}
@@ -66,6 +68,10 @@ public class FullMoonGo extends Observable implements Runnable {
 	
 	public EstadoJuego getEstado(){
 		return estadoJuego;
+	}
+	
+	public Jugador getGanador() {
+		return jugadorGanador;
 	}
 
 	public void jugarContraPersona(boolean b) {
@@ -96,15 +102,18 @@ public class FullMoonGo extends Observable implements Runnable {
 				jugadorBlanco.jugar();
 			}
 		}catch (FinDelJuegoException e){
-			setChanged();
-			notifyObservers();
-			estadoJuego = TERMINADO;
-			String nombreGanador="";	//esto despues tendria que ir a la vista :)
-			if (e.getColorGanador() == ColorPiedra.NEGRO)
-				nombreGanador = jugadorNegro.getNombre();
+			
+			if (e.getColorGanador() == ColorPiedra.NEGRO) 
+				jugadorGanador = jugadorNegro;
 			if (e.getColorGanador() == ColorPiedra.BLANCO)
-				nombreGanador = jugadorBlanco.getNombre();
-			System.out.println("El ganador es: " + nombreGanador);
+				jugadorGanador = jugadorBlanco;
+			
+			estadoJuego = TERMINADO;
+			
+			System.out.println("El ganador es: " + jugadorGanador.getNombre()); //esto despues tendria que ir a la vista :)
+			
+			setChanged();
+			notifyObservers();			
 		}	
 	}
 			

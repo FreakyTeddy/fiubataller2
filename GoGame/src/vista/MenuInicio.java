@@ -14,7 +14,7 @@ import Juego.ColorPiedra;
 import Juego.FullMoonGo;
 
 import controlador.BotonJugador;
-import controlador.BotonMaquina;
+import controlador.BotonServidor;
 import controlador.BotonRemoto;
 import controlador.ComboJugador;
 import controlador.ComboTamanioTablero;
@@ -38,7 +38,7 @@ public class MenuInicio extends JPanel implements ActionListener {
 
 	private Image imagenTablero;
 	
-	private static final String pathImagenTablero = "./images/go-game1.jpg";
+	private static final String pathImagenTablero = "./images/go-game2.jpg";
 	
 	
 	private ComboTamanioTablero comboTablero = new ComboTamanioTablero();
@@ -81,7 +81,15 @@ public class MenuInicio extends JPanel implements ActionListener {
 		
 		JButton btnJugar = new JButton("Jugar");
 		btnJugar.addActionListener(this);
-		btnJugar.setBounds(380, 430, 100, 40);
+		btnJugar.setBounds(350, 430, 100, 40);
+		
+		JButton btnServidor = new JButton("Crear Servidor");
+		btnServidor.addActionListener(new BotonServidor());
+		btnServidor.setBounds(180, 430, 120, 40);
+		
+		JButton btnJugarRed = new JButton("Jugar en Red");
+		btnJugarRed.addActionListener(new BotonRemoto());
+		btnJugarRed.setBounds(50, 430, 100, 40);
 		
 		add(labelTablero);
 		add(comboTablero.getCombo());
@@ -92,6 +100,8 @@ public class MenuInicio extends JPanel implements ActionListener {
 		add(comboNegro.getCombo());
 		add(nombreNegro);
 		add(btnJugar);
+		add(btnJugarRed);
+		add(btnServidor);
 		
 	}
 	

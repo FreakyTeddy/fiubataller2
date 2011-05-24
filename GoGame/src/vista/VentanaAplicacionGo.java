@@ -8,7 +8,12 @@ import java.awt.event.MouseAdapter;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 
 import Juego.FullMoonGo;
@@ -17,18 +22,29 @@ import Juego.Tablero;
 public class VentanaAplicacionGo {
 
 	private JFrame frame;
-	TableroVista tableroGo;
-	MenuInicio menuInicio;
-	MouseAdapter mouseListener;
+	private TableroVista tableroGo;
+	private MenuInicio menuInicio;
+	private MouseAdapter mouseListener;
+	
+	private static final String pathIcono = "./images/icono.jpg";
 	
 	/**
 	 * Create the application.
 	 * TODO: REvisar esto no esta bien...
 	 */
 	public VentanaAplicacionGo() {
-		frame = new JFrame("GoGame");
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e1) {
+			System.out.println("Error al cargar el look and feel");
+		}
+		
+		frame = new JFrame("FullMoonGo");
 		frame.setBounds(100, 100, 500, 535);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(false);
+		frame.setIconImage((new ImageIcon(pathIcono)).getImage());
+		
 		menuInicio = new MenuInicio(this);
 		frame.getContentPane().add(menuInicio, BorderLayout.CENTER);
 		EventQueue.invokeLater(new Runnable() {

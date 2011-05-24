@@ -108,23 +108,6 @@ public class TableroVista extends JPanel implements Observer {
 		
 	}
 	
-//	public void click(int x, int y, int n){
-//		Posicion p =  transformarPosicionFicha(x, y);
-//		try{
-//			if(n == 0)
-//				tablero.agregarPiedra(p, ColorPiedra.BLANCO);
-//			else
-//				tablero.agregarPiedra(estrategiaNegro.getJugada(), ColorPiedra.NEGRO);
-//		}
-//		catch(JugadaInvalidaException e){
-//			System.out.println("Eeeeeeeeeeeepa");
-//			System.out.println(e.toString());
-//		}
-//		catch(FinDelJuegoException e){
-//			System.out.println("Se terminó eljuego");
-//		}
-//	}
-	
 	/**
 	 * transforma coordenadas de vista a una posicion en el tablero
 	 */
@@ -132,9 +115,4 @@ public class TableroVista extends JPanel implements Observer {
 		Posicion p = new Posicion((int)((x-w/2)/w), (int)((y-h/2)/h));
 		return p;
 	}
-	
-//	public Estrategia estrategiaNegro(){
-//		return estrategiaNegro;
-//	}
-
 }

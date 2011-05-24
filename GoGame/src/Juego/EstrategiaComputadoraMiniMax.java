@@ -102,6 +102,7 @@ public class EstrategiaComputadoraMiniMax extends EstrategiaComputadora {
 		LinkedList<Jugada> jugadas = new LinkedList<Jugada>();
 
       		ArrayList<Posicion> disponibles = tablero.obtenerCasillerosLibres();
+		Collections.shuffle(disponibles);
 
 
 		for(Posicion posicion : disponibles) {

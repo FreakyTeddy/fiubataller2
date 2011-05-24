@@ -29,8 +29,7 @@ public class EstrategiaComputadoraAtacar extends EstrategiaComputadora{
 	}
 
 	protected Posicion generarJugada(){
-
-		return  estrategiaAtacar();
+		return estrategiaAtacar();
 	}
 
 }

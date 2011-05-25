@@ -23,12 +23,15 @@ public class AdaptadorTablero extends MouseAdapter implements Estrategia {
 	Posicion ultimaPiedra;
 	
 	public AdaptadorTablero(){
-		ultimaPiedra = new Posicion(0,0);
+		ultimaPiedra = null;
 	}
 	
 	public void mouseClicked(MouseEvent e){
 		 if(e.getButton()==MouseEvent.BUTTON1)
 		 	setUltimaPiedra(TableroVista.transformarPosicionFicha(e.getX(), e.getY()));
+		 if(e.getButton()==MouseEvent.BUTTON2) {
+			 setUltimaPiedra(null);
+		 }
 	}
 	
 	private synchronized void setUltimaPiedra(Posicion p){

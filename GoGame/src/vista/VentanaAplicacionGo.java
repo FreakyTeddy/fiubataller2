@@ -61,6 +61,10 @@ public class VentanaAplicacionGo {
 	public void addMouseListener(MouseAdapter mouse) {
 		mouseListener = mouse;
 	}
+	
+	public JFrame getFrame() {
+		return frame;
+	}
 
 	public void mostrarTablero(Tablero tb){
 		frame.getContentPane().remove(menuInicio);

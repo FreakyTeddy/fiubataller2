@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -11,16 +14,16 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 
 import Juego.ColorPiedra;
+import Juego.Constantes;
+import Juego.Estrategia;
+import Juego.EstrategiaRemoto;
 import Juego.FullMoonGo;
 
-import controlador.BotonJugador;
 import controlador.BotonServidor;
 import controlador.BotonRemoto;
 import controlador.ComboJugador;
 import controlador.ComboTamanioTablero;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 
 /**
@@ -47,6 +50,7 @@ public class MenuInicio extends JPanel implements ActionListener {
 	private JTextField nombreNegro;
 	private JTextField nombreBlanco;
 	private VentanaAplicacionGo vista;
+
 	
 	public MenuInicio(VentanaAplicacionGo vistaJuego) {
 		
@@ -64,19 +68,19 @@ public class MenuInicio extends JPanel implements ActionListener {
 		labelTablero.setForeground(new Color(250, 250, 250));
 		comboTablero.getCombo().setBounds(200, 40, 100, 30);
 		
-		JLabel labelBlanco = new JLabel("Jugador Blanco");
-		labelBlanco.setBounds(40, 80, 160, 30);
-		labelBlanco.setForeground(new Color(250, 250, 250));
-		comboBlanco.getCombo().setBounds(200, 80, 100, 30);
-		nombreBlanco = new JTextField("Nombre Blanco");
-		nombreBlanco.setBounds(320, 80, 150, 30);
-		
 		JLabel labelNegro = new JLabel("Jugador Negro");
-		labelNegro.setBounds(40, 120, 160, 30);
+		labelNegro.setBounds(40, 80, 160, 30);
 		labelNegro.setForeground(new Color(250, 250, 250));
-		comboNegro.getCombo().setBounds(200, 120, 100, 30);
+		comboNegro.getCombo().setBounds(200, 80, 100, 30);
 		nombreNegro = new JTextField("Nombre Negro");
-		nombreNegro.setBounds(320, 120, 150, 30);
+		nombreNegro.setBounds(320, 80, 150, 30);
+		
+		JLabel labelBlanco = new JLabel("Jugador Blanco");
+		labelBlanco.setBounds(40, 120, 160, 30);
+		labelBlanco.setForeground(new Color(250, 250, 250));
+		comboBlanco.getCombo().setBounds(200, 120, 100, 30);
+		nombreBlanco = new JTextField("Nombre Blanco");
+		nombreBlanco.setBounds(320, 120, 150, 30);
 		
 		
 		JButton btnJugar = new JButton("Jugar");
@@ -84,11 +88,11 @@ public class MenuInicio extends JPanel implements ActionListener {
 		btnJugar.setBounds(350, 430, 100, 40);
 		
 		JButton btnServidor = new JButton("Crear Servidor");
-		btnServidor.addActionListener(new BotonServidor());
+		btnServidor.addActionListener(new BotonServidor(vista.getFrame(), this));
 		btnServidor.setBounds(180, 430, 120, 40);
 		
 		JButton btnJugarRed = new JButton("Jugar en Red");
-		btnJugarRed.addActionListener(new BotonRemoto());
+		btnJugarRed.addActionListener(new BotonRemoto(vista.getFrame(), this));
 		btnJugarRed.setBounds(50, 430, 100, 40);
 		
 		add(labelTablero);
@@ -102,7 +106,33 @@ public class MenuInicio extends JPanel implements ActionListener {
 		add(btnJugar);
 		add(btnJugarRed);
 		add(btnServidor);
-		
+
+	}
+	
+	private void iniciarFullMoon() {
+		Thread juego = new Thread(FullMoonGo.getInstancia());
+		juego.start();
+		vista.mostrarTablero(FullMoonGo.getInstancia().getTablero());
+	}
+	
+	public void levantarServidor(int puerto){
+		Estrategia remoto = new EstrategiaRemoto(FullMoonGo.getInstancia().getTablero(), puerto, Constantes.IP, true);
+		FullMoonGo.getInstancia().crearJugador("Remoto", ColorPiedra.BLANCO, remoto);
+		FullMoonGo.getInstancia().crearJugador(nombreNegro.getText(), ColorPiedra.NEGRO, comboNegro.getEstrategiaElegida());
+		iniciarFullMoon();
+	}
+	
+	public void jugarEnRed(String ip, int puerto) {
+		Estrategia remoto = new EstrategiaRemoto(FullMoonGo.getInstancia().getTablero(), puerto, ip, false);
+		FullMoonGo.getInstancia().crearJugador("Remoto", ColorPiedra.BLANCO, remoto);
+		FullMoonGo.getInstancia().crearJugador(nombreNegro.getText(), ColorPiedra.NEGRO, comboNegro.getEstrategiaElegida());
+		iniciarFullMoon();
+	}
+	
+	public void jugarLocal() {
+		FullMoonGo.getInstancia().crearJugador(nombreBlanco.getText(), ColorPiedra.BLANCO, comboBlanco.getEstrategiaElegida());
+		FullMoonGo.getInstancia().crearJugador(nombreNegro.getText(), ColorPiedra.NEGRO, comboNegro.getEstrategiaElegida());
+		iniciarFullMoon();
 	}
 	
 	@Override
@@ -110,17 +140,12 @@ public class MenuInicio extends JPanel implements ActionListener {
 		super.paintComponent(g);
 		
 		if (imagenTablero != null)  
-			 g.drawImage(imagenTablero, 0, 0, getWidth(), getHeight(), this);  
-		
+			 g.drawImage(imagenTablero, 0, 0, getWidth(), getHeight(), this);  	
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) { //accion del boton jugar
-		FullMoonGo.getInstancia().crearJugador(nombreBlanco.getText(), ColorPiedra.BLANCO, comboBlanco.getEstrategiaElegida());
-		FullMoonGo.getInstancia().crearJugador(nombreNegro.getText(), ColorPiedra.NEGRO, comboNegro.getEstrategiaElegida());
-		Thread juego = new Thread(FullMoonGo.getInstancia());
-		juego.start();
-		vista.mostrarTablero(FullMoonGo.getInstancia().getTablero());
+		jugarLocal();
 	}
 
 }

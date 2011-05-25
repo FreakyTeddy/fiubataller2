@@ -13,7 +13,7 @@ import Juego.FullMoonGo;
 public class ComboJugador {
 
 	private ColorPiedra colorJugador;
-	private String estrategias[] = {"Humano", "Min y Max", "Muy Facil", "Facil", "Medio"};
+	private String estrategias[] = {"Humano", "Minimax", "Muy Facil", "Facil", "Medio"};
 	private ArrayList<CreadorEstrategia> creadores;
 	private JComboBox comboJugadores;
 	

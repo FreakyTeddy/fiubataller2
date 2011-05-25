@@ -1,13 +1,10 @@
 package Juego;
 
-import java.util.Observable;
-import java.util.Observer;
-
 import Remoto.Cliente;
 import Remoto.Remoto;
 import Remoto.Servidor;
 
-public class EstrategiaRemoto implements Estrategia, Observer {
+public class EstrategiaRemoto implements Estrategia {
 
 	Tablero _tablero;
 	Remoto _remoto;
@@ -17,15 +14,15 @@ public class EstrategiaRemoto implements Estrategia, Observer {
 	public EstrategiaRemoto(Tablero tablero, int puerto, String ip, boolean escuchar){
 		_tablero= tablero;
 		if(escuchar)
-			_remoto= new Servidor();
+			_remoto= new Servidor(this);
 		else
-			_remoto= new Cliente();
-		_remoto.addObserver(this);
+			_remoto= new Cliente(this);
+		//TODO:aca se debe checkear si se pudo conectarrrrrrrrrrrrr!!!!!!!!!!
 		_remoto.iniciar(ip, puerto);
 		_ultimaPiedra = new Posicion(0,0);
 	}
 	
-	private synchronized void setUltimaPiedra(Posicion p){
+	public synchronized void setUltimaPiedra(Posicion p){
 		_ultimaPiedra = p;
 		this.notifyAll();
 	}
@@ -41,7 +38,7 @@ public class EstrategiaRemoto implements Estrategia, Observer {
 	
 	@Override
 	public Posicion getJugada() { 
-		System.out.println("Obtener jugada remoto");
+		System.out.println(">Obteniendo jugada de remoto...");
 		//Envio el mensaje de generar jugada al remoto
 		//TODO: harcodeado, siempre es blanco el remoto?????????
 		_remoto.enviarMensajeGenerarMovimiento("White");
@@ -52,11 +49,5 @@ public class EstrategiaRemoto implements Estrategia, Observer {
 	//TODO: para q sirve esto?
 	public void informarJugadaInvalida() {
 		//_mensajero.informarJugadaInvalida();		
-	}
-
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		String ultimaPosicion= _remoto.getPosicionObtenida();
-		setUltimaPiedra(new Posicion(ultimaPosicion));
 	}
 }

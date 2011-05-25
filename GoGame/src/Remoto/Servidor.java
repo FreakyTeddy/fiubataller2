@@ -1,17 +1,28 @@
 package Remoto;
 
+import java.io.IOException;
+
+import Juego.EstrategiaRemoto;
+
 public class Servidor extends Remoto {
 
 	private SocketServidor socket;
 	private boolean clienteConectado;
 	
-	public Servidor() {
+	public Servidor(EstrategiaRemoto estrategiaRemoto) {
+		super(estrategiaRemoto);
 		clienteConectado= false;
 	}
 	
 	@Override
 	public boolean iniciar(String ip, int puerto) {
 		socket= new SocketServidor(this, puerto);
+		try {
+			socket.esperarCliente();
+		} catch (IOException e) {
+			System.err.println("ERROR: al conectarse a cliente");
+			return false;
+		}
 		socket.start();
 		return true;
 	}
@@ -45,11 +56,6 @@ public class Servidor extends Remoto {
 			}
 	}
 	
-	public static void main( String[] arg ) {	
-		Servidor s= new Servidor();
-		s.iniciar("", 1111);
-	}
-
 	@Override
 	public void terminar() {
 		if(clienteConectado) {

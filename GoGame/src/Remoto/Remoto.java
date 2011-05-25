@@ -1,24 +1,25 @@
 package Remoto;
 
 import java.util.ArrayList;
-import java.util.Observable;
 
+import Juego.EstrategiaRemoto;
+import Juego.Posicion;
 import Remoto.GTP.ConstantesGtp;
 import Remoto.GTP.Gtp;
 import Remoto.GTP.ProcesadorMsjsEntrantes;
 import Remoto.GTP.ProcesadorRespuestaObtenida;
 
-public abstract class Remoto extends Observable {
+public abstract class Remoto {
 
+	private EstrategiaRemoto estrategiaRemoto;
 	private ProcesadorMsjsEntrantes procesador;
 	private ProcesadorRespuestaObtenida procesadorRta;
 	private Gtp gtp; 
 	private ArrayList<String> tipoUltimoMensaje;
 	protected boolean conectado;
-	//Datos de respuestas obtenidas
-	private String posicionObtenida;
 	
-	public Remoto() {
+	public Remoto(EstrategiaRemoto estrategiaRemoto) {
+		this.estrategiaRemoto= estrategiaRemoto;
 		procesador= new ProcesadorMsjsEntrantes(this);
 		procesadorRta= new ProcesadorRespuestaObtenida(this);
 		gtp= new Gtp();
@@ -48,16 +49,9 @@ public abstract class Remoto extends Observable {
 	}
 	
 	public void procesarRespuestaObtenida(String respuestaObtenida) {
-		System.out.println("Respuesta obtenida: " + respuestaObtenida);
 		procesadorRta.procesarRespuestaObtenida(respuestaObtenida);
 	}
 
-	/*Para modificar datos*/
-	public void setPosicionObtenida(String posicionObtenida) {
-		this.posicionObtenida= posicionObtenida;
-		super.notifyObservers();
-	}
-	
 	public abstract void terminar();
 	
 	public void terminarConexion() {
@@ -66,14 +60,14 @@ public abstract class Remoto extends Observable {
 		//terminar();
 	}
 	
-	/*Datos obtenidos como respuesta*/
-	public String getPosicionObtenida() {
-		return posicionObtenida;
+	/***PARA MODIFICAR EN ESTRATEGIA REMOTO***/
+	public void setPosicionObtenida(String posicionObtenida) {
+		if(estrategiaRemoto != null)
+			estrategiaRemoto.setUltimaPiedra(new Posicion(posicionObtenida));
 	}
 	
 	//TODO: hago los necesarios por ahora
-	/*Mensaje posibles a enviar*/
-	
+	/***Mensajes para enviar al remoto***/
 	//Setup
 	public void enviarMensajeTamanioTablero(int tamanio) {
 		tipoUltimoMensaje.add(ConstantesGtp.BOARDSIZE);

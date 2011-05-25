@@ -2,9 +2,6 @@ package Juego;
 
 import java.util.Observable;
 
-import controlador.AdaptadorTablero;
-
-import vista.VentanaAplicacionGo;
 import static Juego.EstadoJuego.*;
 
 
@@ -27,15 +24,8 @@ public class FullMoonGo extends Observable implements Runnable {
 	private Jugador jugadorGanador;
 	private Tablero tablero;
 	private boolean jugarContraPersona;
-	static private FullMoonGo instancia = null;
 	
-	static public FullMoonGo getInstancia(){
-		if (instancia == null)
-			instancia = new FullMoonGo();
-		return instancia;
-	}
-
-	private FullMoonGo() {
+	public FullMoonGo() {
 		estadoJuego = NO_INICIADO;
 		jugadorBlanco = null;
 		jugadorNegro = null;

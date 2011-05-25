@@ -15,13 +15,13 @@ public class BotonServidor implements ActionListener {
 	protected JFrame vista;
 	protected MenuInicio menu;
 	protected int puerto = Constantes.PUERTO;	
+	protected ControladorGeneral controlador;
 	
-	public BotonServidor(JFrame padre, MenuInicio menu) {
+	public BotonServidor(JFrame padre, ControladorGeneral controlador) {
 		vista = padre;
-		this.menu = menu;
-
+		this.controlador= controlador;
 	}
-	
+
 	protected int transformarPuerto(String p){		
 		int puerto = -1;
 		try{
@@ -41,7 +41,7 @@ public class BotonServidor implements ActionListener {
 			puerto = transformarPuerto(puertoServidor);
 			if(puerto != -1) {
 				System.out.println("Hay que crear en el Puerto " + puerto);
-				menu.levantarServidor(puerto);
+				controlador.levantarServidor(puerto);
 			}
 		}
 	}

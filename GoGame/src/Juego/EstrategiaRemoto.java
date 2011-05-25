@@ -11,15 +11,17 @@ public class EstrategiaRemoto implements Estrategia {
 	Posicion _ultimaPiedra;
 	
 	//El parametro escuchar es true si queremos modo servidor, de lo contrario sera modo cliente.	
-	public EstrategiaRemoto(Tablero tablero, int puerto, String ip, boolean escuchar){
+	public EstrategiaRemoto(Tablero tablero, boolean escuchar){
 		_tablero= tablero;
 		if(escuchar)
 			_remoto= new Servidor(this);
 		else
 			_remoto= new Cliente(this);
-		//TODO:aca se debe checkear si se pudo conectarrrrrrrrrrrrr!!!!!!!!!!
-		_remoto.iniciar(ip, puerto);
 		_ultimaPiedra = new Posicion(0,0);
+	}
+	
+	public boolean iniciarRemoto(int puerto, String ip) {
+		return _remoto.iniciar(ip, puerto);
 	}
 	
 	public synchronized void setUltimaPiedra(Posicion p){
@@ -40,8 +42,10 @@ public class EstrategiaRemoto implements Estrategia {
 	public Posicion getJugada() { 
 		System.out.println(">Obteniendo jugada de remoto...");
 		//Envio el mensaje de generar jugada al remoto
-		//TODO: harcodeado, siempre es blanco el remoto?????????
-		_remoto.enviarMensajeGenerarMovimiento("White");
+		//TODO: 1) harcodeado, siempre es blanco el remoto?????????
+		//      2) antes de enviar pregunta si esta conectado
+		if(_remoto.hayRemoto())
+			_remoto.enviarMensajeGenerarMovimiento("White");
 		//Espero respuesta 
 		return getUltimaPiedra();
 	}

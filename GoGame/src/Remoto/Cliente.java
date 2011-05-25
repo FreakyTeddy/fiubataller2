@@ -25,6 +25,11 @@ public class Cliente extends Remoto {
 	public void enviarMensaje(String mensaje) {
 		socket.enviarMensaje(mensaje);
 	}
+	
+	@Override
+	public boolean hayRemoto() {
+		return socket.estaConectado();
+	}
 
 	public void terminar() {
 		socket.dejarDeRecibir();

@@ -16,6 +16,7 @@ public class ComboJugador {
 	private String estrategias[] = {"Humano", "Minimax", "Muy Facil", "Facil", "Medio"};
 	private ArrayList<CreadorEstrategia> creadores;
 	private JComboBox comboJugadores;
+	private ControladorGeneral controlador;
 	
 	public ComboJugador(ColorPiedra color, VentanaAplicacionGo vista) {
 		colorJugador = color;
@@ -33,9 +34,7 @@ public class ComboJugador {
 		return comboJugadores;
 	}
 	
-	public Estrategia getEstrategiaElegida() {
-		return creadores.get(comboJugadores.getSelectedIndex())
-						.crearEstrategia(FullMoonGo.getInstancia().getTablero(), colorJugador);
-	}
-	
+	public CreadorEstrategia getEstrategiaSeleccionada(int index) {
+		return creadores.get(index);
+	}	
 }

@@ -1,22 +1,12 @@
 package vista;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.EventQueue;
-import java.awt.PopupMenu;
 import java.awt.event.MouseAdapter;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
-
-import Juego.FullMoonGo;
 import Juego.Tablero;
 
 public class VentanaAplicacionGo {
@@ -47,7 +37,7 @@ public class VentanaAplicacionGo {
 		
 		menuInicio = new MenuInicio(this);
 		frame.getContentPane().add(menuInicio, BorderLayout.CENTER);
-		EventQueue.invokeLater(new Runnable() {
+		/*EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					try {
 						frame.setVisible(true);
@@ -55,7 +45,11 @@ public class VentanaAplicacionGo {
 						e.printStackTrace();
 					}
 				}
-			});
+			});*/
+	}
+	
+	public void iniciar() {
+		frame.setVisible(true);
 	}
 	
 	public void addMouseListener(MouseAdapter mouse) {
@@ -74,4 +68,7 @@ public class VentanaAplicacionGo {
 		frame.validate();
 	}
 	
+	public MenuInicio getMenuInicio() {
+		return menuInicio;
+	}
 }

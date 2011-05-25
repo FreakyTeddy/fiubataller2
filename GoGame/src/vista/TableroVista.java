@@ -12,11 +12,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import Juego.ColorPiedra;
-import Juego.Estrategia;
-import Juego.EstrategiaComputadoraAtaqueCuidadosoMasInteligente;
-import Juego.EstrategiaComputadoraMiniMax;
-import Juego.FinDelJuegoException;
-import Juego.JugadaInvalidaException;
 import Juego.Posicion;
 import Juego.Tablero;
 
@@ -34,8 +29,6 @@ public class TableroVista extends JPanel implements Observer {
 	private static final String pathImagenNegra = "./images/negra.png";
 	
 	private Tablero tablero;
-	private Estrategia estrategiaNegro;
-
 	
 	/**
 	 * Create the panel.

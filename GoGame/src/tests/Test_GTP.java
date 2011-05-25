@@ -112,38 +112,35 @@ public class Test_GTP {
 	/* Probar contra el gnugo 
 	 * gnugo --mode gtp --gtp-listen 1111
 	 */
-	/*@Test
+	@Test
 	public void testConectarGnuGoModoListen() {
 		System.out.println("=== TEST MODO CONNECT ===");
-		boolean salida= cliente.iniciar("localhost", 1111);
-		System.out.println("Salida: " + salida);
-		cliente.enviarMensajeJugar("black", "D5");
-		cliente.enviarMensajeGenerarMovimiento("white");
-		cliente.enviarMensajeSalida();
+		if(cliente.iniciar("localhost", 1111)) {
+			cliente.enviarMensajeJugar("black", "D5");
+			cliente.enviarMensajeGenerarMovimiento("white");
+			cliente.enviarMensajeSalida();
+			cliente.terminarTest();
+		}
 		System.out.println("=== FIN: MODO CONNECT ===");
-		cliente.terminarTest();
-	}*/
+	}
 	
 	/* Probar contra el gnugo 
-	 * gnugo --mode gtp --gtp-connect 2222
+	 * gnugo --mode gtp --gtp-connect 1111
 	 */
 	@Test
 	public void testConectarGnuGoModoConnect() {
 		System.out.println("=== TEST MODO LISTEN ===");
-		servidor.iniciar("localhost", 2222);
-		while(!servidor.estaConectado()) {
-			System.out.println("Esperando conexion...");			
-		}
+		if(servidor.iniciar("localhost", 1111)) {
 		System.out.println(">Enviando mensajes...");
 	//	servidor.enviarMensaje(gtp.mensajeTamanioTablero(7));
 	//	servidor.enviarMensaje(gtp.mensajeLimpiarTablero());
 	//	servidor.enviarMensaje(gtp.mensajeComandoSoportado("boardsize"));
-	//	servidor.enviarMensaje(gtp.mensajeJugar("black", "D5"));
-//		servidor.enviarMensaje(gtp.mensajeGenMovimiento("white"));
+		servidor.enviarMensajeGenerarMovimiento("black");
 	//	servidor.enviarMensaje(gtp.mensajeJugar("black", "C3"));
 	//	servidor.enviarMensaje(gtp.mensajeJugar("black", "E3"));
-		servidor.enviarMensajeSalida();
-	///	servidor.terminarTest();
+	//	servidor.enviarMensajeSalida();
+		servidor.terminarTest();
+		}
 		System.out.println("=== FIN: MODO LISTEN ===");
 	}
 }

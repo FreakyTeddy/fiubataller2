@@ -7,11 +7,9 @@ import Juego.EstrategiaRemoto;
 public class Servidor extends Remoto {
 
 	private SocketServidor socket;
-	private boolean clienteConectado;
 	
 	public Servidor(EstrategiaRemoto estrategiaRemoto) {
 		super(estrategiaRemoto);
-		clienteConectado= false;
 	}
 	
 	@Override
@@ -20,7 +18,7 @@ public class Servidor extends Remoto {
 		try {
 			socket.esperarCliente();
 		} catch (IOException e) {
-			System.err.println("ERROR: al conectarse a cliente");
+			System.err.println(">> EXCEPTION: al conectarse a cliente <<");
 			return false;
 		}
 		socket.start();
@@ -31,41 +29,18 @@ public class Servidor extends Remoto {
 		socket.enviarMensaje(mensaje);
 	}
 	
-	public boolean estaConectado() {
-		return clienteConectado;
-	}
-	
-	public void clienteConectado() {
-		clienteConectado= true;
-	}
-
-	public void clienteDesconectado() {
-		clienteConectado= false;
-	}
-
-	public boolean estaClienteConectado() {
-		return clienteConectado;
-	}
-
-	public void terminarTest() {
-			try {
-				this.socket.join();
-				System.out.println(">> END: socket thread");
-			} catch (InterruptedException e) {
-				System.out.print(">> EXCEPTION: terminar <<");
-			}
-	}
-	
 	@Override
 	public void terminar() {
-		if(clienteConectado) {
-			this.socket.terminar();
-			try {
-				this.socket.join();
-				System.out.println(">> END: socket thread");
-			} catch (InterruptedException e) {
-				System.out.print(">> EXCEPTION: terminar <<");
-			}
+		socket.dejarDeRecibir();
+	}
+
+	/********* Test *********/
+	public void terminarTest() {
+		try {
+			this.socket.join();
+			System.out.println(">> END: socket thread");
+		} catch (InterruptedException e) {
+			System.out.print(">> EXCEPTION: terminar <<");
 		}
 	}
 }

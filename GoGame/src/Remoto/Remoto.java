@@ -36,9 +36,7 @@ public abstract class Remoto {
 				enviarMensaje(mensajeRta);
 	}
 	
-	public boolean estaConectado() {
-		return conectado;
-	}
+	public boolean estaConectado() { return true;};
 	
 	public String getTipoUltimoMensaje() {
 		return tipoUltimoMensaje.get(0);
@@ -56,8 +54,8 @@ public abstract class Remoto {
 	
 	public void terminarConexion() {
 		//TODO: avisar del fin de la conexion
-		//conectado= false;
-		//terminar();
+		conectado= false;
+		terminar();
 	}
 	
 	/***PARA MODIFICAR EN ESTRATEGIA REMOTO***/

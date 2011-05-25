@@ -8,10 +8,16 @@ import java.net.Socket;
 
 public abstract class SocketBase extends Thread {
 
+	protected Remoto remoto;
 	protected PrintWriter data_out;
 	protected BufferedReader data_in;
 	protected Socket socket;
+	protected boolean salir;
 
+	public SocketBase(Remoto remoto) {
+		this.remoto= remoto;
+	}
+	
 	//Proveniente de Thread
 	public abstract void run();
 	
@@ -23,9 +29,38 @@ public abstract class SocketBase extends Thread {
 		data_in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 	}
 
-	protected abstract void recibirMensajes() throws IOException; 
-	public abstract void enviarMensaje(String mensajeAEnviar);	
-	public abstract void terminar();
+	protected void recibirMensajes() {
+		while(!salir) {
+			try {
+				String mensajeRecibido = data_in.readLine();
+				if(mensajeRecibido != null && !mensajeRecibido.equals("")) {
+					System.out.println("RECEIVE>> " + mensajeRecibido);
+					remoto.procesarMensajeEntrante(mensajeRecibido);
+				} else if(mensajeRecibido == null) {
+					salir= true;
+					//TODO: Avisar que se desconecto
+					System.out.println("Servidor se desconecto");
+				}
+				} catch (Exception e) {
+				System.err.println(">> EXCEPTION: recibirMensajes <<");
+				salir= true;
+			}
+		}
+	}
+	
+	public void enviarMensaje(String mensajeAEnviar) {
+		if(estaConectado()) {
+				System.out.println("SEND>> " + mensajeAEnviar);
+				data_out.println(mensajeAEnviar);
+				data_out.flush();
+			}
+	}
+	
+	public abstract boolean estaConectado();
+	
+	public void dejarDeRecibir() {
+		salir= true;
+	}
 	
 	protected void cerrarConexion() {
 		try {

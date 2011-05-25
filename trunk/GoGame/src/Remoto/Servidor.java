@@ -30,6 +30,11 @@ public class Servidor extends Remoto {
 	}
 	
 	@Override
+	public boolean hayRemoto() {
+		return socket.estaConectado();
+	}
+	
+	@Override
 	public void terminar() {
 		socket.dejarDeRecibir();
 	}

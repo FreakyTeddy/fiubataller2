@@ -13,8 +13,8 @@ import vista.MenuInicio;
 
 public class BotonRemoto extends BotonServidor implements ActionListener {
 	
-	public BotonRemoto(JFrame padre, MenuInicio menu) {
-		super(padre,menu);
+	public BotonRemoto(JFrame padre, ControladorGeneral controlador) {
+		super(padre, controlador);
 	}
 
 	@Override
@@ -30,7 +30,7 @@ public class BotonRemoto extends BotonServidor implements ActionListener {
 			puerto = transformarPuerto(nuevopuerto);
 			if(puerto != -1){
 				System.out.println("Ip: "+ip + " - Puerto: " + puerto);
-				menu.jugarEnRed(ip,puerto);	
+				controlador.jugarEnRed(ip,puerto);	
 			}
 			
 		}

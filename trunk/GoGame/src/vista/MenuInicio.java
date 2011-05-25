@@ -4,39 +4,22 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
 import Juego.ColorPiedra;
-import Juego.Constantes;
-import Juego.Estrategia;
-import Juego.EstrategiaRemoto;
-import Juego.FullMoonGo;
-
-import controlador.BotonServidor;
-import controlador.BotonRemoto;
 import controlador.ComboJugador;
 import controlador.ComboTamanioTablero;
 
-
-
 /**
- * TODO: Habria que refactorizar un poco el tema de la imagen de fondo.
- * Solucionar el tema del singleton.
  * @author matias
- *
  */
-public class MenuInicio extends JPanel implements ActionListener {
+public class MenuInicio extends JPanel {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3634635831507335567L;
 
 	private Image imagenTablero;
@@ -50,7 +33,9 @@ public class MenuInicio extends JPanel implements ActionListener {
 	private JTextField nombreNegro;
 	private JTextField nombreBlanco;
 	private VentanaAplicacionGo vista;
-
+	private JButton botonJugarEnRed;
+	private JButton botonCrearServidor;
+	private JButton botonJugarLocal;
 	
 	public MenuInicio(VentanaAplicacionGo vistaJuego) {
 		
@@ -82,18 +67,14 @@ public class MenuInicio extends JPanel implements ActionListener {
 		nombreBlanco = new JTextField("Nombre Blanco");
 		nombreBlanco.setBounds(320, 120, 150, 30);
 		
+		botonJugarLocal = new JButton("Jugar");
+		botonJugarLocal.setBounds(350, 430, 100, 40);
 		
-		JButton btnJugar = new JButton("Jugar");
-		btnJugar.addActionListener(this);
-		btnJugar.setBounds(350, 430, 100, 40);
+		botonCrearServidor = new JButton("Crear Servidor");
+		botonCrearServidor.setBounds(180, 430, 120, 40);
 		
-		JButton btnServidor = new JButton("Crear Servidor");
-		btnServidor.addActionListener(new BotonServidor(vista.getFrame(), this));
-		btnServidor.setBounds(180, 430, 120, 40);
-		
-		JButton btnJugarRed = new JButton("Jugar en Red");
-		btnJugarRed.addActionListener(new BotonRemoto(vista.getFrame(), this));
-		btnJugarRed.setBounds(50, 430, 100, 40);
+		botonJugarEnRed = new JButton("Jugar en Red");
+		botonJugarEnRed.setBounds(50, 430, 100, 40);
 		
 		add(labelTablero);
 		add(comboTablero.getCombo());
@@ -103,36 +84,10 @@ public class MenuInicio extends JPanel implements ActionListener {
 		add(labelNegro);
 		add(comboNegro.getCombo());
 		add(nombreNegro);
-		add(btnJugar);
-		add(btnJugarRed);
-		add(btnServidor);
+		add(botonJugarLocal);
+		add(botonJugarEnRed);
+		add(botonCrearServidor);
 
-	}
-	
-	private void iniciarFullMoon() {
-		Thread juego = new Thread(FullMoonGo.getInstancia());
-		juego.start();
-		vista.mostrarTablero(FullMoonGo.getInstancia().getTablero());
-	}
-	
-	public void levantarServidor(int puerto){
-		Estrategia remoto = new EstrategiaRemoto(FullMoonGo.getInstancia().getTablero(), puerto, Constantes.IP, true);
-		FullMoonGo.getInstancia().crearJugador("Remoto", ColorPiedra.BLANCO, remoto);
-		FullMoonGo.getInstancia().crearJugador(nombreNegro.getText(), ColorPiedra.NEGRO, comboNegro.getEstrategiaElegida());
-		iniciarFullMoon();
-	}
-	
-	public void jugarEnRed(String ip, int puerto) {
-		Estrategia remoto = new EstrategiaRemoto(FullMoonGo.getInstancia().getTablero(), puerto, ip, false);
-		FullMoonGo.getInstancia().crearJugador("Remoto", ColorPiedra.BLANCO, remoto);
-		FullMoonGo.getInstancia().crearJugador(nombreNegro.getText(), ColorPiedra.NEGRO, comboNegro.getEstrategiaElegida());
-		iniciarFullMoon();
-	}
-	
-	public void jugarLocal() {
-		FullMoonGo.getInstancia().crearJugador(nombreBlanco.getText(), ColorPiedra.BLANCO, comboBlanco.getEstrategiaElegida());
-		FullMoonGo.getInstancia().crearJugador(nombreNegro.getText(), ColorPiedra.NEGRO, comboNegro.getEstrategiaElegida());
-		iniciarFullMoon();
 	}
 	
 	@Override
@@ -143,9 +98,40 @@ public class MenuInicio extends JPanel implements ActionListener {
 			 g.drawImage(imagenTablero, 0, 0, getWidth(), getHeight(), this);  	
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) { //accion del boton jugar
-		jugarLocal();
+	//Obtener objetos de la vista
+	public VentanaAplicacionGo getVentanaAplicacionGo() {
+		return vista;
+	}
+	
+	public JButton getBotonJugarEnRed() {
+		return botonJugarEnRed;
+	}
+	
+	public JButton getBotonCrearServidor() {
+		return botonCrearServidor;
+	}
+	
+	public JButton getBotonJugarLocal() {
+		return botonJugarLocal;
+	}
+	
+	public  ComboJugador getComboJugadorBlanco() {
+		return comboBlanco;
 	}
 
+	public  ComboJugador getComboJugadorNegro() {
+		return comboNegro;
+	}
+	
+	public JComboBox getComboTamanioTablero() {
+		return comboTablero.getCombo();
+	}
+	
+	public JTextField getJTextFieldNombreJugadorBlanco() {
+		return nombreBlanco;
+	}
+	
+	public JTextField getJTextFieldNombreJugadorNegro() {
+		return nombreNegro;
+	}
 }

@@ -16,7 +16,6 @@ public abstract class Remoto {
 	private ProcesadorRespuestaObtenida procesadorRta;
 	private Gtp gtp; 
 	private ArrayList<String> tipoUltimoMensaje;
-	protected boolean conectado;
 	
 	public Remoto(EstrategiaRemoto estrategiaRemoto) {
 		this.estrategiaRemoto= estrategiaRemoto;
@@ -36,7 +35,7 @@ public abstract class Remoto {
 				enviarMensaje(mensajeRta);
 	}
 	
-	public boolean estaConectado() { return true;};
+	public abstract boolean hayRemoto();
 	
 	public String getTipoUltimoMensaje() {
 		return tipoUltimoMensaje.get(0);
@@ -53,8 +52,6 @@ public abstract class Remoto {
 	public abstract void terminar();
 	
 	public void terminarConexion() {
-		//TODO: avisar del fin de la conexion
-		conectado= false;
 		terminar();
 	}
 	

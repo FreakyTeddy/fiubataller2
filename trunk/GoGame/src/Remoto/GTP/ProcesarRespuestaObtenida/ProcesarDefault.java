@@ -10,7 +10,6 @@ public class ProcesarDefault extends ProcesadorBase {
 
 	@Override
 	public void enviarSgteCadena(String mensaje) {
-		System.out.println("Procesador default");
 		remoto.mensajeProcesado();
 	}
 }

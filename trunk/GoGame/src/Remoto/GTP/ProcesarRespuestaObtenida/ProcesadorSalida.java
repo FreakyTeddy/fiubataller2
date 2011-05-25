@@ -15,7 +15,6 @@ public class ProcesadorSalida extends ProcesadorBase {
 			procesadorSgte.enviarSgteCadena(mensaje);
 		else {
 			remoto.mensajeProcesado();
-			System.out.println("Procesador Salida");
 			remoto.terminarConexion();
 		}
 	}

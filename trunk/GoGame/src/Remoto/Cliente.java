@@ -1,11 +1,13 @@
 package Remoto;
 
+import Juego.EstrategiaRemoto;
+
 public class Cliente extends Remoto {
 
 	private SocketCliente socket;
 
-	public Cliente() {
-		super();
+	public Cliente(EstrategiaRemoto estrategiaRemoto) {
+		super(estrategiaRemoto);
 		conectado = false;
 	}
 

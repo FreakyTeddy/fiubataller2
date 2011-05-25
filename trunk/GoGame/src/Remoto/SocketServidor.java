@@ -9,33 +9,29 @@ public class SocketServidor extends SocketBase {
 	private boolean salir;
 	private ServerSocket socketServidor;
 	private int puerto;
-	private boolean seguirEsperandoClientes;
 
 	public SocketServidor(Servidor servidor, int puerto) {
 		this.servidor= servidor;
 		this.puerto= puerto;
-		seguirEsperandoClientes= true;
 	}
 
+	public void esperarCliente() throws IOException {
+		socketServidor= new ServerSocket(puerto);
+		esperandoConexiones();
+		servidor.clienteConectado();
+	}
+	
 	public void run() {
-		while(seguirEsperandoClientes)
-			escuchar();
+		escuchar();
 	}
 
 	private void escuchar() {
 		salir= false;
 		try {
-			socketServidor= new ServerSocket(puerto);
-			esperandoConexiones();
-			servidor.clienteConectado();
 			empezarBuffers();
 			recibirMensajes();
-			System.out.println(">>Servidor detenido 3");			
 			cerrarConexion();
-			System.out.println(">>Servidor detenido 2");
 			servidor.clienteDesconectado();
-			System.out.println(">>Servidor detenido 1");
-
 		} catch (Exception e) {
 			System.err.println(">> EXCEPTION: escuchar <<");
 			this.terminar();
@@ -79,7 +75,6 @@ public class SocketServidor extends SocketBase {
 	}
 
 	public void terminar() {
-		seguirEsperandoClientes= false;
 		salir= true;
 		try {
 			socketServidor.close();

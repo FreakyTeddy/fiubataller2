@@ -1,12 +1,16 @@
 package controlador;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import Juego.ColorPiedra;
 import Juego.Constantes;
+import Juego.EstadoJuego;
 import Juego.EstrategiaRemoto;
 import Juego.FullMoonGo;
 import vista.VentanaAplicacionGo;
 
-public class ControladorGeneral {
+public class ControladorGeneral implements Observer {
 
 	private VentanaAplicacionGo ventana;
 	//Si si ya vi el singleton
@@ -15,6 +19,7 @@ public class ControladorGeneral {
 	
 	public ControladorGeneral() {
 		fullMoonGo= new FullMoonGo();
+		fullMoonGo.addObserver(this);
 	    ventana= new VentanaAplicacionGo();
 	    iniciarControladorMenuInicio();
 	}
@@ -68,5 +73,14 @@ public class ControladorGeneral {
 	//TODO: por ahora
 	public FullMoonGo getFullMoon() {
 		return fullMoonGo;
+	}
+
+	@Override
+	public void update(Observable o, Object arg) { 
+		if(fullMoonGo.getEstado() == EstadoJuego.TERMINADO){
+			ventana.mostrarGanador(fullMoonGo.getGanador().getNombre(), fullMoonGo.getGanador().getColor());
+			fullMoonGo.reiniciarEstado();
+			ventana.mostrarMenu();
+		}		
 	}
 }

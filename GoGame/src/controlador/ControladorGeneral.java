@@ -57,7 +57,7 @@ public class ControladorGeneral implements Observer {
 		//TODO: Aca mientras conecta tendria que aparecer una pantalla
 		if( conexion.iniciar(Constantes.IP, puerto) ) {
 			
-			EstrategiaRemoto remoto = new EstrategiaRemoto(conexion, ColorPiedra.BLANCO);
+			EstrategiaRemoto remoto = new EstrategiaRemoto(conexion, ColorPiedra.BLANCO,ColorPiedra.NEGRO);
 			conexion.setEstrategiaRemoto(remoto);
 			conexion.enviarMensajeTamanioTablero(fullMoonGo.getTablero().getAncho());
 			
@@ -77,9 +77,9 @@ public class ControladorGeneral implements Observer {
 		//TODO: Aca mientras conecta tendria que aparecer una pantalla
 		if(conexion.iniciar(Constantes.IP, puerto)) {
 			
-			EstrategiaRemoto remoto = new EstrategiaRemoto(conexion, ColorPiedra.NEGRO);
+			EstrategiaRemoto remoto = new EstrategiaRemoto(conexion, ColorPiedra.NEGRO, ColorPiedra.BLANCO);
 			conexion.setEstrategiaRemoto(remoto);
-			//conexion.enviarMensajeTamanioTablero(fullMoonGo.getTablero().getAncho());
+			conexion.enviarMensajeTamanioTablero(fullMoonGo.getTablero().getAncho());
 			
 			fullMoonGo.crearJugador("Remoto", ColorPiedra.NEGRO, remoto);
 			fullMoonGo.crearJugador(controladorMenuInicio.getNombreJugadorBlanco(), ColorPiedra.BLANCO, controladorMenuInicio.getEstrategiaJugadorBlanco());
@@ -107,7 +107,12 @@ public class ControladorGeneral implements Observer {
 			ventana.mostrarGanador(fullMoonGo.getGanador().getNombre(), fullMoonGo.getGanador().getColor());
 			fullMoonGo.reiniciarEstado();
 			ventana.mostrarMenu();
-			conexion = null;
+			if(conexion != null) {
+				conexion.enviarMensajeSalida();
+				conexion.terminarConexion();
+				conexion = null;	
+			}
+			
 		}		
 	}
 }

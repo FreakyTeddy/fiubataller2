@@ -21,6 +21,8 @@ public class Posicion {
 	public Posicion(String posicion) {
 		this.x= ((int)posicion.charAt(0))-65;
 		this.y= (Integer.parseInt(posicion.substring(1)))-1;
+		if(x >= 9)
+			x--; //correccion por la fucking I
 	}
 
 	public int getX(){
@@ -62,9 +64,15 @@ public class Posicion {
 	 * @return posicion en formato "A1" "T19"
 	 */
 	public static String toString(int i, int j){
+		
+		if(i>=8){ //no se por que no existe la I en el gnugo :S :S
+			System.out.println("_________fucking I_________" + i);
+			i++;
+		}
+		
 		String posicion = "";
-		posicion += (i+65);
-		posicion +=(j+1);
+		posicion += (char)(i+65);
+		posicion += (j+1);
 		return posicion;
 	}
 

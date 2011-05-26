@@ -15,10 +15,13 @@ import Juego.FinDelJuegoException;
  */
 public class Tablero extends Observable {
 
-	ColorPiedra casilleros[][];
+	private ColorPiedra casilleros[][];
 	ArrayList<Cadena> cadenas;
-	int ancho;
-	boolean finDelJuego=false;
+	private int ancho;
+	private boolean finDelJuego=false;
+	
+	private Posicion ultimaJugada=null;
+	
 
 	public Tablero() {
 		ancho = 9;
@@ -63,6 +66,10 @@ public class Tablero extends Observable {
 	public int getAncho() {
 		return ancho;
 	}
+	
+	public Posicion getUltimaJugada(){
+		return ultimaJugada;
+	}
 
 	private ColorPiedra getCasillero(int x, int y){
 		return casilleros[y][x];
@@ -95,6 +102,7 @@ public class Tablero extends Observable {
 
 	public void agregarPiedra(Posicion posicion, ColorPiedra color)
 		throws JugadaInvalidaException,FinDelJuegoException {
+		ultimaJugada = posicion;
 		agregarPiedra(posicion.getX(), posicion.getY(), color);
 	}
 

@@ -69,7 +69,7 @@ public class MenuInicio extends JPanel {
 		botonJugarLocal = new JButton("Jugar");
 		botonJugarLocal.setBounds(350, 430, 100, 40);
 		
-		botonCrearServidor = new JButton("Crear Servidor");
+		botonCrearServidor = new JButton("Crear Partida");
 		botonCrearServidor.setBounds(180, 430, 120, 40);
 		
 		botonJugarEnRed = new JButton("Jugar en Red");

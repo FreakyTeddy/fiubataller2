@@ -41,7 +41,7 @@ public class ControladorMenuInicio {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				controlador.getFullMoon().crearTablero();
+				controlador.getFullMoon().crearTablero(); //crear el tamanio que corresponda
 			}
 		});
 	}

@@ -3,7 +3,6 @@ package controlador;
 import Juego.ColorPiedra;
 import Juego.Estrategia;
 import Juego.EstrategiaComputadoraAtacar;
-import Juego.EstrategiaComputadoraDefender;
 import Juego.Tablero;
 
 public class CreadorEstrategiaMuyFacil implements CreadorEstrategia {

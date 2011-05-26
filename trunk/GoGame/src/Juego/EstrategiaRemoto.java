@@ -7,16 +7,22 @@ public class EstrategiaRemoto implements Estrategia {
 
 	private Remoto _remoto;
 	private Posicion _ultimaPiedra;
-	private String _color;
+	private String _miColor;
+	private String _contrarioColor;
 
-	public EstrategiaRemoto(Remoto remoto, ColorPiedra color){
+	public EstrategiaRemoto(Remoto remoto, ColorPiedra micolor, ColorPiedra contrarioColor){
 		_remoto = remoto;
-		if(color == ColorPiedra.BLANCO) //mejorar
-			_color = "white";
-		if(color == ColorPiedra.NEGRO)
-			_color = "black";
+		_miColor = traducirColor(micolor);
+		_contrarioColor = traducirColor(contrarioColor);
 		_ultimaPiedra = null;
 	}
+	
+	private String traducirColor(ColorPiedra color) {
+		if(color == ColorPiedra.BLANCO) 
+			return new String("white");
+		return new String("black");
+	}
+	
 	
 	public synchronized void setUltimaPiedra(Posicion p){
 		_ultimaPiedra = p;
@@ -38,8 +44,10 @@ public class EstrategiaRemoto implements Estrategia {
 		//TODO: 1) enviar "genmove color_adversario" o "play mi_color"?
 		//      2) antes de enviar pregunta si esta conectado
 		//		3) informar la jugada del otro
-		if(_remoto.hayRemoto())
-			_remoto.enviarMensajeGenerarMovimiento(_color);
+		if(_remoto.hayRemoto()) {
+			_remoto.enviarMensajeJugar(_contrarioColor, FullMoonGo.getInstancia().getTablero().getUltimaJugada().toString());
+			_remoto.enviarMensajeGenerarMovimiento(_miColor);
+		}
 		//Espero respuesta 
 		return getUltimaPiedra();
 	}

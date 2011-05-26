@@ -12,18 +12,20 @@ public class ControladorMenuInicio {
 
 	ControladorGeneral controlador;
 	MenuInicio menuInicio;
+	VentanaAplicacionGo vistaJuego;
 	
 	public ControladorMenuInicio(VentanaAplicacionGo vistaJuego, ControladorGeneral controlador) {
 		this.controlador= controlador;
+		this.vistaJuego= vistaJuego;
 		menuInicio= vistaJuego.getMenuInicio();
 	}
 	
 	public void iniciarCallbacks() {
 		//Boton jugar en red
-		menuInicio.getBotonJugarEnRed().addActionListener(new BotonRemoto(menuInicio.getVentanaAplicacionGo().getFrame(), controlador));
+		menuInicio.getBotonJugarEnRed().addActionListener(new BotonRemoto(menuInicio.getVentanaAplicacionGo().getFramePrincipal(), controlador));
 		
 		//Boton crear servidor
-		menuInicio.getBotonCrearServidor().addActionListener(new BotonServidor(menuInicio.getVentanaAplicacionGo().getFrame(), controlador));
+		menuInicio.getBotonCrearServidor().addActionListener(new BotonServidor(menuInicio.getVentanaAplicacionGo().getFramePrincipal(), controlador));
 		
 		//Boton jugar local
 		menuInicio.getBotonJugarLocal().addActionListener(new ActionListener() {
@@ -42,6 +44,14 @@ public class ControladorMenuInicio {
 				controlador.getFullMoon().crearTablero();
 			}
 		});
+	}
+	
+	public void mostrarMenuInicio() {
+		
+	}
+	
+	public void ocultarMenuInicio() {
+		vistaJuego.getFramePrincipal().getContentPane().remove(menuInicio);
 	}
 	
 	public String getNombreJugadorBlanco() {

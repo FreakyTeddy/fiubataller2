@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -15,9 +13,11 @@ import Juego.ColorPiedra;
 import Juego.Posicion;
 import Juego.Tablero;
 
-@SuppressWarnings("serial")
-public class TableroVista extends JPanel implements Observer {
+
+public class TableroVista extends JPanel {
 	
+	private static final long serialVersionUID = 1L;
+
 	private static final int TAMANIO=9, w=50 , h=50;
 	
 	private Image imagenTablero;
@@ -30,15 +30,9 @@ public class TableroVista extends JPanel implements Observer {
 	
 	private Tablero tablero;
 	
-	/**
-	 * Create the panel.
-	 */
 	public TableroVista(Tablero tablero) {
 		super();
-
-		/* Lo pongo para probar, cuando este el controlador TIENE que volar*/
-		this.tablero = tablero;
-		tablero.addObserver(this);
+		this.tablero= tablero;
 		cargarImagenes();
 	}
 	
@@ -54,7 +48,6 @@ public class TableroVista extends JPanel implements Observer {
 	
 	@Override
 	public void paintComponent(Graphics g){
-		
 		super.paintComponent(g);
 		
 		if (imagenTablero != null)  
@@ -91,21 +84,18 @@ public class TableroVista extends JPanel implements Observer {
 		
 		//Lineas verticales
 		for(int vertical = 1; vertical<= TAMANIO;vertical++)
-			g.drawLine(vertical*w, h, vertical*w, h*TAMANIO);
-				
+			g.drawLine(vertical*w, h, vertical*w, h*TAMANIO);			
 	}
 
-	@Override
-	public void update(Observable arg0, Object arg1) {
-	    repaint(getBounds(null));
-		
-	}
-	
 	/**
 	 * transforma coordenadas de vista a una posicion en el tablero
 	 */
 	static public Posicion transformarPosicionFicha(int x, int y) {
 		Posicion p = new Posicion((int)((x-w/2)/w), (int)((y-h/2)/h));
 		return p;
+	}
+
+	public void actualizar() {
+		repaint(getBounds(null));
 	}
 }

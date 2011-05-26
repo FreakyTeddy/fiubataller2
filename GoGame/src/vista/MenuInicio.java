@@ -25,8 +25,7 @@ public class MenuInicio extends JPanel {
 	private Image imagenTablero;
 	
 	private static final String pathImagenTablero = "./images/go-game2.jpg";
-	
-	
+		
 	private ComboTamanioTablero comboTablero = new ComboTamanioTablero();
 	private ComboJugador comboBlanco;
 	private ComboJugador comboNegro;
@@ -87,7 +86,6 @@ public class MenuInicio extends JPanel {
 		add(botonJugarLocal);
 		add(botonJugarEnRed);
 		add(botonCrearServidor);
-
 	}
 	
 	@Override

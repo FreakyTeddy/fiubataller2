@@ -20,10 +20,6 @@ public class VentanaAplicacionGo {
 	
 	private static final String pathIcono = "./images/icono.jpg";
 	
-	/**
-	 * Create the application.
-	 * TODO: REvisar esto no esta bien...
-	 */
 	public VentanaAplicacionGo() {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -39,15 +35,6 @@ public class VentanaAplicacionGo {
 		
 		menuInicio = new MenuInicio(this);
 		frame.getContentPane().add(menuInicio, BorderLayout.CENTER);
-		/*EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					try {
-						frame.setVisible(true);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			});*/
 	}
 	
 	public void iniciar() {
@@ -58,13 +45,9 @@ public class VentanaAplicacionGo {
 		mouseListener = mouse;
 	}
 	
-	public JFrame getFrame() {
-		return frame;
-	}
-
-	public void mostrarTablero(Tablero tb){
+	public void mostrarTablero(Tablero tablero){
 		frame.getContentPane().remove(menuInicio);
-		tableroGo = new TableroVista(tb);
+		tableroGo = new TableroVista(tablero);
 		tableroGo.addMouseListener(mouseListener);
 		frame.getContentPane().add(tableroGo);
 		frame.validate();
@@ -86,4 +69,11 @@ public class VentanaAplicacionGo {
 			    "FullMoonGo", JOptionPane.PLAIN_MESSAGE);
 	}
 	
+	public JFrame getFramePrincipal() {
+		return frame;
+	}
+
+	public TableroVista getTablero() {
+		return tableroGo;
+	}
 }

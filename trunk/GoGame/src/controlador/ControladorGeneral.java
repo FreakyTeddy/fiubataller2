@@ -20,6 +20,7 @@ public class ControladorGeneral implements Observer {
 	private VentanaAplicacionGo ventana;
 	private FullMoonGo fullMoonGo;
 	private ControladorMenuInicio controladorMenuInicio;
+	private ControladorTablero controladorTablero;
 	private Remoto conexion;
 	
 	public ControladorGeneral() {
@@ -28,6 +29,7 @@ public class ControladorGeneral implements Observer {
 		fullMoonGo.addObserver(this);
 	    ventana = new VentanaAplicacionGo();
 	    iniciarControladorMenuInicio();
+	    iniciarControladorTablero();
 	}
 	
 	private void iniciarControladorMenuInicio() {
@@ -35,6 +37,10 @@ public class ControladorGeneral implements Observer {
 		controladorMenuInicio.iniciarCallbacks();
 	}
 
+	private void iniciarControladorTablero() {
+		controladorTablero= new ControladorTablero(fullMoonGo.getTablero(), ventana);
+	}
+	
 	public void iniciarJuegoGo() {
 		ventana.iniciar();
 	}
@@ -42,7 +48,7 @@ public class ControladorGeneral implements Observer {
 	private void iniciarFullMoon() {
 		Thread juego = new Thread(fullMoonGo);
 		juego.start();
-		ventana.mostrarTablero(fullMoonGo.getTablero());
+		controladorTablero.mostrarTablero();
 	}
 	
 	public void levantarServidor(int puerto){ /* yo soy negro y el remoto blanco */

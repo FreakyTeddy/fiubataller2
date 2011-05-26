@@ -1,13 +1,12 @@
 package Remoto;
 
-import Juego.EstrategiaRemoto;
 
 public class Cliente extends Remoto {
 
 	private SocketCliente socket;
 
-	public Cliente(EstrategiaRemoto estrategiaRemoto) {
-		super(estrategiaRemoto);
+	public Cliente() {
+		super();
 	}
 
 	public boolean iniciar(String ip, int puerto) {

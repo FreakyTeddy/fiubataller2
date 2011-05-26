@@ -21,11 +21,16 @@ public class FullMoonGo extends Observable implements Runnable {
 	private Jugador jugadorNegro;
 	private Jugador jugadorGanador;
 	private Tablero tablero;
+	private static final FullMoonGo instancia = new FullMoonGo();
 	
-	public FullMoonGo() {
+	private FullMoonGo() {
 		reiniciarEstado();
 	}
     
+	public static FullMoonGo getInstancia() {
+		return instancia;
+	}
+	
 	public void crearTablero(){
 		tablero = new Tablero();
 	}
@@ -95,9 +100,6 @@ public class FullMoonGo extends Observable implements Runnable {
 				jugadorGanador = jugadorBlanco;
 			
 			estadoJuego = TERMINADO;
-			
-			System.out.println("El ganador es: " + jugadorGanador.getNombre()); //esto despues tendria que ir a la vista :)
-			
 			setChanged();
 			notifyObservers();		
 		}	

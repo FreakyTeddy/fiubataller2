@@ -7,11 +7,9 @@ import static Juego.EstadoJuego.*;
 
 /**
  * 
- * TODO: Habria que ver un poco el tema de como se seleccionan los jugadores
- *  yo diria que como esta ahora es bastante villero pero bueno aplique la idea 
- *  de primero lo hacemo' depue' lo refatorizamo'. Posible refactor un state. 
+ * TODO: Posible refactor un state. 
  *  Otra cosa que si habria que hacer es pasar esto a juego porque ahora es 
- *  observable yh tiene logica del juego digamos.
+ *  observable y tiene logica del juego digamos.
  * 
  * @author del comentario de arriba matias
  *
@@ -23,15 +21,9 @@ public class FullMoonGo extends Observable implements Runnable {
 	private Jugador jugadorNegro;
 	private Jugador jugadorGanador;
 	private Tablero tablero;
-	private boolean jugarContraPersona;
 	
 	public FullMoonGo() {
-		estadoJuego = NO_INICIADO;
-		jugadorBlanco = null;
-		jugadorNegro = null;
-		jugadorGanador = null;
-		tablero = null;
-		crearTablero();
+		reiniciarEstado();
 	}
     
 	public void crearTablero(){
@@ -63,12 +55,16 @@ public class FullMoonGo extends Observable implements Runnable {
 	public Jugador getGanador() {
 		return jugadorGanador;
 	}
-
-	public void jugarContraPersona(boolean b) {
-		jugarContraPersona = b;		
-		run();
-	}
 	
+	public void reiniciarEstado() {
+		estadoJuego = NO_INICIADO;
+		jugadorBlanco = null;
+		jugadorNegro = null;
+		jugadorGanador = null;
+		tablero = null;
+		crearTablero();
+	}
+
 	public Jugador crearJugador(String nombre, ColorPiedra color, Estrategia estrategia) {
 		Jugador nuevoJugador = new Jugador(nombre, color, tablero, estrategia);
 		if (color == ColorPiedra.NEGRO) {
@@ -103,7 +99,7 @@ public class FullMoonGo extends Observable implements Runnable {
 			System.out.println("El ganador es: " + jugadorGanador.getNombre()); //esto despues tendria que ir a la vista :)
 			
 			setChanged();
-			notifyObservers();			
+			notifyObservers();		
 		}	
 	}
 			

@@ -5,8 +5,10 @@ import java.awt.event.MouseAdapter;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
+import Juego.ColorPiedra;
 import Juego.Tablero;
 
 public class VentanaAplicacionGo {
@@ -68,7 +70,20 @@ public class VentanaAplicacionGo {
 		frame.validate();
 	}
 	
+	public void mostrarMenu() {
+		frame.getContentPane().remove(tableroGo);
+		frame.getContentPane().add(menuInicio);
+		frame.validate();	
+		frame.repaint();
+	}
+	
 	public MenuInicio getMenuInicio() {
 		return menuInicio;
 	}
+	
+	public void mostrarGanador(String nombre, ColorPiedra color) { //TODO se puede enchular =P
+		JOptionPane.showMessageDialog(frame,"El ganador es " + nombre + " - " + color,
+			    "FullMoonGo", JOptionPane.PLAIN_MESSAGE);
+	}
+	
 }

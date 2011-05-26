@@ -23,8 +23,8 @@ public class Test_GTP {
 	@Before
 	public void setUp() throws Exception {
 		gtp= new Gtp();
-		servidor= new Servidor(null);
-		cliente= new Cliente(null);
+		servidor= new Servidor();
+		cliente= new Cliente();
 		procesador= new ProcesadorMsjsEntrantes(cliente);
 	}
 

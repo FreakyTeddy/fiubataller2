@@ -17,7 +17,7 @@ public class CadenaGenMovimiento extends CadenaGtp {
 			return cadenaSgte.enviarSgteCadena(mensaje);	
 		else {
 			System.out.println("Cadena Generar Movimiento");
-			//TODO! a quien le pido esto?
+			//TODO! a quien le pido esto? --> al tablero? al controlador? cri cri
 			String movGenerado= "C3";
 			ArrayList<String> lista= new ArrayList<String>();
 			lista.add(movGenerado);

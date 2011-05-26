@@ -50,7 +50,6 @@ public class Jugador {
 					jugadaValida = true;
 				}				
 			}catch (JugadaInvalidaException ex){
-//				_estrategia.informarJugadaInvalida();
 				System.out.println(nombre + ": " + ex);
 			}
 		}

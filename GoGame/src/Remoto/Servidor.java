@@ -2,14 +2,13 @@ package Remoto;
 
 import java.io.IOException;
 
-import Juego.EstrategiaRemoto;
 
 public class Servidor extends Remoto {
 
 	private SocketServidor socket;
 	
-	public Servidor(EstrategiaRemoto estrategiaRemoto) {
-		super(estrategiaRemoto);
+	public Servidor() {
+		super();
 	}
 	
 	@Override

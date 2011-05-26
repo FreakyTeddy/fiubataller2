@@ -3,13 +3,9 @@ package controlador;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import Juego.ColorPiedra;
 import Juego.Estrategia;
 import Juego.FullMoonGo;
-import Juego.JugadaInvalidaException;
-import Juego.FinDelJuegoException;
 import Juego.Posicion;
-import Juego.Tablero;
 
 import vista.TableroVista;
 

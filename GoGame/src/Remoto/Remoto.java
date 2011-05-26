@@ -17,8 +17,8 @@ public abstract class Remoto {
 	private Gtp gtp; 
 	private ArrayList<String> tipoUltimoMensaje;
 	
-	public Remoto(EstrategiaRemoto estrategiaRemoto) {
-		this.estrategiaRemoto= estrategiaRemoto;
+	public Remoto() {
+		estrategiaRemoto= null;
 		procesador= new ProcesadorMsjsEntrantes(this);
 		procesadorRta= new ProcesadorRespuestaObtenida(this);
 		gtp= new Gtp();
@@ -27,15 +27,19 @@ public abstract class Remoto {
 	
 	public abstract boolean iniciar(String ip, int puerto);
 	
+	public abstract boolean hayRemoto();
+	
 	protected abstract void enviarMensaje(String mensaje);
+	
+	public void setEstrategiaRemoto(EstrategiaRemoto estrategia) {
+		this.estrategiaRemoto= estrategia;
+	}
 	
 	public void procesarMensajeEntrante(String mensaje) {
 		String mensajeRta= procesador.procesarMensaje(mensaje);
 		if(!mensajeRta.equals(""))           
 				enviarMensaje(mensajeRta);
 	}
-	
-	public abstract boolean hayRemoto();
 	
 	public String getTipoUltimoMensaje() {
 		return tipoUltimoMensaje.get(0);
@@ -55,7 +59,7 @@ public abstract class Remoto {
 		terminar();
 	}
 	
-	/***PARA MODIFICAR EN ESTRATEGIA REMOTO***/
+	/***PARA MODIFICAR EN ESTRATEGIA REMOTO***/ //TODO
 	public void setPosicionObtenida(String posicionObtenida) {
 		if(estrategiaRemoto != null)
 			estrategiaRemoto.setUltimaPiedra(new Posicion(posicionObtenida));

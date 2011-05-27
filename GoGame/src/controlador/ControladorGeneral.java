@@ -33,7 +33,7 @@ public class ControladorGeneral implements Observer {
 	
 	private void iniciarControladores() {
 		controladorMenuInicio = new ControladorMenuInicio(ventana, this);
-		controladorTablero= new ControladorTablero(fullMoonGo.getTablero(), ventana);
+		controladorTablero= new ControladorTablero(ventana);
 	}
 
 	public void iniciarJuegoGo() {
@@ -103,7 +103,11 @@ public class ControladorGeneral implements Observer {
 	@Override
 	public void update(Observable o, Object arg) { 
 		if(fullMoonGo.getEstado() == EstadoJuego.TERMINADO){
-			ventana.mostrarGanador(fullMoonGo.getGanador().getNombre(), fullMoonGo.getGanador().getColor());
+			if(fullMoonGo.getGanador() != null)
+				ventana.mostrarGanador(fullMoonGo.getGanador().getNombre(), fullMoonGo.getGanador().getColor());
+			else
+				ventana.mostrarEmpate();
+			
 			fullMoonGo.reiniciarEstado();
 			ventana.mostrarMenu();
 			if(conexion != null) {

@@ -3,7 +3,7 @@ package Juego;
 @SuppressWarnings("serial")
 public class FinDelJuegoException extends Exception {
 
-	private ColorPiedra ganador;
+	private ColorPiedra ganador = ColorPiedra.VACIO;
 	
 	public FinDelJuegoException(ColorPiedra colorGanador) {
 		super();

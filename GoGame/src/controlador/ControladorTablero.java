@@ -11,12 +11,12 @@ public class ControladorTablero implements Observer {
 
 	private VentanaAplicacionGo ventanaPrincipal;
 	
-	public ControladorTablero(Tablero tablero, VentanaAplicacionGo ventanaPrincipal) {
+	public ControladorTablero(VentanaAplicacionGo ventanaPrincipal) {
 		this.ventanaPrincipal= ventanaPrincipal;
-		tablero.addObserver(this);
 	}
 	
 	public void mostrarTablero(Tablero tablero) {
+		tablero.addObserver(this);
 		ventanaPrincipal.mostrarTablero(tablero);
 	}
 	

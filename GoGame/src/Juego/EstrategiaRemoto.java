@@ -39,13 +39,15 @@ public class EstrategiaRemoto implements Estrategia {
 	
 	@Override
 	public Posicion getJugada() { 
-		System.out.println(">Obteniendo jugada de remoto...");
+		
 		//Envio el mensaje de generar jugada al remoto
 		//TODO: 1) enviar "genmove color_adversario" o "play mi_color"?
 		//      2) antes de enviar pregunta si esta conectado
 		//		3) informar la jugada del otro
 		if(_remoto.hayRemoto()) {
+			System.out.println(">Envio la jugada local");
 			_remoto.enviarMensajeJugar(_contrarioColor, FullMoonGo.getInstancia().getTablero().getUltimaJugada().toString());
+			System.out.println(">Obteniendo jugada de remoto...");
 			_remoto.enviarMensajeGenerarMovimiento(_miColor);
 		}
 		//Espero respuesta 

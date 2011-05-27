@@ -2,25 +2,53 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-import Juego.ColorPiedra;
-import Juego.Estrategia;
+import javax.swing.JComboBox;
+
 import vista.MenuInicio;
 import vista.VentanaAplicacionGo;
 
 public class ControladorMenuInicio {
 
-	ControladorGeneral controlador;
-	MenuInicio menuInicio;
-	VentanaAplicacionGo vistaJuego;
+	private ControladorGeneral controlador;
+	private MenuInicio menuInicio;
+	private VentanaAplicacionGo vistaJuego;
+	
+	private String tamanios[] = {"9x9", "13x13", "19x19"};
+	private String estrategias[] = {"Humano", "Minimax", "Muy Facil", "Facil", "Medio"};
+	private ArrayList<CreadorEstrategia> creadores;
 	
 	public ControladorMenuInicio(VentanaAplicacionGo vistaJuego, ControladorGeneral controlador) {
 		this.controlador= controlador;
 		this.vistaJuego= vistaJuego;
 		menuInicio= vistaJuego.getMenuInicio();
+		cargarDatos();
+		iniciarCallbacks();
 	}
 	
-	public void iniciarCallbacks() {
+	private void cargarDatos() {
+	  JComboBox comboBoxTamanios= menuInicio.getComboTamanioTablero();
+	  for(int i = 0; i < tamanios.length; i++)
+      comboBoxTamanios.addItem(tamanios[i]);		
+		
+		creadores = new ArrayList<CreadorEstrategia>();
+		creadores.add(new CreadorEstrategiaHumano(vistaJuego));
+		creadores.add(new CreadorEstrategiaMinMax());
+		creadores.add(new CreadorEstrategiaMuyFacil());
+		creadores.add(new CreadorEstrategiaFacil());
+		creadores.add(new CreadorEstrategiaMedio());
+	  
+	  cargarComboJugador(menuInicio.getComboJugadorBlanco());
+	  cargarComboJugador(menuInicio.getComboJugadorNegro());
+	}
+	
+	private void cargarComboJugador(JComboBox comboBox) {
+	  for(int i = 0; i < estrategias.length; i++)
+      comboBox.addItem(estrategias[i]);
+	}
+	
+	private void iniciarCallbacks() {
 		//Boton jugar en red
 		menuInicio.getBotonJugarEnRed().addActionListener(new BotonRemoto(menuInicio.getVentanaAplicacionGo().getFramePrincipal(), controlador));
 		
@@ -62,13 +90,13 @@ public class ControladorMenuInicio {
 		return menuInicio.getJTextFieldNombreJugadorNegro().getText();
 	}
 	
-	public Estrategia getEstrategiaJugadorBlanco() {
-		ComboJugador cj= menuInicio.getComboJugadorBlanco(); 
-		return (cj.getEstrategiaSeleccionada((cj.getCombo().getSelectedIndex()))).crearEstrategia(controlador.getFullMoon().getTablero(), ColorPiedra.BLANCO);
+	public CreadorEstrategia getEstrategiaJugadorBlanco() {
+		JComboBox comboBoxBlanco= menuInicio.getComboJugadorBlanco(); 
+		return (creadores.get(comboBoxBlanco.getSelectedIndex()));
 	}
 	
-	public Estrategia getEstrategiaJugadorNegro() {
-		ComboJugador cj= menuInicio.getComboJugadorNegro(); 
-		return (cj.getEstrategiaSeleccionada((cj.getCombo().getSelectedIndex()))).crearEstrategia(controlador.getFullMoon().getTablero(), ColorPiedra.NEGRO);
+	public CreadorEstrategia getEstrategiaJugadorNegro() {
+		JComboBox comboBoxNegro= menuInicio.getComboJugadorNegro(); 
+		return (creadores.get(comboBoxNegro.getSelectedIndex()));
 	}
 }

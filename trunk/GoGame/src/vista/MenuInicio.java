@@ -11,10 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
-import Juego.ColorPiedra;
-import controlador.ComboJugador;
-import controlador.ComboTamanioTablero;
-
 /**
  * @author matias
  */
@@ -26,9 +22,9 @@ public class MenuInicio extends JPanel {
 	
 	private static final String pathImagenTablero = "./images/go-game2.jpg";
 		
-	private ComboTamanioTablero comboTablero = new ComboTamanioTablero();
-	private ComboJugador comboBlanco;
-	private ComboJugador comboNegro;
+	private JComboBox comboTamanioTablero;
+	private JComboBox comboBlanco;
+	private JComboBox comboNegro;
 	private JTextField nombreNegro;
 	private JTextField nombreBlanco;
 	private VentanaAplicacionGo vista;
@@ -42,27 +38,28 @@ public class MenuInicio extends JPanel {
 		ImageIcon imageicon = new ImageIcon(pathImagenTablero);  
 		imagenTablero = imageicon.getImage();
 		
-		comboBlanco = new ComboJugador(ColorPiedra.BLANCO, vista);
-		comboNegro = new ComboJugador(ColorPiedra.NEGRO, vista);
+		comboBlanco= new JComboBox();
+		comboNegro= new JComboBox();
 		
 		setLayout(null);
 		
 		JLabel labelTablero = new JLabel("Tamaño del Tablero");
 		labelTablero.setBounds(40, 40, 160, 30);
 		labelTablero.setForeground(new Color(250, 250, 250));
-		comboTablero.getCombo().setBounds(200, 40, 100, 30);
+		comboTamanioTablero= new JComboBox();
+		comboTamanioTablero.setBounds(200, 40, 100, 30);
 		
 		JLabel labelNegro = new JLabel("Jugador Negro");
 		labelNegro.setBounds(40, 80, 160, 30);
 		labelNegro.setForeground(new Color(250, 250, 250));
-		comboNegro.getCombo().setBounds(200, 80, 100, 30);
+		comboNegro.setBounds(200, 80, 100, 30);
 		nombreNegro = new JTextField("Nombre Negro");
 		nombreNegro.setBounds(320, 80, 150, 30);
 		
 		JLabel labelBlanco = new JLabel("Jugador Blanco");
 		labelBlanco.setBounds(40, 120, 160, 30);
 		labelBlanco.setForeground(new Color(250, 250, 250));
-		comboBlanco.getCombo().setBounds(200, 120, 100, 30);
+		comboBlanco.setBounds(200, 120, 100, 30);
 		nombreBlanco = new JTextField("Nombre Blanco");
 		nombreBlanco.setBounds(320, 120, 150, 30);
 		
@@ -76,12 +73,12 @@ public class MenuInicio extends JPanel {
 		botonJugarEnRed.setBounds(50, 430, 100, 40);
 		
 		add(labelTablero);
-		add(comboTablero.getCombo());
+		add(comboTamanioTablero);
 		add(labelBlanco);
-		add(comboBlanco.getCombo());
+		add(comboBlanco);
 		add(nombreBlanco);
 		add(labelNegro);
-		add(comboNegro.getCombo());
+		add(comboNegro);
 		add(nombreNegro);
 		add(botonJugarLocal);
 		add(botonJugarEnRed);
@@ -113,16 +110,16 @@ public class MenuInicio extends JPanel {
 		return botonJugarLocal;
 	}
 	
-	public  ComboJugador getComboJugadorBlanco() {
+	public  JComboBox getComboJugadorBlanco() {
 		return comboBlanco;
 	}
 
-	public  ComboJugador getComboJugadorNegro() {
+	public  JComboBox getComboJugadorNegro() {
 		return comboNegro;
 	}
 	
 	public JComboBox getComboTamanioTablero() {
-		return comboTablero.getCombo();
+		return comboTamanioTablero;
 	}
 	
 	public JTextField getJTextFieldNombreJugadorBlanco() {

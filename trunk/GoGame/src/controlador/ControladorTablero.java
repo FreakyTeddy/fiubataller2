@@ -9,16 +9,14 @@ import Juego.Tablero;
 
 public class ControladorTablero implements Observer {
 
-	private Tablero tablero;
 	private VentanaAplicacionGo ventanaPrincipal;
 	
 	public ControladorTablero(Tablero tablero, VentanaAplicacionGo ventanaPrincipal) {
-		this.tablero= tablero;
 		this.ventanaPrincipal= ventanaPrincipal;
 		tablero.addObserver(this);
 	}
 	
-	public void mostrarTablero() {
+	public void mostrarTablero(Tablero tablero) {
 		ventanaPrincipal.mostrarTablero(tablero);
 	}
 	
@@ -29,6 +27,7 @@ public class ControladorTablero implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		TableroVista tableroVista= ventanaPrincipal.getTablero();
-		tableroVista.actualizar();
+		if(tableroVista != null)
+			tableroVista.actualizar();
 	}
 }

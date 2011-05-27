@@ -86,20 +86,21 @@ public class FullMoonGo extends Observable implements Runnable {
 	
 	public void jugar() {
 		try {
-			while(true){
+			do {
 				System.out.println("Turno " + jugadorBlanco.getNombre());
 				jugadorBlanco.jugar();
 				System.out.println("Turno " + jugadorNegro.getNombre());
 				jugadorNegro.jugar();
 
-			}
-		}catch (FinDelJuegoException e){
+			} while (!jugadorBlanco.pasoElTurno() || !jugadorNegro.pasoElTurno());
 			
+		}catch (FinDelJuegoException e){
 			if (e.getColorGanador() == ColorPiedra.NEGRO) 
 				jugadorGanador = jugadorNegro;
 			if (e.getColorGanador() == ColorPiedra.BLANCO)
-				jugadorGanador = jugadorBlanco;
-			
+				jugadorGanador = jugadorBlanco;	
+		}finally{
+			System.out.println("*****************+fin***********");
 			estadoJuego = TERMINADO;
 			setChanged();
 			notifyObservers();		

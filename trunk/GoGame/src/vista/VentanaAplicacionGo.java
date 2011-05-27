@@ -51,6 +51,7 @@ public class VentanaAplicacionGo {
 		tableroGo.addMouseListener(mouseListener);
 		frame.getContentPane().add(tableroGo);
 		frame.validate();
+		frame.repaint();
 	}
 	
 	public void mostrarMenu() {
@@ -66,6 +67,11 @@ public class VentanaAplicacionGo {
 	
 	public void mostrarGanador(String nombre, ColorPiedra color) { //TODO se puede enchular =P
 		JOptionPane.showMessageDialog(frame,"El ganador es " + nombre + " - " + color,
+			    "FullMoonGo", JOptionPane.PLAIN_MESSAGE);
+	}
+	
+	public void mostrarEmpate() { //TODO se puede enchular =P
+		JOptionPane.showMessageDialog(frame,"Empate",
 			    "FullMoonGo", JOptionPane.PLAIN_MESSAGE);
 	}
 	

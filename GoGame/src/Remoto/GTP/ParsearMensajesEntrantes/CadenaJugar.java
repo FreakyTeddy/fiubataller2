@@ -2,6 +2,7 @@ package Remoto.GTP.ParsearMensajesEntrantes;
 
 import java.util.ArrayList;
 
+import Juego.Posicion;
 import Remoto.Remoto;
 import Remoto.GTP.ConstantesGtp;
 import Remoto.GTP.Gtp;
@@ -21,9 +22,10 @@ public class CadenaJugar extends CadenaGtp {
 		if(!verificarTipoMensaje(ConstantesGtp.PLAY, mensaje))
 			return cadenaSgte.enviarSgteCadena(mensaje);	
 		else {
-			System.out.println("Cadena Jugar");
-			//TODO: como se q es valido? --> preguntarle al arbitro :S
-			boolean resultado= true;
+			System.out.println("Cadena Jugar : " + mensaje[3] + mensaje[2]);
+			
+			boolean resultado= informarAlArbitro(mensaje[3], mensaje[2]);
+
 			String mensajeRta= "";
 			if(resultado)
 				mensajeRta= gtp.mensajeRespuestaOk(mensaje[0], null);
@@ -36,4 +38,13 @@ public class CadenaJugar extends CadenaGtp {
 			return mensajeRta;
 		}
 	}
+	
+	private boolean informarAlArbitro(String mensaje, String color) {
+		if (mensaje.equalsIgnoreCase("pass"))
+			remoto.getArbitro().setPosicionObtenida(null, color);
+		else
+			remoto.getArbitro().setPosicionObtenida(new Posicion(mensaje), color);
+		return true;	//TODO: como se q es valido? --> preguntarle al arbitro????? :S
+	}	
+	
 }

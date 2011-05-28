@@ -6,15 +6,17 @@ import Remoto.Remoto;
 public abstract class EstrategiaRemoto implements Estrategia {
 
 	protected Remoto remoto;
-	protected Posicion ultimaPiedra;
-	protected String miColor;
-	protected String contrarioColor;
+	protected Posicion ultimaPiedraRemoto;
+	protected Posicion ultimaPiedraLocal;
+	protected String colorRemoto;
+	protected String colorLocal;
 
-	public EstrategiaRemoto(ColorPiedra micolor, ColorPiedra contrarioColor){
-		this.miColor = traducirColor(micolor);
-		this.contrarioColor = traducirColor(contrarioColor);
+	public EstrategiaRemoto(ColorPiedra colorRemoto, ColorPiedra colorLocal){
+		this.colorRemoto = traducirColor(colorRemoto);
+		this.colorLocal = traducirColor(colorLocal);
 		this.remoto = crearRemoto();
-		this.ultimaPiedra = null;
+		this.ultimaPiedraRemoto = null;
+		this.ultimaPiedraLocal = null;
 	}
 
 	private String traducirColor(ColorPiedra color) {
@@ -35,7 +37,7 @@ public abstract class EstrategiaRemoto implements Estrategia {
 	public Posicion getJugada() { 
 		
 		intercambiarJugadas();
-		return ultimaPiedra;
+		return ultimaPiedraRemoto;
 	}
 	
 	protected synchronized void esperarRespuesta() {
@@ -49,8 +51,22 @@ public abstract class EstrategiaRemoto implements Estrategia {
 		this.notifyAll();
 	}
 	
-	public synchronized void setPosicionObtenida(Posicion p){
-		ultimaPiedra = p;
+	public synchronized String getPosicionLocal() {
+		esperarRespuesta();	//espero que el jugador local juegue. Be careful with this!
+		String piedra = "PASS";
+		if (ultimaPiedraLocal != null)
+			piedra = ultimaPiedraLocal.toString();
+		return piedra;
+	}
+	
+	public void setPosicionObtenida(Posicion posicion, String colorDelRemoto){
+		if(colorDelRemoto.equalsIgnoreCase(this.colorRemoto)) {
+			setPosicionObtenida(posicion);
+		}
+	}
+	
+	public synchronized void setPosicionObtenida(Posicion posicion){
+		ultimaPiedraRemoto = posicion;
 		notificarRespuesta();
 	}
 	

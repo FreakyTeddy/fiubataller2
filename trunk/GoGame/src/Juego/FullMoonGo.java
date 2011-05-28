@@ -101,7 +101,6 @@ public class FullMoonGo extends Observable implements Runnable {
 			if (e.getColorGanador() == ColorPiedra.BLANCO)
 				jugadorGanador = jugadorBlanco;	
 		}finally{
-			System.out.println("*****************+fin***********");
 			estadoJuego = TERMINADO;
 			setChanged();
 			notifyObservers();		

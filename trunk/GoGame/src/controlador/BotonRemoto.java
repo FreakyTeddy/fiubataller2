@@ -8,8 +8,6 @@ import javax.swing.JOptionPane;
 
 import Juego.Constantes;
 
-import vista.MenuInicio;
-
 
 public class BotonRemoto extends BotonServidor implements ActionListener {
 	

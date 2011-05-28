@@ -9,9 +9,10 @@ import Juego.EstadoJuego;
 import Juego.EstrategiaRemoto;
 import Juego.FullMoonGo;
 
-import Remoto.Cliente;
+
+import Remoto.EstrategiaRemotoCliente;
 import Remoto.Remoto;
-import Remoto.Servidor;
+
 
 import vista.VentanaAplicacionGo;
 
@@ -47,34 +48,34 @@ public class ControladorGeneral implements Observer {
 	}
 	
 	public void levantarServidor(int puerto){ /* yo soy negro y el remoto blanco */
-		conexion = new Servidor();
-			
-		//TODO: Aca mientras conecta tendria que aparecer una pantalla
-		if( conexion.iniciar(Constantes.IP, puerto) ) {
-			
-			EstrategiaRemoto remoto = new EstrategiaRemoto(conexion, ColorPiedra.BLANCO,ColorPiedra.NEGRO);
-			conexion.setEstrategiaRemoto(remoto);
-			conexion.enviarMensajeTamanioTablero(fullMoonGo.getTablero().getAncho());
-			
-			fullMoonGo.crearJugador("Remoto", ColorPiedra.BLANCO, remoto);
-			CreadorEstrategia e = controladorMenuInicio.getEstrategiaJugadorNegro();
-			fullMoonGo.crearJugador(controladorMenuInicio.getNombreJugadorNegro(), ColorPiedra.NEGRO, e.crearEstrategia(fullMoonGo.getTablero(), ColorPiedra.NEGRO));
-			iniciarFullMoon();
-			
-		} else {
-			System.out.println("TODO: ACA MOSTRAR MENSAJE DE QUE NO SE PUDO CONECTAR");
-			conexion = null;
-		}
+//		conexion = new Servidor();
+//			
+//		//TODO: Aca mientras conecta tendria que aparecer una pantalla
+//		if( conexion.iniciar(Constantes.IP, puerto) ) {
+//			
+//			EstrategiaRemoto remoto = new EstrategiaRemoto(ColorPiedra.BLANCO,ColorPiedra.NEGRO);
+//			conexion.setEstrategiaRemoto(remoto);
+//			conexion.enviarMensajeTamanioTablero(fullMoonGo.getTablero().getAncho());
+//			
+//			fullMoonGo.crearJugador("Remoto", ColorPiedra.BLANCO, remoto);
+//			CreadorEstrategia e = controladorMenuInicio.getEstrategiaJugadorNegro();
+//			fullMoonGo.crearJugador(controladorMenuInicio.getNombreJugadorNegro(), ColorPiedra.NEGRO, e.crearEstrategia(fullMoonGo.getTablero(), ColorPiedra.NEGRO));
+//			iniciarFullMoon();
+//			
+//		} else {
+//			System.out.println("TODO: ACA MOSTRAR MENSAJE DE QUE NO SE PUDO CONECTAR");
+//			conexion = null;
+//		}
 	}
 	
 	public void jugarEnRed(String ip, int puerto) { /* yo soy blanco y el remoto negro */
-		conexion = new Cliente();
+		
+		EstrategiaRemoto remoto = new EstrategiaRemotoCliente(ColorPiedra.NEGRO, ColorPiedra.BLANCO);
+		conexion = remoto.getRemoto();
 		
 		//TODO: Aca mientras conecta tendria que aparecer una pantalla
 		if(conexion.iniciar(Constantes.IP, puerto)) {
 			
-			EstrategiaRemoto remoto = new EstrategiaRemoto(conexion, ColorPiedra.NEGRO, ColorPiedra.BLANCO);
-			conexion.setEstrategiaRemoto(remoto);
 			conexion.enviarMensajeTamanioTablero(fullMoonGo.getTablero().getAncho());
 			
 			fullMoonGo.crearJugador("Remoto", ColorPiedra.NEGRO, remoto);

@@ -3,55 +3,62 @@ package Juego;
 import Remoto.Remoto;
 
 
-public class EstrategiaRemoto implements Estrategia {
+public abstract class EstrategiaRemoto implements Estrategia {
 
-	private Remoto _remoto;
-	private Posicion _ultimaPiedra;
-	private String _miColor;
-	private String _contrarioColor;
+	protected Remoto remoto;
+	protected Posicion ultimaPiedra;
+	protected String miColor;
+	protected String contrarioColor;
 
-	public EstrategiaRemoto(Remoto remoto, ColorPiedra micolor, ColorPiedra contrarioColor){
-		_remoto = remoto;
-		_miColor = traducirColor(micolor);
-		_contrarioColor = traducirColor(contrarioColor);
-		_ultimaPiedra = null;
+	public EstrategiaRemoto(ColorPiedra micolor, ColorPiedra contrarioColor){
+		this.miColor = traducirColor(micolor);
+		this.contrarioColor = traducirColor(contrarioColor);
+		this.remoto = crearRemoto();
+		this.ultimaPiedra = null;
 	}
-	
+
 	private String traducirColor(ColorPiedra color) {
 		if(color == ColorPiedra.BLANCO) 
 			return new String("white");
 		return new String("black");
 	}
 	
+	protected abstract Remoto crearRemoto();
 	
-	public synchronized void setUltimaPiedra(Posicion p){
-		_ultimaPiedra = p;
-		this.notifyAll();
+	protected abstract void intercambiarJugadas();
+	
+	public Remoto getRemoto() {
+		return remoto;
 	}
-	
-	private synchronized Posicion getUltimaPiedra(){
-		try {
-			this.wait();
-		} catch (InterruptedException e) {
-		}
-		return _ultimaPiedra;
-	}
-	
+		
 	@Override
 	public Posicion getJugada() { 
 		
-		//Envio el mensaje de generar jugada al remoto
-		//TODO: 1) enviar "genmove color_adversario" o "play mi_color"?
-		//      2) antes de enviar pregunta si esta conectado
-		//		3) informar la jugada del otro
-		if(_remoto.hayRemoto()) {
-			System.out.println(">Envio la jugada local");
-			_remoto.enviarMensajeJugar(_contrarioColor, FullMoonGo.getInstancia().getTablero().getUltimaJugada().toString());
-			System.out.println(">Obteniendo jugada de remoto...");
-			_remoto.enviarMensajeGenerarMovimiento(_miColor);
-		}
-		//Espero respuesta 
-		return getUltimaPiedra();
+		intercambiarJugadas();
+		return ultimaPiedra;
 	}
+	
+	protected synchronized void esperarRespuesta() {
+		try{
+			this.wait();			//Espero respuesta 
+		} catch (InterruptedException e) {
+		}
+	}
+	
+	protected synchronized void notificarRespuesta() {
+		this.notifyAll();
+	}
+	
+	public synchronized void setPosicionObtenida(Posicion p){
+		ultimaPiedra = p;
+		notificarRespuesta();
+	}
+	
+	public void setTamanioTablero(int tamanio) {
+		System.out.println("se recibio un boardsize: " + tamanio);
+		if(FullMoonGo.getInstancia().getEstado() == EstadoJuego.NO_INICIADO)
+			FullMoonGo.getInstancia().crearTablero(TamanioTablero.NUEVE); //por ahora
+	}
+	
 
 }

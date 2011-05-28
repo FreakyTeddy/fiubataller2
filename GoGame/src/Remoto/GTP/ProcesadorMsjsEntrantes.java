@@ -49,12 +49,12 @@ public class ProcesadorMsjsEntrantes {
 		cadenaVersion= new CadenaVersion(gtp);
 		cadenaComandoSoportado= new CadenaComandoSoportado(gtp);
 		cadenaListarComandos= new CadenaListarComandos(gtp);
-		cadenaTamanioTablero= new CadenaTamanioTablero(gtp);
+		cadenaTamanioTablero= new CadenaTamanioTablero(gtp, remoto);
 		cadenaLimpiarTablero= new CadenaLimpiarTablero(gtp);
 		cadenaKomi= new CadenaKomi(gtp);
-		cadenaJugar= new CadenaJugar(gtp);
-		cadenaGenMovimiento= new CadenaGenMovimiento(gtp);
-		cadenaSalida= new CadenaSalida(gtp);
+		cadenaJugar= new CadenaJugar(gtp, remoto);
+		cadenaGenMovimiento= new CadenaGenMovimiento(gtp, remoto);
+		cadenaSalida= new CadenaSalida(gtp, remoto);
 		cadenaRtaMsjsServidor = new CadenaRtaMsjsServidor(gtp, remoto);
 		cadenaDefault= new CadenaDefault(gtp);
 	}

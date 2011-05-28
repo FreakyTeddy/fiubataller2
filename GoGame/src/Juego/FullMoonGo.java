@@ -8,8 +8,6 @@ import static Juego.EstadoJuego.*;
 /**
  * 
  * TODO: Posible refactor un state. 
- *  Otra cosa que si habria que hacer es pasar esto a juego porque ahora es 
- *  observable y tiene logica del juego digamos.
  * 
  * @author del comentario de arriba matias
  *
@@ -40,13 +38,10 @@ public class FullMoonGo extends Observable implements Runnable {
 	}
 	
 	public void run(){
-//		if (estadoJuego == LISTO_PARA_INICIAR) {
-//			vista.mostrarTablero(tablero);
-//			jugar();
-//		} else {
-//			System.out.println("falta configurar algo"); //TODO
-//		}
-		jugar();
+		if (estadoJuego == LISTO_PARA_INICIAR) 
+			jugar();
+		 else 
+			System.out.println("falta configurar algo"); //TODO
 	}
 	
 	public Tablero getTablero(){
@@ -81,10 +76,14 @@ public class FullMoonGo extends Observable implements Runnable {
 		if (color == ColorPiedra.VACIO) {
 			nuevoJugador = null;
 		}
+		if((jugadorBlanco != null) && (jugadorNegro != null))
+			estadoJuego = EstadoJuego.LISTO_PARA_INICIAR;	
 		return nuevoJugador;
 	}
 	
 	public void jugar() {
+		
+		estadoJuego = EstadoJuego.INICIADO;
 		try {
 			do {
 				System.out.println("Turno " + jugadorBlanco.getNombre());
@@ -108,4 +107,3 @@ public class FullMoonGo extends Observable implements Runnable {
 	}
 			
 }
-

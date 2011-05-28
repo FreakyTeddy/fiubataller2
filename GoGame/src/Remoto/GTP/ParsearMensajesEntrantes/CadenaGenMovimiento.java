@@ -2,12 +2,13 @@ package Remoto.GTP.ParsearMensajesEntrantes;
 
 import java.util.ArrayList;
 
+import Remoto.Remoto;
 import Remoto.GTP.ConstantesGtp;
 import Remoto.GTP.Gtp;
 
 public class CadenaGenMovimiento extends CadenaGtp {
 
-	public CadenaGenMovimiento(Gtp gtp) {
+	public CadenaGenMovimiento(Gtp gtp, Remoto remoto) {
 		super(gtp);
 	}
 

@@ -3,15 +3,18 @@ package Remoto.GTP.ParsearMensajesEntrantes;
 import java.util.ArrayList;
 
 import Juego.Constantes;
+import Remoto.Remoto;
 import Remoto.GTP.ConstantesGtp;
 import Remoto.GTP.Gtp;
 
 public class CadenaTamanioTablero extends CadenaGtp {
 
 	private static final String ERROR_TAMANIO_TABLERO = "unacceptable boardsize";
-
-	public CadenaTamanioTablero(Gtp gtp) {
+	private Remoto remoto;
+	
+	public CadenaTamanioTablero(Gtp gtp, Remoto remoto) {
 		super(gtp);
+		this.remoto = remoto;
 	}
 
 	@Override
@@ -30,8 +33,10 @@ public class CadenaTamanioTablero extends CadenaGtp {
 				ArrayList<String> lista= new ArrayList<String>();
 				lista.add(ERROR_TAMANIO_TABLERO);
 				mensajeRta= gtp.mensajeRespuestaError(mensaje[0], lista);
-			} else
+			} else {
 				mensajeRta= gtp.mensajeRespuestaOk(mensaje[0], null);
+				remoto.getArbitro().setTamanioTablero(boardsize);				
+			}
 			System.out.println("Respuesta " + mensajeRta);	
 			return mensajeRta;
 		}

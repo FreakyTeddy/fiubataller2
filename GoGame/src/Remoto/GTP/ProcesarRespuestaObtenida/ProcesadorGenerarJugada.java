@@ -1,5 +1,6 @@
 package Remoto.GTP.ProcesarRespuestaObtenida;
 
+import Juego.Posicion;
 import Remoto.Remoto;
 import Remoto.GTP.ConstantesGtp;
 
@@ -15,7 +16,10 @@ public class ProcesadorGenerarJugada extends ProcesadorBase {
 				procesadorSgte.enviarSgteCadena(mensaje);
 		else {
 			remoto.mensajeProcesado();
-			remoto.setPosicionObtenida(mensaje);
+			if (mensaje.equalsIgnoreCase("pass"))
+				remoto.getArbitro().setPosicionObtenida(null);
+			else
+				remoto.getArbitro().setPosicionObtenida(new Posicion(mensaje));
 		}
 	}
 }

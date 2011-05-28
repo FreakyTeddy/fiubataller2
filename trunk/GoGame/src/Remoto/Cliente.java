@@ -1,12 +1,11 @@
 package Remoto;
 
-
 public class Cliente extends Remoto {
 
 	private SocketCliente socket;
 
-	public Cliente() {
-		super();
+	public Cliente(EstrategiaRemotoCliente estrategia) {
+		super(estrategia);
 	}
 
 	public boolean iniciar(String ip, int puerto) {

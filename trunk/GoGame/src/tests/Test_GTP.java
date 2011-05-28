@@ -6,9 +6,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import Remoto.Cliente;
+import Remoto.EstrategiaRemotoCliente;
+import Remoto.EstrategiaRemotoServidor;
 import Remoto.Remoto;
-import Remoto.Servidor;
 import Remoto.GTP.ConstantesGtp;
 import Remoto.GTP.Gtp;
 import Remoto.GTP.ProcesadorMsjsEntrantes;
@@ -23,8 +23,8 @@ public class Test_GTP {
 	@Before
 	public void setUp() throws Exception {
 		gtp= new Gtp();
-		servidor= new Servidor();
-		cliente= new Cliente();
+		servidor= (new EstrategiaRemotoServidor(null,null)).getRemoto();
+		cliente= (new EstrategiaRemotoCliente(null,null)).getRemoto();
 		procesador= new ProcesadorMsjsEntrantes(cliente);
 	}
 

@@ -3,7 +3,6 @@ package Remoto;
 import java.util.ArrayList;
 
 import Juego.EstrategiaRemoto;
-import Juego.Posicion;
 import Remoto.GTP.ConstantesGtp;
 import Remoto.GTP.Gtp;
 import Remoto.GTP.ProcesadorMsjsEntrantes;
@@ -17,8 +16,8 @@ public abstract class Remoto {
 	private Gtp gtp; 
 	private ArrayList<String> tipoUltimoMensaje;
 	
-	public Remoto() {
-		estrategiaRemoto= null;
+	public Remoto(EstrategiaRemoto estrategia) {
+		estrategiaRemoto= estrategia;
 		procesador= new ProcesadorMsjsEntrantes(this);
 		procesadorRta= new ProcesadorRespuestaObtenida(this);
 		gtp= new Gtp();
@@ -31,8 +30,8 @@ public abstract class Remoto {
 	
 	protected abstract void enviarMensaje(String mensaje);
 	
-	public void setEstrategiaRemoto(EstrategiaRemoto estrategia) {
-		this.estrategiaRemoto= estrategia;
+	public EstrategiaRemoto getArbitro() {
+		return estrategiaRemoto;
 	}
 	
 	public void procesarMensajeEntrante(String mensaje) {
@@ -57,12 +56,6 @@ public abstract class Remoto {
 	
 	public void terminarConexion() {
 		terminar();
-	}
-	
-	/***PARA MODIFICAR EN ESTRATEGIA REMOTO***/ //TODO
-	public void setPosicionObtenida(String posicionObtenida) {
-		if(estrategiaRemoto != null)
-			estrategiaRemoto.setUltimaPiedra(new Posicion(posicionObtenida));
 	}
 	
 	//TODO: hago los necesarios por ahora

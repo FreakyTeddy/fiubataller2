@@ -22,7 +22,7 @@ public class Posicion {
 		this.x= ((int)posicion.charAt(0))-65;
 		this.y= (Integer.parseInt(posicion.substring(1)))-1;
 		if(x >= 9)
-			x--; //correccion por la fucking I
+			x--; //correccion por la I que no existe en el gnugo
 	}
 
 	public int getX(){
@@ -66,7 +66,6 @@ public class Posicion {
 	public static String toString(int i, int j){
 		
 		if(i>=8){ //no se por que no existe la I en el gnugo :S :S
-			System.out.println("_________fucking I_________" + i);
 			i++;
 		}
 		

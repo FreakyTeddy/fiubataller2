@@ -12,6 +12,7 @@ import vista.VentanaAplicacionGo;
 public class ControladorMenuInicio {
 
 	private ControladorGeneral controlador;
+	private ControladorRemoto controladorRemoto;
 	private MenuInicio menuInicio;
 	private VentanaAplicacionGo vistaJuego;
 	
@@ -23,6 +24,7 @@ public class ControladorMenuInicio {
 		this.controlador= controlador;
 		this.vistaJuego= vistaJuego;
 		menuInicio= vistaJuego.getMenuInicio();
+		controladorRemoto= new ControladorRemoto(controlador, vistaJuego);
 		cargarDatos();
 		iniciarCallbacks();
 	}
@@ -49,12 +51,6 @@ public class ControladorMenuInicio {
 	}
 	
 	private void iniciarCallbacks() {
-		//Boton jugar en red
-		menuInicio.getBotonJugarEnRed().addActionListener(new BotonRemoto(menuInicio.getVentanaAplicacionGo().getFramePrincipal(), controlador));
-		
-		//Boton crear servidor
-		menuInicio.getBotonCrearServidor().addActionListener(new BotonServidor(menuInicio.getVentanaAplicacionGo().getFramePrincipal(), controlador));
-		
 		//Boton jugar local
 		menuInicio.getBotonJugarLocal().addActionListener(new ActionListener() {
 			

@@ -5,7 +5,7 @@ import Juego.EstrategiaRemoto;
 import Juego.FullMoonGo;
 
 public class EstrategiaRemotoServidor extends EstrategiaRemoto {
-
+	
 	public EstrategiaRemotoServidor(ColorPiedra colorRemoto,ColorPiedra colorLocal) {
 		super(colorRemoto, colorLocal);
 	}
@@ -17,9 +17,14 @@ public class EstrategiaRemotoServidor extends EstrategiaRemoto {
 
 	@Override
 	protected void intercambiarJugadas() {
-		ultimaPiedraLocal = FullMoonGo.getInstancia().getTablero().getUltimaJugada();
-		notificarRespuesta();	//contesto el genmove
-		esperarRespuesta(); //espero que me llegue un play del cliente	
+		
+		ultimaPiedraLocal.add(FullMoonGo.getInstancia().getTablero().getUltimaJugada());
+		finDeEspera();	//contesto el genmove
+		System.out.println("__notifico__");
+		
+		
+		esperar(); //espero que me llegue un play del cliente. warning! el cliente puede empezar antes que yo :S
+		//ahora es el turno del tipo
 	}
 
 }

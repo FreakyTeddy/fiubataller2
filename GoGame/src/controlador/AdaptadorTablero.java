@@ -4,7 +4,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import Juego.Estrategia;
-import Juego.FullMoonGo;
 import Juego.Posicion;
 
 import vista.TableroVista;

@@ -26,8 +26,10 @@ public class EstrategiaRemotoCliente extends EstrategiaRemoto {
 			System.out.println(">Envio la jugada local");
 			remoto.enviarMensajeJugar(colorLocal, FullMoonGo.getInstancia().getTablero().getUltimaJugada().toString());			
 			remoto.enviarMensajeGenerarMovimiento(colorRemoto);
-			System.out.println(">Obteniendo jugada de remoto...");
-			esperarRespuesta();
+			if(ultimaPiedraRemoto.isEmpty()) {
+				esperar();
+				System.out.println(">Obteniendo jugada de remoto...");	
+			}
 		}
 		
 	}

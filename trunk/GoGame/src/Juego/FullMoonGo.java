@@ -86,10 +86,12 @@ public class FullMoonGo extends Observable implements Runnable {
 		estadoJuego = EstadoJuego.INICIADO;
 		try {
 			do {
-				System.out.println("Turno " + jugadorBlanco.getNombre());
-				jugadorBlanco.jugar();
+
 				System.out.println("Turno " + jugadorNegro.getNombre());
 				jugadorNegro.jugar();
+
+				System.out.println("Turno " + jugadorBlanco.getNombre());
+				jugadorBlanco.jugar();
 
 			} while (!jugadorBlanco.pasoElTurno() || !jugadorNegro.pasoElTurno());
 			

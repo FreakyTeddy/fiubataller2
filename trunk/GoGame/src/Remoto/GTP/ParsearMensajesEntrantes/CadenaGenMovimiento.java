@@ -8,8 +8,11 @@ import Remoto.GTP.Gtp;
 
 public class CadenaGenMovimiento extends CadenaGtp {
 
+	private Remoto remoto;
+	
 	public CadenaGenMovimiento(Gtp gtp, Remoto remoto) {
 		super(gtp);
+		this.remoto = remoto;
 	}
 
 	@Override
@@ -18,8 +21,7 @@ public class CadenaGenMovimiento extends CadenaGtp {
 			return cadenaSgte.enviarSgteCadena(mensaje);	
 		else {
 			System.out.println("Cadena Generar Movimiento");
-			//TODO! a quien le pido esto? --> al tablero? al controlador? cri cri
-			String movGenerado= "C3";
+			String movGenerado= remoto.getArbitro().getPosicionLocal();
 			ArrayList<String> lista= new ArrayList<String>();
 			lista.add(movGenerado);
 			String mensajeRta= gtp.mensajeRespuestaOk(mensaje[0], lista);   

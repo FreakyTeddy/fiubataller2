@@ -57,7 +57,6 @@ public class TableroVista extends JPanel {
 				clip = AudioSystem.getClip();
 				System.out.println("Se consiguio el clip :" + soundFileName);
 				clip.open(audioInputStream);
-				audioInputStream.close();
 				System.out.println("Se abrio el clip :" + soundFileName);
 
 			} catch (UnsupportedAudioFileException e) {

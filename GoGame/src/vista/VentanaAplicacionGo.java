@@ -17,6 +17,7 @@ public class VentanaAplicacionGo {
 	private TableroVista tableroGo;
 	private MenuInicio menuInicio;
 	private MouseAdapter mouseListener;
+	private VentanaEmergente ventanaEmergente;
 	
 	private static final String pathIcono = "./images/icono.jpg";
 	
@@ -35,6 +36,8 @@ public class VentanaAplicacionGo {
 		
 		menuInicio = new MenuInicio(this);
 		frame.getContentPane().add(menuInicio, BorderLayout.CENTER);
+		
+		ventanaEmergente= new VentanaEmergente(frame);
 	}
 	
 	public void iniciar() {
@@ -81,5 +84,14 @@ public class VentanaAplicacionGo {
 
 	public TableroVista getTablero() {
 		return tableroGo;
+	}
+	
+	/*Ventanas Emergentes*/
+	public void mostrarVentanaEsperandoOponente() {
+		ventanaEmergente.mostrarVentanaEsperandoOponente();
+	}
+	
+	public void ocultarVentanaEsperandoOponente() {
+		ventanaEmergente.ocultarVentanaEsperandoOponente();
 	}
 }

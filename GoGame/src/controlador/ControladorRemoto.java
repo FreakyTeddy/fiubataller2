@@ -14,7 +14,7 @@ public class ControladorRemoto {
 
 	private ControladorGeneral controlador;
 	private VentanaAplicacionGo ventana;
-	private int puerto= Constantes.PUERTO;
+	private int puerto;
 	
 	public ControladorRemoto(ControladorGeneral controlador, VentanaAplicacionGo ventana) {
 		this.controlador= controlador;

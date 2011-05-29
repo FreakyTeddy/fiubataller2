@@ -23,6 +23,7 @@ public class ControladorGeneral implements Observer {
 	private FullMoonGo fullMoonGo;
 	private ControladorMenuInicio controladorMenuInicio;
 	private ControladorTablero controladorTablero;
+	private LanzadorRemoto lanzadorRemoto;
 	private Remoto conexion;
 	
 	public ControladorGeneral() {
@@ -36,6 +37,7 @@ public class ControladorGeneral implements Observer {
 	private void iniciarControladores() {
 		controladorMenuInicio = new ControladorMenuInicio(ventana, this);
 		controladorTablero= new ControladorTablero(ventana);
+		lanzadorRemoto= new LanzadorRemoto(this);
 	}
 
 	public void iniciarJuegoGo() {
@@ -52,9 +54,16 @@ public class ControladorGeneral implements Observer {
 		EstrategiaRemoto remoto = new EstrategiaRemotoServidor(ColorPiedra.NEGRO,ColorPiedra.BLANCO);
 		conexion = remoto.getRemoto();
 			
-		//TODO: Aca mientras conecta tendria que aparecer una pantalla
-		if( conexion.iniciar(Constantes.IP, puerto) ) {
-			
+		lanzadorRemoto.setDatosConexion(conexion, puerto, Constantes.IP);
+		lanzadorRemoto.start();
+		ventana.mostrarVentanaEsperandoOponente();
+		try {
+			lanzadorRemoto.join();
+		} catch (InterruptedException e) {
+			System.err.println("Error al terminar el hilo de esperando oponente");
+		}
+		
+		if(lanzadorRemoto.getResultadoConexion()) {
 			fullMoonGo.crearJugador("Cliente Remoto", ColorPiedra.NEGRO, remoto);
 			CreadorEstrategia e = controladorMenuInicio.getEstrategiaJugadorBlanco();
 			fullMoonGo.crearJugador(controladorMenuInicio.getNombreJugadorBlanco(), ColorPiedra.BLANCO, e.crearEstrategia(fullMoonGo.getTablero(), ColorPiedra.BLANCO));
@@ -116,5 +125,9 @@ public class ControladorGeneral implements Observer {
 			}
 			
 		}		
+	}
+	
+	public void ocultarVentanaEsperandoOponente() {
+		ventana.ocultarVentanaEsperandoOponente();
 	}
 }

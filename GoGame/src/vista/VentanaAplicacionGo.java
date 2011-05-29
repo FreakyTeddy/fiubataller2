@@ -94,4 +94,8 @@ public class VentanaAplicacionGo {
 	public void ocultarVentanaEsperandoOponente() {
 		ventanaEmergente.ocultarVentanaEsperandoOponente();
 	}
+	
+	public void mostrarVentanaErrorAlConectarseAlServidor() {
+		ventanaEmergente.mostrarVentanaErrorAlConectarseAlServidor();
+	}
 }

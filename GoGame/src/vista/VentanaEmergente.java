@@ -7,6 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class VentanaEmergente {
 
@@ -20,6 +21,7 @@ public class VentanaEmergente {
 		crearVentanaEsperandoOponente();
 	}
 
+	//Ventana esperando oponente
 	private void crearVentanaEsperandoOponente() {
 		ventanaEsperandoOponente= new JDialog();
 		Container panel= ventanaEsperandoOponente.getContentPane();
@@ -38,5 +40,11 @@ public class VentanaEmergente {
 	
 	public void ocultarVentanaEsperandoOponente() {
 		ventanaEsperandoOponente.setVisible(false);
+	}
+	
+	//Ventana Error al conectarse al servidor
+	public void mostrarVentanaErrorAlConectarseAlServidor() {
+		JOptionPane.showMessageDialog(ventanaPadre, "El servidor no responde.",
+		    "Error al conectarse...", JOptionPane.ERROR_MESSAGE);
 	}
 }

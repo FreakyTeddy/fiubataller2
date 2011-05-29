@@ -80,7 +80,6 @@ public class ControladorGeneral implements Observer {
 		EstrategiaRemoto remoto = new EstrategiaRemotoCliente(ColorPiedra.BLANCO, ColorPiedra.NEGRO);
 		conexion = remoto.getRemoto();
 		
-		//TODO: Aca mientras conecta tendria que aparecer una pantalla
 		if(conexion.iniciar(Constantes.IP, puerto)) {
 			
 			conexion.enviarMensajeTamanioTablero(fullMoonGo.getTablero().getAncho());
@@ -91,7 +90,7 @@ public class ControladorGeneral implements Observer {
 			iniciarFullMoon();
 			
 		} else {
-			System.out.println("TODO: ACA MOSTRAR MENSAJE DE QUE NO SE PUDO CONECTAR");
+			ventana.mostrarVentanaErrorAlConectarseAlServidor();
 			conexion = null;
 		}
 	}

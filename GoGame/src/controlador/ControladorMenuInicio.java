@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import javax.swing.JComboBox;
 
+import Juego.TamanioTablero;
+
 import vista.MenuInicio;
 import vista.VentanaAplicacionGo;
 
@@ -19,6 +21,7 @@ public class ControladorMenuInicio {
 	private String tamanios[] = {"9x9", "13x13", "19x19"};
 	private String estrategias[] = {"Humano", "Minimax", "Muy Facil", "Facil", "Medio"};
 	private ArrayList<CreadorEstrategia> creadores;
+	private ArrayList<TamanioTablero> tamanioTablero;
 	
 	public ControladorMenuInicio(VentanaAplicacionGo vistaJuego, ControladorGeneral controlador) {
 		this.controlador= controlador;
@@ -30,10 +33,15 @@ public class ControladorMenuInicio {
 	}
 	
 	private void cargarDatos() {
-	  JComboBox comboBoxTamanios= menuInicio.getComboTamanioTablero();
-	  for(int i = 0; i < tamanios.length; i++)
-      comboBoxTamanios.addItem(tamanios[i]);		
-		
+		JComboBox comboBoxTamanios= menuInicio.getComboTamanioTablero();
+		for(int i = 0; i < tamanios.length; i++)
+			comboBoxTamanios.addItem(tamanios[i]);
+
+		tamanioTablero = new ArrayList<TamanioTablero>();
+		tamanioTablero.add(TamanioTablero.NUEVE);
+		tamanioTablero.add(TamanioTablero.TRECE);
+		tamanioTablero.add(TamanioTablero.DIECINUEVE);
+
 		creadores = new ArrayList<CreadorEstrategia>();
 		creadores.add(new CreadorEstrategiaHumano(vistaJuego));
 		creadores.add(new CreadorEstrategiaMinMax());
@@ -41,8 +49,8 @@ public class ControladorMenuInicio {
 		creadores.add(new CreadorEstrategiaFacil());
 		creadores.add(new CreadorEstrategiaMedio());
 	  
-	  cargarComboJugador(menuInicio.getComboJugadorBlanco());
-	  cargarComboJugador(menuInicio.getComboJugadorNegro());
+		cargarComboJugador(menuInicio.getComboJugadorBlanco());
+		cargarComboJugador(menuInicio.getComboJugadorNegro());
 	}
 	
 	private void cargarComboJugador(JComboBox comboBox) {
@@ -65,7 +73,9 @@ public class ControladorMenuInicio {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				controlador.getFullMoon().crearTablero(); //crear el tamanio que corresponda
+				
+				controlador.getFullMoon().crearTablero(
+					tamanioTablero.get(menuInicio.getComboTamanioTablero().getSelectedIndex())); //crear el tamanio que corresponda
 			}
 		});
 	}

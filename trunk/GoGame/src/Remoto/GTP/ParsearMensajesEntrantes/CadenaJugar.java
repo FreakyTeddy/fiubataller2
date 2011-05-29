@@ -40,11 +40,12 @@ public class CadenaJugar extends CadenaGtp {
 	}
 	
 	private boolean informarAlArbitro(String mensaje, String color) {
-		if (mensaje.equalsIgnoreCase("pass"))
-			remoto.getArbitro().setPosicionObtenida(null, color);
+		boolean resultado;
+		if (mensaje.equalsIgnoreCase(ConstantesGtp.PASAR_TURNO))
+			resultado = remoto.getArbitro().setPosicionObtenida(null, color);
 		else
-			remoto.getArbitro().setPosicionObtenida(new Posicion(mensaje), color);
-		return true;	//TODO: como se q es valido? --> preguntarle al arbitro????? :S
+			resultado = remoto.getArbitro().setPosicionObtenida(new Posicion(mensaje), color);
+		return resultado;
 	}	
 	
 }

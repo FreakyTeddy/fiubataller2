@@ -25,4 +25,5 @@ public class ConstantesGtp {
 	public static final String FIN_MSJ_RTA= "\n\n";
 	public static final String ESPACIO= " ";
 	public static final String SHARP= "#";
+	public static final String PASAR_TURNO= "pass";
 }

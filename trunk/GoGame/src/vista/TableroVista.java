@@ -66,7 +66,8 @@ public class TableroVista extends JPanel {
 			} catch (LineUnavailableException e) {
 				System.out.println("Archivo problematico :" + soundFileName);		
 				e.printStackTrace();
-
+			} catch (RuntimeException e) {
+				System.out.println("*********Sonido: " + e.getMessage());
 			}
 		}
 
@@ -176,6 +177,7 @@ public class TableroVista extends JPanel {
 	}
 	
 	private void reproducirSonido() {
+		try {
 		if (ultimoReproducido == SoundEffect.PIEZA2){
 			SoundEffect.PIEZA1.play();
 			ultimoReproducido=SoundEffect.PIEZA1;
@@ -184,6 +186,9 @@ public class TableroVista extends JPanel {
 			SoundEffect.PIEZA2.play();
 			ultimoReproducido = SoundEffect.PIEZA2;
 		} 
+		} catch (RuntimeException e) {
+			System.out.println("Error al reproducir sonido: " + e.getMessage());
+		}
 
 	}
 }

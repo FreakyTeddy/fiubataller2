@@ -14,7 +14,6 @@ public class ControladorRemoto {
 
 	private ControladorGeneral controlador;
 	private VentanaAplicacionGo ventana;
-	private int puerto;
 	
 	public ControladorRemoto(ControladorGeneral controlador, VentanaAplicacionGo ventana) {
 		this.controlador= controlador;
@@ -41,9 +40,8 @@ public class ControladorRemoto {
 						JOptionPane.PLAIN_MESSAGE,null, null, Constantes.PUERTO);
 				
 				if ((puertoServidor != null) && (puertoServidor.length() > 0)) {
-					puerto = transformarPuerto(puertoServidor);
+					int puerto = transformarPuerto(puertoServidor);
 					if(puerto != -1) {
-						System.out.println("Hay que crear en el Puerto " + puerto);
 						controlador.levantarServidor(puerto);
 					}
 				}		
@@ -62,9 +60,8 @@ public class ControladorRemoto {
 					int division = host.indexOf(':');
 					String ip = host.substring(0, division);
 					String nuevopuerto = host.substring(division+1);
-					puerto = transformarPuerto(nuevopuerto);
+					int puerto = transformarPuerto(nuevopuerto);
 					if(puerto != -1){
-						System.out.println("Ip: "+ip + " - Puerto: " + puerto);
 						controlador.jugarEnRed(ip,puerto);	
 					}
 				}				

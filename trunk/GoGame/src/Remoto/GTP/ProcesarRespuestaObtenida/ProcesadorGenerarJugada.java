@@ -15,7 +15,7 @@ public class ProcesadorGenerarJugada extends ProcesadorBase {
 		if(!(remoto.getTipoUltimoMensaje().equals(ConstantesGtp.GENMOVE)))
 				procesadorSgte.enviarSgteCadena(mensaje);
 		else {
-			if (mensaje.equalsIgnoreCase("pass"))
+			if (mensaje.equalsIgnoreCase(ConstantesGtp.PASAR_TURNO))
 				remoto.getArbitro().setPosicionObtenida(null);	//no tengo forma de conocer el color????
 			else
 				remoto.getArbitro().setPosicionObtenida(new Posicion(mensaje));

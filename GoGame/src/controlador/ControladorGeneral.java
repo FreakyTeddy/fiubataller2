@@ -106,7 +106,7 @@ public class ControladorGeneral implements Observer {
 		
 		arbitro = new EstrategiaRemotoCliente(ColorPiedra.BLANCO, ColorPiedra.NEGRO);
 		
-		if(arbitro.iniciarConexion(Constantes.IP, puerto)) { //obtener la ip de la vista!!!
+		if(arbitro.iniciarConexion(ip, puerto)) { 
 			
 			arbitro.enviarTamanioTablero();
 			
@@ -138,7 +138,7 @@ public class ControladorGeneral implements Observer {
 		if(fullMoonGo.getEstado() == EstadoJuego.TERMINADO){
 			
 			if(arbitro != null) {
-				arbitro.finDePartida();
+				arbitro.finalizarPartida();
 				arbitro = null;	
 			}
 			

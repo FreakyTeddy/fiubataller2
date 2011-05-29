@@ -13,6 +13,8 @@ public abstract class EstrategiaRemoto implements Estrategia {
 	protected Stack<Posicion> ultimaPiedraLocal;
 	protected String colorRemoto;
 	protected String colorLocal;
+	private boolean finDePartida;
+	
 
 	public EstrategiaRemoto(ColorPiedra colorRemoto, ColorPiedra colorLocal){
 		this.colorRemoto = traducirColor(colorRemoto);
@@ -20,6 +22,7 @@ public abstract class EstrategiaRemoto implements Estrategia {
 		this.ultimaPiedraRemoto = new Stack<Posicion>();
 		this.ultimaPiedraLocal = new Stack<Posicion>();
 		this.remoto = crearRemoto();
+		this.finDePartida = false;
 	}
 
 	private String traducirColor(ColorPiedra color) {
@@ -59,9 +62,34 @@ public abstract class EstrategiaRemoto implements Estrategia {
 	
 	@Override
 	public Posicion getJugada() { 
+		if(!remoto.hayRemoto() || finDePartida){
+			System.out.println("______-no hay conexion ___________");
+			throw new FinDelJuegoException(ColorPiedra.VACIO, "No hay conexion");
+		}
 		obtenerJugadaLocal();
 		obtenerJugadaRemota();	
+		if (ultimaPiedraRemoto.isEmpty())
+			throw new FinDelJuegoException(ColorPiedra.VACIO, "No hay conexion");
 		return ultimaPiedraRemoto.pop();
+	}
+
+	/**
+	 * Este metodo es llamado al llegar un "quit"
+	 * o ante un cierre en la conexion
+	 */
+	public void finalizarPartida() {
+		System.out.println("******** fin de partida ********");
+		finDeEspera();
+		if(remoto.hayRemoto()) {
+			
+			if(!finDePartida) {
+				System.out.println("*** enviar ultima ficha ****");
+				obtenerJugadaLocal();
+				remoto.enviarMensajeSalida();
+			}
+			finDePartida = true;
+			remoto.terminarConexion();
+		}
 	}
 
 	/**
@@ -82,8 +110,7 @@ public abstract class EstrategiaRemoto implements Estrategia {
 			piedra = jugadaLocal.toString();
 		return piedra;
 	}
-	
-	
+		
 	/**
 	 * Este metodo es invocado por el resultado del genmove o al llegar un play
 	 * @param posicion posicion en la que hay que jugar
@@ -116,16 +143,4 @@ public abstract class EstrategiaRemoto implements Estrategia {
 			FullMoonGo.getInstancia().crearTablero(TamanioTablero.NUEVE);
 	}
 	
-	/**
-	 * 
-	 */
-	public void finDePartida() {
-		if(remoto.hayRemoto()) {
-			obtenerJugadaLocal();
-			remoto.enviarMensajeSalida();
-			remoto.terminarConexion();	
-		}
-	}
-	
-
 }

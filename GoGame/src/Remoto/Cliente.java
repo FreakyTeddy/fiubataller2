@@ -20,6 +20,7 @@ public class Cliente extends Remoto {
 		return false;
 	}
 
+	@Override
 	public void enviarMensaje(String mensaje) {
 		socket.enviarMensaje(mensaje);
 	}
@@ -29,6 +30,7 @@ public class Cliente extends Remoto {
 		return socket.estaConectado();
 	}
 
+	@Override
 	public void terminar() {
 		socket.dejarDeRecibir();
 	}

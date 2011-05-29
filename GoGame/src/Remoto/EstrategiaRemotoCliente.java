@@ -2,7 +2,6 @@ package Remoto;
 
 import Juego.ColorPiedra;
 import Juego.EstrategiaRemoto;
-import Juego.FinDelJuegoException;
 import Juego.FullMoonGo;
 
 /**
@@ -24,25 +23,15 @@ public class EstrategiaRemotoCliente extends EstrategiaRemoto {
 
 	@Override
 	protected void obtenerJugadaLocal() {
-		if(remoto.hayRemoto()) {
-			remoto.enviarMensajeJugar(colorLocal, FullMoonGo.getInstancia().getTablero().getUltimaJugada().toString());
-		}else{
-			System.out.println("______-no hay conexion ___________");
-			throw new FinDelJuegoException(ColorPiedra.VACIO);
-		}
+		remoto.enviarMensajeJugar(colorLocal, FullMoonGo.getInstancia().getTablero().getUltimaJugada().toString());
 	}
 	
 	@Override
 	protected void obtenerJugadaRemota() {
-		if(remoto.hayRemoto()) {
-			remoto.enviarMensajeGenerarMovimiento(colorRemoto);
-			if(ultimaPiedraRemoto.isEmpty()) {
-				esperar();
-				System.out.println(">Obteniendo jugada de remoto...");	
-			}
-		}else{
-			System.out.println("______-no hay conexion ___________");
-			throw new FinDelJuegoException(ColorPiedra.VACIO);
+		remoto.enviarMensajeGenerarMovimiento(colorRemoto);
+		if(ultimaPiedraRemoto.isEmpty()) {
+			esperar();
+			System.out.println(">Obteniendo jugada de remoto...");	
 		}
 	}
 

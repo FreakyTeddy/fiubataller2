@@ -38,14 +38,15 @@ public abstract class SocketBase extends Thread {
 					remoto.procesarMensajeEntrante(mensajeRecibido);
 				} else if(mensajeRecibido == null) {
 					salir= true;
-					//TODO: Avisar que se desconecto
 					System.out.println("Servidor se desconecto");
+					remoto.getArbitro().finalizarPartida();
 				}
-				} catch (Exception e) {
+			} catch (Exception e) {
 				System.err.println(">> EXCEPTION: recibirMensajes <<");
+				remoto.getArbitro().finalizarPartida();
 				salir= true;
 			}
-		}
+		}		
 	}
 	
 	public void enviarMensaje(String mensajeAEnviar) {
@@ -74,6 +75,6 @@ public abstract class SocketBase extends Thread {
 			System.out.println(">> EXCEPTION: cerrarConexion <<");
 			excepcionES.printStackTrace();
 		}
-		System.out.println(">Conexion cerrada");
+		System.out.println(">Conexion cerrada!!!");
 	}
 }

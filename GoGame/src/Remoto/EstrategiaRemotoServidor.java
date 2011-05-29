@@ -4,6 +4,12 @@ import Juego.ColorPiedra;
 import Juego.EstrategiaRemoto;
 import Juego.FullMoonGo;
 
+/**
+ * El servidor contesta los genmove con la jugada local y 
+ * recibe play con la jugada remota
+ * 
+ */
+
 public class EstrategiaRemotoServidor extends EstrategiaRemoto {
 	
 	public EstrategiaRemotoServidor(ColorPiedra colorRemoto,ColorPiedra colorLocal) {
@@ -16,15 +22,14 @@ public class EstrategiaRemotoServidor extends EstrategiaRemoto {
 	}
 
 	@Override
-	protected void intercambiarJugadas() {
-		
+	protected void obtenerJugadaLocal() {
 		ultimaPiedraLocal.add(FullMoonGo.getInstancia().getTablero().getUltimaJugada());
-		finDeEspera();	//contesto el genmove
-		System.out.println("__notifico__");
-		
-		
-		esperar(); //espero que me llegue un play del cliente. warning! el cliente puede empezar antes que yo :S
-		//ahora es el turno del tipo
+		finDeEspera();	//contesto el genmove	
+	}
+	
+	@Override
+	protected void obtenerJugadaRemota() {
+		esperar();	//espero que me llegue un play del cliente.
 	}
 
 }

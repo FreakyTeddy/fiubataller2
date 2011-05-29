@@ -1,7 +1,7 @@
 package Juego;
 
 @SuppressWarnings("serial")
-public class FinDelJuegoException extends Exception {
+public class FinDelJuegoException extends RuntimeException {
 
 	private ColorPiedra ganador = ColorPiedra.VACIO;
 	

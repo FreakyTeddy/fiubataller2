@@ -5,7 +5,14 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
@@ -30,9 +37,59 @@ public class TableroVista extends JPanel {
 
 	
 	private Tablero tablero;
+
+	private SoundEffect ultimoReproducido;
+	
+	//--------------------ENUM PARA LOS SONIDOS
+	
+	public enum SoundEffect {
+		PIEZA1(PathImages.SonidoPieza1),
+		PIEZA2(PathImages.SonidoPieza2);
+
+		private Clip clip;
+
+		SoundEffect(String soundFileName) {
+			try {
+
+				File soundFile = new File(soundFileName);
+
+				AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+				clip = AudioSystem.getClip();
+				clip.open(audioInputStream);
+				
+			} catch (UnsupportedAudioFileException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (LineUnavailableException e) {
+				
+				e.printStackTrace();
+			}
+		}
+
+
+		public void play() {
+			if (clip.isRunning())
+				clip.stop();
+			clip.setFramePosition(0);
+			clip.start();
+		}
+
+
+		static void init() {
+			values();
+		}
+	}
+	
+	
+	//-------------FIN ENUM--------------------------------------
+	
+	
+	
 	
 	public TableroVista(Tablero tablero) {
 		super();
+		cargarSonidos();
 		this.tablero= tablero;
 		TAMANIO = tablero.getAncho();
 		w = (double)ancho/(double)(TAMANIO-1);
@@ -49,7 +106,17 @@ public class TableroVista extends JPanel {
 		ImageIcon imageicon2 = new ImageIcon(PathImages.Negra);  
 		imagenNegra = imageicon2.getImage();
 	}
-	
+
+	/**
+	 * Carga los sonidos. Hace lo mismo para los dos archivos,
+	 * deberia unificarlo pero primero que me funcione xD.
+	 */
+	private void cargarSonidos() {
+		SoundEffect.init();
+	  //ultimoReproducido = SoundEffect.PIEZA2;
+
+	}
+
 	@Override
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
@@ -102,5 +169,18 @@ public class TableroVista extends JPanel {
 
 	public void actualizar() {
 		repaint(getBounds(null));
+		reproducirSonido();
+	}
+	
+	private void reproducirSonido() {
+		if (ultimoReproducido == SoundEffect.PIEZA2){
+			SoundEffect.PIEZA1.play();
+			ultimoReproducido=SoundEffect.PIEZA1;
+		}
+		else{
+			SoundEffect.PIEZA2.play();
+			ultimoReproducido = SoundEffect.PIEZA2;
+		} 
+
 	}
 }

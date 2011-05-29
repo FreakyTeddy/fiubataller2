@@ -23,6 +23,7 @@ public class Servidor extends Remoto {
 		return false;
 	}
 
+	@Override
 	public void enviarMensaje(String mensaje) {
 		socket.enviarMensaje(mensaje);
 	}

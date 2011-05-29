@@ -55,15 +55,19 @@ public class TableroVista extends JPanel {
 
 				AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
 				clip = AudioSystem.getClip();
+				System.out.println("Se consiguio el clip :" + soundFileName);
 				clip.open(audioInputStream);
-				
+				audioInputStream.close();
+				System.out.println("Se abrio el clip :" + soundFileName);
+
 			} catch (UnsupportedAudioFileException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
 			} catch (LineUnavailableException e) {
-				
+				System.out.println("Archivo problematico :" + soundFileName);		
 				e.printStackTrace();
+
 			}
 		}
 
@@ -112,8 +116,8 @@ public class TableroVista extends JPanel {
 	 * deberia unificarlo pero primero que me funcione xD.
 	 */
 	private void cargarSonidos() {
-		SoundEffect.init();
-	  //ultimoReproducido = SoundEffect.PIEZA2;
+//		SoundEffect.init();
+	    ultimoReproducido = SoundEffect.PIEZA2;
 
 	}
 

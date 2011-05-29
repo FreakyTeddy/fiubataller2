@@ -27,9 +27,7 @@ public class TableroVista extends JPanel {
 	private Image imagenBlanca;
 	private Image imagenNegra;
 
-	private static final String pathImagenTablero = "./images/woodboard.jpg";
-	private static final String pathImagenBlanca = "./images/blanca.png";
-	private static final String pathImagenNegra = "./images/negra.png";
+
 	
 	private Tablero tablero;
 	
@@ -44,11 +42,11 @@ public class TableroVista extends JPanel {
 	
 	private void cargarImagenes() {
 		//TODO:Usar class loader para que funcione cuando se hace el jar.
-		ImageIcon imageicon = new ImageIcon(pathImagenTablero);  
+		ImageIcon imageicon = new ImageIcon(PathImages.Tablero);  
 		imagenTablero = imageicon.getImage();
-		ImageIcon imageicon1 = new ImageIcon(pathImagenBlanca);  
+		ImageIcon imageicon1 = new ImageIcon(PathImages.Blanca);  
 		imagenBlanca = imageicon1.getImage();
-		ImageIcon imageicon2 = new ImageIcon(pathImagenNegra);  
+		ImageIcon imageicon2 = new ImageIcon(PathImages.Negra);  
 		imagenNegra = imageicon2.getImage();
 	}
 	

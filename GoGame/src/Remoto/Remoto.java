@@ -52,7 +52,9 @@ public abstract class Remoto {
 		procesadorRta.procesarRespuestaObtenida(respuestaObtenida);
 	}
 
-	public abstract void terminar();
+	public abstract void terminarHilo();
+	
+	protected abstract void terminar();
 	
 	public void terminarConexion() {
 		terminar();

@@ -1,6 +1,6 @@
 package vista;
 
-public class PathImages {
+class PathImages {
 
 	public static final String Icono= "./images/icono.jpg";
 	public static final String EsperandoOponente= "./images/ajax-loader.gif";

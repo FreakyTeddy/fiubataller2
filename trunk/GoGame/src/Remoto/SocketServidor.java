@@ -37,4 +37,12 @@ public class SocketServidor extends SocketBase {
 	public boolean estaConectado() {
 		return !socketServidor.isClosed();
 	}
+	
+	public void termicarAccept() {
+		try {
+			socketServidor.close();
+		} catch (IOException e) {
+			System.err.println("No se pudo detener el accept");
+		}
+	}
 }

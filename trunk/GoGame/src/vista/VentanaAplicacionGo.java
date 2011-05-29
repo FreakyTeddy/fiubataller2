@@ -19,8 +19,6 @@ public class VentanaAplicacionGo {
 	private MouseAdapter mouseListener;
 	private VentanaEmergente ventanaEmergente;
 	
-	private static final String pathIcono = "./images/icono.jpg";
-	
 	public VentanaAplicacionGo() {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -32,7 +30,7 @@ public class VentanaAplicacionGo {
 		frame.setBounds(100, 100, 500, 535);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
-		frame.setIconImage((new ImageIcon(pathIcono)).getImage());
+		frame.setIconImage((new ImageIcon(PathImages.Icono)).getImage());
 		
 		menuInicio = new MenuInicio(this);
 		frame.getContentPane().add(menuInicio, BorderLayout.CENTER);
@@ -86,16 +84,7 @@ public class VentanaAplicacionGo {
 		return tableroGo;
 	}
 	
-	/*Ventanas Emergentes*/
-	public void mostrarVentanaEsperandoOponente() {
-		ventanaEmergente.mostrarVentanaEsperandoOponente();
-	}
-	
-	public void ocultarVentanaEsperandoOponente() {
-		ventanaEmergente.ocultarVentanaEsperandoOponente();
-	}
-	
-	public void mostrarVentanaErrorAlConectarseAlServidor() {
-		ventanaEmergente.mostrarVentanaErrorAlConectarseAlServidor();
+	public VentanaEmergente getVentanaEmergente() {
+		return ventanaEmergente;
 	}
 }

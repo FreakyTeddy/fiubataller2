@@ -20,8 +20,6 @@ public class MenuInicio extends JPanel {
 
 	private Image imagenTablero;
 	
-	private static final String pathImagenTablero = "./images/go-game2.jpg";
-		
 	private JComboBox comboTamanioTablero;
 	private JComboBox comboBlanco;
 	private JComboBox comboNegro;
@@ -35,7 +33,7 @@ public class MenuInicio extends JPanel {
 	public MenuInicio(VentanaAplicacionGo vistaJuego) {
 		
 		vista = vistaJuego;
-		ImageIcon imageicon = new ImageIcon(pathImagenTablero);  
+		ImageIcon imageicon = new ImageIcon(PathImages.MenuInicio);  
 		imagenTablero = imageicon.getImage();
 		
 		comboBlanco= new JComboBox();

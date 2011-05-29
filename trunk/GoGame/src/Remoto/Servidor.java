@@ -15,12 +15,12 @@ public class Servidor extends Remoto {
 		socket= new SocketServidor(this, puerto);
 		try {
 			socket.esperarCliente();
+			socket.start();
+			return true;
 		} catch (IOException e) {
 			System.err.println(">> EXCEPTION: al conectarse a cliente <<");
-			return false;
 		}
-		socket.start();
-		return true;
+		return false;
 	}
 
 	public void enviarMensaje(String mensaje) {
@@ -35,6 +35,11 @@ public class Servidor extends Remoto {
 	@Override
 	public void terminar() {
 		socket.dejarDeRecibir();
+	}
+	
+	@Override
+	public void terminarHilo() {
+		socket.termicarAccept();
 	}
 
 	/********* Test *********/

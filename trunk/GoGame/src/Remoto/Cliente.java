@@ -12,12 +12,12 @@ public class Cliente extends Remoto {
 		this.socket = new SocketCliente(this);
 		try {
 			this.socket.conectar(ip, puerto);
+			this.socket.start();
+			return true;
 		} catch (Exception e) {
 			System.err.println(">> EXCEPTION: Fallo en la conexion <<");
-			return false;
 		}
-		this.socket.start();
-		return true;
+		return false;
 	}
 
 	public void enviarMensaje(String mensaje) {
@@ -31,6 +31,11 @@ public class Cliente extends Remoto {
 
 	public void terminar() {
 		socket.dejarDeRecibir();
+	}
+	
+	@Override
+	public void terminarHilo() {
+		socket.interrupt();		
 	}
 	
 	/********* Test *********/

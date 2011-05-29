@@ -1,7 +1,11 @@
 package controlador;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
+
+import javax.swing.JButton;
 
 import Juego.ColorPiedra;
 import Juego.Constantes;
@@ -25,19 +29,34 @@ public class ControladorGeneral implements Observer {
 	private ControladorTablero controladorTablero;
 	private LanzadorRemoto lanzadorRemoto;
 	private Remoto conexion;
+	private boolean conexionCancelada;
 	
 	public ControladorGeneral() {
 		conexion = null;
 		fullMoonGo = FullMoonGo.getInstancia();
 		fullMoonGo.addObserver(this);
-	    ventana = new VentanaAplicacionGo();
-	    iniciarControladores();
+	  ventana = new VentanaAplicacionGo();
+	  conexionCancelada= false;
+	  iniciarCallbacks();
+	  iniciarControladores();
+	}
+	
+	private void iniciarCallbacks() {
+		JButton cancelar= ventana.getVentanaEmergente().getBotonCancelarEsperandoOponente();
+		cancelar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ocultarVentanaEsperandoOponente();
+				conexion.terminarHilo();
+				conexionCancelada= true;
+			}
+		});
 	}
 	
 	private void iniciarControladores() {
 		controladorMenuInicio = new ControladorMenuInicio(ventana, this);
 		controladorTablero= new ControladorTablero(ventana);
-		lanzadorRemoto= new LanzadorRemoto(this);
 	}
 
 	public void iniciarJuegoGo() {
@@ -53,26 +72,28 @@ public class ControladorGeneral implements Observer {
 	public void levantarServidor(int puerto){  /* el remoto es negro y yo soy blanco */
 		EstrategiaRemoto remoto = new EstrategiaRemotoServidor(ColorPiedra.NEGRO,ColorPiedra.BLANCO);
 		conexion = remoto.getRemoto();
-			
+		lanzadorRemoto= new LanzadorRemoto(this);	
 		lanzadorRemoto.setDatosConexion(conexion, puerto, Constantes.IP);
 		lanzadorRemoto.start();
-		ventana.mostrarVentanaEsperandoOponente();
+		ventana.getVentanaEmergente().mostrarVentanaEsperandoOponente();
 		try {
 			lanzadorRemoto.join();
 		} catch (InterruptedException e) {
 			System.err.println("Error al terminar el hilo de esperando oponente");
 		}
-		
-		if(lanzadorRemoto.getResultadoConexion()) {
-			fullMoonGo.crearJugador("Cliente Remoto", ColorPiedra.NEGRO, remoto);
-			CreadorEstrategia e = controladorMenuInicio.getEstrategiaJugadorBlanco();
-			fullMoonGo.crearJugador(controladorMenuInicio.getNombreJugadorBlanco(), ColorPiedra.BLANCO, e.crearEstrategia(fullMoonGo.getTablero(), ColorPiedra.BLANCO));
-			iniciarFullMoon();
-			
-		} else {
-			System.out.println("TODO: ACA MOSTRAR MENSAJE DE QUE NO SE PUDO CONECTAR");
-			conexion = null;
+		if(!conexionCancelada) {
+			if(lanzadorRemoto.getResultadoConexion()) {
+				System.out.println("Entro a crear el juego");
+				fullMoonGo.crearJugador("Cliente Remoto", ColorPiedra.NEGRO, remoto);
+				CreadorEstrategia e = controladorMenuInicio.getEstrategiaJugadorBlanco();
+				fullMoonGo.crearJugador(controladorMenuInicio.getNombreJugadorBlanco(), ColorPiedra.BLANCO, e.crearEstrategia(fullMoonGo.getTablero(), ColorPiedra.BLANCO));
+				iniciarFullMoon();
+			} else {
+				ventana.getVentanaEmergente().mostrarVentanaErrorAlLevantarServidor();
+				conexion = null;
+			}
 		}
+		conexionCancelada= false;
 	}
 	
 	public void jugarEnRed(String ip, int puerto) { /* el remoto es blanco y yo soy negro */
@@ -90,7 +111,7 @@ public class ControladorGeneral implements Observer {
 			iniciarFullMoon();
 			
 		} else {
-			ventana.mostrarVentanaErrorAlConectarseAlServidor();
+			ventana.getVentanaEmergente().mostrarVentanaErrorAlConectarseAlServidor();
 			conexion = null;
 		}
 	}
@@ -127,6 +148,6 @@ public class ControladorGeneral implements Observer {
 	}
 	
 	public void ocultarVentanaEsperandoOponente() {
-		ventana.ocultarVentanaEsperandoOponente();
+		ventana.getVentanaEmergente().ocultarVentanaEsperandoOponente();
 	}
 }

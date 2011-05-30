@@ -26,7 +26,7 @@ public class VentanaAplicacionGo {
 			System.out.println("Error al cargar el look and feel");
 		}
 		
-		frame = new JFrame("FullMoonGo");
+		frame = new JFrame("FullMoon Go");
 		frame.setBounds(100, 100, 500, 535);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);

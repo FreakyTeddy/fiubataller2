@@ -74,8 +74,8 @@ public class ControladorMenuInicio {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				
-				controlador.getFullMoon().crearTablero(
-					tamanioTablero.get(menuInicio.getComboTamanioTablero().getSelectedIndex()));
+				controlador.setTamanioTablero(
+					tamanioTablero.get(menuInicio.getComboTamanioTablero().getSelectedIndex()).getTamanio());
 			}
 		});
 	}

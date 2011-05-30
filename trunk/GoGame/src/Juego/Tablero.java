@@ -22,25 +22,27 @@ public class Tablero extends Observable {
 	
 	private Posicion ultimaJugada=null;
 	
-
-	public Tablero() {
-		ancho = 9;
+	private void crearCasilleros() {
 		casilleros = new ColorPiedra[ancho][ancho];
 		cadenas = new ArrayList<Cadena>();
 		for (int i = 0; i < ancho; i++)
 			for (int j = 0; j < ancho; j++)
 				casilleros[i][j] = ColorPiedra.VACIO;
+	}
 
+	public Tablero() {
+		ancho = 9;
+		crearCasilleros();
+	}
+	
+	public Tablero(int tamanio) {
+		ancho = tamanio;
+		crearCasilleros();
 	}
 	
 	public Tablero(TamanioTablero tamanio) {
 		ancho = tamanio.getTamanio();
-		casilleros = new ColorPiedra[ancho][ancho];
-		cadenas = new ArrayList<Cadena>();
-		for (int i = 0; i < ancho; i++)
-			for (int j = 0; j < ancho; j++)
-				casilleros[i][j] = ColorPiedra.VACIO;
-
+		crearCasilleros();
 	}
 
 	public Tablero(Tablero otro){

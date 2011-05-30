@@ -4,14 +4,12 @@ public class Jugador {
 
 	private String nombre;
 	private ColorPiedra color;
-	private Tablero tablero;
 	private Estrategia estrategia;
 	private boolean pasarTurno;
 	
-	public Jugador(String nombre, ColorPiedra color,Tablero tablero, Estrategia estrategia) {
+	public Jugador(String nombre, ColorPiedra color, Estrategia estrategia) {
 		this.nombre = nombre;
 		this.color = color;
-		this.tablero = tablero;
 		this.estrategia = estrategia;
 		this.pasarTurno = false;
 	}
@@ -46,7 +44,7 @@ public class Jugador {
 				if (posicion == null)
 					pasarElTurno();
 				else {
-					tablero.agregarPiedra(posicion, color);
+					FullMoonGo.getInstancia().getTablero().agregarPiedra(posicion, color);
 					jugadaValida = true;
 				}				
 			}catch (JugadaInvalidaException ex){

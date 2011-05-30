@@ -10,8 +10,8 @@ public class EstrategiaComputadoraMiniMax extends EstrategiaComputadora {
 
 	private double infinito = 99999;
 
-	public EstrategiaComputadoraMiniMax(Tablero tablero, ColorPiedra color){
-		super(tablero,color);
+	public EstrategiaComputadoraMiniMax(ColorPiedra color){
+		super(color);
 	}
 
 	ColorPiedra getColorContrario(ColorPiedra color){
@@ -151,10 +151,10 @@ public class EstrategiaComputadoraMiniMax extends EstrategiaComputadora {
 	}
 
  
-	protected Posicion generarJugada(){
-		int profundidad = 3;
+	protected Posicion generarJugada(Tablero tablero){
+		int profundidad = 3; //TODO puede ser variable no??
 		System.out.println("Uso profundidad: " + profundidad);
-		Jugada j = miniMax(getColor(), getTablero(), profundidad);
+		Jugada j = miniMax(getColor(), tablero, profundidad);
 		System.out.println("Puntaje maximo: " + j.posicion.getX() + "," + j.posicion.getY() + " : " + j.puntaje);
 		return j.posicion;
 	}

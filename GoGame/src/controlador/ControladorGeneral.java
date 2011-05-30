@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import Juego.ColorPiedra;
 import Juego.Constantes;
 import Juego.EstadoJuego;
+import Juego.Estrategia;
 import Juego.EstrategiaRemoto;
 import Juego.FullMoonGo;
 
@@ -29,7 +30,6 @@ public class ControladorGeneral implements Observer {
 	private LanzadorRemoto lanzadorRemoto;
 	private EstrategiaRemoto arbitro;
 	private boolean conexionCancelada;
-	private int tamanioTablero;
 	
 	public ControladorGeneral() {
 		arbitro = null;
@@ -37,7 +37,6 @@ public class ControladorGeneral implements Observer {
 		fullMoonGo.addObserver(this);
 		ventana = new VentanaAplicacionGo();
 		conexionCancelada= false;
-		tamanioTablero = 9;
 		iniciarCallbacks();
 		iniciarControladores();
 	}
@@ -60,10 +59,6 @@ public class ControladorGeneral implements Observer {
 		controladorTablero= new ControladorTablero(ventana);
 	}
 	
-	public void setTamanioTablero(int tamanio) {
-		this.tamanioTablero = tamanio;
-	}
-
 	public void iniciarJuegoGo() {
 		ventana.iniciar();
 	}
@@ -74,17 +69,13 @@ public class ControladorGeneral implements Observer {
 		controladorTablero.mostrarTablero(fullMoonGo.getTablero());
 	}
 	
-	private void iniciarJuegoComoServidor() {
+	private void crearJuegoComoServidor() {
 		if(lanzadorRemoto.getResultadoConexion()) {
-			System.out.println("Entro a crear el juego");
 			
-			fullMoonGo.crearTablero(tamanioTablero);
-			
+			Estrategia estrategia = controladorMenuInicio.getEstrategiaJugadorBlanco().crearEstrategia(ColorPiedra.BLANCO);
 			fullMoonGo.crearJugador("Cliente Remoto", ColorPiedra.NEGRO, arbitro);
-			CreadorEstrategia e = controladorMenuInicio.getEstrategiaJugadorBlanco();
-			fullMoonGo.crearJugador(controladorMenuInicio.getNombreJugadorBlanco(), ColorPiedra.BLANCO, e.crearEstrategia(fullMoonGo.getTablero(), ColorPiedra.BLANCO));
+			fullMoonGo.crearJugador(controladorMenuInicio.getNombreJugadorBlanco(), ColorPiedra.BLANCO, estrategia);
 			
-			iniciarFullMoon();
 		} else {
 			ventana.getVentanaEmergente().mostrarVentanaErrorAlLevantarServidor();
 			arbitro = null;
@@ -105,7 +96,7 @@ public class ControladorGeneral implements Observer {
 			System.err.println("Error al terminar el hilo de esperando oponente");
 		}
 		if(!conexionCancelada) 
-			iniciarJuegoComoServidor();
+			crearJuegoComoServidor();
 		
 		conexionCancelada= false;
 	}
@@ -116,14 +107,13 @@ public class ControladorGeneral implements Observer {
 		
 		if(arbitro.iniciarConexion(ip, puerto)) { 
 			
-			fullMoonGo.crearTablero(tamanioTablero);
+			fullMoonGo.crearTablero(controladorMenuInicio.getTamanioTablero());
 			arbitro.enviarTamanioTablero();
 			
+			Estrategia estrategia = controladorMenuInicio.getEstrategiaJugadorNegro().crearEstrategia(ColorPiedra.NEGRO);
+
 			fullMoonGo.crearJugador("Servidor Remoto", ColorPiedra.BLANCO, arbitro);
-			CreadorEstrategia e = controladorMenuInicio.getEstrategiaJugadorNegro();
-			fullMoonGo.crearJugador(controladorMenuInicio.getNombreJugadorNegro(), ColorPiedra.NEGRO, e.crearEstrategia(fullMoonGo.getTablero(), ColorPiedra.NEGRO));
-		
-			iniciarFullMoon();
+			fullMoonGo.crearJugador(controladorMenuInicio.getNombreJugadorNegro(), ColorPiedra.NEGRO, estrategia);
 			
 		} else {
 			ventana.getVentanaEmergente().mostrarVentanaErrorAlConectarseAlServidor();
@@ -132,14 +122,14 @@ public class ControladorGeneral implements Observer {
 	}
 	
 	public void jugarLocal() {
-		fullMoonGo.crearTablero(tamanioTablero);
+		fullMoonGo.crearTablero(controladorMenuInicio.getTamanioTablero());
 		
-		CreadorEstrategia eB= controladorMenuInicio.getEstrategiaJugadorBlanco();
-		fullMoonGo.crearJugador(controladorMenuInicio.getNombreJugadorBlanco(), ColorPiedra.BLANCO, eB.crearEstrategia(fullMoonGo.getTablero(), ColorPiedra.BLANCO));
-		CreadorEstrategia eN= controladorMenuInicio.getEstrategiaJugadorNegro();
-		fullMoonGo.crearJugador(controladorMenuInicio.getNombreJugadorNegro(), ColorPiedra.NEGRO, eN.crearEstrategia(fullMoonGo.getTablero(), ColorPiedra.NEGRO));
-	
-		iniciarFullMoon();
+		Estrategia eB= controladorMenuInicio.getEstrategiaJugadorBlanco().crearEstrategia(ColorPiedra.BLANCO);
+		Estrategia eN= controladorMenuInicio.getEstrategiaJugadorNegro().crearEstrategia(ColorPiedra.NEGRO);
+		
+		fullMoonGo.crearJugador(controladorMenuInicio.getNombreJugadorBlanco(), ColorPiedra.BLANCO, eB);
+		fullMoonGo.crearJugador(controladorMenuInicio.getNombreJugadorNegro(), ColorPiedra.NEGRO, eN);
+
 	}
 	
 	public FullMoonGo getFullMoon() {
@@ -149,8 +139,9 @@ public class ControladorGeneral implements Observer {
 	@Override
 	public void update(Observable o, Object arg) { 
 		
-		if(fullMoonGo.getEstado() == EstadoJuego.NO_INICIADO) {
-			System.out.println("falta configurar algo para iniciar la partida");
+		
+		if(fullMoonGo.getEstado() == EstadoJuego.LISTO_PARA_INICIAR) {
+			iniciarFullMoon();
 		}
 		
 		if(fullMoonGo.getEstado() == EstadoJuego.TERMINADO){

@@ -40,11 +40,6 @@ public class Tablero extends Observable {
 		crearCasilleros();
 	}
 	
-	public Tablero(TamanioTablero tamanio) {
-		ancho = tamanio.getTamanio();
-		crearCasilleros();
-	}
-
 	public Tablero(Tablero otro){
 		ancho = otro.ancho;
 		casilleros = new ColorPiedra[ancho][ancho];

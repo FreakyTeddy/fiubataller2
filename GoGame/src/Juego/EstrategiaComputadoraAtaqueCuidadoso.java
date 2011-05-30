@@ -5,23 +5,23 @@ import java.util.Collections;
 
 public class EstrategiaComputadoraAtaqueCuidadoso extends EstrategiaComputadora{
 
-	EstrategiaComputadoraAtacar atacar;
-	EstrategiaComputadoraDefender defender;
+	private EstrategiaComputadoraAtacar atacar;
+	private EstrategiaComputadoraDefender defender;
 
-	public EstrategiaComputadoraAtaqueCuidadoso(Tablero tablero, ColorPiedra color) {
-		super(tablero, color);
-		atacar = new EstrategiaComputadoraAtacar(tablero, color);
-		defender = new EstrategiaComputadoraDefender(tablero, color);
+	public EstrategiaComputadoraAtaqueCuidadoso(ColorPiedra color) {
+		super(color);
+		atacar = new EstrategiaComputadoraAtacar(color);
+		defender = new EstrategiaComputadoraDefender(color);
 	}
 
-	protected Posicion generarJugada(){
-		ArrayList<Cadena> cadenas = obtenerCadenasPropias(getTablero());
+	protected Posicion generarJugada(Tablero tablero){
+		ArrayList<Cadena> cadenas = obtenerCadenasPropias(tablero);
 
 		Collections.sort(cadenas, new ordenadorCadenasPorMenorGradoDeLibertadYMayorLongitud());
 		
 		if(cadenas.size()>0 && cadenas.get(0).getGradosDeLibertad() <= 2)
-			return defender.generarJugada();
-		return atacar.generarJugada();
+			return defender.generarJugada(tablero);
+		return atacar.generarJugada(tablero);
 	}
 
 }

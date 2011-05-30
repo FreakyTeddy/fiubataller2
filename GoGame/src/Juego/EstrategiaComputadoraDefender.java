@@ -5,8 +5,8 @@ import java.util.Collections;
 
 public class EstrategiaComputadoraDefender extends EstrategiaComputadora{
 	
-	public EstrategiaComputadoraDefender(Tablero tablero, ColorPiedra color) {
-		super(tablero, color);
+	public EstrategiaComputadoraDefender(ColorPiedra color) {
+		super(color);
 	}
 	
 	/**
@@ -15,13 +15,13 @@ public class EstrategiaComputadoraDefender extends EstrategiaComputadora{
 	 * de libertad propias, intentando evitar que sean capturadas.
 	 * @return La posicion donde jugar
 	 */
-	private Posicion estrategiaDefender(){
+	private Posicion estrategiaDefender(Tablero tablero){
 
-		ArrayList<Cadena> cadenas = obtenerCadenasPropias(getTablero());
+		ArrayList<Cadena> cadenas = obtenerCadenasPropias(tablero);
 
 		Collections.sort(cadenas, new ordenadorCadenasPorMenorGradoDeLibertadYMayorLongitud());
 
-		Posicion posicion = estrategiaRandom();
+		Posicion posicion = estrategiaRandom(tablero);
 
 		if(cadenas.size() > 0)
 			posicion = cadenas.get(0).getCasillerosLibresAdyacentes().get(0);
@@ -29,7 +29,7 @@ public class EstrategiaComputadoraDefender extends EstrategiaComputadora{
 		return posicion;
 	}
 
-	protected Posicion generarJugada(){
-		return estrategiaDefender();
+	protected Posicion generarJugada(Tablero tablero){
+		return estrategiaDefender(tablero);
 	}
 }

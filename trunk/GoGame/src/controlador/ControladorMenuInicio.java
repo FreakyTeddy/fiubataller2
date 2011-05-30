@@ -67,25 +67,14 @@ public class ControladorMenuInicio {
 				controlador.jugarLocal();
 			}
 		});
-		
-		//Combo tamanio tablero
-		menuInicio.getComboTamanioTablero().addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				
-				controlador.setTamanioTablero(
-					tamanioTablero.get(menuInicio.getComboTamanioTablero().getSelectedIndex()).getTamanio());
-			}
-		});
-	}
-	
-	public void mostrarMenuInicio() {
-		
 	}
 	
 	public void ocultarMenuInicio() {
 		vistaJuego.getFramePrincipal().getContentPane().remove(menuInicio);
+	}
+	
+	public int getTamanioTablero() {
+		return tamanioTablero.get(menuInicio.getComboTamanioTablero().getSelectedIndex()).getTamanio();
 	}
 	
 	public String getNombreJugadorBlanco() {

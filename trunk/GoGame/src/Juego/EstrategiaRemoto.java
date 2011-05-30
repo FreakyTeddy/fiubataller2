@@ -101,7 +101,6 @@ public abstract class EstrategiaRemoto implements Estrategia {
 		if(ultimaPiedraLocal.size() <= 1){
 			System.out.println("___Esperando Jugada Local___"); 
 			esperar();	//espero que el jugador local juegue. 	
-				
 		}
 			
 		Posicion jugadaLocal = ultimaPiedraLocal.pop();
@@ -138,9 +137,10 @@ public abstract class EstrategiaRemoto implements Estrategia {
 	 * @param tamanio tamanio del tablero
 	 */
 	public void setTamanioTablero(int tamanio) {
-		System.out.println("se recibio un boardsize: " + tamanio);
-		if(FullMoonGo.getInstancia().getEstado() == EstadoJuego.NO_INICIADO)
-			FullMoonGo.getInstancia().crearTablero(TamanioTablero.NUEVE);
+		if(FullMoonGo.getInstancia().getEstado() == EstadoJuego.NO_INICIADO && tamanio>=9 && tamanio <=19) {
+			System.out.println("Boadsize, cambiando tamanio tablero: " + tamanio);
+			FullMoonGo.getInstancia().crearTablero(tamanio);
+		}
 	}
 	
 }

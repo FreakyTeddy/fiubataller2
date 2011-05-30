@@ -75,6 +75,6 @@ public abstract class SocketBase extends Thread {
 			System.out.println(">> EXCEPTION: cerrarConexion <<");
 			excepcionES.printStackTrace();
 		}
-		System.out.println(">Conexion cerrada!!!");
+		System.out.println(">Conexion cerrada");
 	}
 }

@@ -3,7 +3,6 @@ package controlador;
 import vista.VentanaAplicacionGo;
 import Juego.ColorPiedra;
 import Juego.Estrategia;
-import Juego.Tablero;
 
 public class CreadorEstrategiaHumano implements CreadorEstrategia {
 
@@ -14,7 +13,7 @@ public class CreadorEstrategiaHumano implements CreadorEstrategia {
 	}
 	
 	@Override
-	public Estrategia crearEstrategia(Tablero tablero, ColorPiedra color) {
+	public Estrategia crearEstrategia(ColorPiedra color) {
 		return mouseListener;
 	}
 

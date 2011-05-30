@@ -2,18 +2,13 @@ package Juego;
 
 public class EstrategiaRandom extends EstrategiaComputadora {
 
-	public EstrategiaRandom(Tablero tablero, ColorPiedra color) {
-		super(tablero, color);
+	public EstrategiaRandom(ColorPiedra color) {
+		super(color);
 	}
 
 	@Override
-	public Posicion getJugada() {  
-		return estrategiaRandom();
-	}
-
-	@Override
-	protected Posicion generarJugada() {
-		return null;
+	protected Posicion generarJugada(Tablero tablero) {
+		return estrategiaRandom(tablero);
 	}
 
 }

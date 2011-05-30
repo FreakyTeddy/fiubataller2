@@ -8,27 +8,27 @@ public class EstrategiaComputadoraAtaqueCuidadosoMasInteligente extends Estrateg
 	EstrategiaComputadoraAtacar atacar;
 	EstrategiaComputadoraDefender defender;
 
-	public EstrategiaComputadoraAtaqueCuidadosoMasInteligente(Tablero tablero, ColorPiedra color) {
-		super(tablero, color);
-		atacar = new EstrategiaComputadoraAtacar(tablero, color);
-		defender = new EstrategiaComputadoraDefender(tablero, color);
+	public EstrategiaComputadoraAtaqueCuidadosoMasInteligente(ColorPiedra color) {
+		super(color);
+		atacar = new EstrategiaComputadoraAtacar(color);
+		defender = new EstrategiaComputadoraDefender(color);
 	}
 
-	protected Posicion generarJugada(){
-		ArrayList<Cadena> cadenasPropias = obtenerCadenasPropias(getTablero());
-		ArrayList<Cadena> cadenasOponente = obtenerCadenasOponente(getTablero());
+	protected Posicion generarJugada(Tablero tablero){
+		ArrayList<Cadena> cadenasPropias = obtenerCadenasPropias(tablero);
+		ArrayList<Cadena> cadenasOponente = obtenerCadenasOponente(tablero);
 
 		
 		Collections.sort(cadenasOponente, new ordenadorCadenasPorMenorGradoDeLibertadYMayorLongitud());
 		Collections.sort(cadenasPropias, new ordenadorCadenasPorMenorGradoDeLibertadYMayorLongitud());
 
 		if(cadenasOponente.size() > 0 && cadenasOponente.get(0).getGradosDeLibertad() == 1)
-			return atacar.generarJugada();
+			return atacar.generarJugada(tablero);
 
 		if(cadenasPropias.size()>0 && cadenasPropias.get(0).getGradosDeLibertad() <= 2)
-			return defender.generarJugada();
+			return defender.generarJugada(tablero);
 		
-		return atacar.generarJugada();
+		return atacar.generarJugada(tablero);
 	}
 
 }

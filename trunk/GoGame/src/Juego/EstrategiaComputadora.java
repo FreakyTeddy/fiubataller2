@@ -5,21 +5,19 @@ import java.util.Collections;
 
 public abstract class EstrategiaComputadora implements Estrategia {
 
-	private Tablero _tablero;
-	
 	ColorPiedra miColor = ColorPiedra.NEGRO;
 	
-	public EstrategiaComputadora(Tablero tablero, ColorPiedra color){
-		_tablero = tablero;
+	public EstrategiaComputadora(ColorPiedra color){
 		setColor(color);
 	}
 
 	@Override
 	public Posicion getJugada() {
-		Posicion p = generarJugada();
-		if(esJugadaValida(p))
+		Tablero tablero = FullMoonGo.getInstancia().getTablero();
+		Posicion p = generarJugada(tablero);
+		if(esJugadaValida(p, tablero))
 			return p;
-		return this.primeraJugadaValida();
+		return this.primeraJugadaValida(tablero);
 	}
 
 	public void setColor(ColorPiedra color) {
@@ -28,10 +26,6 @@ public abstract class EstrategiaComputadora implements Estrategia {
 
 	public ColorPiedra getColor(){
 		return miColor;
-	}
-
-	Tablero getTablero(){
-		return _tablero;
 	}
 
 	/**
@@ -68,7 +62,6 @@ public abstract class EstrategiaComputadora implements Estrategia {
 	 }
 
 	 ArrayList<Cadena> obtenerCadenasOponente(Tablero tablero){
-
 		 return filtrarCadenas(tablero.obtenerCadenas(),miColor);
 	 }
 
@@ -77,14 +70,14 @@ public abstract class EstrategiaComputadora implements Estrategia {
 		return filtrarCadenas(tablero.obtenerCadenas(),miColor==ColorPiedra.BLANCO?ColorPiedra.NEGRO:ColorPiedra.BLANCO);
 	}
 
-	Posicion estrategiaRandom(){
-		ArrayList<Posicion> libres = _tablero.obtenerCasillerosLibres();
+	Posicion estrategiaRandom(Tablero tablero){
+		ArrayList<Posicion> libres = tablero.obtenerCasillerosLibres();
 		Collections.shuffle(libres);
 		return libres.get(1);
 	}
 
-	boolean esJugadaValida(Posicion posicion){
-		Tablero tableroPrueba = new Tablero(getTablero());
+	boolean esJugadaValida(Posicion posicion, Tablero tablero){
+		Tablero tableroPrueba = new Tablero(tablero);
 		try{
 			tableroPrueba.agregarPiedra(posicion, getColor());
 			return true;
@@ -102,8 +95,8 @@ public abstract class EstrategiaComputadora implements Estrategia {
 	 * Busca en el tablero la primer posición donde es valido poner una ficha.
 	 * @return Una posicion donde es valido jugar. Null si no hay mas posiciones validas.
 	 */
-	Posicion primeraJugadaValida(){
-		Tablero tableroPrueba = new Tablero(getTablero());
+	Posicion primeraJugadaValida(Tablero tablero){
+		Tablero tableroPrueba = new Tablero(tablero);
 		ArrayList<Posicion> posiciones = tableroPrueba.obtenerCasillerosLibres();
 
 		for(Posicion posicion : posiciones) {
@@ -120,5 +113,5 @@ public abstract class EstrategiaComputadora implements Estrategia {
 		return null;
 	}
 
-	protected abstract Posicion generarJugada();
+	protected abstract Posicion generarJugada(Tablero tablero);
 }

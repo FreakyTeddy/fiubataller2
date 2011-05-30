@@ -6,8 +6,8 @@ import java.util.HashSet;
 
 public class EstrategiaComputadoraAtaqueCuidadosoExperimental extends EstrategiaComputadora{
 
-	public EstrategiaComputadoraAtaqueCuidadosoExperimental(Tablero tablero, ColorPiedra color) {
-		super(tablero, color);
+	public EstrategiaComputadoraAtaqueCuidadosoExperimental(ColorPiedra color) {
+		super(color);
 	}
 
 	private class Jugada{
@@ -50,35 +50,35 @@ public class EstrategiaComputadoraAtaqueCuidadosoExperimental extends Estrategia
 	 }
 
 
-	protected Posicion generarJugada(){
+	protected Posicion generarJugada(Tablero tablero){
 
 		//Primero verifico si puedo ganar
-		ArrayList<Cadena> cadenasOponente = obtenerCadenasOponente(getTablero());
+		ArrayList<Cadena> cadenasOponente = obtenerCadenasOponente(tablero);
 		Collections.sort(cadenasOponente, new ordenadorCadenasPorMenorGradoDeLibertadYMayorLongitud());
 
 		//Ganar
 		if(cadenasOponente.size() > 0 && cadenasOponente.get(0).getGradosDeLibertad() == 1)
-			return new EstrategiaComputadoraAtacar(getTablero(),getColor()).generarJugada();
+			return new EstrategiaComputadoraAtacar(getColor()).generarJugada(tablero);
 
 		
 		//Busco todas las adyacencias
 		HashSet<Posicion> todasLasAdyacendias = new HashSet<Posicion>();
 
-		// for(Cadena cadena : obtenerCadenasPropias(getTablero())) 
+		// for(Cadena cadena : obtenerCadenasPropias(tablero)) 
 		// 	for(Posicion adyacente : cadena.getCasillerosLibresAdyacentes()) 
 		// 		todasLasAdyacendias.add(adyacente);
 
-		// for(Cadena cadena : obtenerCadenasOponente(getTablero())) 
+		// for(Cadena cadena : obtenerCadenasOponente(tablero)) 
 		// 	for(Posicion adyacente : cadena.getCasillerosLibresAdyacentes()) 
 		// 		todasLasAdyacendias.add(adyacente);
 
-		todasLasAdyacendias.addAll(getTablero().obtenerCasillerosLibres());
+		todasLasAdyacendias.addAll(tablero.obtenerCasillerosLibres());
 
 		ArrayList<Jugada> candidatas = new ArrayList<Jugada>();
 		for(Posicion adyacencia : todasLasAdyacendias) {
 
-			Tablero copiaTablero = new Tablero(getTablero());
-			Jugada j = calcularPuntajeJugada(copiaTablero, adyacencia);			
+			Tablero copiaTablero = new Tablero(tablero);
+			Jugada j = calcularPuntajeJugada(tablero,copiaTablero, adyacencia);			
 			if(j.valida){
 				candidatas.add(j);
 			}
@@ -91,24 +91,24 @@ public class EstrategiaComputadoraAtaqueCuidadosoExperimental extends Estrategia
 			return candidatas.get(0).posicion;
 		else{
 			System.out.println("No hay mas jugadas posibles");
-			return estrategiaRandom();
+			return estrategiaRandom(tablero);
 		}
 	}
 
-	private Jugada calcularPuntajeJugada(Tablero tablero, Posicion posicion){
+	private Jugada calcularPuntajeJugada(Tablero tableroOriginal, Tablero tableroCopia, Posicion posicion){
 		Jugada jugada = new Jugada();
 		jugada.posicion = posicion;
 		jugada.valida=false;
 		try{
-			tablero.agregarPiedra(posicion, getColor());
+			tableroCopia.agregarPiedra(posicion, getColor());
 
-			ArrayList<Cadena> cadenasPropias = obtenerCadenasPropias(tablero);
+			ArrayList<Cadena> cadenasPropias = obtenerCadenasPropias(tableroCopia);
 
 			jugada.cadenas = cadenasPropias.size();
 
 			//Busco todas las adyacencias
 			HashSet<Posicion> todasLasAdyacendiasPropias = new HashSet<Posicion>();
-			for(Cadena cadena : obtenerCadenasPropias(getTablero())) 
+			for(Cadena cadena : obtenerCadenasPropias(tableroOriginal)) 
 				for(Posicion adyacente : cadena.getCasillerosLibresAdyacentes()) 
 					todasLasAdyacendiasPropias.add(adyacente);
 

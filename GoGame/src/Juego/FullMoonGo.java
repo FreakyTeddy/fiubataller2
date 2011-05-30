@@ -18,6 +18,7 @@ public class FullMoonGo extends Observable implements Runnable {
 	private Jugador jugadorBlanco;
 	private Jugador jugadorNegro;
 	private Jugador jugadorGanador;
+	private Jugador jugadorDeTurno;
 	private Tablero tablero;
 	private static final FullMoonGo instancia = new FullMoonGo();
 	
@@ -29,19 +30,16 @@ public class FullMoonGo extends Observable implements Runnable {
 		return instancia;
 	}
 	
-	public void crearTablero(){
-		tablero = new Tablero();
-	}
+//	public void crearTablero(){
+//		tablero = new Tablero();
+//	}
 	
 	public void crearTablero(TamanioTablero tam) {
 		tablero = new Tablero(tam);
 	}
 	
-	public void run(){
-		if (estadoJuego == LISTO_PARA_INICIAR) 
-			jugar();
-		 else 
-			System.out.println("falta configurar algo"); //TODO
+	public void crearTablero(int tamanio) {
+		tablero = new Tablero(tamanio);
 	}
 	
 	public Tablero getTablero(){
@@ -61,8 +59,9 @@ public class FullMoonGo extends Observable implements Runnable {
 		jugadorBlanco = null;
 		jugadorNegro = null;
 		jugadorGanador = null;
+		jugadorDeTurno = null;
 		tablero = null;
-		crearTablero();
+//		crearTablero();
 	}
 
 	public Jugador crearJugador(String nombre, ColorPiedra color, Estrategia estrategia) {
@@ -76,10 +75,17 @@ public class FullMoonGo extends Observable implements Runnable {
 		if (color == ColorPiedra.VACIO) {
 			nuevoJugador = null;
 		}
-		if((jugadorBlanco != null) && (jugadorNegro != null))
+		if((jugadorBlanco != null) && (jugadorNegro != null) && (tablero != null))
 			estadoJuego = EstadoJuego.LISTO_PARA_INICIAR;	
 		return nuevoJugador;
 	}
+	
+	public void run(){
+		if (estadoJuego == LISTO_PARA_INICIAR) 
+			jugar();
+		 else 
+			notifyObservers();
+	}			
 	
 	public void jugar() {
 		

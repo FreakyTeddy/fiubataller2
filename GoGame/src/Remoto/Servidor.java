@@ -40,7 +40,7 @@ public class Servidor extends Remoto {
 	
 	@Override
 	public void terminarHilo() {
-		socket.termicarAccept();
+		socket.terminarAccept();
 	}
 
 	/********* Test *********/

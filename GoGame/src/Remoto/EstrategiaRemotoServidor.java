@@ -21,13 +21,13 @@ public class EstrategiaRemotoServidor extends EstrategiaRemoto {
 	}
 
 	@Override
-	protected void obtenerJugadaLocal() {
+	protected synchronized void obtenerJugadaLocal() {
 		ultimaPiedraLocal.add(FullMoonGo.getInstancia().getTablero().getUltimaJugada());
 		finDeEspera();	//contesto el genmove	
 	}
 	
 	@Override
-	protected void obtenerJugadaRemota() {
+	protected synchronized void obtenerJugadaRemota() {
 		if(ultimaPiedraRemoto.isEmpty())
 			esperar();	//espero que me llegue un play del cliente.
 	}

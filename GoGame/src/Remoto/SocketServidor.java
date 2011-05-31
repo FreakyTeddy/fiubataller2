@@ -23,6 +23,7 @@ public class SocketServidor extends SocketBase {
 		salir= false;
 		recibirMensajes();
 		cerrarConexion();
+		terminarAccept();
 		System.out.println(">>Servidor detenido");
 	}
 	
@@ -38,7 +39,7 @@ public class SocketServidor extends SocketBase {
 		return !socketServidor.isClosed();
 	}
 	
-	public void termicarAccept() {
+	public void terminarAccept() {
 		try {
 			socketServidor.close();
 		} catch (IOException e) {

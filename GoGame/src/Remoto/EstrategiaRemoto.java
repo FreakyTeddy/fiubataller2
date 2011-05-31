@@ -66,14 +66,16 @@ public abstract class EstrategiaRemoto implements Estrategia {
 	}
 	
 	@Override
-	public Posicion getJugada() { 
+	public synchronized Posicion getJugada() { 
 		if(!remoto.hayRemoto() || finDePartida){
 			throw new FinDelJuegoException(ColorPiedra.VACIO, "No hay conexion");
 		}
 		obtenerJugadaLocal();
 		obtenerJugadaRemota();	
-		if (ultimaPiedraRemoto.isEmpty())
-			throw new FinDelJuegoException(ColorPiedra.VACIO, "No hay conexion");
+//		if (finDePartida) { 
+//			System.out.println("Fin del juegooooooo 22222222222222222");
+//			throw new FinDelJuegoException(ColorPiedra.VACIO, "No hay conexion");
+//		}			
 		return ultimaPiedraRemoto.pop();
 	}
 
@@ -82,18 +84,23 @@ public abstract class EstrategiaRemoto implements Estrategia {
 	 * o ante un cierre en la conexion
 	 */
 	public void finalizarPartida() {
-		System.out.println("******** fin de partida ********");
-		finDeEspera();
-		if(remoto.hayRemoto()) {
-			
-			if(!finDePartida) {
-				System.out.println("*** enviar ultima ficha ****");
-				obtenerJugadaLocal();
-				remoto.enviarMensajeSalida();
-			}
+		System.out.println("******** fin de partida ********");		
+		finDeEspera();	//desbloqueo si algun hilo quedo colgado
+		if(!finDePartida && remoto.hayRemoto()) {
+			System.out.println("*** enviar ultima ficha ****");
+			obtenerJugadaLocal(); 
+//				System.out.println("*** enviar quit ****");
+//				remoto.enviarMensajeSalida();//envia el quit antes que el rdo del genmove porque este tiene el lock
 		}
+		
+		remoto.terminarConexion(); //a veces se cierra la conexion antes de que se envie todo
 		finDePartida = true;
-		remoto.terminarConexion();
+	}
+	
+	public synchronized void setFinDePartida() {
+		System.out.println("____set fin de partida ___");
+		finDePartida = true;
+		finalizarPartida();
 	}
 
 	/**
@@ -102,12 +109,12 @@ public abstract class EstrategiaRemoto implements Estrategia {
 	 */
 	public synchronized String getPosicionLocal() {
 		
-		if(ultimaPiedraLocal.size() <= 1){
+		while(ultimaPiedraLocal.size() <= 1){
 			System.out.println("___Esperando Jugada Local___"); 
 			esperar();	//espero que el jugador local juegue. 	
 		}
-			
 		Posicion jugadaLocal = ultimaPiedraLocal.pop();
+		System.out.println("___obtuve jugada local___");
 		String piedra = ConstantesGtp.PASAR_TURNO;
 		if (jugadaLocal != null)
 			piedra = jugadaLocal.toString();
@@ -119,7 +126,7 @@ public abstract class EstrategiaRemoto implements Estrategia {
 	 * @param posicion posicion en la que hay que jugar
 	 * @param colorDelRemoto color de la piedra que se esta jugando
 	 */
-	public boolean setPosicionObtenida(Posicion posicion, String colorDelRemoto){
+	public synchronized boolean setPosicionObtenida(Posicion posicion, String colorDelRemoto){
 		if(colorDelRemoto.equalsIgnoreCase(this.colorRemoto)) {
 			return setPosicionObtenida(posicion);
 		}
@@ -140,9 +147,8 @@ public abstract class EstrategiaRemoto implements Estrategia {
 	 * Este metodo es llamado al llegar un "boardsize"
 	 * @param tamanio tamanio del tablero
 	 */
-	public void setTamanioTablero(int tamanio) {
-		if(FullMoonGo.getInstancia().getEstado() == EstadoJuego.NO_INICIADO && tamanio>=9 && tamanio <=19) {
-			System.out.println("Boadsize, cambiando tamanio tablero: " + tamanio);
+	public synchronized  void setTamanioTablero(int tamanio) {
+		if(FullMoonGo.getInstancia().getEstado() != EstadoJuego.INICIADO && tamanio>=9 && tamanio <=19) {
 			FullMoonGo.getInstancia().crearTablero(tamanio);
 		}
 	}

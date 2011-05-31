@@ -39,11 +39,11 @@ public abstract class SocketBase extends Thread {
 				} else if(mensajeRecibido == null) {
 					salir= true;
 					System.out.println("Servidor se desconecto");
-					remoto.getArbitro().finalizarPartida();
+					remoto.getArbitro().setFinDePartida();
 				}
 			} catch (Exception e) {
 				System.err.println(">> EXCEPTION: recibirMensajes <<");
-				remoto.getArbitro().finalizarPartida();
+				remoto.getArbitro().setFinDePartida();
 				salir= true;
 			}
 		}		

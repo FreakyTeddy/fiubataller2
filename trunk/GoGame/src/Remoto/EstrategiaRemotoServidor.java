@@ -1,7 +1,6 @@
 package Remoto;
 
 import Juego.ColorPiedra;
-import Juego.EstrategiaRemoto;
 import Juego.FullMoonGo;
 
 /**
@@ -29,7 +28,8 @@ public class EstrategiaRemotoServidor extends EstrategiaRemoto {
 	
 	@Override
 	protected void obtenerJugadaRemota() {
-		esperar();	//espero que me llegue un play del cliente.
+		if(ultimaPiedraRemoto.isEmpty())
+			esperar();	//espero que me llegue un play del cliente.
 	}
 
 }

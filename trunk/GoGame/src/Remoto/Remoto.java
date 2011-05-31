@@ -2,7 +2,6 @@ package Remoto;
 
 import java.util.ArrayList;
 
-import Juego.EstrategiaRemoto;
 import Remoto.GTP.ConstantesGtp;
 import Remoto.GTP.Gtp;
 import Remoto.GTP.ProcesadorMsjsEntrantes;

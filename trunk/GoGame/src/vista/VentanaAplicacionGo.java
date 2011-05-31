@@ -71,8 +71,8 @@ public class VentanaAplicacionGo {
 			    "FullMoonGo", JOptionPane.PLAIN_MESSAGE);
 	}
 	
-	public void mostrarEmpate() { //TODO se puede enchular =P
-		JOptionPane.showMessageDialog(frame,"Empate",
+	public void mostrarEmpate(String msj) { //TODO se puede enchular =P
+		JOptionPane.showMessageDialog(frame,"Empate - " + msj,
 			    "FullMoonGo", JOptionPane.PLAIN_MESSAGE);
 	}
 	

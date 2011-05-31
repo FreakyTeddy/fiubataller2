@@ -21,16 +21,17 @@ public class EstrategiaRemotoCliente extends EstrategiaRemoto {
 	}
 
 	@Override
-	protected void obtenerJugadaLocal() {
+	protected synchronized void obtenerJugadaLocal() {
 		remoto.enviarMensajeJugar(colorLocal, FullMoonGo.getInstancia().getTablero().getUltimaJugada().toString());
 	}
 	
 	@Override
-	protected void obtenerJugadaRemota() {
+	protected synchronized void obtenerJugadaRemota() {
 		remoto.enviarMensajeGenerarMovimiento(colorRemoto);
 		if(ultimaPiedraRemoto.isEmpty()) {
+			System.out.println(">Obteniendo jugada del servidor...");	
 			esperar();
-			System.out.println(">Obteniendo jugada de remoto...");	
+			System.out.println(">Jugada del servidor obtenida");	
 		}
 	}
 

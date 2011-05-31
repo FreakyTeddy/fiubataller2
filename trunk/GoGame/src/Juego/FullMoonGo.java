@@ -18,7 +18,6 @@ public class FullMoonGo extends Observable implements Runnable {
 	private Jugador jugadorBlanco;
 	private Jugador jugadorNegro;
 	private Jugador jugadorGanador;
-	private Jugador jugadorDeTurno;
 	private Tablero tablero;
 	private static final FullMoonGo instancia = new FullMoonGo();
 	
@@ -60,7 +59,6 @@ public class FullMoonGo extends Observable implements Runnable {
 		jugadorBlanco = null;
 		jugadorNegro = null;
 		jugadorGanador = null;
-		jugadorDeTurno = null;
 		tablero = null;
 	}
 

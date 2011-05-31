@@ -99,20 +99,21 @@ public class Tablero extends Observable {
 
 	public void agregarPiedra(Posicion posicion, ColorPiedra color)
 		throws JugadaInvalidaException,FinDelJuegoException {
-		ultimaJugada = posicion;
+
 		agregarPiedra(posicion.getX(), posicion.getY(), color);
+		ultimaJugada = posicion;
+		if(finDelJuego)
+			throw new FinDelJuegoException(color);
 	}
 
 	private void agregarPiedra(int x, int y, ColorPiedra color)
-		throws JugadaInvalidaException,FinDelJuegoException {
+		throws JugadaInvalidaException {
 		intentarAgregarPiedra(x, y, color);
 
 		// Lo agrego para la vista.
 		setChanged();
 		notifyObservers();
-		if(finDelJuego)
-			throw new FinDelJuegoException(color);
-		
+
 	}
 
 	public ArrayList<Cadena> buscarCadenasAdyacentes(ArrayList<Cadena> cadenas, Posicion posicion,
@@ -138,7 +139,7 @@ public class Tablero extends Observable {
 	 *            El color de la piedra
 	 */
 	void intentarAgregarPiedra(int x, int y, ColorPiedra color)
-		throws JugadaInvalidaException,FinDelJuegoException {
+		throws JugadaInvalidaException {
 
 		Posicion posicion = new Posicion(x, y);
 		Cadena nuevaCadena = new Cadena(posicion, color, this);
@@ -189,7 +190,7 @@ public class Tablero extends Observable {
 	 *            El color del movimiento.
 	 */
 	void aplicarReglas(Posicion posicionJugada, ArrayList<Cadena> cadenas,
-			   ColorPiedra color) throws JugadaInvalidaException,FinDelJuegoException {
+			   ColorPiedra color) throws JugadaInvalidaException {
 		
 		ArrayList<Cadena> cadenasEliminadas = new ArrayList<Cadena>();
 

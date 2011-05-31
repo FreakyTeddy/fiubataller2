@@ -155,7 +155,7 @@ public class ControladorGeneral implements Observer {
 			if(fullMoonGo.getGanador() != null)
 				ventana.mostrarGanador(fullMoonGo.getGanador().getNombre(), fullMoonGo.getGanador().getColor());
 			else
-				ventana.mostrarEmpate();
+				ventana.mostrarEmpate("");
 			
 			fullMoonGo.reiniciarEstado();
 			ventana.mostrarMenu();

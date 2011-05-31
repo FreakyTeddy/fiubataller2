@@ -11,6 +11,7 @@ public class SocketCliente extends SocketBase {
 	}
 
 	public void run() {
+		salir=false;
 		recibirMensajes();
 		cerrarConexion();
 	}
@@ -21,7 +22,6 @@ public class SocketCliente extends SocketBase {
 		conectarAServidor(ip, puerto);
 		System.out.println(">Conexion establecida");
 		empezarBuffers();
-		System.out.println(">Buffers");
 	}
 
 	private void conectarAServidor(String ip, int puerto) throws IOException {

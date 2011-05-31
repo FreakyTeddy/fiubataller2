@@ -11,10 +11,10 @@ import Juego.ColorPiedra;
 import Juego.Constantes;
 import Juego.EstadoJuego;
 import Juego.Estrategia;
-import Juego.EstrategiaRemoto;
 import Juego.FullMoonGo;
 
 
+import Remoto.EstrategiaRemoto;
 import Remoto.EstrategiaRemotoCliente;
 import Remoto.EstrategiaRemotoServidor;
 
@@ -146,10 +146,11 @@ public class ControladorGeneral implements Observer {
 		
 		if(fullMoonGo.getEstado() == EstadoJuego.TERMINADO){
 			
-			if(arbitro != null) {
+			if(arbitro != null) 
 				arbitro.finalizarPartida();
-				arbitro = null;	
-			}
+			
+			arbitro = null;	
+			lanzadorRemoto = null;
 			
 			if(fullMoonGo.getGanador() != null)
 				ventana.mostrarGanador(fullMoonGo.getGanador().getNombre(), fullMoonGo.getGanador().getColor());

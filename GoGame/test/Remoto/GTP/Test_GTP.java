@@ -1,4 +1,4 @@
-package tests;
+package Remoto.GTP;
 
 import static org.junit.Assert.*;
 
@@ -9,9 +9,6 @@ import org.junit.Test;
 import Remoto.EstrategiaRemotoCliente;
 import Remoto.EstrategiaRemotoServidor;
 import Remoto.Remoto;
-import Remoto.GTP.ConstantesGtp;
-import Remoto.GTP.Gtp;
-import Remoto.GTP.ProcesadorMsjsEntrantes;
 
 public class Test_GTP {
 	

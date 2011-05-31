@@ -18,7 +18,7 @@ public class Servidor extends Remoto {
 			socket.start();
 			return true;
 		} catch (IOException e) {
-			System.err.println(">> EXCEPTION: al conectarse a cliente <<");
+			System.err.println(">> EXCEPTION: al conectarse a cliente << " + e.getMessage());
 		}
 		return false;
 	}

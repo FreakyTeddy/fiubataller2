@@ -1,7 +1,6 @@
 package Remoto;
 
 import Juego.ColorPiedra;
-import Juego.EstrategiaRemoto;
 import Juego.FullMoonGo;
 
 /**

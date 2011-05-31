@@ -1,8 +1,13 @@
-package Juego;
+package Remoto;
 
 import java.util.Stack;
 
-import Remoto.Remoto;
+import Juego.ColorPiedra;
+import Juego.EstadoJuego;
+import Juego.Estrategia;
+import Juego.FinDelJuegoException;
+import Juego.FullMoonGo;
+import Juego.Posicion;
 import Remoto.GTP.ConstantesGtp;
 
 
@@ -63,7 +68,6 @@ public abstract class EstrategiaRemoto implements Estrategia {
 	@Override
 	public Posicion getJugada() { 
 		if(!remoto.hayRemoto() || finDePartida){
-			System.out.println("______-no hay conexion ___________");
 			throw new FinDelJuegoException(ColorPiedra.VACIO, "No hay conexion");
 		}
 		obtenerJugadaLocal();
@@ -87,9 +91,9 @@ public abstract class EstrategiaRemoto implements Estrategia {
 				obtenerJugadaLocal();
 				remoto.enviarMensajeSalida();
 			}
-			finDePartida = true;
-			remoto.terminarConexion();
 		}
+		finDePartida = true;
+		remoto.terminarConexion();
 	}
 
 	/**

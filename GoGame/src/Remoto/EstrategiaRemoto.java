@@ -61,7 +61,9 @@ public abstract class EstrategiaRemoto implements Estrategia, Arbitro {
 			throw new FinDelJuegoException(ColorPiedra.VACIO, "No hay conexion");
 		}
 		obtenerJugadaLocal();
-		obtenerJugadaRemota();	
+		obtenerJugadaRemota();
+		if (ultimaPiedraRemoto.isEmpty())
+			throw new FinDelJuegoException(ColorPiedra.VACIO, "No hay conexion!!!");
 		return ultimaPiedraRemoto.pop();
 	}
 

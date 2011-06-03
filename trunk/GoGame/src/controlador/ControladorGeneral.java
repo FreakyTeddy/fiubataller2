@@ -17,6 +17,7 @@ import Juego.FullMoonGo;
 import Remoto.EstrategiaRemoto;
 import Remoto.EstrategiaRemotoCliente;
 import Remoto.EstrategiaRemotoServidor;
+import Remoto.Arbitro;
 
 
 import vista.VentanaAplicacionGo;
@@ -28,7 +29,7 @@ public class ControladorGeneral implements Observer {
 	private ControladorMenuInicio controladorMenuInicio;
 	private ControladorTablero controladorTablero;
 	private LanzadorRemoto lanzadorRemoto;
-	private EstrategiaRemoto arbitro;
+	private Arbitro arbitro;
 	private boolean conexionCancelada;
 	
 	public ControladorGeneral() {
@@ -73,7 +74,7 @@ public class ControladorGeneral implements Observer {
 		if(lanzadorRemoto.getResultadoConexion()) {
 			
 			Estrategia estrategia = controladorMenuInicio.getEstrategiaJugadorBlanco().crearEstrategia(ColorPiedra.BLANCO);
-			fullMoonGo.crearJugador("Cliente Remoto", ColorPiedra.NEGRO, arbitro);
+			fullMoonGo.crearJugador("Cliente Remoto", ColorPiedra.NEGRO, arbitro.getEstrategia());
 			fullMoonGo.crearJugador(controladorMenuInicio.getNombreJugadorBlanco(), ColorPiedra.BLANCO, estrategia);
 			
 		} else {
@@ -86,7 +87,7 @@ public class ControladorGeneral implements Observer {
 		
 		arbitro = new EstrategiaRemotoServidor(ColorPiedra.NEGRO,ColorPiedra.BLANCO);
 		lanzadorRemoto= new LanzadorRemoto(this);	
-		lanzadorRemoto.setDatosConexion(arbitro.getRemoto(), puerto, Constantes.IP);
+		lanzadorRemoto.setDatosConexion(arbitro, puerto, Constantes.IP);
 		lanzadorRemoto.start();
 		ventana.getVentanaEmergente().mostrarVentanaEsperandoOponente();
 		
@@ -112,7 +113,7 @@ public class ControladorGeneral implements Observer {
 			
 			Estrategia estrategia = controladorMenuInicio.getEstrategiaJugadorNegro().crearEstrategia(ColorPiedra.NEGRO);
 
-			fullMoonGo.crearJugador("Servidor Remoto", ColorPiedra.BLANCO, arbitro);
+			fullMoonGo.crearJugador("Servidor Remoto", ColorPiedra.BLANCO, arbitro.getEstrategia());
 			fullMoonGo.crearJugador(controladorMenuInicio.getNombreJugadorNegro(), ColorPiedra.NEGRO, estrategia);
 			
 		} else {

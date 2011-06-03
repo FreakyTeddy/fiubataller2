@@ -9,13 +9,13 @@ import Remoto.GTP.ProcesadorRespuestaObtenida;
 
 public abstract class Remoto {
 
-	private EstrategiaRemoto estrategiaRemoto;
+	private Arbitro estrategiaRemoto;
 	private ProcesadorMsjsEntrantes procesador;
 	private ProcesadorRespuestaObtenida procesadorRta;
 	private Gtp gtp; 
 	private ArrayList<String> tipoUltimoMensaje;
 	
-	public Remoto(EstrategiaRemoto estrategia) {
+	public Remoto(Arbitro estrategia) {
 		estrategiaRemoto= estrategia;
 		procesador= new ProcesadorMsjsEntrantes(this);
 		procesadorRta= new ProcesadorRespuestaObtenida(this);
@@ -29,7 +29,7 @@ public abstract class Remoto {
 	
 	protected abstract void enviarMensaje(String mensaje);
 	
-	public EstrategiaRemoto getArbitro() {
+	public Arbitro getArbitro() {
 		return estrategiaRemoto;
 	}
 	

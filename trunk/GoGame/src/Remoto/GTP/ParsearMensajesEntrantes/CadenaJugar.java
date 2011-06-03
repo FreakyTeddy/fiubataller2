@@ -22,7 +22,6 @@ public class CadenaJugar extends CadenaGtp {
 		if(!verificarTipoMensaje(ConstantesGtp.PLAY, mensaje))
 			return cadenaSgte.enviarSgteCadena(mensaje);	
 		else {
-			System.out.println("Cadena Jugar : " + mensaje[3] + mensaje[2]);
 			
 			boolean resultado= informarAlArbitro(mensaje[3], mensaje[2]);
 

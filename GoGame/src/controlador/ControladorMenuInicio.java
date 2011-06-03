@@ -19,7 +19,7 @@ public class ControladorMenuInicio {
 	private VentanaAplicacionGo vistaJuego;
 	
 	private String tamanios[] = {"9x9", "13x13", "19x19"};
-	private String estrategias[] = {"Humano", "Minimax", "Muy Facil", "Facil", "Medio"};
+	private String estrategias[] = {"Humano", "Minimax", "Minimax reducido","Muy Facil", "Facil", "Medio"};
 	private ArrayList<CreadorEstrategia> creadores;
 	private ArrayList<TamanioTablero> tamanioTablero;
 	
@@ -45,6 +45,7 @@ public class ControladorMenuInicio {
 		creadores = new ArrayList<CreadorEstrategia>();
 		creadores.add(new CreadorEstrategiaHumano(vistaJuego));
 		creadores.add(new CreadorEstrategiaMinMax());
+		creadores.add(new CreadorEstrategiaMinMaxReducido());
 		creadores.add(new CreadorEstrategiaMuyFacil());
 		creadores.add(new CreadorEstrategiaFacil());
 		creadores.add(new CreadorEstrategiaMedio());

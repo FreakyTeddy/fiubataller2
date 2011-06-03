@@ -57,6 +57,18 @@ public class Posicion {
 		return posiciones;
 	}
 
+	public boolean equals(Object obj){
+		if (obj == null)
+			return false;
+		if (obj == this)
+			return true;
+		if (obj.getClass() != getClass())
+			return false;
+
+		Posicion otra = (Posicion) obj;
+		return getX() == otra.getX() && getY() == otra.getY();
+	}
+
 	/**
 	 * 
 	 * @param i posicion horizontal

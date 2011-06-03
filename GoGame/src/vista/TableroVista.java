@@ -141,10 +141,10 @@ public class TableroVista extends JPanel {
 				ColorPiedra color = tablero.getCasillero(new Posicion(i,j));
 
 				if (color == ColorPiedra.BLANCO)
-					g.drawImage(imagenBlanca,(int)(margen-w/2+w*i),(int)(margen-h/2+h*j), (int)(w*0.8), (int)(h*0.8), this);
+					g.drawImage(imagenBlanca,(int)(margen-w/2+w*i),(int)(margen-h/2+h*j), (int)w, (int)h, this);
 
 				if (color == ColorPiedra.NEGRO)
-					g.drawImage(imagenNegra,(int)(margen-w/2+w*i),(int)(margen-h/2+h*j), (int)(w*0.8), (int)(h*0.8), this);
+					g.drawImage(imagenNegra,(int)(margen-w/2+w*i),(int)(margen-h/2+h*j), (int)w, (int)h, this);
 			}
 		}
 	}
@@ -167,7 +167,6 @@ public class TableroVista extends JPanel {
 	 */
 	static public Posicion transformarPosicionFicha(int x, int y) {
 		Posicion p = new Posicion((int)((x-margen+w/2)/w),(int)((y-margen+h/2)/h));
-		//(int)((x-w/2)/w), (int)((y-h/2)/h));
 		return p;
 	}
 

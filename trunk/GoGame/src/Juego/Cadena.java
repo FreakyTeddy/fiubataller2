@@ -179,7 +179,7 @@ public class Cadena {
 			ArrayList<Posicion> adyacentes = p.obtenerPosicionesAdyacentes();
 
 			for (Posicion adyacente : adyacentes)
-				if (!tablero.estaOcupado(adyacente))
+				if (!tablero.estaOcupado(adyacente) && tablero.getCasillero(adyacente) != ColorPiedra.INVALIDO)
 					casilleros.add(adyacente);
 
 		}

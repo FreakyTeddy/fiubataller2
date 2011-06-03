@@ -14,7 +14,6 @@ import Juego.Estrategia;
 import Juego.FullMoonGo;
 
 
-import Remoto.EstrategiaRemoto;
 import Remoto.EstrategiaRemotoCliente;
 import Remoto.EstrategiaRemotoServidor;
 import Remoto.Arbitro;

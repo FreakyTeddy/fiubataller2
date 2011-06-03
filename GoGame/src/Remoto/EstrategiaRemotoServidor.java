@@ -32,4 +32,10 @@ public class EstrategiaRemotoServidor extends EstrategiaRemoto {
 			esperar();	//espero que me llegue un play del cliente.
 	}
 
+	@Override
+	protected void enviarUltimaJugada() {
+		System.out.println("*** enviar ultima ficha ****");
+		obtenerJugadaLocal(); 		
+	}
+
 }

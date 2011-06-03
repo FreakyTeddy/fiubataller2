@@ -1,11 +1,11 @@
 package controlador;
 
-import Remoto.Remoto;
+import Remoto.Arbitro;
 
 public class LanzadorRemoto extends Thread {
 
 	private ControladorGeneral controlador;
-	private Remoto remoto;
+	private Arbitro arbitro;
 	private int puerto;
 	private String ip;
 	private boolean resultadoConexion;
@@ -15,14 +15,14 @@ public class LanzadorRemoto extends Thread {
 		resultadoConexion= false;
 	}
 	
-	public void setDatosConexion(Remoto remoto, int puerto, String ip) {
-		this.remoto= remoto;
+	public void setDatosConexion(Arbitro remoto, int puerto, String ip) {
+		this.arbitro= remoto;
 		this.puerto= puerto;
 		this.ip= ip;
 	}
 	
 	public void run() {
-		resultadoConexion= remoto.iniciar(ip, puerto);
+		resultadoConexion= arbitro.iniciarConexion(ip, puerto);
 		controlador.ocultarVentanaEsperandoOponente();
 	}
 	

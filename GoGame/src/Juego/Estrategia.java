@@ -6,7 +6,6 @@ package Juego;
  * 
  * Las estrategias pueden ser, por ej: Remoto, Computadora, Humano.
  * 
- * @author luuu
  *
  */
 

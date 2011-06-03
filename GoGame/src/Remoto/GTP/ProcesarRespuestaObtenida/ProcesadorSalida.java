@@ -14,7 +14,7 @@ public class ProcesadorSalida extends ProcesadorBase {
 		if(!(remoto.getTipoUltimoMensaje().equals(ConstantesGtp.QUIT)))
 			procesadorSgte.enviarSgteCadena(mensaje);
 		else {
-			remoto.getArbitro().finalizarPartida();
+			remoto.getArbitro().setFinDePartida();
 		}
 	}
 }

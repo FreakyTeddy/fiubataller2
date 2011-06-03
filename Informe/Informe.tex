@@ -47,7 +47,7 @@
   El sistema debe permitir a dos jugadores humanos en la misma
   computadora jugar entre si. También debe permitir como posibles
   participantes del juego a alguna aplicación externa (como ser
-  \textbf{gnugo}). Adicionalmente se deben incluír estrategias de juego para
+  \textbf{gnugo}). Adicionalmente se deben incluir estrategias de juego para
   que una sola persona pueda desarrollar una partida contra el
   sistema.
 
@@ -58,12 +58,85 @@
 \section{Detalles de implementación}
 \label{sec-4}
 
+Estructura general de la soluci\'on:
+
+\begin{center}
+ \includegraphics[scale=0.55]{./Diagramas/DiagramaClases/diagrama_de_clases.png}
+\end{center}
+
+La clase FullMoonGo posee la l\'ogica de control del juego, seleccionando al jugador correspondiente seg\'un el turno y
+detectando el fin de la partida. El tablero es quien verifica la validez de una jugada, encapsulando toda la l\'ogica de cadenas y grados de libertad de una piedra.
+Los jugadores ubica una piedra en el tablero, eligiendo su jugada en base a su estrategia asociada, la cual puede ser:
+\begin{itemize}
+ \item EstrategiaHumano\\
+      Representa la jugada realizada por un humano mediante acciones con el mouse sobre la vista.
+ \item EstrategiaRemota\\
+      Obtiene la jugada realizada por un jugador conectado en red.
+ \item	EstrategiaComputadora \\
+      Aplica un algoritmo para decidir en qu\'e posici\'on del tablero jugar.
+\end{itemize}
+
+Por otro lado, el controlador interact\'ua con la vista, indic\'andole al modelo qu\'e estrategia asignar a cada jugador y
+cu\'ando iniciar la partida. En cuanto a una partida remota, el controlador le indica al \'arbitro de la partida (quien maneja la interacci\'on 
+con el usuario remoto) cuando crear una conexi\'on, ya sea como cliente o como servidor.
+
 \subsection{Vista}
 \label{sec-4.1}
+
+La vista est\'a separada en men\'u de inicio y en la vista del tablero.
+En el men\'u se permite elegir la estrategia de cada jugador y se da la opci\'on de crear una partida como servidor o unirse a una partida remota como cliente.
+En cuanto a la vista del tablero, \'esta muestra el estado actual del tablero. \\
+La vista no posee l\'ogica alguna, sino que detr\'as de cada una hay un controlador que toma la informaci\'on y la utiliza seg\'un corresponda. 
+De la misma forma, es el controlador quien espera cambios en el modelo para luego indicarle a la vista que debe actualizarse.
+
 
 \subsection{Protocolo de comunicaciones}
 \label{sec-4.2}
   \input{./protocolo_comunicacion.tex}
+\subsubsection{EstrategiaRemoto}
+\label{sec-4.2.1}
+
+  Para comunicar dos jugadores en red mediante el protocolo, se tiene una clase ``EstrategiaRemota'' la cual
+abstrae al motor del juego del intercambio de mensajes entre jugadores. \\
+Para notificar y pedir jugadas mediante el protocolo, 
+se cuenta con una implementaci\'on que es compatible con el protocolo GTP para el GnuGo, el cual es un 
+servidor pasivo que simplemente responde a los comandos enviados por GTP. Por esta raz\'on, implementamos
+separadamente la estrategia remota para el servidor y para el cliente, para poder adaptarlos a los mensajes
+que deben enviar y los que esperan recibir. \\ 
+La convenci\'on de mensajes utilizada es la siguiente: 
+\begin{itemize}
+ \item EstrategiaRemotaCliente \\
+      Se conecta con un servidor y determina el tama\~no del tablero mediante un mensaje \textit{``boardsize''.}\\
+      En el turno del jugador remoto, se env\'ia la jugada realizada localmente mediante el mensaje \textit{``play''}, 
+      luego se solicita la jugada al servidor remoto mediante un mensaje\textit{ ``genmove''} y se aguarda hasta recibir una respuesta. 
+      Cuando esta respuesta llega, el jugador remoto puede poner la piedra recibida en el tablero. 
+ \item EstrategiaRemotaServidor\\
+      Crea un servidor remoto que espera la conexi\'on de un cliente. El primer mensaje debe ser un \textit{boardize} para determinar el tablero del juego.
+      Dado que el servidor es pasivo, cuando es el turno del jugador remoto la estrategia espera la llegada de un mensaje \textit{``genmove'',} 
+      el cual contesta con la \'ultima jugada local realizada. Luego, el servidor queda a la espera de la llegada de un mensaje 
+     \textit{ ``play''} el cual indica la jugada remota a realizar.
+  \item Fin Del Juego\\
+      Al finalizar el juego (alguno de los dos jugadores gana), es el cliente quien env\'ia el mensaje de \textit{``quit''} para finalizar
+      la comunicaci\'on mediante GTP.
+  \item Desconexi\'on\\
+      Ante una desconexi\'on repentina de alguno de los dos extremos, la partida finaliza mostrando un mensaje de empate.
+\end{itemize}
+
+A continuaci\'on se incluye un diagrama de secuencia describiendo la interacci\'on mencionada.
+
+\begin{center}
+ \includegraphics[scale=0.9]{./Diagramas/DiagramaRemoto/secuencia_estrategiaRemoto.png}
+\end{center}
+
+La estrategia remota realiza el intercambio de mensajes utilizando la implementaci\'on de la clase ``Remoto'' que corresponda (cliente o servidor).
+Adem\'as, funciona como \'arbitro de la partida mediante GTP, coordinando los mensajes administrativos
+como son el mensaje de salida (\textit{quit}) y el mensaje indicando el tablero (\textit{boardisze}).
+
+\begin{center}
+ \includegraphics[scale=1.0]{./Diagramas/DiagramaRemoto/diagrama_estrategiaRemoto.png}
+\end{center}
+
+\newpage
 
 \subsection{Estrategias implementadas}
 \label{sec-4.3}

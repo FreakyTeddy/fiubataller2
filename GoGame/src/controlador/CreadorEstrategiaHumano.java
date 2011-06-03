@@ -6,7 +6,7 @@ import Juego.Estrategia;
 
 public class CreadorEstrategiaHumano implements CreadorEstrategia {
 
-	private static final AdaptadorTablero mouseListener = new AdaptadorTablero();
+	private static final EstrategiaHumano mouseListener = new EstrategiaHumano();
 	
 	public CreadorEstrategiaHumano(VentanaAplicacionGo vista) {
 		vista.addMouseListener(mouseListener);

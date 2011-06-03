@@ -13,11 +13,11 @@ import vista.TableroVista;
  * @author matias
  *
  */
-public class AdaptadorTablero extends MouseAdapter implements Estrategia {
+public class EstrategiaHumano extends MouseAdapter implements Estrategia {
 
 	Posicion ultimaPiedra;
 	
-	public AdaptadorTablero(){
+	public EstrategiaHumano(){
 		ultimaPiedra = null;
 	}
 	

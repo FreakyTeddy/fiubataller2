@@ -35,4 +35,12 @@ public class EstrategiaRemotoCliente extends EstrategiaRemoto {
 		}
 	}
 
+	@Override
+	protected void enviarUltimaJugada() {
+		System.out.println("*** enviar ultima ficha ****");
+		obtenerJugadaLocal(); 
+		System.out.println("*** enviar quit ****");
+		remoto.enviarMensajeSalida();		
+	}
+
 }

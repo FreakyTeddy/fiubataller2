@@ -28,7 +28,7 @@ public class Jugador {
 		
 	private void pasarElTurno() {
 		pasarTurno = true;
-		System.out.println(nombre + " pasó el turno. Ya no juega");
+		System.out.println(nombre + " pasó el turno.");
 	}
 	
 	/**
@@ -38,15 +38,16 @@ public class Jugador {
 	public void jugar() throws FinDelJuegoException {
 		
 		boolean jugadaValida = false;
-		while (!pasarTurno && !jugadaValida){
+		while (!jugadaValida){
 			try {
+				pasarTurno = false;
 				Posicion posicion = estrategia.getJugada();
 				if (posicion == null)
 					pasarElTurno();
-				else {
-					FullMoonGo.getInstancia().getTablero().agregarPiedra(posicion, color);
-					jugadaValida = true;
-				}				
+				
+				FullMoonGo.getInstancia().getTablero().agregarPiedra(posicion, color);
+				
+				jugadaValida = true;
 			}catch (JugadaInvalidaException ex){
 				System.out.println(nombre + ": " + ex);
 			}

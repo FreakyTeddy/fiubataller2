@@ -8,7 +8,6 @@ import Juego.Estrategia;
 import Juego.FinDelJuegoException;
 import Juego.FullMoonGo;
 import Juego.Posicion;
-import Remoto.GTP.ConstantesGtp;
 
 
 public abstract class EstrategiaRemoto implements Estrategia, Arbitro {
@@ -95,10 +94,7 @@ public abstract class EstrategiaRemoto implements Estrategia, Arbitro {
 		}
 		Posicion jugadaLocal = ultimaPiedraLocal.pop();
 		System.out.println("___obtuve jugada local___");
-		String piedra = ConstantesGtp.PASAR_TURNO;
-		if (jugadaLocal != null)
-			piedra = jugadaLocal.toString();
-		return piedra;
+		return Remoto.traducirPosicion(jugadaLocal);
 	}
 	
 	@Override

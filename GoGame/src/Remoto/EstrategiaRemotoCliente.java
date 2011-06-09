@@ -22,7 +22,7 @@ public class EstrategiaRemotoCliente extends EstrategiaRemoto {
 
 	@Override
 	protected synchronized void obtenerJugadaLocal() {
-		remoto.enviarMensajeJugar(colorLocal, FullMoonGo.getInstancia().getTablero().getUltimaJugada().toString());
+		remoto.enviarMensajeJugar(colorLocal, Remoto.traducirPosicion(FullMoonGo.getInstancia().getTablero().getUltimaJugada()));
 	}
 	
 	@Override

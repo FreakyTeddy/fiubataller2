@@ -77,7 +77,7 @@ public class Posicion {
 	 */
 	public static String toString(int i, int j){
 		
-		if(i>=8){ //no se por que no existe la I en el gnugo :S :S
+		if(i>=8){ //correccion por que no existe la I en el gnugo :S :S
 			i++;
 		}
 		

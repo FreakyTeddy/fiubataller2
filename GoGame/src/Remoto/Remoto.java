@@ -2,6 +2,7 @@ package Remoto;
 
 import java.util.ArrayList;
 
+import Juego.Posicion;
 import Remoto.GTP.ConstantesGtp;
 import Remoto.GTP.Gtp;
 import Remoto.GTP.ProcesadorMsjsEntrantes;
@@ -58,6 +59,23 @@ public abstract class Remoto {
 	public void terminarConexion() {
 		terminar();
 	}
+	
+	/****************************
+	 * Traduccion de posiciones	*
+	 ****************************/
+	
+	public static String traducirPosicion(Posicion pos) {
+		if(pos == null)
+			return ConstantesGtp.PASAR_TURNO;
+		return pos.toString();
+	}
+	
+	public static Posicion traducirPosicion(String pos) {
+		if (pos.equalsIgnoreCase(ConstantesGtp.PASAR_TURNO))
+			return null;
+		return new Posicion(pos);
+	}
+	
 	
 	//TODO: hago los necesarios por ahora
 	/***Mensajes para enviar al remoto***/

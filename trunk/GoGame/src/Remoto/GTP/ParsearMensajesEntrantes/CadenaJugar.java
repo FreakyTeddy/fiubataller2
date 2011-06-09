@@ -2,7 +2,6 @@ package Remoto.GTP.ParsearMensajesEntrantes;
 
 import java.util.ArrayList;
 
-import Juego.Posicion;
 import Remoto.Remoto;
 import Remoto.GTP.ConstantesGtp;
 import Remoto.GTP.Gtp;
@@ -39,12 +38,7 @@ public class CadenaJugar extends CadenaGtp {
 	}
 	
 	private boolean informarAlArbitro(String mensaje, String color) {
-		boolean resultado;
-		if (mensaje.equalsIgnoreCase(ConstantesGtp.PASAR_TURNO))
-			resultado = remoto.getArbitro().setPosicionObtenida(null, color);
-		else
-			resultado = remoto.getArbitro().setPosicionObtenida(new Posicion(mensaje), color);
-		return resultado;
+		return remoto.getArbitro().setPosicionObtenida(Remoto.traducirPosicion(mensaje), color);
 	}	
 	
 }

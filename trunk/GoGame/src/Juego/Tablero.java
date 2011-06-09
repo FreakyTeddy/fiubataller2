@@ -100,8 +100,10 @@ public class Tablero extends Observable {
 	public void agregarPiedra(Posicion posicion, ColorPiedra color)
 		throws JugadaInvalidaException,FinDelJuegoException {
 
-		agregarPiedra(posicion.getX(), posicion.getY(), color);
 		ultimaJugada = posicion;
+		if(posicion != null)
+			agregarPiedra(posicion.getX(), posicion.getY(), color);
+		
 		if(finDelJuego)
 			throw new FinDelJuegoException(color);
 	}

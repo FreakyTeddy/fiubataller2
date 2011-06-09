@@ -43,6 +43,7 @@ public abstract class SocketBase extends Thread {
 				}
 			} catch (Exception e) {
 				System.err.println(">> EXCEPTION: recibirMensajes <<");
+				e.printStackTrace();
 				remoto.getArbitro().setFinDePartida();
 				salir= true;
 			}

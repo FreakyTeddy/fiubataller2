@@ -84,18 +84,29 @@ public class FullMoonGo extends Observable implements Runnable {
 			notifyObservers();
 	}			
 	
+	/**
+	 * Inicia una partida. 
+	 * La partida finaliza si alguno de los dos jugadores gana, abandona
+	 * o si ambos jugadores pasan el turno consecutivamente.
+	 */
 	public void jugar() {
 		
 		estadoJuego = EstadoJuego.INICIADO;
+		
+		Jugador jugadorActual = jugadorNegro;
+		Jugador jugadorAnterior = jugadorBlanco;
+		Jugador temp;
+		
 		try {
-			do {
-				System.out.println("Turno " + jugadorNegro.getNombre());
-				jugadorNegro.jugar();
-
-				System.out.println("Turno " + jugadorBlanco.getNombre());
-				jugadorBlanco.jugar();
-
-			} while (!jugadorBlanco.pasoElTurno() || !jugadorNegro.pasoElTurno());
+			do{
+				System.out.println("Turno " + jugadorActual.getNombre());
+				jugadorActual.jugar();
+				
+				temp = jugadorActual;
+				jugadorActual = jugadorAnterior;
+				jugadorAnterior = temp;
+				
+			}while( !jugadorActual.pasoElTurno() || !jugadorAnterior.pasoElTurno());
 			
 		}catch (FinDelJuegoException e){
 			System.out.println("Fin del juego: " + e.getMessage());

@@ -101,11 +101,14 @@ con el usuario remoto) cuando crear una conexi\'on, ya sea como cliente o como s
 \subsection{Vista}
 \label{sec-4.1}
 
-La vista est\'a separada en men\'u de inicio y en la vista del tablero.
+Para implementar el aspecto visual de la aplicaci\'on se uso el la api de Java Swing. Principalmente se utilizaron las clases Frame como contenedor principal y Panel para las distintas pantallas. 
+Estas son men\'u de inicio y  la vista del tablero.
 En el men\'u se permite elegir la estrategia de cada jugador y se da la opci\'on de crear una partida como servidor o unirse a una partida remota como cliente.
 En cuanto a la vista del tablero, \'esta muestra el estado actual del tablero. \\
 La vista no posee l\'ogica alguna, sino que detr\'as de cada una hay un controlador que toma la informaci\'on y la utiliza seg\'un corresponda. 
-De la misma forma, es el controlador quien espera cambios en el modelo para luego indicarle a la vista que debe actualizarse.
+De la misma forma, es el controlador quien espera cambios en el modelo para luego indicarle a la vista que debe actualizarse. Para implementar este mecanismo de comunicaci\'on de se utiliz\'o el patr\'on Observer provisto por la API de Java. Los subscritores son las clases de Control y las clases Observadas son las correspondientes al modelo.
+
+Otro aspecto adicional de las clases de la vista es que manejan la reproducción de los sonidos de posicionamiento de piezas. Siendo uno distinto para cada pieza. Para esto se uso la clase clip que resulta adecuada para una reproducci\'on repetida de sonidos cortos pues los mantiene cargados ( En contraposicion a los Flujos de datos.
 
 
 \subsection{Protocolo de comunicaciones}

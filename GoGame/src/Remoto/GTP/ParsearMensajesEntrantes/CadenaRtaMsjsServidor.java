@@ -27,7 +27,6 @@ public class CadenaRtaMsjsServidor extends CadenaGtp {
 			remoto.procesarRespuestaObtenida(msj);
 			return "";
 		} else if(mensaje[0].startsWith(ConstantesGtp.INICIO_MSJ_RTA_ERROR)) {
-			System.out.println(">Respuesta de error servidor");
 			return "";
 		}
 			return cadenaSgte.enviarSgteCadena(mensaje);	

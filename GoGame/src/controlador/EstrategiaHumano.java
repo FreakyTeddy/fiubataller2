@@ -10,6 +10,7 @@ import vista.TableroVista;
 
 /**
  * Clase adaptadora de eventos de mouse en el tablero de go.
+ * Obtiene la posicion a jugar por medio de clicks en el tablero
  * @author matias
  *
  */
@@ -21,6 +22,10 @@ public class EstrategiaHumano extends MouseAdapter implements Estrategia {
 		ultimaPiedra = null;
 	}
 	
+	/**
+	 * Click izquierdo ubica una piedra en el tablero
+	 * Click medio pasa el turno
+	 */
 	public void mouseClicked(MouseEvent e){
 		 if(e.getButton()==MouseEvent.BUTTON1)
 		 	setUltimaPiedra(TableroVista.transformarPosicionFicha(e.getX(), e.getY()));

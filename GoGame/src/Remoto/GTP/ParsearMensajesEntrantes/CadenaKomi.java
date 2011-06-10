@@ -18,7 +18,6 @@ public class CadenaKomi extends CadenaGtp {
 		if(!verificarTipoMensaje(ConstantesGtp.KOMI, mensaje))
 			return cadenaSgte.enviarSgteCadena(mensaje);	
 		else {
-			System.out.println("Cadena Komi");
 			double komi;
 			System.out.println(mensaje[0]);
 			System.out.println(mensaje[1]);
@@ -35,7 +34,6 @@ public class CadenaKomi extends CadenaGtp {
 				mensajeRta= gtp.mensajeRespuestaError(mensaje[0], lista);
 			} else
 				mensajeRta= gtp.mensajeRespuestaOk(mensaje[0], null);  
-			System.out.println("Respuesta " + mensajeRta);	
 			return mensajeRta;
 		}
 	}

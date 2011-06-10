@@ -24,7 +24,7 @@ public class SocketServidor extends SocketBase {
 		recibirMensajes();
 		cerrarConexion();
 		terminarAccept();
-		System.out.println(">>Servidor detenido");
+		System.out.println(">Servidor detenido");
 	}
 	
 	private void esperandoConexion() throws IOException {
@@ -43,7 +43,7 @@ public class SocketServidor extends SocketBase {
 		try {
 			socketServidor.close();
 		} catch (IOException e) {
-			System.err.println("No se pudo detener el accept");
+			System.err.println(">No se pudo detener el servidor");
 		}
 	}
 }

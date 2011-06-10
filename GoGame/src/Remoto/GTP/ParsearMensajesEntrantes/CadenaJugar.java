@@ -32,7 +32,6 @@ public class CadenaJugar extends CadenaGtp {
 				lista.add(MENSAJE_ERROR);
 				mensajeRta= gtp.mensajeRespuestaError(mensaje[0], lista);
 			}
-			System.out.println("Respuesta " + mensajeRta);
 			return mensajeRta;
 		}
 	}

@@ -14,9 +14,7 @@ public class CadenaLimpiarTablero extends CadenaGtp {
 		if(!verificarTipoMensaje(ConstantesGtp.CLEAR_BOARD, mensaje))
 			return cadenaSgte.enviarSgteCadena(mensaje);	
 		else {
-			System.out.println("Cadena Limpiar Tablero");
-			String mensajeRta= gtp.mensajeRespuestaOk(mensaje[0], null);  
-			System.out.println("Respuesta " + mensajeRta);		
+			String mensajeRta= gtp.mensajeRespuestaOk(mensaje[0], null);  	
 			return mensajeRta;
 		}
 	}

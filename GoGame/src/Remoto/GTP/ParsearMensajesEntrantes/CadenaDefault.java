@@ -19,7 +19,6 @@ public class CadenaDefault extends CadenaGtp {
 		ArrayList<String> lista= new ArrayList<String>();
 		lista.add(UNKNOWN_COMMAND);
 		String mensajeRta= gtp.mensajeRespuestaError(mensaje[0], lista);
-		System.out.println("Respuesta " + mensajeRta);
 		return mensajeRta;
 	}
 }

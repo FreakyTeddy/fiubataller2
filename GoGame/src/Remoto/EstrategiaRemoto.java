@@ -62,13 +62,12 @@ public abstract class EstrategiaRemoto implements Estrategia, Arbitro {
 		obtenerJugadaLocal();
 		obtenerJugadaRemota();
 		if (ultimaPiedraRemoto.isEmpty())
-			throw new FinDelJuegoException(ColorPiedra.VACIO, "No hay conexion!!!");
+			throw new FinDelJuegoException(ColorPiedra.VACIO, "No hay conexion");
 		return ultimaPiedraRemoto.pop();
 	}
 
 	@Override
-	public void finalizarPartida() {
-		System.out.println("******** fin de partida ********");		
+	public void finalizarPartida() {	
 		finDeEspera();	//desbloqueo si algun hilo quedo colgado
 		if(!finDePartida && remoto.hayRemoto()) {
 			enviarUltimaJugada();
@@ -78,7 +77,6 @@ public abstract class EstrategiaRemoto implements Estrategia, Arbitro {
 	
 	@Override
 	public synchronized void setFinDePartida() {
-		System.out.println("____set fin de partida ___");
 		finDePartida = true;
 		finalizarPartida();
 		if(remoto.hayRemoto())
@@ -89,11 +87,9 @@ public abstract class EstrategiaRemoto implements Estrategia, Arbitro {
 	public synchronized String getPosicionLocal() {
 		
 		while(ultimaPiedraLocal.size() <= 1){
-			System.out.println("___Esperando Jugada Local___"); 
 			esperar();	//espero que el jugador local juegue. 	
 		}
 		Posicion jugadaLocal = ultimaPiedraLocal.pop();
-		System.out.println("___obtuve jugada local___");
 		return Remoto.traducirPosicion(jugadaLocal);
 	}
 	

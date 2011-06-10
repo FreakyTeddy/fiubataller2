@@ -47,9 +47,8 @@ public class Servidor extends Remoto {
 	public void terminarTest() {
 		try {
 			this.socket.join();
-			System.out.println(">> END: socket thread");
 		} catch (InterruptedException e) {
-			System.out.print(">> EXCEPTION: terminar <<");
+			System.out.print(">> EXCEPTION: al terminar thread <<");
 		}
 	}
 }

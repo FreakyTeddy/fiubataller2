@@ -16,11 +16,9 @@ public class CadenaVersionProtocolo extends CadenaGtp {
 		if(!verificarTipoMensaje(ConstantesGtp.PROTOCOL_VERSION, mensaje))
 			return cadenaSgte.enviarSgteCadena(mensaje);	
 		else {
-			System.out.println("Cadena Version Protocolo");
 			ArrayList<String> lista= new ArrayList<String>();
 			lista.add(ConstantesGtp.VERSION_PROTOCOLO);
 			String mensajeRta= gtp.mensajeRespuestaOk(mensaje[0], lista);  
-			System.out.println("Respuesta " + mensajeRta);	
 			return mensajeRta;
 		}
 	}

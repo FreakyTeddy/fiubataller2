@@ -70,15 +70,15 @@ public class MenuInicio extends JPanel {
 		
 		botonJugarLocal = new JButton("Jugar");
 		botonJugarLocal.setBounds(350, 430, 100, 40);
-		botonJugarLocal.setFont(fuente12);
+		botonJugarLocal.setFont(fuente11);
 		
 		botonCrearServidor = new JButton("Crear Partida");
 		botonCrearServidor.setBounds(180, 430, 120, 40);
-		botonCrearServidor.setFont(fuente12);
+		botonCrearServidor.setFont(fuente11);
 		
 		botonJugarEnRed = new JButton("Jugar en Red");
 		botonJugarEnRed.setBounds(50, 430, 100, 40);
-		botonJugarEnRed.setFont(fuente12);
+		botonJugarEnRed.setFont(fuente11);
 		
 		add(labelTablero);
 		add(comboTamanioTablero);

@@ -15,15 +15,11 @@ public class ControladorTablero implements Observer {
 		this.ventanaPrincipal= ventanaPrincipal;
 	}
 	
-	public void mostrarTablero(Tablero tablero) {
+	void mostrarTablero(Tablero tablero) {
 		tablero.addObserver(this);
 		ventanaPrincipal.mostrarTablero(tablero);
 	}
 	
-	public void ocultarTablero() {
-
-	}
-
 	@Override
 	public void update(Observable o, Object arg) {
 		TableroVista tableroVista= ventanaPrincipal.getTablero();

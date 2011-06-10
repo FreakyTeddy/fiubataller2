@@ -55,19 +55,16 @@ public class TableroVista extends JPanel {
 
 				AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
 				clip = AudioSystem.getClip();
-				System.out.println("Se consiguio el clip :" + soundFileName);
 				clip.open(audioInputStream);
-				System.out.println("Se abrio el clip :" + soundFileName);
 
 			} catch (UnsupportedAudioFileException e) {
-				e.printStackTrace();
+				System.out.println("Error al cargar el sonido :" + soundFileName + " -> " + e.getMessage());
 			} catch (IOException e) {
-				e.printStackTrace();
+				System.out.println("Error al cargar el sonido :" + soundFileName + " -> " + e.getMessage());
 			} catch (LineUnavailableException e) {
-				System.out.println("Archivo problematico :" + soundFileName);		
-				e.printStackTrace();
+				System.out.println("Error al cargar el sonido :" + soundFileName + " -> " + e.getMessage());
 			} catch (RuntimeException e) {
-				System.out.println("*********Sonido: " + e.getMessage());
+				System.out.println("Error al cargar el sonido :" + soundFileName + " -> " + e.getMessage());
 			}
 		}
 
@@ -186,7 +183,6 @@ public class TableroVista extends JPanel {
 			ultimoReproducido = SoundEffect.PIEZA2;
 		} 
 		} catch (RuntimeException e) {
-			System.out.println("Error al reproducir sonido: " + e.getMessage());
 		}
 
 	}

@@ -28,18 +28,13 @@ public class EstrategiaRemotoCliente extends EstrategiaRemoto {
 	@Override
 	protected synchronized void obtenerJugadaRemota() {
 		remoto.enviarMensajeGenerarMovimiento(colorRemoto);
-		if(ultimaPiedraRemoto.isEmpty()) {
-			System.out.println(">Obteniendo jugada del servidor...");	
+		if(ultimaPiedraRemoto.isEmpty())
 			esperar();
-			System.out.println(">Jugada del servidor obtenida");	
-		}
 	}
 
 	@Override
 	protected void enviarUltimaJugada() {
-		System.out.println("*** enviar ultima ficha ****");
 		obtenerJugadaLocal(); 
-		System.out.println("*** enviar quit ****");
 		remoto.enviarMensajeSalida();		
 	}
 

@@ -28,7 +28,6 @@ public class Jugador {
 		
 	private void pasarElTurno() {
 		pasarTurno = true;
-		System.out.println(nombre + " pasó el turno.");
 	}
 	
 	/**
@@ -49,7 +48,7 @@ public class Jugador {
 				
 				jugadaValida = true;
 			}catch (JugadaInvalidaException ex){
-				System.out.println(nombre + ": " + ex);
+				System.out.println(ex.getMessage());
 			}
 		}
 	}

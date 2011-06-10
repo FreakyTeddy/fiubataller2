@@ -19,11 +19,9 @@ public class CadenaListarComandos extends CadenaGtp {
 		if(!verificarTipoMensaje(ConstantesGtp.LIST_COMMANDS, mensaje))
 			return cadenaSgte.enviarSgteCadena(mensaje);	
 		else {
-			System.out.println("Cadena Listar Comandos");
 			ArrayList<String> lista= new ArrayList<String>();
 			lista.add(COMANDOS_SOPORTADOS);
 			String mensajeRta= gtp.mensajeRespuestaOk(mensaje[0], lista); 
-			System.out.println("Respuesta " + mensajeRta);	
 			return mensajeRta;
 		}
 	}

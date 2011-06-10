@@ -6,7 +6,7 @@ public class FinDelJuegoException extends RuntimeException {
 	private ColorPiedra ganador = ColorPiedra.VACIO;
 	
 	public FinDelJuegoException(ColorPiedra colorGanador) {
-		super();
+		super("");
 		ganador = colorGanador;
 	}
 	

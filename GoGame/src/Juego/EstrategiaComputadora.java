@@ -3,6 +3,12 @@ package Juego;
 import java.util.ArrayList;
 import java.util.Collections;
 
+
+/**
+ * 
+ * Determina la posicion en la que jugar a traves de un algoritmo
+ *
+ */
 public abstract class EstrategiaComputadora implements Estrategia {
 
 	ColorPiedra miColor = ColorPiedra.NEGRO;

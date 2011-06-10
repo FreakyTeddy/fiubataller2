@@ -22,7 +22,6 @@ public class CadenaTamanioTablero extends CadenaGtp {
 		if(!verificarTipoMensaje(ConstantesGtp.BOARDSIZE, mensaje))
 			return cadenaSgte.enviarSgteCadena(mensaje);	
 		else {
-			System.out.println("Cadena Tamanio Tablero");
 			int boardsize;
 			if(mensaje.length == 3)
 				boardsize= Integer.parseInt(mensaje[2]);
@@ -37,7 +36,6 @@ public class CadenaTamanioTablero extends CadenaGtp {
 				mensajeRta= gtp.mensajeRespuestaOk(mensaje[0], null);
 				remoto.getArbitro().setTamanioTablero(boardsize);				
 			}
-			System.out.println("Respuesta " + mensajeRta);	
 			return mensajeRta;
 		}
 	}

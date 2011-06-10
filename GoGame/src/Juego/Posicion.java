@@ -3,7 +3,7 @@ package Juego;
 import java.util.ArrayList;
 
 /**
- * Desgraciada clase para describir una posicion (x,y)
+ * Clase para describir una posicion (x,y)
  *
  * @author <a href="mailto:lucas@lambda.slackware.org"></a>
  * @version 1.0
@@ -18,6 +18,11 @@ public class Posicion {
 		this.y=y;
 	}
 	
+	
+	/**
+	 * Crea una posicion en base a una posicion en modo texto
+	 * @param posicion posicion a crear
+	 */
 	public Posicion(String posicion) {
 		this.x= ((int)posicion.charAt(0))-65;
 		this.y= (Integer.parseInt(posicion.substring(1)))-1;
@@ -70,6 +75,8 @@ public class Posicion {
 	}
 
 	/**
+	 * Transforma una posicion en su formato string 
+	 * segun la convencion del GNUgo
 	 * 
 	 * @param i posicion horizontal
 	 * @param j posicion vertical
@@ -87,6 +94,10 @@ public class Posicion {
 		return posicion;
 	}
 
+	/**
+	 * Transforma una posicion en su formato string 
+	 * segun la convencion del GNUgo
+	 */
 	public String toString(){
 		return toString(x,y);
 	}

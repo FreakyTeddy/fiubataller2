@@ -38,12 +38,11 @@ public abstract class SocketBase extends Thread {
 					remoto.procesarMensajeEntrante(mensajeRecibido);
 				} else if(mensajeRecibido == null) {
 					salir= true;
-					System.out.println("Servidor se desconecto");
+					System.out.println(">Servidor se desconecto");
 					remoto.getArbitro().setFinDePartida();
 				}
 			} catch (Exception e) {
 				System.err.println(">> EXCEPTION: recibirMensajes <<");
-				e.printStackTrace();
 				remoto.getArbitro().setFinDePartida();
 				salir= true;
 			}
@@ -72,10 +71,10 @@ public abstract class SocketBase extends Thread {
 				data_in.close();
 			if (socket != null)
 				socket.close();
+			System.out.println(">Conexion cerrada");
 		} catch (IOException excepcionES) {
-			System.out.println(">> EXCEPTION: cerrarConexion <<");
+			System.out.println(">> EXCEPTION: al cerrar Conexion <<");
 			excepcionES.printStackTrace();
-		}
-		System.out.println(">Conexion cerrada");
+		}		
 	}
 }

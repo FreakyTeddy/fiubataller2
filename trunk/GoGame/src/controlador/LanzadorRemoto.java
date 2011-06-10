@@ -15,18 +15,19 @@ public class LanzadorRemoto extends Thread {
 		resultadoConexion= false;
 	}
 	
-	public void setDatosConexion(Arbitro remoto, int puerto, String ip) {
+	void setDatosConexion(Arbitro remoto, int puerto, String ip) {
 		this.arbitro= remoto;
 		this.puerto= puerto;
 		this.ip= ip;
 	}
 	
+	@Override
 	public void run() {
 		resultadoConexion= arbitro.iniciarConexion(ip, puerto);
 		controlador.ocultarVentanaEsperandoOponente();
 	}
 	
-	public boolean getResultadoConexion() {
+	boolean getResultadoConexion() {
 		return resultadoConexion;
 	}
 }

@@ -8,7 +8,9 @@ import Juego.JugadaInvalidaException;
 import Juego.FinDelJuegoException;
 
 /**
- * Describe class <code>Tablero</code> here. El tablero es un observable.
+ * 
+ * El tablero es un observable. Mantiene las piedras jugadas
+ * y las agrupa en cadenas
  * 
  * @author <a href="mailto:lucas@lambda.slackware.org"></a>
  * @version 1.0
@@ -97,25 +99,26 @@ public class Tablero extends Observable {
 		return getCasillero(posicion) != ColorPiedra.VACIO;
 	}
 
+	/**
+	 * Agrega una piedra al tablero
+	 * 
+	 * @param posicion posicion de la piedra a agregar
+	 * @param color color de la piedra a agregar
+	 * @throws JugadaInvalidaException si la piedra no se puede agregar
+	 * @throws FinDelJuegoException si la jugada resulta en una captura
+	 */
 	public void agregarPiedra(Posicion posicion, ColorPiedra color)
 		throws JugadaInvalidaException,FinDelJuegoException {
 
 		ultimaJugada = posicion;
-		if(posicion != null)
-			agregarPiedra(posicion.getX(), posicion.getY(), color);
+		if(posicion != null) {
+			intentarAgregarPiedra(posicion.getX(), posicion.getY(), color);
+			setChanged();
+			notifyObservers();
+		}
 		
 		if(finDelJuego)
 			throw new FinDelJuegoException(color);
-	}
-
-	private void agregarPiedra(int x, int y, ColorPiedra color)
-		throws JugadaInvalidaException {
-		intentarAgregarPiedra(x, y, color);
-
-		// Lo agrego para la vista.
-		setChanged();
-		notifyObservers();
-
 	}
 
 	public ArrayList<Cadena> buscarCadenasAdyacentes(ArrayList<Cadena> cadenas, Posicion posicion,

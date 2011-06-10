@@ -17,11 +17,9 @@ public class CadenaNombre extends CadenaGtp {
 		if(!verificarTipoMensaje(ConstantesGtp.NAME, mensaje))
 			return cadenaSgte.enviarSgteCadena(mensaje);	
 		else {
-			System.out.println("Cadena Nombre");
 			ArrayList<String> lista= new ArrayList<String>();
 			lista.add(Constantes.NOMBRE_PROGRAMA);
-			String mensajeRta= gtp.mensajeRespuestaOk(mensaje[0], lista);  
-			System.out.println("Respuesta " + mensajeRta);	
+			String mensajeRta= gtp.mensajeRespuestaOk(mensaje[0], lista); 	
 			return mensajeRta;
 		}
 	}

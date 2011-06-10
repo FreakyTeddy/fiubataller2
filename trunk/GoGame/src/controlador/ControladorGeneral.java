@@ -13,11 +13,9 @@ import Juego.EstadoJuego;
 import Juego.Estrategia;
 import Juego.FullMoonGo;
 
-
 import Remoto.EstrategiaRemotoCliente;
 import Remoto.EstrategiaRemotoServidor;
 import Remoto.Arbitro;
-
 
 import vista.VentanaAplicacionGo;
 
@@ -33,10 +31,14 @@ public class ControladorGeneral implements Observer {
 	
 	public ControladorGeneral() {
 		arbitro = null;
+		lanzadorRemoto = null;
+		
 		fullMoonGo = FullMoonGo.getInstancia();
 		fullMoonGo.addObserver(this);
+		
 		ventana = new VentanaAplicacionGo();
 		conexionCancelada= false;
+		
 		iniciarCallbacks();
 		iniciarControladores();
 	}
@@ -52,6 +54,10 @@ public class ControladorGeneral implements Observer {
 				conexionCancelada= true;
 			}
 		});
+	}
+	
+	void ocultarVentanaEsperandoOponente() {
+		ventana.getVentanaEmergente().ocultarVentanaEsperandoOponente();
 	}
 	
 	private void iniciarControladores() {
@@ -82,7 +88,7 @@ public class ControladorGeneral implements Observer {
 		}
 	}
 	
-	public void levantarServidor(int puerto){  /* el remoto es negro y yo soy blanco */
+	void levantarServidor(int puerto){  /* el remoto es negro y yo soy blanco */
 		
 		arbitro = new EstrategiaRemotoServidor(ColorPiedra.NEGRO,ColorPiedra.BLANCO);
 		lanzadorRemoto= new LanzadorRemoto(this);	
@@ -101,7 +107,7 @@ public class ControladorGeneral implements Observer {
 		conexionCancelada= false;
 	}
 	
-	public void jugarEnRed(String ip, int puerto) { /* el remoto es blanco y yo soy negro */
+	void jugarEnRed(String ip, int puerto) { /* el remoto es blanco y yo soy negro */
 		
 		arbitro = new EstrategiaRemotoCliente(ColorPiedra.BLANCO, ColorPiedra.NEGRO);
 		
@@ -121,7 +127,7 @@ public class ControladorGeneral implements Observer {
 		}
 	}
 	
-	public void jugarLocal() {
+	void jugarLocal() {
 		fullMoonGo.crearTablero(controladorMenuInicio.getTamanioTablero());
 		
 		Estrategia eB= controladorMenuInicio.getEstrategiaJugadorBlanco().crearEstrategia(ColorPiedra.BLANCO);
@@ -132,37 +138,50 @@ public class ControladorGeneral implements Observer {
 
 	}
 	
-	public FullMoonGo getFullMoon() {
+	FullMoonGo getFullMoon() {
 		return fullMoonGo;
 	}
 
 	@Override
 	public void update(Observable o, Object arg) { 
 		
-		
 		if(fullMoonGo.getEstado() == EstadoJuego.LISTO_PARA_INICIAR) {
 			iniciarFullMoon();
 		}
 		
+		if(fullMoonGo.getEstado() == EstadoJuego.INICIADO) {
+			mostrarTurnoDeJugador();
+		}
+		
 		if(fullMoonGo.getEstado() == EstadoJuego.TERMINADO){
-			
-			if(arbitro != null) 
-				arbitro.finalizarPartida();
-			
-			arbitro = null;	
-			lanzadorRemoto = null;
-			
-			if(fullMoonGo.getGanador() != null)
-				ventana.mostrarGanador(fullMoonGo.getGanador().getNombre(), fullMoonGo.getGanador().getColor());
-			else
-				ventana.mostrarEmpate("");
-			
-			fullMoonGo.reiniciarEstado();
-			ventana.mostrarMenu();
+			finalizarPartidaFullMoon();			
 		}		
 	}
 	
-	public void ocultarVentanaEsperandoOponente() {
-		ventana.getVentanaEmergente().ocultarVentanaEsperandoOponente();
+	private void mostrarTurnoDeJugador() {
+		System.out.println("Turno " + fullMoonGo.getJugadorDeTurno().getNombre());
 	}
+	
+	private void finalizarPartidaFullMoon() {
+		
+		if(arbitro != null) 
+			arbitro.finalizarPartida();
+		
+		arbitro = null;	
+		lanzadorRemoto = null;
+				
+		if(fullMoonGo.getGanador() != null) {
+			System.out.println("Fin de la Partida. Ganador: " + fullMoonGo.getGanador().getNombre());
+			ventana.mostrarGanador(fullMoonGo.getGanador().getNombre(), fullMoonGo.getGanador().getColor());
+		}
+		else {
+			System.out.println("Fin de la Partida. " + FullMoonGo.getInstancia().getMsjFinDeJuego());
+			ventana.mostrarEmpate(FullMoonGo.getInstancia().getMsjFinDeJuego());
+		}
+		
+		fullMoonGo.reiniciarEstado();
+		ventana.mostrarMenu();
+		
+	}
+	
 }

@@ -34,7 +34,6 @@ public class EstrategiaRemotoServidor extends EstrategiaRemoto {
 
 	@Override
 	protected void enviarUltimaJugada() {
-		System.out.println("*** enviar ultima ficha ****");
 		obtenerJugadaLocal(); 		
 	}
 

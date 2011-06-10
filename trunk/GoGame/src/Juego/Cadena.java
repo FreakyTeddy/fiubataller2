@@ -7,7 +7,7 @@ import Juego.Tablero;
 import java.util.HashSet;
 
 /**
- * Describe class Cadena here.
+ * Administra una cadena de piedras del tablero
  * 
  * @author <a href="mailto:lucas@lambda.slackware.org"></a>
  * @author
@@ -111,7 +111,7 @@ public class Cadena {
 	}
 
 	/**
-	 * Devuelve el tamation de la cadena (la cantidad de piedras que la
+	 * Devuelve el tamanio de la cadena (la cantidad de piedras que la
 	 * conforman).
 	 * 
 	 */

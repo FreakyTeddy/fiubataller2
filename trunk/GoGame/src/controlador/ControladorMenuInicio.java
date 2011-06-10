@@ -70,28 +70,28 @@ public class ControladorMenuInicio {
 		});
 	}
 	
-	public void ocultarMenuInicio() {
+	void ocultarMenuInicio() {
 		vistaJuego.getFramePrincipal().getContentPane().remove(menuInicio);
 	}
 	
-	public int getTamanioTablero() {
+	int getTamanioTablero() {
 		return tamanioTablero.get(menuInicio.getComboTamanioTablero().getSelectedIndex()).getTamanio();
 	}
 	
-	public String getNombreJugadorBlanco() {
+	String getNombreJugadorBlanco() {
 		return menuInicio.getJTextFieldNombreJugadorBlanco().getText();
 	}
 	
-	public String getNombreJugadorNegro() {
+	String getNombreJugadorNegro() {
 		return menuInicio.getJTextFieldNombreJugadorNegro().getText();
 	}
 	
-	public CreadorEstrategia getEstrategiaJugadorBlanco() {
+	CreadorEstrategia getEstrategiaJugadorBlanco() {
 		JComboBox comboBoxBlanco= menuInicio.getComboJugadorBlanco(); 
 		return (creadores.get(comboBoxBlanco.getSelectedIndex()));
 	}
 	
-	public CreadorEstrategia getEstrategiaJugadorNegro() {
+	CreadorEstrategia getEstrategiaJugadorNegro() {
 		JComboBox comboBoxNegro= menuInicio.getComboJugadorNegro(); 
 		return (creadores.get(comboBoxNegro.getSelectedIndex()));
 	}

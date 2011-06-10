@@ -18,10 +18,8 @@ public class CadenaSalida extends CadenaGtp {
 		if(!verificarTipoMensaje(ConstantesGtp.QUIT, mensaje))
 			return cadenaSgte.enviarSgteCadena(mensaje);	
 		else {
-			System.out.println("Cadena Salida");
 			remoto.getArbitro().setFinDePartida();
 			String mensajeRta= gtp.mensajeRespuestaOk(mensaje[0], null); 
-			System.out.println("Respuesta " + mensajeRta);
 			return mensajeRta;
 		}
 	}

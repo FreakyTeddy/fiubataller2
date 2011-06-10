@@ -16,13 +16,11 @@ public class CadenaComandoSoportado extends CadenaGtp {
 		if(!verificarTipoMensaje(ConstantesGtp.KNOWN_COMMAND, mensaje))
 			return cadenaSgte.enviarSgteCadena(mensaje);	
 		else {
-			System.out.println("Cadena Comandos Soportados");
 			//TODO: a quien se le pregunta?
 			boolean soportado= true;
 			ArrayList<String> lista= new ArrayList<String>();
 			lista.add(new Boolean(soportado).toString());
 			String mensajeRta= gtp.mensajeRespuestaOk(mensaje[0], lista); 
-			System.out.println("Respuesta " + mensajeRta);	
 			return mensajeRta;
 		}
 	}

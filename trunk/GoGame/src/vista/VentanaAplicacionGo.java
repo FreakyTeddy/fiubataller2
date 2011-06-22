@@ -10,6 +10,17 @@ import javax.swing.UIManager;
 
 import Juego.ColorPiedra;
 import Juego.Tablero;
+import javax.swing.JCheckBox;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class VentanaAplicacionGo {
 
@@ -30,12 +41,14 @@ public class VentanaAplicacionGo {
 		frame.setBounds(100, 100, 500, 535);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
-		frame.setIconImage((new ImageIcon(PathImages.Icono)).getImage());
+		frame.setIconImage((new ImageIcon(Paths.Icono)).getImage());
 		
 		menuInicio = new MenuInicio(this);
 		frame.getContentPane().add(menuInicio, BorderLayout.CENTER);
 		
 		ventanaEmergente= new VentanaEmergente(frame);
+		
+		
 	}
 	
 	public void iniciar() {

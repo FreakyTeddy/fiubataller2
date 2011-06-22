@@ -1,0 +1,74 @@
+package vista;
+
+import java.io.File;
+import java.io.IOException;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
+public enum SoundEffect {
+	LOOP(Paths.SonidoLoop),
+	PIEZA1(Paths.SonidoPieza1),
+	PIEZA2(Paths.SonidoPieza2);
+	
+	 public static enum Volume {
+	      MUTE, NOT_MUTE
+	   }
+	   
+	   public static Volume volume = Volume.NOT_MUTE;
+
+	private Clip clip;
+
+	SoundEffect(String soundFileName) {
+		try {
+
+			File soundFile = new File(soundFileName);
+			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+            
+			clip = AudioSystem.getClip();
+			clip.open(audioInputStream);
+
+		} catch (UnsupportedAudioFileException e) {
+			System.out.println("Error al cargar el sonido :" + soundFileName + " -> " + e.getMessage());
+		} catch (IOException e) {
+			System.out.println("Error al cargar el sonido :" + soundFileName + " -> " + e.getMessage());
+		} catch (LineUnavailableException e) {
+			System.out.println("Error al cargar el sonido :" + soundFileName + " -> " + e.getMessage());
+		} catch (RuntimeException e) {
+			System.out.println("Error al cargar el sonido :" + soundFileName + " -> " + e.getMessage());
+		}
+	}
+
+
+	public void play() {
+		if (volume != Volume.MUTE) {
+			if (clip.isRunning())
+				clip.stop();
+			clip.setFramePosition(0);
+			clip.start();
+		}
+	}
+	
+	public void loop(){
+		if (volume != Volume.MUTE) {
+			if (clip.isRunning())
+				clip.stop();
+			clip.setFramePosition(0);
+			clip.loop(Clip.LOOP_CONTINUOUSLY);
+		}
+		
+	}
+	
+	public void stop(){
+			if (clip.isRunning())
+				clip.stop();			
+	}
+
+
+	static void init() {
+		values();
+	}
+}

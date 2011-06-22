@@ -166,7 +166,7 @@ A continuaci\'on se detalla la evoluci\'on del proyecto a lo largo del cuatrimes
     ``EstrategiaAtaqueCuidadoso''.
 
 \subsection{EstrategiaMiniMax}
-
+\label{sec-4.3.5}
    Implementa una estrategia del tipo {\bf MiniMax}. En cada turno,
    arma una lista de todos los casilleros vac\'ios y despliega un
    \'arbol de jugadas por cada posible casillero. La profundidad hasta
@@ -199,7 +199,7 @@ A continuaci\'on se detalla la evoluci\'on del proyecto a lo largo del cuatrimes
    se sigue avanzando hasta los niveles mas profundos.
 
 \subsection {MiniMax Reducido}
-
+\label{sec-4.3.6}
 Se tienen en cuenta como jugadas posibles todos los
        casilleros libres del tablero. Se podr\'ia tener en cuenta
        solamente los casilleros adyacentes a todas las cadenas
@@ -341,6 +341,29 @@ como son el mensaje de salida (\textit{quit}) y el mensaje indicando el tablero 
 \section{Problemas y Soluciones}
 A lo largo del proyecto nos encontramos con algunos inconvenientes a la hora de desarrollar la aplicaci\'on.
 
-!!!!!!!!!!!!!!!!!!!1 Explicar!!!!!!!!!!!!!!
+\begin{itemize}
+  \item \textbf{Protocolo}\\
+  Para implementar la comunicaci\'on entre cliente y servidor utilizamos el protocolo GTP, sugerido por la c\'atedra para compatibilidad entre los distintos engines. 
+  Este protocolo presenta distintas variantes al contar con los comandos ``gen\_move'' y ``play'' para el intercambio de jugadas. El problema surgi\'o al decidir
+  de qu\'e forma se realizar\'ia el intercambio de mensajes y qui\'en validar\'ia las reglas de juego. \\
+  Optamos por una implementaci\'on que sea compatible con el GNUgo en modo gtp servidor y as\'i permitir jugar contra un engine distinto del nuestro. 
+  Como se explica en la secci\'on \ref{sec-4.2.1}, se implement\'o un servidor ``pasivo'' que procesa y contesta mensajes (al igual que el GNUgo) y un cliente
+  activo que env\'ia mensajes, ambos integrados con nuestro engine con lo cual siempre se env\'ian jugadas v\'alidas.
+
+  \item \textbf{Sonido}\\
+  Para tener una aplicaci\'on m\'as interactiva, decidimos incorporar sonido al ubicar piedras en el tablero. Sin embargo, la carga de sonidos no se realiza correctamente
+  en algunos de los sistemas en los que probamos la aplicaci\'on. En algunas computadoras con Ubuntu no se reconocen como v\'alidos los archivos de sonido, mientras 
+  que en otras computadoras se reproducen perfectamente.
+
+  \item \textbf{Estrategias} \\
+  Para resolver el problema de la generaci\'on de jugadas decidimos desarrollar estrategias simples como primera instancia, y luego utilizarlas para generar arboles de 
+  jugadas mediante MiniMax. Un problema con el que nos encontramos fue el tiempo de procesamiento al profundizar en el \'arbol de jugadas, que empeora cuanto m\'as grande es el tablero 
+  y resulta molesto al momento de jugar. \\
+  Para solucionar este inconveniente, se modific\'o la estrategia MiniMax tal como se explica en la secci\'on \ref{sec-4.3.6}, la cual presenta una reducci\'on considerable en el
+  tiempo de respuesta, sin bajar de forma notable la ``calidad'' de la jugada elegida.
+
+  
+\end{itemize}
+
 
 \end{document}

@@ -17,6 +17,7 @@ import Remoto.EstrategiaRemotoCliente;
 import Remoto.EstrategiaRemotoServidor;
 import Remoto.Arbitro;
 
+import vista.SoundEffect;
 import vista.VentanaAplicacionGo;
 
 public class ControladorGeneral implements Observer {
@@ -147,6 +148,7 @@ public class ControladorGeneral implements Observer {
 		
 		if(fullMoonGo.getEstado() == EstadoJuego.LISTO_PARA_INICIAR) {
 			iniciarFullMoon();
+			SoundEffect.LOOP.loop();
 		}
 		
 		if(fullMoonGo.getEstado() == EstadoJuego.INICIADO) {
@@ -154,7 +156,8 @@ public class ControladorGeneral implements Observer {
 		}
 		
 		if(fullMoonGo.getEstado() == EstadoJuego.TERMINADO){
-			finalizarPartidaFullMoon();			
+			finalizarPartidaFullMoon();	
+			SoundEffect.LOOP.stop();
 		}		
 	}
 	
@@ -164,11 +167,13 @@ public class ControladorGeneral implements Observer {
 	
 	private void finalizarPartidaFullMoon() {
 		
+		
 		if(arbitro != null) 
 			arbitro.finalizarPartida();
 		
 		arbitro = null;	
 		lanzadorRemoto = null;
+		
 				
 		if(fullMoonGo.getGanador() != null) {
 			System.out.println("Fin de la Partida. Ganador: " + fullMoonGo.getGanador().getNombre());

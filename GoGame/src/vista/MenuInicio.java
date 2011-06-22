@@ -11,6 +11,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
+import javax.swing.JCheckBox;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 /**
  * @author matias
@@ -30,11 +33,12 @@ public class MenuInicio extends JPanel {
 	private JButton botonJugarEnRed;
 	private JButton botonCrearServidor;
 	private JButton botonJugarLocal;
+	private JCheckBox checkBoxSonido;
 	
 	public MenuInicio(VentanaAplicacionGo vistaJuego) {
 		
 		vista = vistaJuego;
-		ImageIcon imageicon = new ImageIcon(PathImages.MenuInicio);  
+		ImageIcon imageicon = new ImageIcon(Paths.MenuInicio);  
 		imagenTablero = imageicon.getImage();
 		
 		comboBlanco= new JComboBox();
@@ -80,6 +84,11 @@ public class MenuInicio extends JPanel {
 		botonJugarEnRed.setBounds(50, 430, 100, 40);
 		botonJugarEnRed.setFont(fuente11);
 		
+		
+		checkBoxSonido = new JCheckBox("Habilitar Musica");
+		checkBoxSonido.setBounds(320, 45, 129, 23);
+		checkBoxSonido.setFont(fuente12);
+		
 		add(labelTablero);
 		add(comboTamanioTablero);
 		add(labelBlanco);
@@ -91,6 +100,10 @@ public class MenuInicio extends JPanel {
 		add(botonJugarLocal);
 		add(botonJugarEnRed);
 		add(botonCrearServidor);
+		add(checkBoxSonido);
+
+	
+
 	}
 	
 	@Override
@@ -104,6 +117,10 @@ public class MenuInicio extends JPanel {
 	//Obtener objetos de la vista
 	public VentanaAplicacionGo getVentanaAplicacionGo() {
 		return vista;
+	}
+	
+	public JCheckBox getCheckBoxSonido(){
+		return checkBoxSonido;
 	}
 	
 	public JButton getBotonJugarEnRed() {

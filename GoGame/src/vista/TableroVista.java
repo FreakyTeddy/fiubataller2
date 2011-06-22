@@ -11,6 +11,7 @@ import java.io.IOException;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
@@ -34,58 +35,9 @@ public class TableroVista extends JPanel {
 	private Image imagenBlanca;
 	private Image imagenNegra;
 
-
-	
 	private Tablero tablero;
 
 	private SoundEffect ultimoReproducido;
-	
-	//--------------------ENUM PARA LOS SONIDOS
-	
-	public enum SoundEffect {
-		PIEZA1(PathImages.SonidoPieza1),
-		PIEZA2(PathImages.SonidoPieza2);
-
-		private Clip clip;
-
-		SoundEffect(String soundFileName) {
-			try {
-
-				File soundFile = new File(soundFileName);
-
-				AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-				clip = AudioSystem.getClip();
-				clip.open(audioInputStream);
-
-			} catch (UnsupportedAudioFileException e) {
-				System.out.println("Error al cargar el sonido :" + soundFileName + " -> " + e.getMessage());
-			} catch (IOException e) {
-				System.out.println("Error al cargar el sonido :" + soundFileName + " -> " + e.getMessage());
-			} catch (LineUnavailableException e) {
-				System.out.println("Error al cargar el sonido :" + soundFileName + " -> " + e.getMessage());
-			} catch (RuntimeException e) {
-				System.out.println("Error al cargar el sonido :" + soundFileName + " -> " + e.getMessage());
-			}
-		}
-
-
-		public void play() {
-			if (clip.isRunning())
-				clip.stop();
-			clip.setFramePosition(0);
-			clip.start();
-		}
-
-
-		static void init() {
-			values();
-		}
-	}
-	
-	
-	//-------------FIN ENUM--------------------------------------
-	
-	
 	
 	
 	public TableroVista(Tablero tablero) {
@@ -100,20 +52,16 @@ public class TableroVista extends JPanel {
 	
 	private void cargarImagenes() {
 		//TODO:Usar class loader para que funcione cuando se hace el jar.
-		ImageIcon imageicon = new ImageIcon(PathImages.Tablero);  
+		ImageIcon imageicon = new ImageIcon(Paths.Tablero);  
 		imagenTablero = imageicon.getImage();
-		ImageIcon imageicon1 = new ImageIcon(PathImages.Blanca);  
+		ImageIcon imageicon1 = new ImageIcon(Paths.Blanca);  
 		imagenBlanca = imageicon1.getImage();
-		ImageIcon imageicon2 = new ImageIcon(PathImages.Negra);  
+		ImageIcon imageicon2 = new ImageIcon(Paths.Negra);  
 		imagenNegra = imageicon2.getImage();
 	}
 
-	/**
-	 * Carga los sonidos. Hace lo mismo para los dos archivos,
-	 * deberia unificarlo pero primero que me funcione xD.
-	 */
+
 	private void cargarSonidos() {
-//		SoundEffect.init();
 	    ultimoReproducido = SoundEffect.PIEZA2;
 
 	}

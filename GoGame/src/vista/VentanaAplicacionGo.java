@@ -71,6 +71,7 @@ public class VentanaAplicacionGo {
 		checkBoxSonido = new JCheckBox("Musica");
 		checkBoxSonido.setBounds(510, 10, 90, 23);
 		checkBoxSonido.setFont(new Font("Dialog", Font.PLAIN, 12));
+		checkBoxSonido.setOpaque(false);
 	}
 	
 	public JCheckBox getCheckBoxSonido(){

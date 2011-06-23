@@ -45,7 +45,7 @@ public class ControladorGeneral implements Observer {
 		iniciarCallbacks();
 		iniciarControladores();
 		
-		//SoundEffect.LOOP.loop(); TODO!!!! descomentar 
+		SoundEffect.LOOP.loop();  
 	}
 	
 	private void iniciarCallbacks() {

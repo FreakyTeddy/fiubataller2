@@ -8,6 +8,7 @@ import java.awt.Image;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Juego.ColorPiedra;
@@ -33,6 +34,14 @@ public class TableroVista extends JPanel {
 
 	private SoundEffect ultimoReproducido;
 	
+	private JLabel labelBlanco;
+	private JLabel labelNegro;
+	private JLabel labelTurno;
+	private JLabel labelNombreBlanco;
+	private JLabel labelNombreNegro;
+	private JLabel labelNombreTurno;
+	
+	private static Color colorNegro = new Color(0, 0, 0);
 	
 	public TableroVista(Tablero tablero, VentanaAplicacionGo vistaJuego) {
 		super();
@@ -45,9 +54,10 @@ public class TableroVista extends JPanel {
 		w = (double)ancho/(double)(TAMANIO-1);
 		h = w;
 		cargarImagenes();
+		cargarInformacionJugadores();
 		
 		add(vistaJuego.getCheckBoxSonido());
-		vistaJuego.getCheckBoxSonido().setForeground(new Color(0, 0, 0));
+		vistaJuego.getCheckBoxSonido().setForeground(colorNegro);
 	}
 	
 	private void cargarImagenes() {
@@ -62,6 +72,39 @@ public class TableroVista extends JPanel {
 		imagenBlanca = imageicon1.getImage();
 		ImageIcon imageicon2 = new ImageIcon(imagenNegraURL);  
 		imagenNegra = imageicon2.getImage();
+	}
+	
+	private void cargarInformacionJugadores() {
+		//negro
+		labelNegro = new JLabel("Jugador Negro", JLabel.CENTER);
+		labelNegro.setBounds(495, 65, 100, 20);
+		labelNegro.setForeground(colorNegro);
+		labelNombreNegro = new JLabel(FullMoonGo.getInstancia().getNombreNegro(), JLabel.CENTER);
+		labelNombreNegro.setBounds(495,115, 95, 50);
+		labelNombreNegro.setForeground(colorNegro);
+		
+		//blanco
+		labelBlanco = new JLabel("Jugador Blanco");
+		labelBlanco.setBounds(495, 370, 100, 20);
+		labelBlanco.setForeground(colorNegro);
+		labelNombreBlanco = new JLabel(FullMoonGo.getInstancia().getNombreBlanco(), JLabel.CENTER);
+		labelNombreBlanco.setBounds(495,430, 95, 50);
+		labelNombreBlanco.setForeground(colorNegro);
+		
+		//Turno
+		labelTurno = new JLabel("Turno", JLabel.CENTER);
+		labelTurno.setBounds(500, 210, 80, 20);
+		labelTurno.setForeground(colorNegro);
+		labelNombreTurno = new JLabel();
+		labelNombreTurno.setBounds(495,270, 95, 50);
+		labelNombreTurno.setForeground(colorNegro);
+		
+		add(labelNegro);
+		add(labelNombreNegro);
+		add(labelBlanco);
+		add(labelNombreBlanco);
+		add(labelTurno);
+		add(labelNombreTurno);
 	}
 
 	private void cargarSonidos() {
@@ -113,19 +156,16 @@ public class TableroVista extends JPanel {
 	private void dibujarTurno(Graphics g) {
 		
 		//dibujar negro
-		g.drawString("Jugador Negro", 495, 80);
 		g.drawImage(imagenNegra, 520, 90, this);
-		g.drawString(FullMoonGo.getInstancia().getNombreNegro(), 495, 150);
 		
 		//dibujar blanco
-		g.drawString("Jugador Blanco", 495, 390);
 		g.drawImage(imagenBlanca, 520, 400, this);
-		g.drawString(FullMoonGo.getInstancia().getNombreNegro(), 495, 460);
+
 		
 		//dibujar turno
-		g.drawString("Turno", 520, 220);
-		g.drawString(FullMoonGo.getInstancia().getJugadorDeTurno().getNombre(), 495, 300);
-		
+		labelNombreTurno.setText(FullMoonGo.getInstancia().getJugadorDeTurno().getNombre());
+		labelNombreTurno.setHorizontalAlignment(JLabel.CENTER);
+				
 		Image imagenTurno = null;
 		if (FullMoonGo.getInstancia().getJugadorDeTurno().getColor() == ColorPiedra.BLANCO)
 			imagenTurno = imagenBlanca;

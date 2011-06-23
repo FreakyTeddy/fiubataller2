@@ -42,6 +42,7 @@ public class ControladorMenuInicio {
 		tamanioTablero.add(TamanioTablero.NUEVE);
 		tamanioTablero.add(TamanioTablero.TRECE);
 		tamanioTablero.add(TamanioTablero.DIECINUEVE);
+		comboBoxTamanios.setSelectedIndex(1);
 
 		creadores = new ArrayList<CreadorEstrategia>();
 		creadores.add(new CreadorEstrategiaHumano(vistaJuego));

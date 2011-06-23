@@ -102,4 +102,8 @@ public class Posicion {
 		return toString(x,y);
 	}
 
+	public int hashCode(){
+		return toString().hashCode();
+	}
+
 }

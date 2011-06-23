@@ -24,10 +24,10 @@ public enum SoundEffect {
 
 	SoundEffect(String soundFileName) {
 		try {
-
-			File soundFile = new File(soundFileName);
-			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-            
+				
+			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(
+					this.getClass().getClassLoader().getResource(soundFileName));
+           
 			clip = AudioSystem.getClip();
 			clip.open(audioInputStream);
 

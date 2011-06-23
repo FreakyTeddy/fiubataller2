@@ -25,10 +25,10 @@ public class VentanaEmergente {
 	private void crearVentanaEsperandoOponente() {
 		ventanaEsperandoOponente= new JDialog();
 		ventanaEsperandoOponente.setTitle("Fullmoon");
-		ventanaEsperandoOponente.setIconImage((new ImageIcon(Paths.Icono)).getImage());
+		ventanaEsperandoOponente.setIconImage(new ImageIcon(this.getClass().getClassLoader().getResource(Paths.Icono)).getImage());
 		Container panel= ventanaEsperandoOponente.getContentPane();
 		panel.setLayout(null);
-		ImageIcon icon= new ImageIcon(Paths.EsperandoOponente); 		
+		ImageIcon icon= new ImageIcon(this.getClass().getClassLoader().getResource(Paths.EsperandoOponente)); 		
 		JLabel label= new JLabel("Esperando Oponente...", icon, JLabel.CENTER);
 		label.setBounds(0, 0, 250, 60);
 		panel.add(label);

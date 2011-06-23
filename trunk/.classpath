@@ -4,6 +4,7 @@
 	<classpathentry excluding="vista/images/|images/" kind="src" path="GoGame/src"/>
 	<classpathentry kind="src" path="GoGame/images"/>
 	<classpathentry kind="src" path="GoGame/test"/>
+	<classpathentry excluding="src/|images/|test/" kind="src" path="GoGame"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

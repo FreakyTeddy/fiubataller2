@@ -1,6 +1,5 @@
 package vista;
 
-import java.io.File;
 import java.io.IOException;
 
 import javax.sound.sampled.AudioInputStream;
@@ -44,29 +43,35 @@ public enum SoundEffect {
 
 
 	public void play() {
-		if (volume != Volume.MUTE) {
-			if (clip.isRunning())
-				clip.stop();
-			clip.setFramePosition(0);
-			clip.start();
+		try {
+			if (volume != Volume.MUTE) {
+				if (clip.isRunning())
+					clip.stop();
+				clip.setFramePosition(0);
+				clip.start();
+			}
+		}catch (RuntimeException e) {
+			//error al reproducir el sonido
 		}
 	}
 	
 	public void loop(){
-		if (volume != Volume.MUTE) {
-			if (clip.isRunning())
-				clip.stop();
-			clip.setFramePosition(0);
-			clip.loop(Clip.LOOP_CONTINUOUSLY);
+		try {
+			if (volume != Volume.MUTE) {
+				if (clip.isRunning())
+					clip.stop();
+				clip.setFramePosition(0);
+				clip.loop(Clip.LOOP_CONTINUOUSLY);
+			}
+		}catch (RuntimeException e) {
+			//error al reproducir el sonido
 		}
-		
 	}
 	
 	public void stop(){
 			if (clip.isRunning())
 				clip.stop();			
 	}
-
 
 	static void init() {
 		values();

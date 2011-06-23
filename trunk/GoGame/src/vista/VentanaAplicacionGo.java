@@ -10,17 +10,6 @@ import javax.swing.UIManager;
 
 import Juego.ColorPiedra;
 import Juego.Tablero;
-import javax.swing.JCheckBox;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
 
 public class VentanaAplicacionGo {
 
@@ -47,8 +36,6 @@ public class VentanaAplicacionGo {
 		frame.getContentPane().add(menuInicio, BorderLayout.CENTER);
 		
 		ventanaEmergente= new VentanaEmergente(frame);
-		
-		
 	}
 	
 	public void iniciar() {
@@ -79,12 +66,12 @@ public class VentanaAplicacionGo {
 		return menuInicio;
 	}
 	
-	public void mostrarGanador(String nombre, ColorPiedra color) { //TODO se puede enchular =P
+	public void mostrarGanador(String nombre, ColorPiedra color) {
 		JOptionPane.showMessageDialog(frame,"El ganador es " + nombre + " - " + color,
 			    "FullMoonGo", JOptionPane.PLAIN_MESSAGE);
 	}
 	
-	public void mostrarEmpate(String msj) { //TODO se puede enchular =P
+	public void mostrarEmpate(String msj) {
 		JOptionPane.showMessageDialog(frame,"Empate - " + msj,
 			    "FullMoonGo", JOptionPane.PLAIN_MESSAGE);
 	}

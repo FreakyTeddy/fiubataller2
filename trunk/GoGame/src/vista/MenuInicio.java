@@ -12,8 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
 import java.net.URL;
 
 /**
@@ -87,10 +85,10 @@ public class MenuInicio extends JPanel {
 		botonJugarEnRed.setBounds(50, 430, 100, 40);
 		botonJugarEnRed.setFont(fuente11);
 		
-		
-		checkBoxSonido = new JCheckBox("Habilitar Musica");
+		checkBoxSonido = new JCheckBox("Musica");
 		checkBoxSonido.setBounds(320, 45, 129, 23);
 		checkBoxSonido.setFont(fuente12);
+		checkBoxSonido.setForeground(new Color(250, 250, 250));
 		
 		add(labelTablero);
 		add(comboTamanioTablero);
@@ -104,8 +102,6 @@ public class MenuInicio extends JPanel {
 		add(botonJugarEnRed);
 		add(botonCrearServidor);
 		add(checkBoxSonido);
-
-	
 
 	}
 	

@@ -41,7 +41,7 @@ public class VentanaAplicacionGo {
 		frame.setBounds(100, 100, 500, 535);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
-		frame.setIconImage((new ImageIcon(Paths.Icono)).getImage());
+		frame.setIconImage(new ImageIcon(this.getClass().getClassLoader().getResource(Paths.Icono)).getImage());
 		
 		menuInicio = new MenuInicio(this);
 		frame.getContentPane().add(menuInicio, BorderLayout.CENTER);

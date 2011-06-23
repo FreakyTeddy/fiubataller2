@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -51,12 +52,17 @@ public class TableroVista extends JPanel {
 	}
 	
 	private void cargarImagenes() {
+		ClassLoader cldr = this.getClass().getClassLoader();
+		URL imagenTableroURL   = cldr.getResource(Paths.Tablero);
+		URL imagenBlancaURL   = cldr.getResource(Paths.Blanca);
+		URL imagenNegraURL   = cldr.getResource(Paths.Negra);
+		
 		//TODO:Usar class loader para que funcione cuando se hace el jar.
-		ImageIcon imageicon = new ImageIcon(Paths.Tablero);  
+		ImageIcon imageicon = new ImageIcon(imagenTableroURL);  
 		imagenTablero = imageicon.getImage();
-		ImageIcon imageicon1 = new ImageIcon(Paths.Blanca);  
+		ImageIcon imageicon1 = new ImageIcon(imagenBlancaURL);  
 		imagenBlanca = imageicon1.getImage();
-		ImageIcon imageicon2 = new ImageIcon(Paths.Negra);  
+		ImageIcon imageicon2 = new ImageIcon(imagenNegraURL);  
 		imagenNegra = imageicon2.getImage();
 	}
 

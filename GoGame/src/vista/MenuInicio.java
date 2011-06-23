@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.JCheckBox;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import java.net.URL;
 
 /**
  * @author matias
@@ -38,7 +39,9 @@ public class MenuInicio extends JPanel {
 	public MenuInicio(VentanaAplicacionGo vistaJuego) {
 		
 		vista = vistaJuego;
-		ImageIcon imageicon = new ImageIcon(Paths.MenuInicio);  
+		ClassLoader cldr = this.getClass().getClassLoader();
+		URL uRLImagenMenuInicio   = cldr.getResource(Paths.MenuInicio);
+		ImageIcon imageicon = new ImageIcon(uRLImagenMenuInicio);  
 		imagenTablero = imageicon.getImage();
 		
 		comboBlanco= new JComboBox();

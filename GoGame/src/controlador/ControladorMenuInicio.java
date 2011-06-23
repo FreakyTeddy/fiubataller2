@@ -31,7 +31,7 @@ public class ControladorMenuInicio {
 		controladorRemoto= new ControladorRemoto(controlador, vistaJuego);
 		cargarDatos();
 		iniciarCallbacks();
-}
+	}
 	
 	private void cargarDatos() {
 		JComboBox comboBoxTamanios= menuInicio.getComboTamanioTablero();

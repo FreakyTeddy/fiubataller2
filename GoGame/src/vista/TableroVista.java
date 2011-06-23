@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import Juego.ColorPiedra;
+import Juego.FullMoonGo;
 import Juego.Posicion;
 import Juego.Tablero;
 
@@ -76,6 +77,7 @@ public class TableroVista extends JPanel {
 	
 		dibujarTablero((Graphics2D) g);		
 		dibujarImagenFichas(g);	
+		dibujarTurno(g);
 	}
 
 	private void dibujarImagenFichas(Graphics g) {
@@ -106,6 +108,31 @@ public class TableroVista extends JPanel {
 		//Lineas verticales
 		for(int vertical = 0; vertical< TAMANIO;vertical++)
 			g.drawLine(margen+(int)(vertical*w), margen, margen+(int)(vertical*w), 450+margen);
+	}
+	
+	private void dibujarTurno(Graphics g) {
+		
+		//dibujar negro
+		g.drawString("Jugador Negro", 495, 80);
+		g.drawImage(imagenNegra, 520, 90, this);
+		g.drawString(FullMoonGo.getInstancia().getNombreNegro(), 495, 150);
+		
+		//dibujar blanco
+		g.drawString("Jugador Blanco", 495, 390);
+		g.drawImage(imagenBlanca, 520, 400, this);
+		g.drawString(FullMoonGo.getInstancia().getNombreNegro(), 495, 460);
+		
+		//dibujar turno
+		g.drawString("Turno", 520, 220);
+		g.drawString(FullMoonGo.getInstancia().getJugadorDeTurno().getNombre(), 495, 300);
+		
+		Image imagenTurno = null;
+		if (FullMoonGo.getInstancia().getJugadorDeTurno().getColor() == ColorPiedra.BLANCO)
+			imagenTurno = imagenBlanca;
+		if (FullMoonGo.getInstancia().getJugadorDeTurno().getColor() == ColorPiedra.NEGRO)
+			imagenTurno = imagenNegra;
+		
+		g.drawImage(imagenTurno, 520, 235, this);
 	}
 
 	/**

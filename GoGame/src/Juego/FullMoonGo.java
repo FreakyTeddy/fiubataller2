@@ -63,6 +63,14 @@ public class FullMoonGo extends Observable implements Runnable {
 		return jugadorDeTurno;
 	}
 	
+	public String getNombreBlanco() {
+		return jugadorBlanco.getNombre();
+	}
+	
+	public String getNombreNegro() {
+		return jugadorNegro.getNombre();
+	}
+	
 	public String getMsjFinDeJuego() {
 		return msjFinDeJuego;
 	}

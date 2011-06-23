@@ -17,6 +17,7 @@ import vista.VentanaAplicacionGo;
 public class ControladorMenuInicio {
 
 	private ControladorGeneral controlador;
+	@SuppressWarnings("unused")
 	private ControladorRemoto controladorRemoto;
 	private MenuInicio menuInicio;
 	private VentanaAplicacionGo vistaJuego;

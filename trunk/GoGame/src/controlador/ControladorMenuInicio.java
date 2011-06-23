@@ -2,8 +2,6 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 import javax.swing.JComboBox;
@@ -11,7 +9,6 @@ import javax.swing.JComboBox;
 import Juego.TamanioTablero;
 
 import vista.MenuInicio;
-import vista.SoundEffect;
 import vista.VentanaAplicacionGo;
 
 public class ControladorMenuInicio {
@@ -34,7 +31,7 @@ public class ControladorMenuInicio {
 		controladorRemoto= new ControladorRemoto(controlador, vistaJuego);
 		cargarDatos();
 		iniciarCallbacks();
-	}
+}
 	
 	private void cargarDatos() {
 		JComboBox comboBoxTamanios= menuInicio.getComboTamanioTablero();
@@ -70,17 +67,6 @@ public class ControladorMenuInicio {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				controlador.jugarLocal();
-			}
-		});
-		
-		menuInicio.getCheckBoxSonido().setSelected(true);
-		menuInicio.getCheckBoxSonido().addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent event) {
-				if(event.getStateChange() == ItemEvent.DESELECTED){
-					SoundEffect.volume = SoundEffect.Volume.MUTE;
-				}else{
-					SoundEffect.volume = SoundEffect.Volume.NOT_MUTE;
-				}
 			}
 		});
 	}

@@ -2,6 +2,8 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -42,6 +44,8 @@ public class ControladorGeneral implements Observer {
 		
 		iniciarCallbacks();
 		iniciarControladores();
+		
+		//SoundEffect.LOOP.loop(); TODO!!!! descomentar 
 	}
 	
 	private void iniciarCallbacks() {
@@ -53,6 +57,19 @@ public class ControladorGeneral implements Observer {
 				ocultarVentanaEsperandoOponente();
 				arbitro.getRemoto().terminarHilo();
 				conexionCancelada= true;
+			}
+		});
+		
+		ventana.getCheckBoxSonido().setSelected(true);
+		ventana.getCheckBoxSonido().addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent event) {
+				if(event.getStateChange() == ItemEvent.DESELECTED){
+					SoundEffect.volume = SoundEffect.Volume.MUTE;
+					SoundEffect.LOOP.stop();
+				}else{
+					SoundEffect.volume = SoundEffect.Volume.NOT_MUTE;
+					SoundEffect.LOOP.loop();
+				}
 			}
 		});
 	}
@@ -148,7 +165,6 @@ public class ControladorGeneral implements Observer {
 		
 		if(fullMoonGo.getEstado() == EstadoJuego.LISTO_PARA_INICIAR) {
 			iniciarFullMoon();
-			SoundEffect.LOOP.loop();
 		}
 		
 		if(fullMoonGo.getEstado() == EstadoJuego.INICIADO) {
@@ -157,7 +173,6 @@ public class ControladorGeneral implements Observer {
 		
 		if(fullMoonGo.getEstado() == EstadoJuego.TERMINADO){
 			finalizarPartidaFullMoon();	
-			SoundEffect.LOOP.stop();
 		}		
 	}
 	

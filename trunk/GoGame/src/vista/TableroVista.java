@@ -20,8 +20,8 @@ public class TableroVista extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private static double w=50 , h=50;
-	private static int margen=25;
-	private static int ancho = 450;
+	private static final int margen = 25;
+	private static final int ancho = 450;
 	private int TAMANIO=9;
 	
 	private Image imagenTablero;
@@ -33,14 +33,20 @@ public class TableroVista extends JPanel {
 	private SoundEffect ultimoReproducido;
 	
 	
-	public TableroVista(Tablero tablero) {
+	public TableroVista(Tablero tablero, VentanaAplicacionGo vistaJuego) {
 		super();
+		
+		setLayout(null);
+		
 		cargarSonidos();
 		this.tablero= tablero;
 		TAMANIO = tablero.getAncho();
 		w = (double)ancho/(double)(TAMANIO-1);
 		h = w;
 		cargarImagenes();
+		
+		add(vistaJuego.getCheckBoxSonido());
+		vistaJuego.getCheckBoxSonido().setForeground(new Color(0, 0, 0));
 	}
 	
 	private void cargarImagenes() {
@@ -57,10 +63,8 @@ public class TableroVista extends JPanel {
 		imagenNegra = imageicon2.getImage();
 	}
 
-
 	private void cargarSonidos() {
 	    ultimoReproducido = SoundEffect.PIEZA2;
-
 	}
 
 	@Override

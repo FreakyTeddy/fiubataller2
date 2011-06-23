@@ -153,7 +153,7 @@ public abstract class EstrategiaComputadoraMiniMaxGeneral extends EstrategiaComp
 
  
 	protected Posicion generarJugada(Tablero tablero){
-		int profundidad = 3; //TODO puede ser variable no??
+		int profundidad = 3;
 		System.out.println("Uso profundidad: " + profundidad);
 		Jugada j = miniMax(getColor(), tablero, profundidad);
 		System.out.println("Puntaje maximo: " + j.posicion.getX() + "," + j.posicion.getY() + " : " + j.puntaje);

@@ -1,9 +1,11 @@
 package vista;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -18,6 +20,7 @@ public class VentanaAplicacionGo {
 	private MenuInicio menuInicio;
 	private MouseAdapter mouseListener;
 	private VentanaEmergente ventanaEmergente;
+	private JCheckBox checkBoxSonido;
 	
 	public VentanaAplicacionGo() {
 		try {
@@ -27,10 +30,12 @@ public class VentanaAplicacionGo {
 		}
 		
 		frame = new JFrame("FullMoon Go");
-		frame.setBounds(100, 100, 500, 535);
+		frame.setBounds(100, 100, 600, 535);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setIconImage(new ImageIcon(this.getClass().getClassLoader().getResource(Paths.Icono)).getImage());
+		
+		crearCheckBoxSonido();
 		
 		menuInicio = new MenuInicio(this);
 		frame.getContentPane().add(menuInicio, BorderLayout.CENTER);
@@ -48,7 +53,7 @@ public class VentanaAplicacionGo {
 	
 	public void mostrarTablero(Tablero tablero){
 		frame.getContentPane().remove(menuInicio);
-		tableroGo = new TableroVista(tablero);
+		tableroGo = new TableroVista(tablero, this);
 		tableroGo.addMouseListener(mouseListener);
 		frame.getContentPane().add(tableroGo);
 		frame.validate();
@@ -60,6 +65,16 @@ public class VentanaAplicacionGo {
 		frame.getContentPane().add(menuInicio);
 		frame.validate();	
 		frame.repaint();
+	}
+	
+	private void crearCheckBoxSonido() {
+		checkBoxSonido = new JCheckBox("Musica");
+		checkBoxSonido.setBounds(510, 10, 90, 23);
+		checkBoxSonido.setFont(new Font("Dialog", Font.PLAIN, 12));
+	}
+	
+	public JCheckBox getCheckBoxSonido(){
+		return checkBoxSonido;
 	}
 	
 	public MenuInicio getMenuInicio() {

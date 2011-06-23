@@ -5,8 +5,13 @@ import java.io.IOException;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+
+
+
+
 
 public enum SoundEffect {
 	LOOP(Paths.SonidoLoop),
@@ -45,9 +50,13 @@ public enum SoundEffect {
 	public void play() {
 		try {
 			if (volume != Volume.MUTE) {
-				if (clip.isRunning())
+				if (clip.isRunning()) {
 					clip.stop();
+					clip.flush();
+				}
 				clip.setFramePosition(0);
+				FloatControl volume= (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+				volume.setValue(volume.getMaximum());
 				clip.start();
 			}
 		}catch (RuntimeException e) {
@@ -61,6 +70,9 @@ public enum SoundEffect {
 				if (clip.isRunning())
 					clip.stop();
 				clip.setFramePosition(0);
+				
+				FloatControl volume= (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+				volume.setValue(volume.getMaximum()/3); 
 				clip.loop(Clip.LOOP_CONTINUOUSLY);
 			}
 		}catch (RuntimeException e) {

@@ -29,7 +29,7 @@ public class EstrategiaHumano extends MouseAdapter implements Estrategia {
 	public void mouseClicked(MouseEvent e){
 		 if(e.getButton()==MouseEvent.BUTTON1)
 		 	setUltimaPiedra(TableroVista.transformarPosicionFicha(e.getX(), e.getY()));
-		 if(e.getButton()==MouseEvent.BUTTON2) {
+		 if(e.getButton()==MouseEvent.BUTTON3) {
 			 setUltimaPiedra(null);
 		 }
 	}

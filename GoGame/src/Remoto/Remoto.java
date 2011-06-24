@@ -77,7 +77,7 @@ public abstract class Remoto {
 	}
 	
 	
-	//TODO: hago los necesarios por ahora
+	//Se implementan solo los necesarios
 	/***Mensajes para enviar al remoto***/
 	//Setup
 	public void enviarMensajeTamanioTablero(int tamanio) {

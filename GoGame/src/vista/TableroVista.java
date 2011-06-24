@@ -83,7 +83,7 @@ public class TableroVista extends JPanel {
 		labelNegro.setForeground(colorNegro);
 		labelNegro.setFont(fuente);
 		labelNombreNegro = new JLabel(FullMoonGo.getInstancia().getNombreNegro(), JLabel.CENTER);
-		labelNombreNegro.setBounds(495,115, 95, 50);
+		labelNombreNegro.setBounds(495,115, 110, 50);
 		labelNombreNegro.setForeground(colorNegro);
 		labelNombreNegro.setFont(fuente);
 		
@@ -93,7 +93,7 @@ public class TableroVista extends JPanel {
 		labelBlanco.setForeground(colorNegro);
 		labelBlanco.setFont(fuente);
 		labelNombreBlanco = new JLabel(FullMoonGo.getInstancia().getNombreBlanco(), JLabel.CENTER);
-		labelNombreBlanco.setBounds(495,435, 95, 50);
+		labelNombreBlanco.setBounds(495,435, 110, 50);
 		labelNombreBlanco.setForeground(colorNegro);
 		labelNombreBlanco.setFont(fuente);
 		
@@ -103,7 +103,7 @@ public class TableroVista extends JPanel {
 		labelTurno.setForeground(colorNegro);
 		labelTurno.setFont(fuente);
 		labelNombreTurno = new JLabel();
-		labelNombreTurno.setBounds(495,270, 95, 50);
+		labelNombreTurno.setBounds(495,270, 110, 50);
 		labelNombreTurno.setForeground(colorNegro);
 		labelNombreTurno.setFont(fuente);
 		

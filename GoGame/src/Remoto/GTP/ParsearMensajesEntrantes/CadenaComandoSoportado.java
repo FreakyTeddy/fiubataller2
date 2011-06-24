@@ -16,7 +16,6 @@ public class CadenaComandoSoportado extends CadenaGtp {
 		if(!verificarTipoMensaje(ConstantesGtp.KNOWN_COMMAND, mensaje))
 			return cadenaSgte.enviarSgteCadena(mensaje);	
 		else {
-			//TODO: a quien se le pregunta?
 			boolean soportado= true;
 			ArrayList<String> lista= new ArrayList<String>();
 			lista.add(new Boolean(soportado).toString());

@@ -205,19 +205,14 @@ A continuaci\'on se detalla la evoluci\'on del proyecto a lo largo del cuatrimes
 
 \subsection {MiniMax Reducido}
 \label{sec-4.3.6}
-Se tienen en cuenta como jugadas posibles todos los
-       casilleros libres del tablero. Se podr\'ia tener en cuenta
-       solamente los casilleros adyacentes a todas las cadenas
-       presentes en el tablero solamente, limitando as\'i las jugadas,
-       pero reduciendo el procesamiento, eventualmente d\'andonos la
-       posibilidad de descender un poco mas en el \'arbol de jugadas.
 
-El MiniMax anteriormente explicado tiene en cuenta como jugadas posibles todos los casilleros libres del tablero. 
-A diferencia de \'este, el MiniMax reducido solamente tiene en cuenta los casilleros adyacentes a las cadenas presentes en el tablero.
-Si bien se limitan las posibles jugadas, se reduce el procesamiento logrando as\'i una respuesta m\'as r\'apida de la estrategia
-(en particular en los primeros turnos que es cuando m\'as casilleros libres hay). Esta estrategia permitir\'ia descender a\'un m\'as en el 
-\'arbol de jugadas.
-
+El MiniMax anteriormente explicado tiene en cuenta como jugadas
+posibles todos los casilleros libres del tablero.  A diferencia de
+\'este, el MiniMax reducido solamente tiene en cuenta los casilleros
+adyacentes a las cadenas presentes en el tablero.  Si bien se limitan
+las posibles jugadas, se reduce el procesamiento logrando as\'i una
+respuesta m\'as r\'apida de la estrategia (en particular en los
+primeros turnos que es cuando m\'as casilleros libres hay). 
 
 \subsubsection{Mejoras posibles}
 
@@ -225,9 +220,6 @@ Si bien se limitan las posibles jugadas, se reduce el procesamiento logrando as\
    cuenta lo siguiente:
 
    \begin{itemize}
-     \item Si se es el primero en jugar, no es necesario descender en
-       el \'arbol de jugadas. Ser\'ia conveniente comenzar con jugadas
-       precalculadas.
      \item La cantidad de niveles que se baja en el \'arbol de jugadas
        es fija. Se puede parametrizar en funci\'on de las jugadas
        posibles. Al principio de la partida, al haber muchas
@@ -369,7 +361,18 @@ A lo largo del proyecto nos encontramos con algunos inconvenientes a la hora de 
   Para solucionar este inconveniente, se modific\'o la estrategia MiniMax tal como se explica en la secci\'on \ref{sec-4.3.6}, la cual presenta una reducci\'on considerable en el
   tiempo de respuesta, sin bajar de forma notable la ``calidad'' de la jugada elegida.
 
-  
+  \item \textbf {HashSet}\\ 
+   Los HashSet, y los Set en general, aseguran que los elementos
+   contenidos sean \'unicos. Sin embargo, para que funcione
+   correctamente, es necesario no solo redefinir el metodo ``equals''
+   del objeto contenido, sino que tambi\'en es necesario redefinir el
+   m\'etodo ``hashCode''. Si no se redefinen ambos, solo se asegura de
+   que no exista dos veces la misa referencia en el Set,
+   independientemente de que dos elementos sean identicos. Al no
+   conocer este detalle del lenguaje nos surgieron varios problemas de
+   performance ya que verific\'abamos hasta unas 4 veces el mismo
+   casillero al calcular jugadas.
+
 \end{itemize}
 
 

@@ -353,7 +353,7 @@ A lo largo del proyecto nos encontramos con algunos inconvenientes a la hora de 
   \item \textbf{Sonido}\\
   Para tener una aplicaci\'on m\'as interactiva, decidimos incorporar sonido al ubicar piedras en el tablero. Sin embargo, la carga de sonidos no se realiza correctamente
   en algunos de los sistemas en los que probamos la aplicaci\'on. En algunas computadoras con Ubuntu no se reconocen como v\'alidos los archivos de sonido, mientras 
-  que en otras computadoras se reproducen perfectamente.
+  que en otras computadoras se reproducen perfectamente. Un aspecto interesante del error encontrado que nos hizo sospechar de un problema en los manejos de los recursos que hace el sistema operativo fue que el error de carga ( hablamos de error de \textit{carga} porque se utiliz\'o la clase Clip ) se producia con el primer archivo de sonido a cargar con el que se encontraba la aplicaci\'on.
 
   \item \textbf{Estrategias} \\
   Para resolver el problema de la generaci\'on de jugadas decidimos desarrollar estrategias simples como primera instancia, y luego utilizarlas para generar arboles de 

@@ -2,6 +2,7 @@ package vista;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -42,6 +43,7 @@ public class TableroVista extends JPanel {
 	private JLabel labelNombreTurno;
 	
 	private static Color colorNegro = new Color(0, 0, 0);
+	private static Font fuente = new Font("Dialog", Font.PLAIN, 12);
 	
 	public TableroVista(Tablero tablero, VentanaAplicacionGo vistaJuego) {
 		super();
@@ -79,25 +81,31 @@ public class TableroVista extends JPanel {
 		labelNegro = new JLabel("Jugador Negro", JLabel.CENTER);
 		labelNegro.setBounds(495, 65, 100, 20);
 		labelNegro.setForeground(colorNegro);
+		labelNegro.setFont(fuente);
 		labelNombreNegro = new JLabel(FullMoonGo.getInstancia().getNombreNegro(), JLabel.CENTER);
 		labelNombreNegro.setBounds(495,115, 95, 50);
 		labelNombreNegro.setForeground(colorNegro);
+		labelNombreNegro.setFont(fuente);
 		
 		//blanco
-		labelBlanco = new JLabel("Jugador Blanco");
+		labelBlanco = new JLabel("Jugador Blanco", JLabel.CENTER);
 		labelBlanco.setBounds(495, 370, 100, 20);
 		labelBlanco.setForeground(colorNegro);
+		labelBlanco.setFont(fuente);
 		labelNombreBlanco = new JLabel(FullMoonGo.getInstancia().getNombreBlanco(), JLabel.CENTER);
-		labelNombreBlanco.setBounds(495,430, 95, 50);
+		labelNombreBlanco.setBounds(495,435, 95, 50);
 		labelNombreBlanco.setForeground(colorNegro);
+		labelNombreBlanco.setFont(fuente);
 		
 		//Turno
 		labelTurno = new JLabel("Turno", JLabel.CENTER);
 		labelTurno.setBounds(500, 210, 80, 20);
 		labelTurno.setForeground(colorNegro);
+		labelTurno.setFont(fuente);
 		labelNombreTurno = new JLabel();
 		labelNombreTurno.setBounds(495,270, 95, 50);
 		labelNombreTurno.setForeground(colorNegro);
+		labelNombreTurno.setFont(fuente);
 		
 		add(labelNegro);
 		add(labelNombreNegro);

@@ -67,8 +67,10 @@ public enum SoundEffect {
 	public void loop(){
 		try {
 			if (volume != Volume.MUTE) {
-				if (clip.isRunning())
+				if (clip.isRunning()){
 					clip.stop();
+					clip.flush();
+				}
 				clip.setFramePosition(0);
 				
 				FloatControl volume= (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
@@ -81,8 +83,10 @@ public enum SoundEffect {
 	}
 	
 	public void stop(){
-			if (clip.isRunning())
-				clip.stop();			
+			if (clip.isRunning()){
+				clip.stop();
+				clip.flush();
+			}
 	}
 
 	static void init() {

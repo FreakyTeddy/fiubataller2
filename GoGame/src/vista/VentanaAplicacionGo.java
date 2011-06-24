@@ -30,7 +30,7 @@ public class VentanaAplicacionGo {
 		}
 		
 		frame = new JFrame("FullMoon Go");
-		frame.setBounds(100, 100, 600, 535);
+		frame.setBounds(100, 100, 600, 550);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setIconImage(new ImageIcon(this.getClass().getClassLoader().getResource(Paths.Icono)).getImage());

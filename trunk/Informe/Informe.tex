@@ -60,19 +60,24 @@
 \end{center}
 
 En el men\'u de inicio se modifica el tama\~no del tablero para jugar, las estrategias de cada jugador y el nombre de cada jugador.
-Para jugar una partida local, luego de seleccionar el tablero y los jugadores, se debe presionar el bot\'on ``Jugar''. Si la estrategia
-elegida es ``Humano'', las piedras deben ubicarse en el tablero haciendo click con el bot\'on izquierdo del mouse. \\
+Para jugar una partida local, luego de seleccionar el tablero y los jugadores, se debe presionar el bot\'on ``Jugar''. Las estrategias pueden ser
+``Humano'', que es el usuario el que debe realizar las jugadas, o bien alguna de las estrategias desarrolladas. \\
 Para jugar una partida en red, uno de los jugadores debe crear un servidor mediante el bot\'on ``Crear Partida'' donde se pide
 el puerto por el cual esperar una conexi\'on. El cliente luego puede unirse mediante el bot\'on ``Jugar en Red'' especificando
 la ip y el puerto del servidor.\\ 
 Al jugar en red, el cliente juega con el color negro y el servidor con el color blanco, y es el cliente quien decide
-el tama\~no del tablero con el cual jugar.\\
+el tama\~no del tablero con el cual jugar. La estrategia a utilizar en la partida remota ser\'a la elegida en el color de jugador correspondiente.\\
 
+Se tiene tambi\'en un checkbox para habilitar o deshabilitar el sonido, tanto en el men\'u como en el tablero del juego. \\
 
 \underline{Tablero del Juego}
 \begin{center}
  \includegraphics[scale=0.55]{./Diagramas/captura_tablero.png}
 \end{center}
+
+Para jugar se deben posicionar las piedras mediante el click izquierdo del mouse (si la estrategia elegida es ``Humano''). Para\textit{ pasar el turno}
+se debe presionar el\textit{ bo\'on derecho} del mouse. Las reglas del Go indican que si los dos jugadores pasan consecutivamente el juego termina.\\
+A la derecha del tablero se pueden ver los datos de los jugadores de la partida. Adem\'as se indica el jugador de turno que debe realizar la proxima jugada.
 
 \newpage
 \section{Evoluci\'on del Proyecto}
@@ -353,7 +358,9 @@ A lo largo del proyecto nos encontramos con algunos inconvenientes a la hora de 
   \item \textbf{Sonido}\\
   Para tener una aplicaci\'on m\'as interactiva, decidimos incorporar sonido al ubicar piedras en el tablero. Sin embargo, la carga de sonidos no se realiza correctamente
   en algunos de los sistemas en los que probamos la aplicaci\'on. En algunas computadoras con Ubuntu no se reconocen como v\'alidos los archivos de sonido, mientras 
-  que en otras computadoras se reproducen perfectamente. Un aspecto interesante del error encontrado que nos hizo sospechar de un problema en los manejos de los recursos que hace el sistema operativo fue que el error de carga ( hablamos de error de \textit{carga} porque se utiliz\'o la clase Clip ) se producia con el primer archivo de sonido a cargar con el que se encontraba la aplicaci\'on.
+  que en otras computadoras se reproducen perfectamente. Un aspecto interesante del error encontrado que nos hizo sospechar de un problema en los manejos de los recursos
+  que hace el sistema operativo fue que el error de carga ( hablamos de error de \textit{carga} porque se utiliz\'o la clase Clip ) se producia con el primer archivo de sonido a cargar con el que se encontraba la aplicaci\'on.
+ 
 
   \item \textbf{Estrategias} \\
   Para resolver el problema de la generaci\'on de jugadas decidimos desarrollar estrategias simples como primera instancia, y luego utilizarlas para generar arboles de 

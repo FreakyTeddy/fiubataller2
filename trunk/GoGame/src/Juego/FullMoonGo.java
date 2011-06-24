@@ -5,13 +5,7 @@ import java.util.Observable;
 import static Juego.EstadoJuego.*;
 
 
-/**
- * 
- * TODO: Posible refactor un state. 
- * 
- * @author del comentario de arriba matias
- *
- */
+
 public class FullMoonGo extends Observable implements Runnable {
 	
 	private EstadoJuego estadoJuego;

@@ -113,9 +113,9 @@ public class Tablero extends Observable {
 		ultimaJugada = posicion;
 		if(posicion != null) {
 			intentarAgregarPiedra(posicion.getX(), posicion.getY(), color);
-			setChanged();
-			notifyObservers();
 		}
+		setChanged();
+		notifyObservers();
 		
 		if(finDelJuego)
 			throw new FinDelJuegoException(color);

@@ -105,7 +105,7 @@ public abstract class EstrategiaRemoto implements Estrategia, Arbitro {
 	public synchronized boolean setPosicionObtenida(Posicion posicion){
 		ultimaPiedraRemoto.add(posicion);
 		finDeEspera();
-		return true; //TODO
+		return true; 
 	}
 	
 	@Override

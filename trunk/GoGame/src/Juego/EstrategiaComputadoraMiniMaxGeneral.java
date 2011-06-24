@@ -137,7 +137,7 @@ public abstract class EstrategiaComputadoraMiniMaxGeneral extends EstrategiaComp
 		if(jugador == this.getColor()){
 			//Maximizar
 			if(jugadas.size()==0){
-				System.out.println("Pierdo haciendo cualquier cosa.");
+				//pierdo haciendo cualquier cosa
 				Jugada j = new Jugada();
 				j.puntaje = -infinito;
 				j.posicion = null;
@@ -154,9 +154,7 @@ public abstract class EstrategiaComputadoraMiniMaxGeneral extends EstrategiaComp
  
 	protected Posicion generarJugada(Tablero tablero){
 		int profundidad = 3;
-		System.out.println("Uso profundidad: " + profundidad);
 		Jugada j = miniMax(getColor(), tablero, profundidad);
-		System.out.println("Puntaje maximo: " + j.posicion.getX() + "," + j.posicion.getY() + " : " + j.puntaje);
 		return j.posicion;
 	}
 }

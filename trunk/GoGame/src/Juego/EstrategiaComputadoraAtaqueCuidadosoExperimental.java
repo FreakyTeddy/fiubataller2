@@ -82,15 +82,12 @@ public class EstrategiaComputadoraAtaqueCuidadosoExperimental extends Estrategia
 			if(j.valida){
 				candidatas.add(j);
 			}
-			else
-				System.out.println("Jugada " + j.posicion.getX() + " " + j.posicion.getY() + " es invalida");
 		} 
 		
 		Collections.sort(candidatas, new ordenadorJugadaPorMenorCadenasMayorLibertadYNoPierde());
 		if(candidatas.size()>0)
 			return candidatas.get(0).posicion;
 		else{
-			System.out.println("No hay mas jugadas posibles");
 			return estrategiaRandom(tablero);
 		}
 	}
@@ -120,7 +117,7 @@ public class EstrategiaComputadoraAtaqueCuidadosoExperimental extends Estrategia
 				jugada.pierde = true;
 			else jugada.valida=true;
 		}
-		catch(JugadaInvalidaException e){System.out.println("Jugada " + posicion.getX() + " " + posicion.getY() + " es invalida (Exception)");}
+		catch(JugadaInvalidaException e){}
 		catch(FinDelJuegoException e){}
 		return jugada;
 	}

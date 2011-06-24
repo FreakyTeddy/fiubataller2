@@ -7,7 +7,6 @@ import Remoto.GTP.Gtp;
 
 public class CadenaListarComandos extends CadenaGtp {
 
-	//TODO!!! ARREGLAR
 	private static final String COMANDOS_SOPORTADOS= "protocol_version\nname\nversion\nknown_command\nlist_commands\nquit\nboardsize\nclear_board\nkomi\nplay\ngenmove";
 
 	public CadenaListarComandos(Gtp gtp) {

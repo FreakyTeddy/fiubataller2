@@ -105,8 +105,6 @@ public class MenuInicio extends JPanel {
 		add(botonJugarLocal);
 		add(botonJugarEnRed);
 		add(botonCrearServidor);
-		
-		
 	}
 	
 	@Override
@@ -115,11 +113,12 @@ public class MenuInicio extends JPanel {
 		
 		if (imagenTablero != null)  
 			 g.drawImage(imagenTablero, 0, 0, getWidth(), getHeight(), this);  	
-		
+
 		checkBoxSonido.setForeground(colorBlanco);
 		add(checkBoxSonido);
+			
 	}
-
+	
 	//Obtener objetos de la vista
 	public VentanaAplicacionGo getVentanaAplicacionGo() {
 		return vista;

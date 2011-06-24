@@ -141,12 +141,20 @@ public abstract class EstrategiaComputadoraMiniMaxGeneral extends EstrategiaComp
 				Jugada j = new Jugada();
 				j.puntaje = -infinito;
 				j.posicion = null;
+
 				return j;
 			}
 			return Collections.max(jugadas, new OrdenadorJugada());
 		}
 		else{
 			//Minimizar
+			if(jugadas.size()==0){
+				Jugada j = new Jugada();
+				j.puntaje = -infinito;
+				j.posicion = null;
+
+				return j;
+			}
 			return Collections.min(jugadas, new OrdenadorJugada());
 		}
 	}
